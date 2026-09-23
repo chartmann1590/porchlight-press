@@ -10,3 +10,35 @@ features:
   enableGdelt: true
   enableNwsAlerts: true
   aiMaxArticlesPerRun: 50
+# Phase 2: dedup / clustering / ranking thresholds. All have code defaults;
+# this file is the operator knob, never a secret.
+dedupe:
+  # RapidFuzz token_set_ratio (0-100) for normalized headlines.
+  nearDupThreshold: 85
+  windowHours: 48
+clustering:
+  windowHours: 72
+  # Combined similarity (0-1) needed to join an open cluster.
+  similarityThreshold: 0.45
+  # Merge threshold for collapsing two clusters into one (older ID survives).
+  mergeThreshold: 0.65
+  weights:
+    tfidf: 0.55
+    location: 0.20
+    entity: 0.15
+    time: 0.10
+ranking:
+  weights:
+    freshness: 0.25
+    locality: 0.25
+    corroboration: 0.20
+    sourcePriority: 0.15
+    breaking: 0.10
+    categoryBoost: 0.05
+  breakingMinSources: 3
+  breakingWindowMinutes: 60
+  stalePenaltyPerDay: 0.05
+  staleGraceHours: 24
+  duplicatePenalty: 0.10
+state:
+  pruneDays: 7
