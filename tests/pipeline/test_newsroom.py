@@ -345,3 +345,117 @@ def test_factcheck_failure_is_fail_open(tmp_path, monkeypatch):
     stories = json.loads(out_path.read_text(encoding="utf-8"))["stories"]
     assert len(stories) == 1
     assert stories[0]["aiGenerated"] is True
+
+
+def test_fifty_queued_stays_on_primary_model(tmp_path, monkeypatch):
+    # Boundary pin: exactly 50 queued (== overflowThreshold) keeps 4B.
+    # The model choice is made on the full queue size before capping.
+    from pipeline import newsroom as nr
+
+    clusters = [_cluster(f"eid-{i:04d}", score=1.0 - i * 0.001) for i in range(50)]
+    in_path = tmp_path / "clusters.json"
+    out_path = tmp_path / "stories.json"
+    _write_clusters(in_path, clusters)
+
+    seen: dict[str, str] = {}
+
+    def _fake_init(self, base_url="http://127.0.0.1:8080", model_name="x", **kw):
+        seen["model"] = model_name
+
+    def _fake_generate(self, cluster):
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    monkeypatch.setattr(nr.LocalLlamaProvider, "__init__", _fake_init)
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate", _fake_generate)
+
+    rc = nr.main(["--in", str(in_path), "--out", str(out_path),
+                  "--state", str(tmp_path / "state.json"),
+                  "--sources-dir", str(tmp_path / "no-sources"),
+                  "--max-articles", "50"])
+    assert rc == 0
+    assert seen.get("model") == "Qwen3-4B-Q4_K_M"
+    assert json.loads(out_path.read_text(encoding="utf-8"))["model"] == "Qwen3-4B-Q4_K_M"
+
+
+def test_factcheck_rejection_falls_back_to_workers_ai(tmp_path, monkeypatch):
+    # Local brief passes validation but factcheck flags it; Workers AI is
+    # configured, so it gets one shot, and its clean brief is published.
+    from pipeline import newsroom as nr
+
+    cluster = _cluster("eid-fc-workers-04", tier="high")
+    in_path = tmp_path / "clusters.json"
+    out_path = tmp_path / "stories.json"
+    _write_clusters(in_path, [cluster])
+    monkeypatch.setenv("CF_ACCOUNT_ID", "test-acct")
+    monkeypatch.setenv("CF_API_TOKEN", "test-token")
+
+    def _fake_generate(self, cluster):
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    fc_calls: list[bool] = []
+
+    def _fake_factcheck(self, messages):
+        fc_calls.append(True)
+        if len(fc_calls) == 1:
+            return ["Local brief has an unsupported midnight claim."], "raw", None
+        return [], "raw", None
+
+    worker_calls: list[bool] = []
+
+    def _fake_workers_generate(self, cluster):
+        worker_calls.append(True)
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate", _fake_generate)
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate_factcheck", _fake_factcheck)
+    monkeypatch.setattr(nr.CloudflareWorkersAIProvider, "generate", _fake_workers_generate)
+
+    rc = nr.main(["--in", str(in_path), "--out", str(out_path),
+                  "--state", str(tmp_path / "state.json"),
+                  "--sources-dir", str(tmp_path / "no-sources"),
+                  "--enable-factcheck"])
+    assert rc == 0
+    stories = json.loads(out_path.read_text(encoding="utf-8"))["stories"]
+    assert len(stories) == 1
+    assert worker_calls  # Workers AI was tried after the factcheck rejection
+    assert stories[0]["aiGenerated"] is True
+
+
+def test_factcheck_rejection_by_both_providers_falls_back_to_card(tmp_path, monkeypatch):
+    # Both providers' briefs are factcheck-flagged: the headline + link card
+    # ships. Never publish unvalidated text.
+    from pipeline import newsroom as nr
+
+    cluster = _cluster("eid-fc-both-05", tier="high")
+    in_path = tmp_path / "clusters.json"
+    out_path = tmp_path / "stories.json"
+    _write_clusters(in_path, [cluster])
+    monkeypatch.setenv("CF_ACCOUNT_ID", "test-acct")
+    monkeypatch.setenv("CF_API_TOKEN", "test-token")
+
+    def _fake_generate(self, cluster):
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    def _fake_factcheck(self, messages):
+        return ["Unsupported claim in every brief."], "raw", None
+
+    def _fake_workers_generate(self, cluster):
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate", _fake_generate)
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate_factcheck", _fake_factcheck)
+    monkeypatch.setattr(nr.CloudflareWorkersAIProvider, "generate", _fake_workers_generate)
+
+    rc = nr.main(["--in", str(in_path), "--out", str(out_path),
+                  "--state", str(tmp_path / "state.json"),
+                  "--sources-dir", str(tmp_path / "no-sources"),
+                  "--enable-factcheck"])
+    assert rc == 0
+    stories = json.loads(out_path.read_text(encoding="utf-8"))["stories"]
+    assert len(stories) == 1
+    assert stories[0]["aiGenerated"] is False

@@ -105,6 +105,29 @@ def _words_for_verbatim(text: str) -> list[str]:
     return _WORD_RE.findall(text.lower())
 
 
+# Abbreviations whose periods never end a sentence (U.S., a.m./p.m.,
+# e.g./i.e., Dr./Mr./Mrs./Ms./St./Jr./Sr., Jan.-Dec., single initials).
+_ABBREV_RE = re.compile(
+    r"\b(?:[A-Za-z]\.){2,}"  # U.S., U.S.A., p.m., a.m.
+    r"|\b(?:e\.g|i\.e)\."  # e.g., i.e. (also matched above; kept explicit)
+    r"|\b(?:Dr|Mr|Mrs|Ms|St|Jr|Sr|vs|etc|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\."
+    r"|\b[A-Z]\."  # single initials (J., M.)
+)
+_MASK = "\x00"
+
+
+def _split_sentences(text: str) -> list[str]:
+    """Split on .!? without breaking after abbreviations.
+
+    A naive ``re.split(r"[.!?]+")`` fragments "U.S.", "Dr. Smith",
+    "9 a.m.", etc. into <5-word pieces that slip past the coverage
+    guard's short-sentence skip. Masking abbreviation periods first keeps
+    each real sentence whole so it is actually checked.
+    """
+    masked = _ABBREV_RE.sub(lambda m: m.group(0).replace(".", _MASK), text)
+    return [p.replace(_MASK, ".").strip() for p in re.split(r"[.!?]+", masked) if p.strip()]
+
+
 @dataclass
 class ValidationResult:
     ok: bool
@@ -436,7 +459,7 @@ def _check_background_coverage(
                 reasons.append(f"unsupported background phrase not in sources: {phrase!r}")
     source_vocab = set(_coverage_words(source_text))
     body = str(brief.get("body") or "")
-    sentences = [s.strip() for s in re.split(r"[.!?]+", body) if s.strip()]
+    sentences = _split_sentences(body)
     for sent in sentences:
         words = _coverage_words(sent)
         if len(words) < 5:

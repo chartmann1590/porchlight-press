@@ -17,10 +17,10 @@ DEFAULTS: dict[str, Any] = {
     },
     "ai": {
         # MASTER_PLAN section 11 budget: 25-min wall-clock cap, ~50 briefs
-        # per run with 4B; >100 queued switches the whole run to 1.7B.
+        # per run with 4B; >50 queued switches the whole run to 1.7B.
         "primaryModel": "Qwen3-4B-Q4_K_M",
         "fallbackModel": "Qwen3-1.7B-Q8_0",
-        "overflowThreshold": 100,
+        "overflowThreshold": 50,
         "wallClockMinutes": 25,
         "llamaUrl": "http://127.0.0.1:8080",
         # Optional second AI pass (same model). Off by default; enable only

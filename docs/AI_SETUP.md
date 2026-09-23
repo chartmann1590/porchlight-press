@@ -58,6 +58,9 @@ after the first mirror run.
 5. Budget: `AI_MAX_ARTICLES_PER_RUN` (default 50) + 25-min wall-clock cap.
    Queue in rank order; overflow past the budget ships as source cards and
    is retried next run. More than ~50 queued switches the run to 1.7B.
+   Note: the model choice is made on the full queue size *before* the
+   article cap is applied -- the cap limits attempts, the threshold picks
+   the model. So 55 queued with a cap of 50 still runs 1.7B.
 
 ## Local run (any machine, no GitHub)
 

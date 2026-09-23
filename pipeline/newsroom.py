@@ -182,7 +182,13 @@ def main(argv: list[str] | None = None) -> int:
         step = "queue"
         queue = _queue_for_ai(clusters)
         queue_ids = {str(c.get("eventId")) for c in queue}
-        # Model choice: >50 queued -> 1.7B fallback for the whole run.
+        # Model choice is made on the FULL queue size, before the
+        # max_articles cap is applied. That is deliberate, not a bug:
+        # the cap limits how many clusters are *attempted*, while the
+        # threshold picks the *model* for the run. E.g. 55 queued with a
+        # cap of 50 still switches the whole run to 1.7B (MASTER_PLAN
+        # section 11: "more than ~50 clusters are queued"). Do not
+        # compare against max_articles here.
         if args.model:
             model_name = args.model
         elif len(queue) > overflow_threshold:
@@ -247,11 +253,31 @@ def main(argv: list[str] | None = None) -> int:
                 if brief is not None and factcheck_enabled:
                     fc = _factcheck(brief, cluster)
                     if fc is not None and fc.get("unsupported"):
-                        n_rejected += 1
-                        rejection_log.append(f"{eid}: factcheck: {fc['unsupported'][:2]}")
-                        stories.append(cards.build_card(cluster, sources_by_id))
-                        n_cards += 1
-                        continue
+                        # Validated but factcheck-flagged. When Workers AI is
+                        # configured it gets one shot here: its output must
+                        # pass validation AND factcheck too, otherwise the
+                        # headline + link card ships. Never publish
+                        # unvalidated text.
+                        reason = f"factcheck unsupported: {fc['unsupported'][:2]}"
+                        rescued = False
+                        if workers.enabled and _budget_left():
+                            wbrief, _wres, _wraw, werr = try_brief_with_retry(workers, cluster)
+                            if wbrief is not None:
+                                wfc = _factcheck(wbrief, cluster)
+                                if wfc is None or not wfc.get("unsupported"):
+                                    brief, err = wbrief, None
+                                    rescued = True
+                                else:
+                                    reason = f"workers factcheck unsupported: {wfc['unsupported'][:2]}"
+                            elif werr:
+                                reason = f"workers retry failed: {werr[:160]}"
+                        if not rescued:
+                            brief = None
+                            n_rejected += 1
+                            rejection_log.append(f"{eid}: {reason[:220]}")
+                            stories.append(cards.build_card(cluster, sources_by_id))
+                            n_cards += 1
+                            continue
                 if brief is not None:
                     story = build_ai_story(brief, cluster, model_name=model_name, now=datetime.now(timezone.utc))
                     stories.append(story)

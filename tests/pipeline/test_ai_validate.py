@@ -234,3 +234,41 @@ def test_unsupported_background_sentence_rejected():
     )
     result = validate_brief(bad, _cluster())
     assert not result.ok
+
+
+def test_sentence_splitter_ignores_abbreviations():
+    from pipeline.ai.validate import _split_sentences
+
+    # (Like the guard itself, the splitter drops the .!? delimiters.)
+    assert _split_sentences("Dr. Smith went to Washington. He returned Tuesday.") == [
+        "Dr. Smith went to Washington", "He returned Tuesday",
+    ]
+    assert _split_sentences("The U.S. flag flies over Albany.") == [
+        "The U.S. flag flies over Albany"
+    ]
+    assert _split_sentences("Meet after lunch, e.g. at noon in Troy.") == [
+        "Meet after lunch, e.g. at noon in Troy"
+    ]
+    assert _split_sentences("St. Louis voted Tuesday. Troy voted Thursday.") == [
+        "St. Louis voted Tuesday", "Troy voted Thursday"
+    ]
+    assert _split_sentences("Mr. Smith met Mrs. Jones and Ms. Ortiz.") == [
+        "Mr. Smith met Mrs. Jones and Ms. Ortiz"
+    ]
+    assert _split_sentences("Born in Jan. 2020 in Troy.") == ["Born in Jan. 2020 in Troy"]
+    assert _split_sentences("Michael J. Fox visited Troy.") == ["Michael J. Fox visited Troy"]
+    assert _split_sentences("The curfew starts at 9 p.m. daily.") == [
+        "The curfew starts at 9 p.m. daily"
+    ]
+    # Ordinary sentence ends still split.
+    assert _split_sentences("Hello world. Goodbye.") == ["Hello world", "Goodbye"]
+
+
+def test_abbreviation_does_not_hide_unsupported_sentence():
+    # "U.S." near the end would fragment this sentence into <5-word pieces
+    # under a naive splitter, dodging the coverage guard entirely.
+    bad = _valid_brief()
+    bad["body"] += " Shifts nationwide today per U.S. data."
+    result = validate_brief(bad, _cluster())
+    assert not result.ok
+    assert any("background" in r.lower() or "covered" in r.lower() for r in result.reasons)
