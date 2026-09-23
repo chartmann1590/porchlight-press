@@ -98,7 +98,7 @@ jobs:
             curl -fL --retry 3 -o "${{ env.PRIMARY_FILE }}" "${{ env.PRIMARY_HF }}"
           fi
           ls -lh
-          if [ -f "Qwen3-4B-Q4_K_M-00001-of-00002.gguf" ]; then
+          if [ -f "Qwen3-4B-Q4_K_M-00001-of-00002.gguf" ] && [ -f "Qwen3-4B-Q4_K_M-00002-of-00002.gguf" ]; then
             echo "MODEL_PATH=$PWD/Qwen3-4B-Q4_K_M-00001-of-00002.gguf" >> "$GITHUB_ENV"
             echo "split shards present (SHA recorded after upload; see models.lock)"
           else
