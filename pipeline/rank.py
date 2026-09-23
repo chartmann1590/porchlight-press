@@ -159,16 +159,13 @@ def confidence_for(
     """
     sources_by_id = sources_by_id or {}
     pubs = independent_publishers(members)
-    officials = 0
-    for m in members:
-        src = sources_by_id.get(str(m.get("sourceId") or ""))
-        if is_official_source(src):
-            officials += 1
-            break
     if len(pubs) >= 2:
+        # Two distinct publishers corroborate. This covers "official +
+        # independent" as well: the independent member is necessarily a
+        # different publisher than the official source. Same-publisher
+        # repeats (e.g. two NWS items) stay at one publisher and fall
+        # through to LOW below.
         return "HIGH"
-    if officials and len(members) >= 2:
-        return "HIGH"  # official + independent (wording from the plan)
     if len(members) == 1:
         only = members[0]
         if str(only.get("rightsMode") or "") == "LINK_ONLY":

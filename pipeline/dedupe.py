@@ -8,6 +8,7 @@ from __future__ import annotations
 import re
 from datetime import datetime, timezone
 from typing import Any, Mapping
+from urllib.parse import urlparse
 
 from rapidfuzz import fuzz
 
@@ -61,6 +62,23 @@ def _sort_key(item: Mapping[str, Any]) -> tuple[str, str]:
     return (str(item.get("publishedAt") or ""), str(item.get("url") or ""))
 
 
+def _canonical_host(url: Any) -> str:
+    try:
+        return (urlparse(str(url or "")).hostname or "").lower()
+    except ValueError:
+        return ""
+
+
+def _same_source_or_host(a: Mapping[str, Any], b: Mapping[str, Any]) -> bool:
+    """Share a registry source or a canonical URL host."""
+    sa = str(a.get("sourceId") or "").strip().lower()
+    sb = str(b.get("sourceId") or "").strip().lower()
+    if sa and sa == sb:
+        return True
+    ha, hb = _canonical_host(a.get("url")), _canonical_host(b.get("url"))
+    return bool(ha and ha == hb)
+
+
 def deduplicate(
     items: list[Mapping[str, Any]],
     *,
@@ -71,7 +89,9 @@ def deduplicate(
 
     - Exact: canonical URL (or id) match is always a duplicate.
     - Near-dup: normalized headline token_set_ratio >= threshold within
-      window_hours (pairwise publishedAt difference).
+      window_hours (pairwise publishedAt difference). When either item
+      lacks a timestamp, near-dup matching additionally requires the same
+      sourceId or canonical host.
 
     Deterministic: input is sorted by (publishedAt, url) first, so the same
     batch always keeps the same representative. The earliest item wins.
@@ -96,6 +116,8 @@ def deduplicate(
             dup_groups.setdefault(str(kept.get("id") or kept.get("url")), []).append(item)
             continue
         # Near-dup: compare against kept items within the time window.
+        # When either timestamp is missing there is no temporal evidence,
+        # so only match within the same source or canonical host.
         match: dict[str, Any] | None = None
         item_time = _parse_time(item.get("publishedAt"))
         for cand in unique:
@@ -104,6 +126,8 @@ def deduplicate(
                 delta_h = abs((item_time - cand_time).total_seconds()) / 3600.0
                 if delta_h > window_hours:
                     continue
+            elif not _same_source_or_host(item, cand):
+                continue
             sim = headline_similarity(
                 str(item.get("headline") or ""), str(cand.get("headline") or "")
             )

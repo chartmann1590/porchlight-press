@@ -47,6 +47,40 @@ def test_prune_older_than_7_days():
     assert "old" not in out
 
 
+def test_merge_missing_firstseen_sorts_as_newest():
+    # Two previous clusters merge via shared members: the one with a real
+    # (older) firstSeen must survive; a missing firstSeen sorts as newest
+    # via datetime.max and never wins "oldest".
+    prev = {
+        "aaa": _rec("aaa", [_m("m1", "a")], first="2026-09-20T09:00:00Z"),
+        "zzz": _rec("zzz", [_m("m2", "b")], first=None),
+    }
+    new = [_rec("fresh", [_m("m1", "a"), _m("m2", "b")])]
+    out = update_state(prev, new, {}, now=NOW)
+    assert "aaa" in out and "zzz" not in out
+    assert "zzz" in out["aaa"]["aliases"]
+
+
+def test_merge_future_dates_do_not_break_oldest_wins():
+    prev = {
+        "old": _rec("old", [_m("m1", "a")], first="2020-01-01T00:00:00Z"),
+        "fut": _rec("fut", [_m("m2", "b")], first="9999-12-31T00:00:00Z"),
+    }
+    new = [_rec("fresh", [_m("m1", "a"), _m("m2", "b")])]
+    out = update_state(prev, new, {}, now=NOW)
+    assert "old" in out and "fut" not in out
+
+
+def test_merge_two_missing_firstseen_tiebreaks_by_id():
+    prev = {
+        "bbb": _rec("bbb", [_m("m1", "a")], first=None),
+        "aaa": _rec("aaa", [_m("m2", "b")], first=None),
+    }
+    new = [_rec("fresh", [_m("m1", "a"), _m("m2", "b")])]
+    out = update_state(prev, new, {}, now=NOW)
+    assert "aaa" in out and "bbb" not in out
+
+
 def test_alias_resolution():
     prev = {"old-id": _rec("old-id", [_m("m1", "a")])}
     prev["old-id"]["aliases"] = []

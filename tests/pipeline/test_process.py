@@ -55,3 +55,31 @@ def test_process_fixture_produces_ranked_located_clusters(tmp_path):
     again = json.loads(out_path.read_text(encoding="utf-8"))["clusters"]
     assert again[0]["eventId"] == c["eventId"]
     assert again[0]["status"] == "unchanged"
+
+
+def test_process_step_failure_is_one_line_and_nonzero(tmp_path, capsys):
+    from pipeline.process import main
+
+    srcdir = tmp_path / "sources"
+    srcdir.mkdir(parents=True, exist_ok=True)
+    bad = tmp_path / "bad.json"
+    bad.write_text('{"items": "not-a-list"}', encoding="utf-8")
+    rc = main(["--in", str(bad), "--sources-dir", str(srcdir),
+               "--state", str(tmp_path / "s.json"),
+               "--out", str(tmp_path / "o.json")])
+    assert rc != 0
+    err = capsys.readouterr().err.strip()
+    assert err.startswith("process failed at step load:")
+    assert "\n" not in err  # one line, no traceback
+
+
+def test_coverage_fallback_is_worldwide_no_us_default():
+    from pipeline.process import _coverage_fallback_location
+
+    members = [{"sourceId": "jp-source"}]
+    sources = {"jp-source": {"coverage": {"country": "JP"}}}
+    assert _coverage_fallback_location(members, sources) == {"country": "JP"}
+    # No coverage anywhere -> None (caller stores no location -> World).
+    assert _coverage_fallback_location(members, {}) is None
+    assert _coverage_fallback_location(
+        [{"sourceId": "x"}], {"x": {"coverage": {}}}) is None

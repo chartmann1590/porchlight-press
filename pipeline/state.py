@@ -141,11 +141,15 @@ def update_state(
         candidates = set([resolved] + list(prev_hits.keys()))
         candidates = {c for c in candidates if c in prev or c == resolved}
         if len(prev_hits) > 1 or (resolved in prev and any(h != resolved for h in prev_hits)):
-            # Merge: oldest firstSeen survives.
-            def _age(cid: str) -> str:
+            # Merge: oldest firstSeen survives. Missing/unparseable dates
+            # sort as newest (datetime.max) so they never win "oldest".
+            def _age_key(cid: str) -> tuple[datetime, str]:
                 r = prev.get(cid, {})
-                return str(r.get("firstSeen") or "9")
-            survivor = min(candidates, key=lambda c: (_age(c), c))
+                dt = _parse_time(r.get("firstSeen"))
+                if dt is None:
+                    return (datetime.max.replace(tzinfo=timezone.utc), cid)
+                return (dt, cid)
+            survivor = min(candidates, key=_age_key)
         else:
             survivor = resolved if resolved in prev else (
                 next(iter(prev_hits)) if len(prev_hits) == 1 and eid not in prev else eid

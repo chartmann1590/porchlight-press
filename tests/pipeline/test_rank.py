@@ -51,6 +51,18 @@ def test_confidence_tiers():
     assert confidence_for([_member("linky", "2026-09-23T11:00:00Z", rights="LINK_ONLY")], SOURCES) == "UNVERIFIED"
 
 
+def test_official_same_publisher_repeats_are_not_high():
+    # Two items from the same official publisher are repeats, not
+    # "official + independent": they must not reach HIGH.
+    repeats = [_member("nws", "2026-09-23T11:00:00Z"),
+               _member("nws", "2026-09-23T11:05:00Z")]
+    assert confidence_for(repeats, SOURCES) == "LOW"
+    # Official plus a genuinely different publisher stays HIGH.
+    mixed = [_member("nws", "2026-09-23T11:00:00Z"),
+             _member("trusted", "2026-09-23T11:05:00Z")]
+    assert confidence_for(mixed, SOURCES) == "HIGH"
+
+
 def test_breaking_national_can_top_local_solo():
     solo = _cluster([_member("trusted", "2026-09-23T11:50:00Z")],
                     section="local", category="local")

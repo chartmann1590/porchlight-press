@@ -54,3 +54,32 @@ def test_deterministic_earliest_wins():
               "2026-09-23T09:00:00Z")
     unique, dups = deduplicate([a, b])  # input order shuffled vs time
     assert unique[0]["id"] == "b"
+
+
+def _untimed(iid, headline, url, source_id):
+    return {"id": iid, "headline": headline, "url": url,
+            "publishedAt": None, "sourceId": source_id, "publisher": source_id}
+
+
+def test_missing_timestamp_different_source_and_host_not_dup():
+    headline = "City council approves downtown revitalization project"
+    a = _untimed("a", headline, "https://example.com/a", "source-a")
+    b = _untimed("b", headline, "https://other.org/b", "source-b")
+    unique, _ = deduplicate([a, b])
+    assert len(unique) == 2
+
+
+def test_missing_timestamp_same_source_is_dup():
+    headline = "City council approves downtown revitalization project"
+    a = _untimed("a", headline, "https://example.com/a", "same-source")
+    b = _untimed("b", headline, "https://other.org/b", "same-source")
+    unique, _ = deduplicate([a, b])
+    assert len(unique) == 1
+
+
+def test_missing_timestamp_same_host_is_dup():
+    headline = "City council approves downtown revitalization project"
+    a = _untimed("a", headline, "https://example.com/a", "source-a")
+    b = _untimed("b", headline, "https://example.com/b", "source-b")
+    unique, _ = deduplicate([a, b])
+    assert len(unique) == 1
