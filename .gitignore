@@ -9,8 +9,10 @@ android/app/google-services.json
 __pycache__/
 .venv/
 .pytest_cache/
-# Pipeline runtime state (ETags, normalized output; Phase 4 persists to pipeline-state branch)
-state/
+# Pipeline runtime state (ETags, normalized output; Phase 4 persists to pipeline-state branch).
+# Anchored to repo root: a bare `state/` pattern would also ignore any
+# `state/` directory elsewhere in the tree (e.g. sources/us/ny/state/).
+/state/
 # Models
 *.gguf
 # Misc

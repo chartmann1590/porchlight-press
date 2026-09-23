@@ -4,6 +4,9 @@ Personalized electronic newspaper: free sources → GitHub Actions (every 6 h) �
 normalize → dedupe/cluster → AI newsroom (Qwen3-4B, validated, with source-card
 fallback) → static JSON on GitHub Pages → Android app (offline-first).
 
+Developer setup and repo map: `DEVELOPMENT.md`. Source registry guide:
+`HOW_TO_ADD_A_SOURCE.md`.
+
 The `Plan/` directory is **local only** (gitignored) and never quoted into
 commits or PRs. `Plan/Plan.txt` is the requirements authority;
 `Plan/MASTER_PLAN.md` wins on deliberate conflicts.

@@ -1,12 +1,8 @@
-# Porchlight Press
+# Development — Porchlight Press
 
-A personalized electronic newspaper for any city on earth — starting with
-Schenectady / Capital Region, NY. Free sources, on-device-friendly static
-feeds, offline-first Android app, $0 operating cost.
-
-- App: **Porchlight Press** (`com.charleshartman.porchlightpress`)
-- Feeds: `https://chartmann1590.github.io/porchlight-press/`
-- Contact: `me@charleshartman.com`
+Developer setup and repo map for the pipeline and (from Phase 5) the Android
+app. End-user, non-technical docs live elsewhere; see `ARCHITECTURE.md` for
+decisions.
 
 ## Repo layout
 
