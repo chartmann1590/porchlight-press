@@ -11,6 +11,7 @@ path as a plain CLI argument.
 from __future__ import annotations
 
 import argparse
+import inspect
 import json
 import sys
 from datetime import datetime, timezone
@@ -30,10 +31,9 @@ def _load_state(path: Path) -> dict:
 
 def _fetch(provider, source, http_state: dict):
     """Call fetch() with HTTP state where the provider accepts it."""
-    try:
+    if "http_state" in inspect.signature(provider.fetch).parameters:
         return provider.fetch(source, http_state)
-    except TypeError:
-        return provider.fetch(source)
+    return provider.fetch(source)
 
 
 def main(argv: list[str] | None = None) -> int:
