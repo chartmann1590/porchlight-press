@@ -1,0 +1,16 @@
+name: Suggest a news source or town
+description: Help us cover your area
+labels: [coverage]
+body:
+  - type: input
+    id: town
+    attributes:
+      label: Town / area
+      placeholder: e.g. Saratoga Springs, NY
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: News sources you'd recommend
+      description: Local papers, TV/radio stations, city or county sites, police/fire/school news pages. Links help a lot.

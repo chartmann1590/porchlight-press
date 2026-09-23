@@ -1,0 +1,29 @@
+name: Bug report
+description: Something in the app isn't working right
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Tell us what went wrong and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we make it happen again?
+      placeholder: "1. Open the app\n2. Tap ...\n3. See ..."
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Settings → About
+  - type: input
+    id: device
+    attributes:
+      label: Phone and Android version
+      placeholder: e.g. Pixel 8, Android 15
+  - type: markdown
+    attributes:
+      value: "Please don't include personal information such as your address or exact location."

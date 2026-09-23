@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem (private)
+    url: https://github.com/chartmann1590/porchlight-press/security/advisories/new
+    about: Please report security issues privately, not as a public issue.
+  - name: Email the developer
+    url: mailto:me@charleshartman.com
+    about: Questions, publisher requests, or anything private.

@@ -1,0 +1,28 @@
+name: Problem with a story
+description: A story looks wrong, is missing a credit, or shouldn't be there
+labels: [content]
+body:
+  - type: input
+    id: link
+    attributes:
+      label: Story link
+      description: Use Share on the story and paste the link here.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What's wrong?
+      options:
+        - A fact doesn't match the original article
+        - Missing or wrong source credit
+        - Bad translation
+        - Wrong photo or photo credit
+        - Story is in the wrong town or section
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
