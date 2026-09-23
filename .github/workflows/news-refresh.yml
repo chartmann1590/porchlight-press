@@ -123,8 +123,29 @@ jobs:
           fi
           ls -lh
           if ls "${{ steps.lock.outputs.shard_prefix }}"-*.gguf >/dev/null 2>&1; then
-            echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.shard_prefix }}-00001-of-00002.gguf" >> "$GITHUB_ENV"
-            echo "split shards present"
+            if python3 - "$GITHUB_WORKSPACE/pipeline/ai/models.lock" <<'EOF'
+          import hashlib
+          import json
+          import sys
+          lock = json.load(open(sys.argv[1]))
+          assets = lock['models']['Qwen3-4B-Q4_K_M']['releaseAssets']
+          bad = [a['file'] for a in assets
+                 if hashlib.sha256(open(a['file'], 'rb').read()).hexdigest() != a['sha256']]
+          if bad:
+              print(f"shard SHA mismatch: {bad}")
+              sys.exit(1)
+          print("shard SHAs verified against models.lock")
+          EOF
+            then
+              echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.shard_prefix }}-00001-of-00002.gguf" >> "$GITHUB_ENV"
+              echo "split shards present and verified"
+            else
+              echo "shard verification failed; falling back to Hugging Face single file"
+              rm -f "${{ steps.lock.outputs.shard_prefix }}"-*.gguf
+              curl -fL --retry 3 -o "${{ steps.lock.outputs.file }}" "${{ steps.lock.outputs.url }}"
+              echo "${{ steps.lock.outputs.sha }}  ${{ steps.lock.outputs.file }}" | sha256sum -c -
+              echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.file }}" >> "$GITHUB_ENV"
+            fi
           else
             echo "${{ steps.lock.outputs.sha }}  ${{ steps.lock.outputs.file }}" | sha256sum -c -
             echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.file }}" >> "$GITHUB_ENV"
