@@ -1,0 +1,155 @@
+name: mirror-models
+
+# Mirrors the Qwen3 GGUFs from Hugging Face to our own `model-qwen3` GitHub
+# Release (Phase 3 model hosting). Automated so nobody has to download,
+# split, and upload 4+ GB by hand.
+#
+# Trigger: Actions > mirror-models > Run workflow (workflow_dispatch only).
+# It never runs on PRs, pushes, or a schedule, and it is NOT part of the
+# news pipeline.
+#
+# Idempotent: downloads are SHA-256-verified against pipeline/ai/models.lock
+# (the single source of truth for URLs, sizes, and hashes); the 4B split is
+# skipped when the shards already exist; release assets that already exist
+# with the right size are skipped. Re-running is always safe.
+#
+# The nightly pipeline's Hugging Face fallback (ai-newsroom.yml) is
+# untouched and keeps working before and after the first mirror run.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve files from models.lock
+        id: lock
+        run: |
+          python3 - <<'EOF'
+          import json
+          import os
+
+          lock = json.load(open('pipeline/ai/models.lock'))
+          big = lock['models']['Qwen3-4B-Q4_K_M']
+          small = lock['models']['Qwen3-1.7B-Q8_0']
+
+          def emit(name, value):
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                  fh.write(f"{name}={value}\n")
+
+          emit('tag', lock['release']['tag'])
+          emit('llama_tag', lock['llamaCppTag'])
+          emit('big_file', big['file'])
+          emit('big_sha', big['sha256'])
+          emit('big_url', big['huggingFace'])
+          emit('big_size', str(big['sizeBytes']))
+          emit('small_file', small['file'])
+          emit('small_sha', small['sha256'])
+          emit('small_url', small['huggingFace'])
+          emit('small_size', str(small['sizeBytes']))
+          emit('shard_prefix', big['file'][: -len('.gguf')])
+          EOF
+
+      - name: Download llama.cpp (prebuilt, for llama-gguf-split)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download "${{ steps.lock.outputs.llama_tag }}" -R ggml-org/llama.cpp \
+            -p "llama-${{ steps.lock.outputs.llama_tag }}-bin-ubuntu-x64.tar.gz" -D /tmp
+          mkdir -p ~/llama && tar -xzf /tmp/llama-*.tar.gz -C ~/llama
+          SPLIT_BIN="$(find ~/llama -name llama-gguf-split -type f | head -1)"
+          test -n "$SPLIT_BIN" || { echo "llama-gguf-split not found in prebuilt release"; exit 1; }
+          echo "SPLIT_BIN=$SPLIT_BIN" >> "$GITHUB_ENV"
+
+      - name: Download models from Hugging Face (verify SHA-256)
+        run: |
+          mkdir -p "${{ runner.temp }}/models" && cd "${{ runner.temp }}/models"
+          download_one() { # file sha url size
+            if [ -f "$1" ]; then
+              if echo "$2  $1" | sha256sum -c -; then
+                echo "cached $1 OK, skipping download"
+                return 0
+              fi
+              echo "cached $1 failed verification, re-downloading"
+              rm -f "$1"
+            fi
+            curl -fL --retry 3 -o "$1" "$3"
+            echo "$2  $1" | sha256sum -c -
+            test "$(stat -c%s "$1")" = "$4" || { echo "size mismatch for $1"; exit 1; }
+          }
+          download_one "${{ steps.lock.outputs.big_file }}" \
+            "${{ steps.lock.outputs.big_sha }}" "${{ steps.lock.outputs.big_url }}" \
+            "${{ steps.lock.outputs.big_size }}"
+          download_one "${{ steps.lock.outputs.small_file }}" \
+            "${{ steps.lock.outputs.small_sha }}" "${{ steps.lock.outputs.small_url }}" \
+            "${{ steps.lock.outputs.small_size }}"
+          echo "MODEL_DIR=${{ runner.temp }}/models" >> "$GITHUB_ENV"
+
+      - name: Split the 4B file (stays under the 2 GB per-asset limit)
+        run: |
+          cd "$MODEL_DIR"
+          shopt -s nullglob
+          shards=("${{ steps.lock.outputs.shard_prefix }}"-*.gguf)
+          if [ "${#shards[@]}" -gt 0 ]; then
+            echo "shards already present, skipping split"
+          else
+            "$SPLIT_BIN" --split --split-max-size 1900M \
+              "${{ steps.lock.outputs.big_file }}"
+          fi
+          ls -lh "${{ steps.lock.outputs.shard_prefix }}"-*.gguf
+
+      - name: Create or update the release and upload (idempotent)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ steps.lock.outputs.tag }}"
+          if ! gh release view "$TAG" -R "${{ github.repository }}" >/dev/null 2>&1; then
+            gh release create "$TAG" -R "${{ github.repository }}" \
+              --title "Qwen3 models (Apache-2.0)" \
+              --notes "Qwen3 GGUFs for the AI newsroom pipeline. See pipeline/ai/models.lock for SHAs."
+          fi
+          cd "$MODEL_DIR"
+          shopt -s nullglob
+          existing="$(gh release view "$TAG" -R "${{ github.repository }}" \
+            --json assets --jq '.assets[] | "\(.name) \(.size)"')"
+          upload_if_missing() {
+            for f in "$@"; do
+              size="$(stat -c%s "$f")"
+              if printf '%s\n' "$existing" | grep -qxF "$f $size"; then
+                echo "skip $f (already in release with size $size)"
+              else
+                echo "upload $f ($size bytes)"
+                gh release upload "$TAG" -R "${{ github.repository }}" "$f" --clobber
+              fi
+            done
+          }
+          upload_if_missing "${{ steps.lock.outputs.shard_prefix }}"-*.gguf \
+            "${{ steps.lock.outputs.small_file }}"
+          # LICENSE alongside (Apache-2.0 redistribution allowed with the license).
+          cp "$GITHUB_WORKSPACE/LICENSE" ./LICENSE
+          upload_if_missing LICENSE
+
+      - name: Report checksums
+        run: |
+          cd "$MODEL_DIR"
+          {
+            echo "## Model mirror"
+            echo ""
+            echo "Release \`${{ steps.lock.outputs.tag }}\` is up to date."
+            echo ""
+            echo "| Asset | Size | SHA-256 |"
+            echo "|---|---|---|"
+            for f in "${{ steps.lock.outputs.shard_prefix }}"-*.gguf \
+                     "${{ steps.lock.outputs.small_file }}"; do
+              echo "| \`$f\` | $(stat -c%s "$f") | \`$(sha256sum "$f" | cut -d' ' -f1)\` |"
+            done
+            echo ""
+            echo "Shard SHA-256 values live in this run summary; record them in"
+            echo "\`pipeline/ai/models.lock\` (\`releaseAssetNote\`) on the next docs pass."
+          } >> "$GITHUB_STEP_SUMMARY"

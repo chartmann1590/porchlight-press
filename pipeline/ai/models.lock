@@ -4,7 +4,7 @@
   "release": {
     "repo": "chartmann1590/porchlight-press",
     "tag": "model-qwen3",
-    "note": "One-time upload (see docs/AI_SETUP.md). 4B exceeds GitHub's 2 GB per-asset limit, so it is split with llama-gguf-split --split --split-max-size 1900M. llama-server -m <first shard> loads split files natively."
+    "note": "Mirrored by .github/workflows/mirror-models.yml (Actions > mirror-models > Run workflow; idempotent, see docs/AI_SETUP.md). 4B exceeds GitHub's 2 GB per-asset limit, so it is split with llama-gguf-split --split --split-max-size 1900M. llama-server -m <first shard> loads split files natively."
   },
   "llamaCppTag": "b11138",
   "models": {
@@ -19,7 +19,7 @@
         "Qwen3-4B-Q4_K_M-00001-of-00002.gguf",
         "Qwen3-4B-Q4_K_M-00002-of-00002.gguf"
       ],
-      "releaseAssetNote": "Shard SHA-256 values are recorded here after the one-time split+upload; until then the workflow falls back to Hugging Face and verifies the single-file sha256 above."
+      "releaseAssetNote": "Shard SHA-256 values are recorded here from the mirror-models run summary on the next docs pass; until then the workflow falls back to Hugging Face and verifies the single-file sha256 above."
     },
     "Qwen3-1.7B-Q8_0": {
       "role": "fallback (whole run switches to this when more than ~50 clusters are queued)",

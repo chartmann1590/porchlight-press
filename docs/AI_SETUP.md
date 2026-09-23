@@ -13,35 +13,34 @@ committed (`*.gguf` is gitignored).
 0.6B is rejected: it copies excerpts verbatim instead of rewriting
 (benchmark 2026-09-23, MASTER_PLAN §11).
 
-## One-time upload to a GitHub Release (manual, done once)
+## Mirroring the models to our GitHub Release (automated)
 
-`Qwen3-4B-Q4_K_M.gguf` is 2.50 GB, over GitHub's 2 GB per-asset limit.
-Split it with llama.cpp's splitter, then upload both shards plus the 1.7B
-file plus the Apache-2.0 license text to tag `model-qwen3` on this repo:
+`Qwen3-4B-Q4_K_M.gguf` is 2.50 GB, over GitHub's 2 GB per-asset limit, so it
+is stored as two shards produced by llama.cpp's splitter
+(`llama-gguf-split --split --split-max-size 1900M` →
+`-00001-of-00002.gguf` / `-00002-of-00002.gguf`).
+`llama-server -m <first shard>` loads split files natively; the pipeline
+workflow passes the first shard path.
 
-```bash
-# 1. Download the originals (Hugging Face fallback URLs are in models.lock).
-# 2. Split the 4B file (llama.cpp b11138+ provides llama-gguf-split):
-llama-gguf-split --split --split-max-size 1900M Qwen3-4B-Q4_K_M.gguf
-# -> Qwen3-4B-Q4_K_M-00001-of-00002.gguf + Qwen3-4B-Q4_K_M-00002-of-00002.gguf
-# 3. Create the release and upload (needs `gh auth login` once):
-gh release create model-qwen3 --title "Qwen3 models (Apache-2.0)" --notes "Qwen3 GGUFs for the AI newsroom pipeline. See pipeline/ai/models.lock for SHAs."
-gh release upload model-qwen3 \
-  Qwen3-4B-Q4_K_M-00001-of-00002.gguf \
-  Qwen3-4B-Q4_K_M-00002-of-00002.gguf \
-  Qwen3-1.7B-Q8_0.gguf \
-  LICENSE
-# 4. Record the two shard SHA-256 values into pipeline/ai/models.lock
-#    (releaseAssetNote there) in a follow-up commit.
-```
+There are no manual steps. To mirror (or re-mirror), run the workflow:
 
-`llama-server -m <first shard>` loads split files natively; the workflow
-passes the first shard path.
+1. GitHub > Actions > **mirror-models** > **Run workflow**.
+2. It reads URLs, sizes, and SHA-256 hashes from `pipeline/ai/models.lock`
+   (the single source of truth), downloads both GGUFs from Hugging Face,
+   verifies each SHA-256, splits the 4B file with the pinned prebuilt
+   llama.cpp, creates or updates the `model-qwen3` release, and uploads the
+   two shards plus the 1.7B file plus `LICENSE`.
+3. It is idempotent: verified downloads are reused, an existing split is
+   kept, and release assets that already exist with the right size are
+   skipped. Re-running is always safe.
+4. The run summary lists every asset with its size and SHA-256; copy the two
+   shard hashes into `pipeline/ai/models.lock` (`releaseAssetNote`) on the
+   next docs pass so the lock stays the complete record.
 
-Status 2026-09-23: release upload is deferred (no large-asset upload from
-this dev session). The workflow downloads from our Release on cache miss
-and falls back to Hugging Face with SHA-256 verification, so CI works
-before and after the upload.
+The nightly pipeline's Hugging Face fallback (`ai-newsroom.yml`) is
+unchanged: on cache miss it downloads from our Release when populated,
+else from Hugging Face with SHA-256 verification, so CI works before and
+after the first mirror run.
 
 ## How CI runs it (`.github/workflows/ai-newsroom.yml`)
 
