@@ -39,7 +39,9 @@ class NwsAlertsProvider:
             )
             payload = resp.json()
         except Exception as exc:  # noqa: BLE001
-            raise ProviderError(sid, "http", str(exc)[:300]) from exc
+            from . import provider_error_from_http
+
+            raise provider_error_from_http(sid, exc) from exc
 
         items: list[RawItem] = []
         for feat in payload.get("features", []) if isinstance(payload, dict) else []:

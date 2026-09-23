@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from typing import Any, Mapping
 from urllib.parse import urlparse
 
-from . import ProviderError, RawItem
+from . import RawItem
 from .http import get_bytes
 
 API_BASE = "https://api.gdeltproject.org/api/v2/doc/doc"
@@ -92,16 +92,12 @@ class GdeltProvider:
             # GDELT asks for at most one request per 5 s; surface its 429 as
             # rate-limited (non-fatal, retried next run) rather than a
             # generic fetch failure.
-            import httpx
+            from . import provider_error_from_http
 
-            if isinstance(exc, httpx.HTTPStatusError) and (
-                exc.response is not None and exc.response.status_code == 429
-            ):
-                raise ProviderError(
-                    sid, "rate-limited",
-                    "GDELT allows ~1 request per 5 s; back off and retry next run",
-                ) from exc
-            raise ProviderError(sid, "http", str(exc)[:300]) from exc
+            raise provider_error_from_http(
+                sid, exc,
+                rate_limit_detail="GDELT allows ~1 request per 5 s; back off and retry next run",
+            ) from exc
         time.sleep(5)  # throttle: GDELT asks for >= 5 s between requests
 
         items: list[RawItem] = []

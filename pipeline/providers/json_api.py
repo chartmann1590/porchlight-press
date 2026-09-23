@@ -61,7 +61,9 @@ class JsonApiProvider:
             )
             payload = resp.json()
         except Exception as exc:  # noqa: BLE001
-            raise ProviderError(sid, "http", str(exc)[:300]) from exc
+            from . import provider_error_from_http
+
+            raise provider_error_from_http(sid, exc) from exc
         host = urlparse(url).netloc.lower()
         if "earthquake.usgs.gov" in host:
             return _usgs_items(source, payload)

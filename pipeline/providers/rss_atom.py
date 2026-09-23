@@ -68,7 +68,9 @@ class RssAtomProvider:
                 self.client, url, max_body_bytes=self.max_body_bytes, extra_headers=headers
             )
         except Exception as exc:  # noqa: BLE001 - wrapped as non-fatal
-            raise ProviderError(sid, "http", str(exc)[:300]) from exc
+            from . import provider_error_from_http
+
+            raise provider_error_from_http(sid, exc) from exc
 
         if http_state is not None:
             http_state[sid] = {

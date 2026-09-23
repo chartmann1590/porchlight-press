@@ -114,6 +114,13 @@ def main(argv: list[str] | None = None) -> int:
     )
     for f in failures:
         print(f"  FAIL {f}")
+    if checked == 0:
+        # Nothing was fetchable (e.g. every enabled source is BLOCKED).
+        # That is a config state, not a failure: log it and exit clean.
+        print(
+            f"no-op: nothing fetchable "
+            f"({dropped_rights} source(s) skipped by rights mode)"
+        )
 
     summary_path = args.summary_file
     if summary_path:
@@ -123,7 +130,7 @@ def main(argv: list[str] | None = None) -> int:
             for f in failures:
                 fh.write(f"- FAIL {f}\n")
 
-    return 0 if checked > 0 else 1
+    return 0
 
 
 if __name__ == "__main__":

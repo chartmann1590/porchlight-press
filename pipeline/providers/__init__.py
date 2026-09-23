@@ -40,6 +40,28 @@ class ProviderError(Exception):
         self.detail = detail
 
 
+def provider_error_from_http(
+    source_id: str, exc: Exception, *, rate_limit_detail: str | None = None
+) -> ProviderError:
+    """Map a transport failure to a ProviderError in one shared place.
+
+    HTTP 429 becomes kind "rate-limited" (non-fatal, retried next run;
+    get_bytes never retries it); everything else stays kind "http".
+    """
+    import httpx
+
+    if isinstance(exc, httpx.HTTPStatusError) and (
+        exc.response is not None and exc.response.status_code == 429
+    ):
+        return ProviderError(
+            source_id,
+            "rate-limited",
+            rate_limit_detail
+            or "provider asked for fewer requests; back off and retry next run",
+        )
+    return ProviderError(source_id, "http", str(exc)[:300])
+
+
 def load_sources(sources_dir: str | Path) -> list[dict[str, Any]]:
     """Load every registry entry below sources_dir (skips regions.json)."""
     out: list[dict[str, Any]] = []

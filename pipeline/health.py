@@ -74,7 +74,7 @@ def check_source(
     if not dated:
         health.issues.append("no-dated-items: nothing to judge staleness by")
         return health
-    newest = max(i.published_at for i in dated if i.published_at is not None)
+    newest = max(i.published_at for i in dated)
     assert newest is not None
     if newest.tzinfo is None:
         newest = newest.replace(tzinfo=timezone.utc)

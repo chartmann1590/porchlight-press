@@ -110,6 +110,28 @@ def test_gdelt_parses_discovery_items(monkeypatch):
     assert items[0].published_at is not None
 
 
+def test_rss_rate_limit_maps_to_rate_limited():
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(429, content=b"slow down")
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    with pytest.raises(ProviderError) as ei:
+        RssAtomProvider(client, 2_097_152).fetch(_rss_source())
+    assert ei.value.kind == "rate-limited"
+
+
+def test_nws_rate_limit_maps_to_rate_limited():
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(429, content=b"slow down")
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    src = {"id": "nws", "name": "NWS", "type": "nws-alerts",
+           "apiUrl": "https://api.weather.gov/alerts/active?point=1,2"}
+    with pytest.raises(ProviderError) as ei:
+        NwsAlertsProvider(client, 2_097_152).fetch(src)
+    assert ei.value.kind == "rate-limited"
+
+
 def test_nws_parses_alert_with_public_safety_text():
     body = (FIX / "nws_sample.json").read_bytes()
     client = _client_for({"https://api.weather.gov": body})
