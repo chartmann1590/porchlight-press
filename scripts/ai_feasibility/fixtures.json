@@ -1,0 +1,53 @@
+{
+  "_note": "Synthetic test clusters for the AI feasibility benchmark only. Not real news; never published.",
+  "clusters": [
+    {
+      "id": "fx-fire",
+      "category": "local",
+      "sources": [
+        {"id": "s1", "publisher": "Test Station A", "headline": "Crews battle Albany apartment fire", "publishedAt": "2026-09-23T07:12:00Z",
+         "excerpt": "Firefighters responded to a two-alarm fire at an apartment building on Central Avenue in Albany shortly after 6 a.m. Tuesday. Officials said 14 residents were displaced and one firefighter was treated for a minor injury."},
+        {"id": "s2", "publisher": "Test Station B", "headline": "Overnight fire damages Albany apartments", "publishedAt": "2026-09-23T07:40:00Z",
+         "excerpt": "A fire damaged a three-story apartment building on Central Avenue. The Albany Fire Department said the cause is under investigation."},
+        {"id": "s3", "publisher": "Test Paper C", "headline": "Residents displaced following Albany blaze", "publishedAt": "2026-09-23T08:05:00Z",
+         "excerpt": "The American Red Cross is assisting 14 displaced residents after Tuesday's fire on Central Avenue, according to a Red Cross spokesperson."}
+      ]
+    },
+    {
+      "id": "fx-budget",
+      "category": "politics",
+      "sources": [
+        {"id": "s1", "publisher": "Test Paper C", "headline": "Schenectady council approves $98.4 million budget", "publishedAt": "2026-09-22T23:10:00Z",
+         "excerpt": "The Schenectady City Council voted 5-2 Monday night to approve a $98.4 million budget for 2027. The plan raises the property tax levy by 1.9 percent. Council member Jane Ortiz, who voted no, said the increase was too high."},
+        {"id": "s2", "publisher": "Test Station A", "headline": "Schenectady budget passes with tax increase", "publishedAt": "2026-09-23T00:02:00Z",
+         "excerpt": "Mayor Gary McCarthy said the budget protects city services. The budget passed 5-2."}
+      ]
+    },
+    {
+      "id": "fx-road",
+      "category": "local",
+      "sources": [
+        {"id": "s1", "publisher": "NYS Department of Transportation", "headline": "Lane closures on Interstate 890 in Schenectady County", "publishedAt": "2026-09-23T10:00:00Z",
+         "excerpt": "Motorists should expect alternating lane closures on I-890 eastbound between Exit 4C and Exit 5 from 9 a.m. to 3 p.m. Wednesday through Friday for bridge joint repairs."}
+      ]
+    },
+    {
+      "id": "fx-dispute",
+      "category": "health",
+      "sources": [
+        {"id": "s1", "publisher": "Test Station B", "headline": "Troy water main break leaves hundreds without service", "publishedAt": "2026-09-23T12:30:00Z",
+         "excerpt": "About 300 homes in Troy lost water service after a main break on River Street, city officials said. A boil water advisory is in effect."},
+        {"id": "s2", "publisher": "Test Paper D", "headline": "Water main break hits Troy's River Street", "publishedAt": "2026-09-23T12:55:00Z",
+         "excerpt": "A water main break on River Street affected roughly 500 customers, according to a utility spokesperson. Repairs are expected to finish by Thursday."}
+      ]
+    },
+    {
+      "id": "fx-world",
+      "category": "world",
+      "sources": [
+        {"id": "s1", "publisher": "Test Wire E", "headline": "Magnitude 6.1 earthquake strikes off coast of northern Chile", "publishedAt": "2026-09-23T04:20:00Z",
+         "excerpt": "A magnitude 6.1 earthquake struck off the coast of northern Chile early Wednesday, the U.S. Geological Survey said. There were no immediate reports of damage, and no tsunami warning was issued."}
+      ]
+    }
+  ]
+}

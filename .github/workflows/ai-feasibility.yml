@@ -1,0 +1,79 @@
+name: AI feasibility benchmark
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  LLAMA_TAG: b11138
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: qwen3-0.6b-q8
+            repo: Qwen/Qwen3-0.6B-GGUF
+            file: Qwen3-0.6B-Q8_0.gguf
+          - name: qwen3-1.7b-q8
+            repo: Qwen/Qwen3-1.7B-GGUF
+            file: Qwen3-1.7B-Q8_0.gguf
+          - name: qwen3-4b-q4km
+            repo: Qwen/Qwen3-4B-GGUF
+            file: Qwen3-4B-Q4_K_M.gguf
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Runner hardware
+        run: |
+          echo "## ${{ matrix.name }} runner: $(nproc) vCPU, $(free -g | awk '/Mem/{print $2}') GB RAM" >> "$GITHUB_STEP_SUMMARY"
+          lscpu | grep -E 'Model name|Flags' | cut -c1-200
+
+      - name: Cache model
+        uses: actions/cache@v4
+        with:
+          path: ~/models
+          key: model-${{ matrix.file }}
+
+      - name: Download model
+        run: |
+          mkdir -p ~/models
+          [ -f ~/models/${{ matrix.file }} ] || curl -fL --retry 3 -o ~/models/${{ matrix.file }} \
+            "https://huggingface.co/${{ matrix.repo }}/resolve/main/${{ matrix.file }}"
+          ls -lh ~/models
+
+      - name: Download llama.cpp (prebuilt CPU)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download "$LLAMA_TAG" -R ggml-org/llama.cpp -p "llama-$LLAMA_TAG-bin-ubuntu-x64.tar.gz" -D /tmp
+          mkdir -p ~/llama && tar -xzf /tmp/llama-*.tar.gz -C ~/llama
+          echo "LLAMA_DIR=$(dirname "$(find ~/llama -name llama-server -type f | head -1)")" >> "$GITHUB_ENV"
+
+      - name: Start llama-server
+        run: |
+          export LD_LIBRARY_PATH="$LLAMA_DIR:$LD_LIBRARY_PATH"
+          nohup "$LLAMA_DIR/llama-server" -m ~/models/${{ matrix.file }} --jinja -c 4096 -np 1 \
+            -t "$(nproc)" --host 127.0.0.1 --port 8080 > /tmp/server.log 2>&1 &
+          for i in $(seq 1 120); do
+            curl -sf http://127.0.0.1:8080/health && exit 0
+            sleep 2
+          done
+          cat /tmp/server.log; exit 1
+
+      - name: Run benchmark
+        run: python3 scripts/ai_feasibility/run.py "${{ matrix.name }}" "$GITHUB_STEP_SUMMARY" results.json
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-feasibility-${{ matrix.name }}
+          path: |
+            results.json
+            /tmp/server.log
