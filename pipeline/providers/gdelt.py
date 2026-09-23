@@ -19,8 +19,13 @@ from .http import get_bytes
 API_BASE = "https://api.gdeltproject.org/api/v2/doc/doc"
 MAX_RECORDS = 25
 
-# ISO 3166-2 admin1 suffix -> full name for query recall (US seed market;
-# extend as the registry grows; unknown codes fall back to the raw suffix).
+# ISO 3166-2 admin1 suffix -> full name for query recall (US seed market).
+# Non-US admin1 codes resolve via coverage.admin1Name carried by the registry
+# entry itself (worldwide-ready without a baked-in world table); an admin1
+# code with no resolvable name is dropped from the query rather than sent raw
+# ("ON", "ENG", "NY", ...) because raw codes hurt GDELT recall/precision.
+# Real place names already in the registry (cities, admin2, metro labels in
+# sources/**/regions.json) carry the query weight instead.
 US_STATE_NAMES = {
     "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas",
     "CA": "California", "CO": "Colorado", "CT": "Connecticut", "DE": "Delaware",
@@ -41,19 +46,27 @@ US_STATE_NAMES = {
 
 
 def build_query(source: Mapping[str, Any]) -> str:
-    coverage = source.get("coverage", {})
+    coverage = source.get("coverage", {}) or {}
     terms: list[str] = []
     for city in coverage.get("cities", [])[:6]:
-        terms.append(f'"{city}"')
-    admin1 = str(coverage.get("admin1", ""))
-    if admin1.startswith("US-"):
-        code = admin1[3:]
-        terms.append(f'"{code}"')
-        full = US_STATE_NAMES.get(code)
-        if full and full != code:
+        city = str(city).strip()
+        if city:
+            terms.append(f'"{city}"')
+    admin1 = str(coverage.get("admin1", "") or "")
+    admin1_name = str(coverage.get("admin1Name", "") or "").strip()
+    if admin1_name:
+        # Registry-carried real place name (e.g. "Ontario" for CA-ON).
+        terms.append(f'"{admin1_name}"')
+    elif admin1.startswith("US-"):
+        full = US_STATE_NAMES.get(admin1[3:])
+        if full:
             terms.append(f'"{full}"')
+        # else: unknown US code -> drop, never send the raw suffix.
+    # else: non-US admin1 without an admin1Name -> drop, never send it raw.
     for county in coverage.get("admin2", [])[:4]:
-        terms.append(f'"{county}"')
+        county = str(county).strip()
+        if county:
+            terms.append(f'"{county}"')
     if not terms:
         terms.append(str(source.get("name", "")))
     return " OR ".join(terms)

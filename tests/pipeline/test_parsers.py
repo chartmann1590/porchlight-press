@@ -75,6 +75,34 @@ def test_gdelt_query_built_from_coverage():
                      "coverage": {"cities": ["Albany", "Schenectady"], "admin1": "US-NY",
                                   "admin2": ["Albany County"]}})
     assert '"Albany"' in q and '"New York"' in q
+    # Raw ISO codes are never sent: "NY" must not appear as its own term.
+    assert '"NY"' not in q.split(" OR ")
+
+
+def test_gdelt_non_us_admin1_uses_registry_name_not_raw_code():
+    q = build_query({"id": "g", "name": "G",
+                     "coverage": {"country": "CA", "cities": ["Toronto"],
+                                  "admin1": "CA-ON", "admin1Name": "Ontario"}})
+    assert '"Ontario"' in q
+    assert '"ON"' not in q.split(" OR ")
+    assert "CA-ON" not in q
+
+
+def test_gdelt_non_us_admin1_without_name_is_dropped():
+    q = build_query({"id": "g", "name": "G",
+                     "coverage": {"country": "GB", "cities": ["London"],
+                                  "admin1": "GB-ENG"}})
+    assert '"London"' in q
+    assert "GB-ENG" not in q
+    assert '"ENG"' not in q.split(" OR ")
+
+
+def test_gdelt_unknown_us_admin1_is_dropped():
+    q = build_query({"id": "g", "name": "G",
+                     "coverage": {"cities": ["Albany"], "admin1": "US-XX"}})
+    assert '"Albany"' in q
+    assert '"XX"' not in q.split(" OR ")
+    assert "US-XX" not in q
 
 
 def test_gdelt_rate_limit_is_nonfatal_and_specific(monkeypatch):

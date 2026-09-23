@@ -49,6 +49,11 @@ pipeline never hardcode a city; they read this tree.
 - `type`: `rss` | `atom` | `gdelt` | `nws-alerts` | `json-api`.
 - `feedUrl` (rss/atom) or `apiUrl` (gdelt/nws-alerts/json-api): one is required.
 - `priority` 0–100: local public-safety and public broadcasters rank highest.
+- `coverage.admin1Name` (optional): real place name for a non-US `admin1`
+  code, e.g. `"admin1": "CA-ON", "admin1Name": "Ontario"`. GDELT queries use
+  real names only — a code with no resolvable name is dropped from the query
+  rather than sent raw. US states resolve automatically; everyone else sets
+  `admin1Name` when the source is added.
 - `lastVerified`: the date you last fetched the URL successfully. Update it
   when you re-verify.
 
