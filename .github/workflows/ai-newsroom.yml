@@ -1,0 +1,157 @@
+name: ai-newsroom
+
+# Phase 3: offline validation on every PR/push (mocked LLM, never downloads a
+# model) + a nightly live-model smoke (one fixture cluster, cached, ~2 min).
+# Model download + llama.cpp setup live ONLY here, never in pipeline/ and
+# never committed (*.gguf is gitignored). Portable entry point in both jobs:
+# `python -m pipeline.newsroom` runs anywhere with Python + llama-server.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Nightly live-model smoke only (not the 6-hourly news pipeline, which
+    # lands in Phase 4 as news-refresh.yml). Off the hour, low load.
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: read
+
+env:
+  LLAMA_TAG: b11138
+  PRIMARY_FILE: Qwen3-4B-Q4_K_M.gguf
+  PRIMARY_SHA: 7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5
+  PRIMARY_HF: https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Validate schemas + registry fixtures
+        run: python scripts/validate_schemas.py
+      - name: Offline newsroom tests (mocked LLM, no model download)
+        run: python -m pytest tests/ -q -m "not slow"
+      - name: Fixture clusters to stories with dead server
+        run: |
+          mkdir -p "${{ runner.temp }}/smoke-sources"
+          cat > "${{ runner.temp }}/smoke-sources/smoke.json" <<'EOF'
+          {"apiVersion": 1, "id": "smoke-wnyt", "name": "Smoke WNYT",
+           "homepage": "https://example.com/", "feedUrl": "https://example.com/feed",
+           "type": "rss", "coverage": {"country": "US", "admin1": "US-NY",
+            "admin2": ["Albany County"], "cities": ["Albany"]},
+           "rightsMode": "RSS_EXCERPT_ALLOWED", "language": "en",
+           "enabled": true, "priority": 80}
+          EOF
+          python -m pipeline.process \
+            --in tests/fixtures/albany_fire.json \
+            --sources-dir "${{ runner.temp }}/smoke-sources" \
+            --state "${{ runner.temp }}/smoke-clusters.json" \
+            --out "${{ runner.temp }}/smoke-clusters.json"
+          python -m pipeline.newsroom \
+            --in "${{ runner.temp }}/smoke-clusters.json" \
+            --out "${{ runner.temp }}/smoke-stories.json" \
+            --state "${{ runner.temp }}/smoke-clusters.json" \
+            --sources-dir "${{ runner.temp }}/smoke-sources" \
+            --llama-url http://127.0.0.1:9 \
+            --summary-file "$GITHUB_STEP_SUMMARY"
+          python -c "import json; s=json.load(open('${{ runner.temp }}/smoke-stories.json'))['stories']; assert s, 'no stories'; assert all(not x['aiGenerated'] for x in s), 'dead server must yield cards'; print(f'smoke OK: {len(s)} source cards')"
+
+  live-model:
+    # Nightly only: PRs/pushes use the offline job above (no 2.5 GB download).
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Cache model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/newspaper-models
+          key: model-${{ env.PRIMARY_FILE }}-${{ env.PRIMARY_SHA }}
+      - name: Download model (our Release, fallback Hugging Face, verify SHA)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p ~/.cache/newspaper-models
+          cd ~/.cache/newspaper-models
+          if [ ! -f "${{ env.PRIMARY_FILE }}" ]; then
+            # Prefer our own Release (split shards for the 4B file); fall back
+            # to Hugging Face when the Release is not yet populated.
+            gh release download model-qwen3 -R "${{ github.repository }}" \
+              -p "Qwen3-4B-Q4_K_M-00001-of-00002.gguf" 2>/dev/null && \
+            gh release download model-qwen3 -R "${{ github.repository }}" \
+              -p "Qwen3-4B-Q4_K_M-00002-of-00002.gguf" 2>/dev/null && \
+            echo "using Release shards" || \
+            curl -fL --retry 3 -o "${{ env.PRIMARY_FILE }}" "${{ env.PRIMARY_HF }}"
+          fi
+          ls -lh
+          if [ -f "Qwen3-4B-Q4_K_M-00001-of-00002.gguf" ]; then
+            echo "MODEL_PATH=$PWD/Qwen3-4B-Q4_K_M-00001-of-00002.gguf" >> "$GITHUB_ENV"
+            echo "split shards present (SHA recorded after upload; see models.lock)"
+          else
+            echo "${{ env.PRIMARY_SHA }}  ${{ env.PRIMARY_FILE }}" | sha256sum -c -
+            echo "MODEL_PATH=$PWD/${{ env.PRIMARY_FILE }}" >> "$GITHUB_ENV"
+          fi
+      - name: Download llama.cpp (prebuilt CPU, no source build)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download "$LLAMA_TAG" -R ggml-org/llama.cpp -p "llama-$LLAMA_TAG-bin-ubuntu-x64.tar.gz" -D /tmp
+          mkdir -p ~/llama && tar -xzf /tmp/llama-*.tar.gz -C ~/llama
+          echo "LLAMA_DIR=$(dirname "$(find ~/llama -name llama-server -type f | head -1)")" >> "$GITHUB_ENV"
+      - name: Start llama-server
+        run: |
+          export LD_LIBRARY_PATH="$LLAMA_DIR:$LD_LIBRARY_PATH"
+          nohup "$LLAMA_DIR/llama-server" -m "$MODEL_PATH" --jinja -c 4096 -np 1 \
+            -t "$(nproc)" --host 127.0.0.1 --port 8080 > /tmp/server.log 2>&1 &
+          for i in $(seq 1 120); do
+            curl -sf http://127.0.0.1:8080/health && exit 0
+            sleep 2
+          done
+          cat /tmp/server.log; exit 1
+      - name: Live newsroom smoke (one fixture cluster, 25-min budget honored)
+        run: |
+          mkdir -p "${{ runner.temp }}/live-sources"
+          cat > "${{ runner.temp }}/live-sources/live.json" <<'EOF'
+          {"apiVersion": 1, "id": "live-wnyt", "name": "Live WNYT",
+           "homepage": "https://example.com/", "feedUrl": "https://example.com/feed",
+           "type": "rss", "coverage": {"country": "US", "admin1": "US-NY",
+            "admin2": ["Albany County"], "cities": ["Albany"]},
+           "rightsMode": "RSS_EXCERPT_ALLOWED", "language": "en",
+           "enabled": true, "priority": 80}
+          EOF
+          python -m pipeline.process \
+            --in tests/fixtures/albany_fire.json \
+            --sources-dir "${{ runner.temp }}/live-sources" \
+            --state "${{ runner.temp }}/live-clusters.json" \
+            --out "${{ runner.temp }}/live-clusters.json"
+          python -m pipeline.newsroom \
+            --in "${{ runner.temp }}/live-clusters.json" \
+            --out "${{ runner.temp }}/live-stories.json" \
+            --state "${{ runner.temp }}/live-clusters.json" \
+            --sources-dir "${{ runner.temp }}/live-sources" \
+            --summary-file "$GITHUB_STEP_SUMMARY"
+          python -c "import json; s=json.load(open('${{ runner.temp }}/live-stories.json'))['stories']; assert s, 'no stories'; print(f'live OK: {len(s)} stories, ai={[x[\"aiGenerated\"] for x in s]}')"
+      - name: Slow integration test (live server, skips without one)
+        run: python -m pytest tests/pipeline/test_ai_slow.py -q -m slow
+      - name: Upload live output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-newsroom-live
+          path: |
+            ${{ runner.temp }}/live-stories.json
+            /tmp/server.log

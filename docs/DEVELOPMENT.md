@@ -10,15 +10,19 @@ decisions.
 android/              Android app (Kotlin/Compose, Phase 5+)
 pipeline/             Ingest -> normalize -> cluster -> AI -> publish (Phases 1-4)
   providers/          SourceProvider implementations (rss/atom, gdelt, nws-alerts)
+  ai/                 Newsroom: prompts, deterministic validation, providers (llama-server,
+                      Workers AI fallback, source cards), models.lock (SHA-256)
   normalize.py        Canonicalization + rights filtering
   health.py           Source health checks
   sources.py          Registry validation CLI (python -m pipeline.sources ...)
   ingest.py           Fetch-all CLI (python -m pipeline.ingest)
+  process.py          Dedup -> locate -> cluster -> rank -> state (Phase 2)
+  newsroom.py         Clusters -> validated AI briefs or source cards (Phase 3)
   config.yaml         Pipeline flags (cheap knobs, no secrets)
 sources/              Config-driven source registry (geographic, Phase 1)
 schemas/              Versioned JSON Schemas (apiVersion: 1) + taxonomy.json
 public/               Generated static feeds (Phase 4 output, deployed to Pages)
-docs/                 ARCHITECTURE.md, HOW_TO_ADD_A_SOURCE.md, ...
+docs/                 ARCHITECTURE.md, HOW_TO_ADD_A_SOURCE.md, AI_SETUP.md, ...
 scripts/              validate_schemas.py, ai_feasibility/
 tests/                pytest: fixtures + pipeline tests
 .github/workflows/    CI + scheduled pipeline

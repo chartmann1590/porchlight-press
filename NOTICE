@@ -10,3 +10,4 @@ News headlines, excerpts, and linked articles belong to their original
 publishers. Weather data: U.S. National Weather Service and MET Norway.
 Place data: U.S. Census Bureau (public domain) and GeoNames (CC BY 4.0).
 Photos: Wikimedia Commons contributors, under the license shown with each image.
+AI model: Qwen3 (Apache-2.0) by the Qwen team, run locally via llama.cpp; see docs/AI_SETUP.md.
