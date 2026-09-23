@@ -1,0 +1,22 @@
+{
+  "apiVersion": 1,
+  "id": "wamc-northeast-report",
+  "name": "WAMC Northeast Public Radio",
+  "homepage": "https://www.wamc.org/",
+  "feedUrl": "https://www.wamc.org/feed.xml",
+  "type": "rss",
+  "coverage": {
+    "country": "US",
+    "admin1": "US-NY",
+    "admin2": ["Albany County", "Schenectady County", "Rensselaer County", "Saratoga County"],
+    "cities": ["Albany", "Schenectady", "Troy", "Saratoga Springs"],
+    "metro": "us-ny-capital-region"
+  },
+  "rightsMode": "RSS_EXCERPT_ALLOWED",
+  "language": "en",
+  "enabled": true,
+  "priority": 90,
+  "imageRules": {"allowReuse": false, "requireAttribution": true},
+  "notes": "Public broadcaster covering the Capital Region. Fixture sample.",
+  "lastVerified": "2026-09-23"
+}

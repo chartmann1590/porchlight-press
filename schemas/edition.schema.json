@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chartmann1590.github.io/porchlight-press/schemas/edition.schema.json",
+  "title": "Porchlight Press edition",
+  "description": "One newspaper edition (latest/morning/afternoon/evening) for one location.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "editionId", "kind", "generatedAt", "location", "sections", "stories"],
+  "properties": {
+    "apiVersion": {"const": 1},
+    "editionId": {"type": "string", "minLength": 3},
+    "kind": {"enum": ["latest", "morning", "afternoon", "evening"]},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["country", "label"],
+      "properties": {
+        "country": {"type": "string", "pattern": "^[A-Z]{2}$"},
+        "admin1": {"type": "string"},
+        "admin2": {"type": "string"},
+        "city": {"type": "string"},
+        "metro": {"type": "string"},
+        "label": {"type": "string"},
+        "timezone": {"type": "string"}
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "storyIds"],
+        "properties": {
+          "id": {"type": "string"},
+          "title": {"type": "string"},
+          "storyIds": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "stories": {
+      "type": "array",
+      "items": {"type": "object"}
+    }
+  }
+}

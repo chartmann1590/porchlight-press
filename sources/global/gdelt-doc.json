@@ -1,0 +1,22 @@
+{
+  "apiVersion": 1,
+  "id": "gdelt-doc-discovery",
+  "name": "GDELT DOC Discovery",
+  "homepage": "https://www.gdeltproject.org/",
+  "apiUrl": "https://api.gdeltproject.org/api/v2/doc/doc",
+  "type": "gdelt",
+  "coverage": {
+    "country": "US",
+    "admin1": "US-NY",
+    "admin2": ["Albany County", "Schenectady County", "Rensselaer County", "Saratoga County"],
+    "cities": ["Albany", "Schenectady", "Troy", "Saratoga Springs"],
+    "metro": "us-ny-capital-region"
+  },
+  "rightsMode": "METADATA_ONLY",
+  "language": "en",
+  "enabled": true,
+  "priority": 30,
+  "imageRules": {"allowReuse": false, "requireAttribution": false},
+  "notes": "Discovery only: title/domain/url/timestamp. Items stay METADATA_ONLY unless the domain matches a registry entry with a more permissive mode. Queries are derived from coverage. Verified live 2026-09-23.",
+  "lastVerified": "2026-09-23"
+}

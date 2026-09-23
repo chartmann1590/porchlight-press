@@ -1,0 +1,14 @@
+{
+  "apiVersion": 1,
+  "headline": "Council approves downtown project in 5-2 vote",
+  "dek": "Streetscape work is scheduled to begin in spring, officials said.",
+  "body": "The city council voted 5-2 on Monday to approve a downtown revitalization project, according to the reporting sources. City officials said streetscape work is scheduled to begin in spring. Details are developing.",
+  "category": "local",
+  "locations": [{"country": "US", "admin1": "US-NY", "admin2": "Schenectady County", "city": "Schenectady"}],
+  "people": [],
+  "organizations": ["City Council"],
+  "sourceIds": ["wamc-northeast-report"],
+  "generatedAt": "2026-09-23T12:00:00Z",
+  "aiModel": "qwen3-4b-q4_k_m",
+  "confidence": 0.72
+}

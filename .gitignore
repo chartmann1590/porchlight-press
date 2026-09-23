@@ -9,6 +9,8 @@ android/app/google-services.json
 __pycache__/
 .venv/
 .pytest_cache/
+# Pipeline runtime state (ETags, normalized output; Phase 4 persists to pipeline-state branch)
+state/
 # Models
 *.gguf
 # Misc

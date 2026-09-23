@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chartmann1590.github.io/porchlight-press/schemas/source.schema.json",
+  "title": "Porchlight Press source registry entry",
+  "description": "One configured news source. See docs/HOW_TO_ADD_A_SOURCE.md and Plan phase-01.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "id", "name", "homepage", "type", "coverage", "rightsMode", "language", "enabled", "priority"],
+  "anyOf": [
+    {"required": ["feedUrl"]},
+    {"required": ["apiUrl"]}
+  ],
+  "properties": {
+    "apiVersion": {"const": 1},
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "name": {"type": "string", "minLength": 2, "maxLength": 120},
+    "homepage": {"type": "string", "format": "uri"},
+    "feedUrl": {"type": "string", "format": "uri"},
+    "apiUrl": {"type": "string", "format": "uri"},
+    "type": {"enum": ["rss", "atom", "gdelt", "nws-alerts", "json-api"]},
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["country"],
+      "properties": {
+        "country": {"type": "string", "pattern": "^[A-Z]{2}$", "description": "ISO 3166-1 alpha-2"},
+        "admin1": {"type": "string", "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$", "description": "ISO 3166-2, e.g. US-NY"},
+        "admin2": {"type": "array", "items": {"type": "string"}, "description": "Counties/regions, e.g. [\"Schenectady County\"]"},
+        "cities": {"type": "array", "items": {"type": "string"}},
+        "metro": {"type": "string", "description": "e.g. us-ny-capital-region"}
+      }
+    },
+    "rightsMode": {"enum": ["PUBLIC_DOMAIN", "OPEN_LICENSE", "RSS_EXCERPT_ALLOWED", "METADATA_ONLY", "LINK_ONLY", "BLOCKED"]},
+    "license": {"type": "string"},
+    "language": {"type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$", "description": "BCP 47, e.g. en or en-US"},
+    "enabled": {"type": "boolean"},
+    "priority": {"type": "integer", "minimum": 0, "maximum": 100},
+    "imageRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowReuse", "requireAttribution"],
+      "properties": {
+        "allowReuse": {"type": "boolean"},
+        "requireAttribution": {"type": "boolean"}
+      }
+    },
+    "notes": {"type": "string"},
+    "lastVerified": {"type": "string", "format": "date"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"rightsMode": {"const": "OPEN_LICENSE"}}},
+      "then": {"required": ["license"]}
+    }
+  ]
+}

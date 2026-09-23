@@ -1,0 +1,14 @@
+{
+  "apiVersion": 1,
+  "generatedAt": "2026-09-23T10:17:00Z",
+  "editions": [
+    {
+      "id": "us-ny-schenectady-morning",
+      "kind": "morning",
+      "path": "feeds/us/ny/schenectady/morning.json",
+      "updatedAt": "2026-09-23T10:17:00Z",
+      "storyCount": 1,
+      "location": {"country": "US", "admin1": "US-NY", "admin2": "Schenectady County", "city": "Schenectady", "metro": "us-ny-capital-region", "label": "Schenectady, NY"}
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Pipeline flags live here, NOT in Firebase Remote Config (MASTER_PLAN G17).
+# Remote Config (pp_* keys) is client-only. All values have safe defaults so a
+# missing file never breaks a run.
+staleDaysDefault: 7
+requestTimeoutSeconds: 15
+maxBodyBytes: 2097152
+userAgentContact: "me@charleshartman.com"
+feedBaseUrl: "https://chartmann1590.github.io/porchlight-press/"
+features:
+  enableGdelt: true
+  enableNwsAlerts: true
+  aiMaxArticlesPerRun: 50

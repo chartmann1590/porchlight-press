@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Example Gazette</title>
+    <link>https://example.com/</link>
+    <description>Fixture feed</description>
+    <item>
+      <title>Council approves downtown project</title>
+      <link>https://EXAMPLE.com/council-downtown?utm_source=rss&amp;utm_medium=feed#comments</link>
+      <description><![CDATA[<p>Council <b>approved</b> the project 5-2.</p><script>alert('x')</script>]]></description>
+      <pubDate>Mon, 22 Sep 2026 09:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Road closure on Main Street</title>
+      <link>https://example.com/road-closure?fbclid=abc123</link>
+      <description>Single-source closure notice.</description>
+      <pubDate>Mon, 22 Sep 2026 08:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

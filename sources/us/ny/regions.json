@@ -1,0 +1,15 @@
+{
+  "apiVersion": 1,
+  "description": "Metro/region definitions. Regions group counties so editions and ranking can treat them as one coverage area.",
+  "regions": [
+    {
+      "id": "us-ny-capital-region",
+      "label": "Capital Region",
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": ["Albany County", "Schenectady County", "Rensselaer County", "Saratoga County"],
+      "cities": ["Albany", "Schenectady", "Troy", "Saratoga Springs"],
+      "timezone": "America/New_York"
+    }
+  ]
+}

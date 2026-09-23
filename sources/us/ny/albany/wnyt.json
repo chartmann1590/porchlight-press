@@ -1,0 +1,22 @@
+{
+  "apiVersion": 1,
+  "id": "wnyt-newschannel-13",
+  "name": "WNYT NewsChannel 13",
+  "homepage": "https://wnyt.com/",
+  "feedUrl": "https://wnyt.com/feed",
+  "type": "rss",
+  "coverage": {
+    "country": "US",
+    "admin1": "US-NY",
+    "admin2": ["Albany County", "Schenectady County", "Rensselaer County", "Saratoga County"],
+    "cities": ["Albany", "Schenectady", "Troy", "Saratoga Springs"],
+    "metro": "us-ny-capital-region"
+  },
+  "rightsMode": "RSS_EXCERPT_ALLOWED",
+  "language": "en",
+  "enabled": true,
+  "priority": 80,
+  "imageRules": {"allowReuse": false, "requireAttribution": true},
+  "notes": "NBC affiliate, Albany. Commercial: excerpts only, no image reuse. Verified live 2026-09-23.",
+  "lastVerified": "2026-09-23"
+}
