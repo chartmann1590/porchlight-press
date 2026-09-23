@@ -21,11 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # Full history for the changed-sources diff below.
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install dependencies
@@ -72,12 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: reviewdog/action-actionlint@v1
         with:
           fail_level: error
-          # Ignore the upstream Node 20 runner deprecation: every actions/*
-          # pin (including pre-existing files) reports it until GitHub
-          # completes the Node 24 migration (fall 2026). Syntax, expression
-          # and shellcheck findings still fail the job.
-          actionlint_flags: "-ignore 'node20'"

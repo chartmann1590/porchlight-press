@@ -2,13 +2,16 @@ name: news-refresh
 
 # Phase 4: scheduled publication of this open-source project's own static
 # edition files to its own Pages site (MASTER_PLAN section 12). Every 6 hours,
-# never faster. Each run builds feeds via the portable entry point
-# `python -m pipeline.run` (ingest -> process -> AI newsroom -> images ->
-# publish), deploys `public/` to Pages, and commits `state/` to the
-# `pipeline-state` branch. Nothing commercial on GitHub: no ads, no paid
-# tiers. AI step reuses the ai-newsroom model setup (Release shards preferred,
-# Hugging Face fallback, SHA-verified); without a model server every cluster
-# ships as a source card and the run still succeeds.
+# never faster. The run is split so the AI model is picked BEFORE the model
+# server starts (no restart ever needed): the process stage (ingest ->
+# cluster) writes the newsroom queue and model choice into state/, the
+# workflow downloads and serves exactly that model, then the finish stage
+# (newsroom -> images -> publish) labels briefs with it. Afterwards `public/`
+# deploys to Pages and `state/` commits to the `pipeline-state` branch.
+# Nothing commercial on GitHub: no ads, no paid tiers. Model setup reuses the
+# ai-newsroom pattern (Release assets preferred, Hugging Face fallback,
+# SHA-verified); without a model server every cluster ships as a source card
+# and the run still succeeds.
 on:
   schedule:
     # Every 6 hours, off the hour (MASTER_PLAN section 12). NEVER add a
@@ -31,9 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -59,7 +62,7 @@ jobs:
         run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
 
       - name: Cache full gazetteer (monthly)
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ runner.temp }}/geo-full
           key: gazetteer-full-${{ steps.month.outputs.month }}
@@ -78,7 +81,15 @@ jobs:
           fi
           ls -lh "${{ runner.temp }}/geo-full/" || true
 
-      - name: Resolve model from models.lock
+      - name: Run processing stage (ingest -> cluster -> model choice)
+        run: |
+          python -m pipeline.run --stage process --state-dir state \
+            --places "${{ runner.temp }}/geo-full/geo-places.json" \
+            --postal-places "${{ runner.temp }}/geo-full/geo-postal.json" \
+            --summary-file "$GITHUB_STEP_SUMMARY"
+          echo "MODEL_CHOICE=$(cat state/model-choice.txt)" >> "$GITHUB_ENV"
+
+      - name: Resolve models from models.lock
         id: lock
         run: |
           python3 - <<'EOF'
@@ -86,7 +97,8 @@ jobs:
           import os
 
           lock = json.load(open('pipeline/ai/models.lock'))
-          big = lock['models']['Qwen3-4B-Q4_K_M']
+          primary = lock['models']['Qwen3-4B-Q4_K_M']
+          fallback = lock['models']['Qwen3-1.7B-Q8_0']
 
           def emit(name, value):
               with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
@@ -94,41 +106,82 @@ jobs:
 
           emit('tag', lock['release']['tag'])
           emit('llama_tag', lock['llamaCppTag'])
-          emit('file', big['file'])
-          emit('sha', big['sha256'])
-          emit('url', big['huggingFace'])
-          emit('size', str(big['sizeBytes']))
-          emit('shard_prefix', big['file'][: -len('.gguf')])
+          emit('primary_file', primary['file'])
+          emit('primary_sha', primary['sha256'])
+          emit('primary_url', primary['huggingFace'])
+          emit('fallback_file', fallback['file'])
+          emit('fallback_sha', fallback['sha256'])
+          emit('fallback_url', fallback['huggingFace'])
+          emit('shard_prefix', primary['file'][: -len('.gguf')])
           EOF
 
-      - name: Cache model
-        uses: actions/cache@v4
+      - name: Select the chosen model (MASTER_PLAN section 11)
+        id: model
+        run: |
+          python3 - <<'EOF'
+          import json
+          import os
+
+          choice = os.environ['MODEL_CHOICE'].strip()
+          lock = json.load(open('pipeline/ai/models.lock'))
+          entry = lock['models'][choice]
+          out = os.environ['GITHUB_OUTPUT']
+          with open(out, 'a') as fh:
+              fh.write(f"choice={choice}\n")
+              fh.write(f"file={entry['file']}\n")
+              fh.write(f"sha={entry['sha256']}\n")
+              fh.write(f"url={entry['huggingFace']}\n")
+              assets = entry.get('releaseAssets', [])
+              if isinstance(assets, list) and len(assets) > 1:
+                  fh.write("sharded=true\n")
+                  fh.write(f"shard_prefix={entry['file'][: -len('.gguf')]}\n")
+              else:
+                  fh.write("sharded=false\n")
+                  fh.write("shard_prefix=\n")
+          print(f"serving {choice} ({entry['file']})")
+          EOF
+
+      - name: Cache models (both; only the chosen one downloads)
+        uses: actions/cache@v6
         with:
           path: ~/.cache/newspaper-models
-          key: model-${{ steps.lock.outputs.file }}-${{ steps.lock.outputs.sha }}
+          key: model-4B-${{ steps.lock.outputs.primary_sha }}-1.7B-${{ steps.lock.outputs.fallback_sha }}
 
-      - name: Download model (our Release, fallback Hugging Face, verify SHA)
+      - name: Download the chosen model (Release, fallback Hugging Face, verify SHA)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p ~/.cache/newspaper-models
           cd ~/.cache/newspaper-models
-          if [ ! -f "${{ steps.lock.outputs.file }}" ]; then
-            if gh release download "${{ steps.lock.outputs.tag }}" -R "${{ github.repository }}" \
-              -p "${{ steps.lock.outputs.shard_prefix }}-*.gguf" 2>/dev/null; then
-              echo "using Release shards"
+          if [ "${{ steps.model.outputs.sharded }}" = "true" ]; then
+            if ls "${{ steps.model.outputs.shard_prefix }}"-*.gguf >/dev/null 2>&1; then
+              echo "shards already cached"
             else
-              curl -fL --retry 3 -o "${{ steps.lock.outputs.file }}" "${{ steps.lock.outputs.url }}"
+              if gh release download "${{ steps.lock.outputs.tag }}" -R "${{ github.repository }}" \
+                -p "${{ steps.model.outputs.shard_prefix }}-*.gguf" 2>/dev/null; then
+                echo "using Release shards"
+              else
+                curl -fL --retry 3 -o "${{ steps.model.outputs.file }}" "${{ steps.model.outputs.url }}"
+              fi
+            fi
+          else
+            if [ ! -f "${{ steps.model.outputs.file }}" ]; then
+              if gh release download "${{ steps.lock.outputs.tag }}" -R "${{ github.repository }}" \
+                -p "${{ steps.model.outputs.file }}" 2>/dev/null; then
+                echo "using Release asset"
+              else
+                curl -fL --retry 3 -o "${{ steps.model.outputs.file }}" "${{ steps.model.outputs.url }}"
+              fi
             fi
           fi
           ls -lh
-          if ls "${{ steps.lock.outputs.shard_prefix }}"-*.gguf >/dev/null 2>&1; then
-            if python3 - "$GITHUB_WORKSPACE/pipeline/ai/models.lock" <<'EOF'
+          if ls "${{ steps.model.outputs.shard_prefix }}"-*.gguf >/dev/null 2>&1; then
+            if python3 - "$GITHUB_WORKSPACE/pipeline/ai/models.lock" "${{ steps.model.outputs.choice }}" <<'EOF'
           import hashlib
           import json
           import sys
           lock = json.load(open(sys.argv[1]))
-          assets = lock['models']['Qwen3-4B-Q4_K_M']['releaseAssets']
+          assets = lock['models'][sys.argv[2]]['releaseAssets']
           bad = [a['file'] for a in assets
                  if hashlib.sha256(open(a['file'], 'rb').read()).hexdigest() != a['sha256']]
           if bad:
@@ -137,18 +190,18 @@ jobs:
           print("shard SHAs verified against models.lock")
           EOF
             then
-              echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.shard_prefix }}-00001-of-00002.gguf" >> "$GITHUB_ENV"
+              echo "MODEL_PATH=$PWD/${{ steps.model.outputs.shard_prefix }}-00001-of-00002.gguf" >> "$GITHUB_ENV"
               echo "split shards present and verified"
             else
               echo "shard verification failed; falling back to Hugging Face single file"
-              rm -f "${{ steps.lock.outputs.shard_prefix }}"-*.gguf
-              curl -fL --retry 3 -o "${{ steps.lock.outputs.file }}" "${{ steps.lock.outputs.url }}"
-              echo "${{ steps.lock.outputs.sha }}  ${{ steps.lock.outputs.file }}" | sha256sum -c -
-              echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.file }}" >> "$GITHUB_ENV"
+              rm -f "${{ steps.model.outputs.shard_prefix }}"-*.gguf
+              curl -fL --retry 3 -o "${{ steps.model.outputs.file }}" "${{ steps.model.outputs.url }}"
+              echo "${{ steps.model.outputs.sha }}  ${{ steps.model.outputs.file }}" | sha256sum -c -
+              echo "MODEL_PATH=$PWD/${{ steps.model.outputs.file }}" >> "$GITHUB_ENV"
             fi
           else
-            echo "${{ steps.lock.outputs.sha }}  ${{ steps.lock.outputs.file }}" | sha256sum -c -
-            echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.file }}" >> "$GITHUB_ENV"
+            echo "${{ steps.model.outputs.sha }}  ${{ steps.model.outputs.file }}" | sha256sum -c -
+            echo "MODEL_PATH=$PWD/${{ steps.model.outputs.file }}" >> "$GITHUB_ENV"
           fi
 
       - name: Download llama.cpp (prebuilt CPU, no source build)
@@ -173,22 +226,23 @@ jobs:
           cat /tmp/server.log || true
           exit 0
 
-      - name: Run the pipeline (ingest -> process -> AI -> images -> publish)
+      - name: Run finishing stage (AI newsroom -> images -> publish)
         run: |
-          python -m pipeline.run --out public --state-dir state \
+          python -m pipeline.run --stage finish --state-dir state --out public \
             --places "${{ runner.temp }}/geo-full/geo-places.json" \
             --postal-places "${{ runner.temp }}/geo-full/geo-postal.json" \
+            --model "$(cat state/model-choice.txt)" \
             --summary-file "$GITHUB_STEP_SUMMARY"
           touch public/.nojekyll
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: public
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: Record deploy URL
         run: |
@@ -216,7 +270,7 @@ jobs:
               "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}"
           fi
           mkdir -p "$STATE_TMP/state/share"
-          for f in clusters.json http-state.json stories.json normalized.json geo-places.json geo-postal.json; do
+          for f in clusters.json http-state.json stories.json normalized.json model-choice.txt queue.json geo-places.json geo-postal.json; do
             if [ -f "state/$f" ]; then
               cp "state/$f" "$STATE_TMP/state/$f"
             fi

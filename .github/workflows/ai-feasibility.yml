@@ -27,7 +27,7 @@ jobs:
             repo: Qwen/Qwen3-4B-GGUF
             file: Qwen3-4B-Q4_K_M.gguf
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Runner hardware
         run: |
@@ -35,7 +35,7 @@ jobs:
           lscpu | grep -E 'Model name|Flags' | cut -c1-200
 
       - name: Cache model
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/models
           key: model-${{ matrix.file }}
@@ -60,7 +60,7 @@ jobs:
           export LD_LIBRARY_PATH="$LLAMA_DIR:$LD_LIBRARY_PATH"
           nohup "$LLAMA_DIR/llama-server" -m ~/models/${{ matrix.file }} --jinja -c 4096 -np 1 \
             -t "$(nproc)" --host 127.0.0.1 --port 8080 > /tmp/server.log 2>&1 &
-          for i in $(seq 1 120); do
+          for _ in $(seq 1 120); do
             curl -sf http://127.0.0.1:8080/health && exit 0
             sleep 2
           done
@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ai-feasibility-${{ matrix.name }}
           path: |
