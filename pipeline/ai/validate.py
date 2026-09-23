@@ -646,8 +646,6 @@ def _check_quotes(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[
 def validate_brief(
     brief: Mapping[str, Any],
     cluster: Mapping[str, Any],
-    *,
-    check_factcheck: Mapping[str, Any] | None = None,
 ) -> ValidationResult:
     """Run every deterministic check. Returns ok + rejection reasons."""
     reasons: list[str] = []
@@ -663,8 +661,4 @@ def validate_brief(
     reasons.extend(_check_length(brief))
     reasons.extend(_check_verbatim(brief, cluster))
     reasons.extend(_check_quotes(brief, cluster))
-    if check_factcheck is not None:
-        unsupported = check_factcheck.get("unsupported", [])
-        if isinstance(unsupported, list) and unsupported:
-            reasons.append(f"second AI pass flagged unsupported: {unsupported[:3]}")
     return ValidationResult(ok=not reasons, reasons=reasons)

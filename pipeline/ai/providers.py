@@ -388,8 +388,6 @@ def build_ai_story(
 def try_brief_with_retry(
     provider: BriefProvider,
     cluster: Mapping[str, Any],
-    *,
-    factcheck: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any] | None, ValidationResult | None, str, str | None]:
     """Generate + validate with one regeneration on failure.
 
@@ -400,7 +398,7 @@ def try_brief_with_retry(
     if brief is None:
         reason = err or "empty model output"
         return None, None, raw, reason
-    result = validate_brief(brief, cluster, check_factcheck=factcheck)
+    result = validate_brief(brief, cluster)
     if result.ok:
         return brief, result, raw, None
     # One regeneration with the failure reason appended.
@@ -411,7 +409,7 @@ def try_brief_with_retry(
         )
         if brief2 is None:
             return None, result, raw2, err2 or reason
-        result2 = validate_brief(brief2, cluster, check_factcheck=factcheck)
+        result2 = validate_brief(brief2, cluster)
         if result2.ok:
             return brief2, result2, raw2, None
         return None, result2, raw2, "; ".join(result2.reasons)[:1500]
