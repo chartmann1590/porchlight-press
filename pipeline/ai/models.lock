@@ -1,0 +1,34 @@
+{
+  "_comment": "Qwen3 GGUF model lock (Phase 3). Verified 2026-09-23 via Hugging Face API (LFS oids are SHA-256 of file content). Workflow verifies downloads against these hashes. Binaries are never committed (*.gguf gitignored).",
+  "apiVersion": 1,
+  "release": {
+    "repo": "chartmann1590/porchlight-press",
+    "tag": "model-qwen3",
+    "note": "Mirrored by .github/workflows/mirror-models.yml (Actions > mirror-models > Run workflow; idempotent, see docs/AI_SETUP.md). 4B exceeds GitHub's 2 GB per-asset limit, so it is split with llama-gguf-split --split --split-max-size 1900M. llama-server -m <first shard> loads split files natively."
+  },
+  "llamaCppTag": "b11138",
+  "models": {
+    "Qwen3-4B-Q4_K_M": {
+      "role": "primary",
+      "file": "Qwen3-4B-Q4_K_M.gguf",
+      "sizeBytes": 2497280256,
+      "sha256": "7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5",
+      "huggingFace": "https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf",
+      "license": "Apache-2.0",
+      "releaseAssets": [
+        "Qwen3-4B-Q4_K_M-00001-of-00002.gguf",
+        "Qwen3-4B-Q4_K_M-00002-of-00002.gguf"
+      ],
+      "releaseAssetNote": "Shard SHA-256 values are recorded here from the mirror-models run summary on the next docs pass; until then the workflow falls back to Hugging Face and verifies the single-file sha256 above."
+    },
+    "Qwen3-1.7B-Q8_0": {
+      "role": "fallback (whole run switches to this when more than ~50 clusters are queued)",
+      "file": "Qwen3-1.7B-Q8_0.gguf",
+      "sizeBytes": 1834426016,
+      "sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+      "huggingFace": "https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/resolve/main/Qwen3-1.7B-Q8_0.gguf",
+      "license": "Apache-2.0",
+      "releaseAssets": ["Qwen3-1.7B-Q8_0.gguf"]
+    }
+  }
+}
