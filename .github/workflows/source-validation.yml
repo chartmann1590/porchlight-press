@@ -1,0 +1,35 @@
+name: source-validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Validate schemas + registry fixtures
+        run: python scripts/validate_schemas.py
+      - name: Validate source registry
+        run: python -m pipeline.sources validate
+      - name: Run pipeline tests (offline)
+        run: python -m pytest tests/ -q
+      - name: Ingest smoke test (live feeds)
+        # Exercises the Phase 1 exit criterion in CI. Individual feed
+        # failures are non-fatal by design, so this stays green as long as
+        # the pipeline itself works. The pipeline knows nothing about
+        # GitHub: the workflow passes its summary path as a plain argument.
+        run: >
+          python -m pipeline.ingest
+          --out "${{ runner.temp }}/normalized.json"
+          --state "${{ runner.temp }}/http-state.json"
+          --summary-file "$GITHUB_STEP_SUMMARY"

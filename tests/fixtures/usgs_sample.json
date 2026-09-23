@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "metadata": {"title": "USGS M4.5+ past day"}, "features": [{"type": "Feature", "properties": {"mag": 5.1, "place": "100 km off the coast", "time": 1789944000000, "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000fake", "title": "M 5.1 - 100 km off the coast"}}]}

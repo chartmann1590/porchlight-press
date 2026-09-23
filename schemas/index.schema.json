@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chartmann1590.github.io/porchlight-press/schemas/index.schema.json",
+  "title": "Porchlight Press feed index",
+  "description": "Lets the app resolve a user location to a feed path (city -> county -> metro -> state -> national).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "generatedAt", "editions"],
+  "properties": {
+    "apiVersion": {"const": 1},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "editions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "path", "location", "updatedAt"],
+        "properties": {
+          "id": {"type": "string"},
+          "kind": {"enum": ["latest", "morning", "afternoon", "evening"]},
+          "path": {"type": "string", "pattern": "^feeds/.*\\.json$"},
+          "updatedAt": {"type": "string", "format": "date-time"},
+          "storyCount": {"type": "integer", "minimum": 0},
+          "location": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["country", "label"],
+            "properties": {
+              "country": {"type": "string", "pattern": "^[A-Z]{2}$"},
+              "admin1": {"type": "string"},
+              "admin2": {"type": "string"},
+              "city": {"type": "string"},
+              "metro": {"type": "string"},
+              "label": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

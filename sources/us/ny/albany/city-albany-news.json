@@ -1,0 +1,22 @@
+{
+  "apiVersion": 1,
+  "id": "city-albany-news",
+  "name": "City of Albany News Flash",
+  "homepage": "https://www.albanyny.gov/CivicAlerts.aspx",
+  "feedUrl": "https://www.albanyny.gov/RSSFeed.aspx?ModID=1&CID=All-newsflash.xml",
+  "type": "rss",
+  "coverage": {
+    "country": "US",
+    "admin1": "US-NY",
+    "admin2": ["Albany County"],
+    "cities": ["Albany"],
+    "metro": "us-ny-capital-region"
+  },
+  "rightsMode": "RSS_EXCERPT_ALLOWED",
+  "language": "en",
+  "enabled": true,
+  "priority": 85,
+  "imageRules": {"allowReuse": false, "requireAttribution": true},
+  "notes": "Official City of Albany news (CivicPlus News Flash). Municipal content: excerpts only, no image reuse. Verified live 2026-09-23.",
+  "lastVerified": "2026-09-23"
+}

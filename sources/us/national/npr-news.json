@@ -1,0 +1,16 @@
+{
+  "apiVersion": 1,
+  "id": "npr-news",
+  "name": "NPR News",
+  "homepage": "https://www.npr.org/",
+  "feedUrl": "https://feeds.npr.org/1001/rss.xml",
+  "type": "rss",
+  "coverage": {"country": "US"},
+  "rightsMode": "RSS_EXCERPT_ALLOWED",
+  "language": "en",
+  "enabled": true,
+  "priority": 60,
+  "imageRules": {"allowReuse": false, "requireAttribution": true},
+  "notes": "National public radio. Excerpts only, no image reuse. Verified live 2026-09-23.",
+  "lastVerified": "2026-09-23"
+}

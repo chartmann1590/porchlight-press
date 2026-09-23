@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Example Atom</title>
+  <link href="https://example.com/"/>
+  <updated>2026-09-22T09:00:00Z</updated>
+  <entry>
+    <title>Overnight fire damages apartments</title>
+    <link href="https://example.com/fire?utm_campaign=news&amp;gclid=xyz"/>
+    <summary>Crews battled an overnight blaze.</summary>
+    <updated>2026-09-22T07:30:00Z</updated>
+  </entry>
+  <entry>
+    <title>Budget vote scheduled Tuesday</title>
+    <link href="https://example.com/budget/amp"/>
+    <content type="html">&lt;p&gt;The board meets &amp;nbsp; Tuesday.&lt;/p&gt;</content>
+    <updated>2026-09-22T06:00:00Z</updated>
+  </entry>
+</feed>

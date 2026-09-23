@@ -1,0 +1,39 @@
+{
+  "apiVersion": 1,
+  "id": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4",
+  "headline": "City council approves downtown revitalization project",
+  "dek": "The 5-2 vote funds streetscape work set to begin in spring.",
+  "body": "The city council voted 5-2 on Monday to approve a downtown revitalization project. City officials said work begins in spring. AI-written brief from Porchlight Press.",
+  "category": "local",
+  "publishedAt": "2026-09-23T10:00:00Z",
+  "updatedAt": "2026-09-23T10:00:00Z",
+  "generatedAt": "2026-09-23T12:00:00Z",
+  "aiGenerated": true,
+  "aiModel": "qwen3-4b-q4_k_m",
+  "version": 1,
+  "revisions": [{"version": 1, "updatedAt": "2026-09-23T12:00:00Z"}],
+  "confidenceTier": "medium",
+  "breaking": false,
+  "tags": ["city-council", "downtown"],
+  "locations": [
+    {"country": "US", "admin1": "US-NY", "admin2": "Schenectady County", "city": "Schenectady", "metro": "us-ny-capital-region"}
+  ],
+  "image": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/example.jpg",
+    "creator": "Jane Smith",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Example.jpg",
+    "attribution": "Photo: Jane Smith / Wikimedia Commons — CC BY-SA 4.0"
+  },
+  "sources": [
+    {
+      "publisher": "Example Gazette",
+      "headline": "Council OKs downtown project",
+      "url": "https://example.com/council-downtown",
+      "publishedAt": "2026-09-23T09:00:00Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "excerpt": "Council approved the downtown project 5-2."
+    }
+  ]
+}
