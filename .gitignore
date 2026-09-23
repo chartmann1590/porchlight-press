@@ -1,0 +1,18 @@
+# Android
+.gradle/
+build/
+local.properties
+*.jks
+*.keystore
+android/app/google-services.json
+# Python
+__pycache__/
+.venv/
+.pytest_cache/
+# Models
+*.gguf
+# Misc
+.claude/
+firebase-debug.log
+.DS_Store
+Plan/
