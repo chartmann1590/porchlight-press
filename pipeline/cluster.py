@@ -11,9 +11,12 @@ the older ID survives and the other is recorded as an alias.
 from __future__ import annotations
 
 import hashlib
+import logging
 import re
 from datetime import datetime, timezone
 from typing import Any, Mapping
+
+logger = logging.getLogger(__name__)
 
 DEFAULT_WINDOW_HOURS = 72
 DEFAULT_THRESHOLD = 0.45
@@ -132,7 +135,8 @@ def _tfidf_cosine(texts: list[str]):
         mat = vec.fit_transform(texts)
         sim = (mat * mat.T).toarray()
         return sim
-    except ValueError:
+    except Exception as e:
+        logger.exception("TF-IDF cosine computation failed: %s", e)
         return np.zeros((len(texts), len(texts)))
 
 
