@@ -252,8 +252,9 @@ def main(argv: list[str] | None = None) -> int:
                     if fc is not None and fc.get("unsupported"):
                         n_rejected += 1
                         rejection_log.append(f"{eid}: factcheck: {fc['unsupported'][:2]}")
-                        brief = None
-                        err = f"factcheck unsupported: {fc['unsupported'][:2]}"
+                        stories.append(cards.build_card(cluster, sources_by_id))
+                        n_cards += 1
+                        continue
                 if brief is not None:
                     story = build_ai_story(brief, cluster, model_name=model_name, now=datetime.now(timezone.utc))
                     stories.append(story)
