@@ -11,7 +11,6 @@ path as a plain CLI argument.
 from __future__ import annotations
 
 import argparse
-import inspect
 import json
 import sys
 from datetime import datetime, timezone
@@ -29,17 +28,10 @@ def _load_state(path: Path) -> dict:
     return {}
 
 
-def _fetch(provider, source, http_state: dict):
-    """Call fetch() with HTTP state where the provider accepts it."""
-    if "http_state" in inspect.signature(provider.fetch).parameters:
-        return provider.fetch(source, http_state)
-    return provider.fetch(source)
-
-
 def main(argv: list[str] | None = None) -> int:
     from .config import load_config
     from .normalize import normalize_item
-    from .providers import ProviderError, get_provider, load_sources
+    from .providers import ProviderError, fetch_with_state, get_provider, load_sources
     from .providers.http import build_client
     from .rights import is_ingestible
 
@@ -83,7 +75,7 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             checked += 1
             try:
-                raw_items = _fetch(get_provider(str(source["type"]), deps), source, http_state)
+                raw_items = fetch_with_state(get_provider(str(source["type"]), deps), source, http_state)
             except ProviderError as exc:
                 failures.append(f"{sid}: {exc.kind}")
                 continue

@@ -10,7 +10,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Mapping
 from urllib.parse import urlparse
 
-from .providers import ProviderError, get_provider
+from .providers import ProviderError, fetch_with_state, get_provider
 from .rights import RIGHTS_MODES
 
 
@@ -47,10 +47,7 @@ def check_source(
     try:
         provider = get_provider(str(source["type"]), deps)
         http_state: dict[str, Any] = {}
-        try:
-            items = provider.fetch(source, http_state)
-        except TypeError:
-            items = provider.fetch(source)
+        items = fetch_with_state(provider, source, http_state)
     except ProviderError as exc:
         health.issues.append(f"{exc.kind}: {exc.detail[:200]}")
         health.ok = False

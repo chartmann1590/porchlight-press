@@ -1,6 +1,7 @@
 """SourceProvider protocol, RawItem, registry loading and provider dispatch."""
 from __future__ import annotations
 
+import inspect
 import json
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -60,6 +61,20 @@ def provider_error_from_http(
             or "provider asked for fewer requests; back off and retry next run",
         )
     return ProviderError(source_id, "http", str(exc)[:300])
+
+
+def fetch_with_state(provider, source: Mapping[str, Any], http_state: dict):
+    """Call fetch() with HTTP state where the provider accepts it.
+
+    Single dispatch helper shared by ingest and health: providers that
+    declare an ``http_state`` parameter (e.g. RSS conditional-GET state)
+    receive it, the rest are called with just the source. Detected via
+    inspect.signature so a real TypeError inside a provider is never
+    swallowed the way a try/except-TypeError fallback would.
+    """
+    if "http_state" in inspect.signature(provider.fetch).parameters:
+        return provider.fetch(source, http_state)
+    return provider.fetch(source)
 
 
 def load_sources(sources_dir: str | Path) -> list[dict[str, Any]]:
