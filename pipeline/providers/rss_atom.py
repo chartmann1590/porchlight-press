@@ -74,6 +74,10 @@ class RssAtomProvider:
             http_state[sid] = {
                 "etag": resp.headers.get("ETag", ""),
                 "lastModified": resp.headers.get("Last-Modified", ""),
+                "finalUrl": str(resp.url),
+                "permanentRedirect": any(
+                    r.status_code in (301, 308) for r in resp.history
+                ),
             }
         if resp.status_code == 304:
             return []

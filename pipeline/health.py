@@ -1,7 +1,7 @@
 """Source health: dead/invalid/stale/redirected feeds, registry problems.
 
-One failing source never fails the run; failures are summarized for
-$GITHUB_STEP_SUMMARY by the ingest CLI.
+One failing source never fails the run; failures are reported to the caller,
+and the ingest CLI can append them to a summary file (--summary-file).
 """
 from __future__ import annotations
 
@@ -46,7 +46,11 @@ def check_source(
 
     try:
         provider = get_provider(str(source["type"]), deps)
-        items = provider.fetch(source)
+        http_state: dict[str, Any] = {}
+        try:
+            items = provider.fetch(source, http_state)
+        except TypeError:
+            items = provider.fetch(source)
     except ProviderError as exc:
         health.issues.append(f"{exc.kind}: {exc.detail[:200]}")
         health.ok = False
@@ -57,6 +61,11 @@ def check_source(
         return health
 
     health.item_count = len(items)
+    slot = http_state.get(sid, {})
+    if slot.get("permanentRedirect") and slot.get("finalUrl"):
+        health.issues.append(
+            f"permanent-redirect: configured feed now resolves to {slot['finalUrl'][:160]}"
+        )
     if not items:
         health.issues.append("empty: feed returned no usable items")
         return health

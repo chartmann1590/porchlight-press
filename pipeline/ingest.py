@@ -1,15 +1,17 @@
 """Ingest CLI: fetch all enabled sources, normalize, write items JSON.
 
     python -m pipeline.ingest [--out FILE] [--sources-dir DIR] [--state FILE]
+        [--summary-file PATH]
 
 One failing source never fails the run. Prints structured counters and, when
-$GITHUB_STEP_SUMMARY is set, appends a source-health summary for Actions.
+--summary-file is given, appends a source-health summary there. The pipeline
+itself knows nothing about CI systems: a workflow passes its own summary
+path as a plain CLI argument.
 """
 from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -46,6 +48,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--sources-dir", default=str(ROOT / "sources"))
     parser.add_argument("--state", default="state/http-state.json")
     parser.add_argument("--config", default=None)
+    parser.add_argument(
+        "--summary-file",
+        default=None,
+        help="Append a Markdown source-health summary to PATH (e.g. a CI step summary).",
+    )
     args = parser.parse_args(argv)
 
     cfg = load_config(args.config)
@@ -108,7 +115,7 @@ def main(argv: list[str] | None = None) -> int:
     for f in failures:
         print(f"  FAIL {f}")
 
-    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    summary_path = args.summary_file
     if summary_path:
         with open(summary_path, "a", encoding="utf-8") as fh:
             fh.write("## Source health\n\n")

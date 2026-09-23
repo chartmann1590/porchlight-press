@@ -13,6 +13,7 @@ def test_seed_registry_validates_and_has_test_market():
     assert check_registry(sources) == []
     ids = {s["id"] for s in sources}
     assert {"wamc-northeast-report", "wnyt-newschannel-13", "wten-news10",
+            "city-schenectady-news", "city-schenectady-alerts", "city-albany-news",
             "nws-albany-alerts", "npr-news", "usgs-earthquakes",
             "bbc-world", "gdelt-doc-discovery"} <= ids
     # every committed seed URL was verified live before committing

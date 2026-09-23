@@ -66,12 +66,17 @@ pipeline never hardcode a city; they read this tree.
 Rules of thumb:
 
 - Government/public feeds (NWS, USGS): `PUBLIC_DOMAIN`.
+- Municipal feeds (e.g. City of Schenectady / Albany News Flash): `RSS_EXCERPT_ALLOWED`
+  (NY municipalities retain copyright; excerpt + link). CivicPlus-powered city
+  sites list per-category feeds on their `/Rss.aspx` page — use the
+  `RSSFeed.aspx?ModID=…&CID=…` URL for the category you want.
 - Public broadcasters, commercial outlets with RSS summaries: `RSS_EXCERPT_ALLOWED`.
 - GDELT-discovered domains you have no agreement with: `METADATA_ONLY`.
 - An outlet with no fetchable feed (bot-walled, e.g. the Daily Gazette and
-  CBS6 Albany at seed time — both rate-limit automated fetches): do **not**
-  commit a dead URL. Leave it out and note it in your PR; add it once a live
-  feed or API endpoint is confirmed.
+  CBS6 Albany at seed time — both rate-limit automated fetches; Spotlight News
+  and the county sites publish no feed at all): do **not** commit a dead URL.
+  Leave it out and note it in your PR; add it once a live feed or API endpoint
+  is confirmed.
 - `OPEN_LICENSE` requires the `license` string (e.g. `CC BY 4.0`).
 
 The pipeline truncates excerpts per this table automatically; `METADATA_ONLY`
@@ -86,5 +91,7 @@ python -m pipeline.sources check <your-id>
 ```
 
 `check` fetches the feed once and prints the first items — the URL must be
-live before you commit. CI runs `validate` plus the offline test suite on
-every PR; it does not hit the network.
+live before you commit. CI runs `validate` plus the test suite on every PR,
+then a live ingest smoke test (`pipeline.ingest --summary-file
+"$GITHUB_STEP_SUMMARY"`); individual feed failures there are non-fatal by
+design, so a sick feed never blocks a PR — file a fix instead.
