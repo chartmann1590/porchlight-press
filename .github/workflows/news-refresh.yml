@@ -114,10 +114,12 @@ jobs:
           mkdir -p ~/.cache/newspaper-models
           cd ~/.cache/newspaper-models
           if [ ! -f "${{ steps.lock.outputs.file }}" ]; then
-            gh release download "${{ steps.lock.outputs.tag }}" -R "${{ github.repository }}" \
-              -p "${{ steps.lock.outputs.shard_prefix }}-*.gguf" 2>/dev/null && \
-            echo "using Release shards" || \
-            curl -fL --retry 3 -o "${{ steps.lock.outputs.file }}" "${{ steps.lock.outputs.url }}"
+            if gh release download "${{ steps.lock.outputs.tag }}" -R "${{ github.repository }}" \
+              -p "${{ steps.lock.outputs.shard_prefix }}-*.gguf" 2>/dev/null; then
+              echo "using Release shards"
+            else
+              curl -fL --retry 3 -o "${{ steps.lock.outputs.file }}" "${{ steps.lock.outputs.url }}"
+            fi
           fi
           ls -lh
           if ls "${{ steps.lock.outputs.shard_prefix }}"-*.gguf >/dev/null 2>&1; then
@@ -142,7 +144,7 @@ jobs:
           export LD_LIBRARY_PATH="$LLAMA_DIR:$LD_LIBRARY_PATH"
           nohup "$LLAMA_DIR/llama-server" -m "$MODEL_PATH" --jinja -c 4096 -np 1 \
             -t "$(nproc)" --host 127.0.0.1 --port 8080 > /tmp/server.log 2>&1 &
-          for i in $(seq 1 120); do
+          for _ in $(seq 1 120); do
             curl -sf http://127.0.0.1:8080/health && exit 0
             sleep 2
           done
@@ -194,7 +196,9 @@ jobs:
           fi
           mkdir -p "$STATE_TMP/state/share"
           for f in clusters.json http-state.json stories.json normalized.json geo-places.json geo-postal.json; do
-            [ -f "state/$f" ] && cp "state/$f" "$STATE_TMP/state/$f" || true
+            if [ -f "state/$f" ]; then
+              cp "state/$f" "$STATE_TMP/state/$f"
+            fi
           done
           if [ -d state/share ]; then
             rm -f "$STATE_TMP/state/share/"*.html || true

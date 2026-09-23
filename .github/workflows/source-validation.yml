@@ -66,10 +66,18 @@ jobs:
 
   lint-workflows:
     # actionlint on all workflows (Phase 4 exit criteria).
+    permissions:
+      contents: read
+      checks: write
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: reviewdog/action-actionlint@v1
         with:
-          fail_on_error: true
+          fail_level: error
+          # Ignore the upstream Node 20 runner deprecation: every actions/*
+          # pin (including pre-existing files) reports it until GitHub
+          # completes the Node 24 migration (fall 2026). Syntax, expression
+          # and shellcheck findings still fail the job.
+          actionlint_flags: "-ignore 'node20'"
