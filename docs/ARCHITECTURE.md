@@ -36,7 +36,10 @@ RSS/Atom + GDELT + NWS alerts
   -> pipeline/normalize.py (canonicalize, rights filter)
   -> Phase 2: dedup + cluster + locate + rank
   -> Phase 3: AI brief + validate (or source card)
-  -> Phase 4: static JSON writer -> public/feeds/... + index.json
+  -> Phase 4: images (Commons CC0/PD/BY/BY-SA, relevance-guarded) + static
+     JSON writer -> public/feeds/... + index.json + stories + share pages
+  -> one command: python -m pipeline.run --out public/ (see RUN_ANYWHERE.md)
+  -> GitHub Pages (6-hourly news-refresh) or any static host
   -> Android: Room cache, WorkManager edition sync
   -> Weather on-device: NWS (US) / MET Norway (worldwide)
 ```

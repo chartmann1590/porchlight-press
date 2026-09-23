@@ -1,0 +1,211 @@
+name: news-refresh
+
+# Phase 4: scheduled publication of this open-source project's own static
+# edition files to its own Pages site (MASTER_PLAN section 12). Every 6 hours,
+# never faster. Each run builds feeds via the portable entry point
+# `python -m pipeline.run` (ingest -> process -> AI newsroom -> images ->
+# publish), deploys `public/` to Pages, and commits `state/` to the
+# `pipeline-state` branch. Nothing commercial on GitHub: no ads, no paid
+# tiers. AI step reuses the ai-newsroom model setup (Release shards preferred,
+# Hugging Face fallback, SHA-verified); without a model server every cluster
+# ships as a source card and the run still succeeds.
+on:
+  schedule:
+    # Every 6 hours, off the hour (MASTER_PLAN section 12). NEVER add a
+    # faster schedule: runner load stays ~2-2.5 h/day within GitHub terms.
+    - cron: "17 4,10,16,22 * * *"
+  workflow_dispatch:
+
+# One publication at a time; a running edition is never cancelled.
+concurrency:
+  group: news-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write # state-branch commits
+  pages: write # Pages deploy
+  id-token: write # Pages deploy
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Restore pipeline state (pipeline-state branch)
+        run: |
+          mkdir -p state/share
+          git fetch origin pipeline-state 2>/dev/null || true
+          if git rev-parse --verify origin/pipeline-state >/dev/null 2>&1; then
+            git checkout origin/pipeline-state -- state/ || true
+            echo "restored state from pipeline-state branch"
+          else
+            echo "no pipeline-state branch yet (first run)"
+          fi
+          ls -la state/ || true
+
+      - name: Month stamp (gazetteer cache key)
+        id: month
+        run: echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache full gazetteer (monthly)
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/geo-full
+          key: gazetteer-full-${{ steps.month.outputs.month }}
+
+      - name: Build full gazetteer (CI-time only, never committed)
+        run: |
+          mkdir -p "${{ runner.temp }}/geo-full"
+          if [ -f "${{ runner.temp }}/geo-full/geo-places.json" ]; then
+            echo "gazetteer cache hit, reusing full build"
+          else
+            python scripts/build_gazetteer.py --mode full \
+              --output "${{ runner.temp }}/geo-full/geo-places.json" \
+              --postal-output "${{ runner.temp }}/geo-full/geo-postal.json" \
+              --max-world-cities 2000 \
+              || echo "WARNING: full gazetteer build failed; pipeline falls back to trimmed files"
+          fi
+          ls -lh "${{ runner.temp }}/geo-full/" || true
+
+      - name: Resolve model from models.lock
+        id: lock
+        run: |
+          python3 - <<'EOF'
+          import json
+          import os
+
+          lock = json.load(open('pipeline/ai/models.lock'))
+          big = lock['models']['Qwen3-4B-Q4_K_M']
+
+          def emit(name, value):
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                  fh.write(f"{name}={value}\n")
+
+          emit('tag', lock['release']['tag'])
+          emit('llama_tag', lock['llamaCppTag'])
+          emit('file', big['file'])
+          emit('sha', big['sha256'])
+          emit('url', big['huggingFace'])
+          emit('size', str(big['sizeBytes']))
+          emit('shard_prefix', big['file'][: -len('.gguf')])
+          EOF
+
+      - name: Cache model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/newspaper-models
+          key: model-${{ steps.lock.outputs.file }}-${{ steps.lock.outputs.sha }}
+
+      - name: Download model (our Release, fallback Hugging Face, verify SHA)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p ~/.cache/newspaper-models
+          cd ~/.cache/newspaper-models
+          if [ ! -f "${{ steps.lock.outputs.file }}" ]; then
+            gh release download "${{ steps.lock.outputs.tag }}" -R "${{ github.repository }}" \
+              -p "${{ steps.lock.outputs.shard_prefix }}-*.gguf" 2>/dev/null && \
+            echo "using Release shards" || \
+            curl -fL --retry 3 -o "${{ steps.lock.outputs.file }}" "${{ steps.lock.outputs.url }}"
+          fi
+          ls -lh
+          if ls "${{ steps.lock.outputs.shard_prefix }}"-*.gguf >/dev/null 2>&1; then
+            echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.shard_prefix }}-00001-of-00002.gguf" >> "$GITHUB_ENV"
+            echo "split shards present"
+          else
+            echo "${{ steps.lock.outputs.sha }}  ${{ steps.lock.outputs.file }}" | sha256sum -c -
+            echo "MODEL_PATH=$PWD/${{ steps.lock.outputs.file }}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Download llama.cpp (prebuilt CPU, no source build)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download "${{ steps.lock.outputs.llama_tag }}" -R ggml-org/llama.cpp \
+            -p "llama-${{ steps.lock.outputs.llama_tag }}-bin-ubuntu-x64.tar.gz" -D /tmp
+          mkdir -p ~/llama && tar -xzf /tmp/llama-*.tar.gz -C ~/llama
+          echo "LLAMA_DIR=$(dirname "$(find ~/llama -name llama-server -type f | head -1)")" >> "$GITHUB_ENV"
+
+      - name: Start llama-server (cards-only fallback when unavailable)
+        run: |
+          export LD_LIBRARY_PATH="$LLAMA_DIR:$LD_LIBRARY_PATH"
+          nohup "$LLAMA_DIR/llama-server" -m "$MODEL_PATH" --jinja -c 4096 -np 1 \
+            -t "$(nproc)" --host 127.0.0.1 --port 8080 > /tmp/server.log 2>&1 &
+          for i in $(seq 1 120); do
+            curl -sf http://127.0.0.1:8080/health && exit 0
+            sleep 2
+          done
+          echo "WARNING: llama-server did not start; newsroom falls back to source cards"
+          cat /tmp/server.log || true
+          exit 0
+
+      - name: Run the pipeline (ingest -> process -> AI -> images -> publish)
+        run: |
+          python -m pipeline.run --out public --state-dir state \
+            --places "${{ runner.temp }}/geo-full/geo-places.json" \
+            --postal-places "${{ runner.temp }}/geo-full/geo-postal.json" \
+            --summary-file "$GITHUB_STEP_SUMMARY"
+          touch public/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Record deploy URL
+        run: |
+          {
+            echo "## Deploy"
+            echo ""
+            echo "Pages: ${{ steps.deployment.outputs.page_url }}"
+            echo "Feed: ${{ steps.deployment.outputs.page_url }}feeds/us/ny/schenectady/latest.json"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit state (pipeline-state branch)
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin pipeline-state 2>/dev/null || true
+          STATE_TMP="$(mktemp -d)"
+          if git rev-parse --verify origin/pipeline-state >/dev/null 2>&1; then
+            git clone --branch pipeline-state --depth 1 \
+              "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
+              "$STATE_TMP"
+          else
+            mkdir -p "$STATE_TMP" && git -C "$STATE_TMP" init -b pipeline-state
+            git -C "$STATE_TMP" remote add origin \
+              "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}"
+          fi
+          mkdir -p "$STATE_TMP/state/share"
+          for f in clusters.json http-state.json stories.json normalized.json geo-places.json geo-postal.json; do
+            [ -f "state/$f" ] && cp "state/$f" "$STATE_TMP/state/$f" || true
+          done
+          if [ -d state/share ]; then
+            rm -f "$STATE_TMP/state/share/"*.html || true
+            cp state/share/*.html "$STATE_TMP/state/share/" 2>/dev/null || true
+          fi
+          git -C "$STATE_TMP" add -f state/ || true
+          if git -C "$STATE_TMP" diff --cached --quiet; then
+            echo "no state changes to commit"
+          else
+            git -C "$STATE_TMP" -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "pipeline state $(date -u +%Y-%m-%dT%H:%MZ)"
+            git -C "$STATE_TMP" push origin pipeline-state
+          fi
