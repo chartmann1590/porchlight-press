@@ -55,3 +55,15 @@ ranking:
   duplicatePenalty: 0.10
 state:
   pruneDays: 7
+# Phase 4: static publishing caps (section caps from the plan). Regional is
+# the plan's locality ladder run-off (county/metro); it gets its own cap.
+publish:
+  maxStoriesPerEdition: 30
+  maxLocalArticles: 20
+  maxRegionalArticles: 10
+  maxStateArticles: 10
+  maxNationalArticles: 10
+  maxWorldArticles: 10
+# Phase 4: licensed images (Wikimedia Commons, no publisher hotlinking).
+images:
+  commonsResultsPerQuery: 3

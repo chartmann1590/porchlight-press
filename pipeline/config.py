@@ -27,6 +27,22 @@ DEFAULTS: dict[str, Any] = {
         # when the time budget allows.
         "enableFactCheck": False,
     },
+    # Phase 4: static publishing caps (section caps from the plan:
+    # MAX_LOCAL/STATE/NATIONAL/WORLD_ARTICLES, plus regional which the plan
+    # folds into the locality ladder; regional defaults to its own cap).
+    "publish": {
+        "maxStoriesPerEdition": 30,
+        "maxLocalArticles": 20,
+        "maxRegionalArticles": 10,
+        "maxStateArticles": 10,
+        "maxNationalArticles": 10,
+        "maxWorldArticles": 10,
+    },
+    "images": {
+        # Commons search results considered per query; first confident
+        # title match wins. Higher values cost more API calls.
+        "commonsResultsPerQuery": 3,
+    },
 }
 
 
