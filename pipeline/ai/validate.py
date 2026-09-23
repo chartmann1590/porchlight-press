@@ -1,0 +1,670 @@
+"""Deterministic validation for AI briefs (Phase 3).
+
+Every check is deterministic and offline. Any brief that fails validation
+falls back to the original headline + link (source card). Never publish
+unvalidated text.
+"""
+from __future__ import annotations
+
+import json
+import re
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Mapping
+
+from .prompts import CATEGORY_IDS
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+BRIEF_SCHEMA_PATH = ROOT / "schemas" / "ai-brief.schema.json"
+
+# ---------------------------------------------------------------------------
+# Generic text helpers
+# ---------------------------------------------------------------------------
+
+_WS_RE = re.compile(r"\s+")
+_PUNCT_RE = re.compile(r"[^a-z0-9\s]")
+_WORD_RE = re.compile(r"[a-z0-9]+")
+
+STOPWORDS = frozenset({
+    "a", "an", "the", "and", "or", "but", "of", "at", "on", "in", "to",
+    "for", "with", "by", "from", "up", "out", "as", "is", "are", "was",
+    "were", "be", "been", "after", "before", "over", "under", "into",
+    "says", "say", "said", "new", "this", "that", "these", "those",
+    "it", "its", "they", "them", "their", "his", "her", "our", "your",
+    "will", "would", "could", "should", "has", "have", "had", "than",
+    "then", "when", "where", "which", "who", "whom", "about", "also",
+    "just", "more", "most", "some", "such", "only", "very", "can",
+    "according", "including", "reported", "officials", "official",
+    "while", "during",
+})
+
+# Boilerplate the prompt mandates (uncertainty + disagreement attribution).
+# These are not "unsupported background": they carry no factual claim, so
+# the coverage guard ignores them.
+COVERAGE_SKIP = STOPWORDS | frozenset({
+    "sources", "source", "disagree", "disagrees", "disagreed",
+    "disagreement", "differ", "differs", "differed", "difference",
+    "different", "details", "developing", "information", "unknown",
+    "unclear", "ongoing", "number", "numbers",
+})
+
+_MULTIWORD_RE = re.compile(r"\b([A-Z][a-z]{2,}(?:\s+[A-Z][a-z]{2,})+)\b")
+_NUMBER_RE = re.compile(r"\$?\d[\d,]*(?:\.\d+)?%?")
+_ISO_DATE_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
+_MONTHS = {
+    "january": 1, "february": 2, "march": 3, "april": 4, "may": 5,
+    "june": 6, "july": 7, "august": 8, "september": 9, "october": 10,
+    "november": 11, "december": 12,
+    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "jun": 6,
+    "jul": 7, "aug": 8, "sep": 9, "sept": 9, "oct": 10, "nov": 11, "dec": 12,
+}
+_MONTH_DAY_RE = re.compile(
+    r"\b(January|February|March|April|May|June|July|August|September|October|November|December"
+    r"|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\s+(\d{1,2})(?:\s*,?\s*(\d{4}))?\b",
+    re.IGNORECASE,
+)
+_SLASH_DATE_RE = re.compile(r"\b(\d{1,2})/(\d{1,2})(?:/(\d{2,4}))?\b")
+
+_BANNED_BACKGROUND_PHRASES = (
+    "casualties",
+    "casualty",
+    "still under investigation",
+    "no casualties",
+    "depth under investigation",
+)
+
+AFFECTED_KEYWORDS = frozenset({
+    "affected", "homes", "customers", "residents", "displaced", "service",
+    "people", "households", "without", "evacuated", "injured", "missing",
+    "cases", "deaths", "hospitalized",
+})
+
+
+def _normalize_text(text: str) -> str:
+    return _WS_RE.sub(" ", text.lower()).strip()
+
+
+def _normalize_for_match(text: str) -> str:
+    lowered = text.lower()
+    cleaned = _PUNCT_RE.sub(" ", lowered)
+    return _WS_RE.sub(" ", cleaned).strip()
+
+
+def _content_words(text: str) -> list[str]:
+    tokens = _WORD_RE.findall(text.lower())
+    return [t for t in tokens if len(t) >= 3 and t not in STOPWORDS]
+
+
+def _coverage_words(text: str) -> list[str]:
+    """Content words for the background-coverage guard (boilerplate skipped)."""
+    tokens = _WORD_RE.findall(text.lower())
+    return [t for t in tokens if len(t) >= 3 and t not in COVERAGE_SKIP]
+
+
+def _words_for_verbatim(text: str) -> list[str]:
+    return _WORD_RE.findall(text.lower())
+
+
+@dataclass
+class ValidationResult:
+    ok: bool
+    reasons: list[str] = field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# JSON parsing (parser tests: valid, truncated, extra fields, wrong types)
+# ---------------------------------------------------------------------------
+
+def parse_brief_json(raw: str) -> tuple[dict[str, Any] | None, str | None]:
+    """Parse model output into a dict.
+
+    Returns (brief, None) on success, (None, reason) on failure.
+    Truncated JSON, wrong types (non-object), and empty output all fail
+    here; extra fields and wrong field types parse fine and fail later
+    in schema validation.
+    """
+    if raw is None or not str(raw).strip():
+        return None, "empty model output"
+    text = str(raw).strip()
+    # Tolerate markdown fences from non-grammar fallbacks (grammar output
+    # should be pure JSON, but robustness costs nothing).
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```\s*$", "", text)
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError as exc:
+        return None, f"invalid JSON (truncated or malformed): {exc.msg} at col {exc.colno}"
+    if not isinstance(data, dict):
+        return None, f"wrong top-level type: expected object, got {type(data).__name__}"
+    return data, None
+
+
+def _brief_schema_validator():
+    import jsonschema
+
+    schema = json.loads(BRIEF_SCHEMA_PATH.read_text(encoding="utf-8"))
+    cls = jsonschema.validators.validator_for(schema)
+    cls.check_schema(schema)
+    return cls(schema)
+
+
+# ---------------------------------------------------------------------------
+# Cluster helpers
+# ---------------------------------------------------------------------------
+
+def _members(cluster: Mapping[str, Any]) -> list[dict[str, Any]]:
+    members = cluster.get("members", []) or []
+    return [dict(m) for m in members if isinstance(m, Mapping)]
+
+
+def _member_id_set(cluster: Mapping[str, Any]) -> tuple[set[str], dict[str, dict[str, Any]]]:
+    """All acceptable sourceId spellings + lookup to the member."""
+    ids: set[str] = set()
+    lookup: dict[str, dict[str, Any]] = {}
+    for m in _members(cluster):
+        for key in (m.get("id"), m.get("sourceId"), m.get("url")):
+            if key:
+                s = str(key).strip()
+                if s:
+                    ids.add(s)
+                    lookup.setdefault(s, m)
+                    lookup.setdefault(s.lower(), m)
+    return ids, lookup
+
+
+def source_text_for_cluster(
+    cluster: Mapping[str, Any], *, include_timestamps: bool = True
+) -> str:
+    parts: list[str] = []
+    for m in _members(cluster):
+        parts.append(str(m.get("publisher") or ""))
+        parts.append(str(m.get("headline") or ""))
+        parts.append(str(m.get("excerpt") or ""))
+        if include_timestamps and m.get("publishedAt"):
+            parts.append(str(m.get("publishedAt")))
+    return " ".join(p for p in parts if p)
+
+
+def _source_text_headline_excerpt(cluster: Mapping[str, Any]) -> str:
+    parts: list[str] = []
+    for m in _members(cluster):
+        parts.append(str(m.get("publisher") or ""))
+        parts.append(str(m.get("headline") or ""))
+        parts.append(str(m.get("excerpt") or ""))
+    return " ".join(p for p in parts if p)
+
+
+# ---------------------------------------------------------------------------
+# Individual checks
+# ---------------------------------------------------------------------------
+
+def _check_schema(brief: Mapping[str, Any]) -> list[str]:
+    reasons: list[str] = []
+    # Pipeline fills these when the model omits them; validate the rest.
+    filled = dict(brief)
+    if not filled.get("aiModel"):
+        filled["aiModel"] = "unknown"
+    if not filled.get("generatedAt"):
+        filled["generatedAt"] = "2026-01-01T00:00:00Z"
+    try:
+        validator = _brief_schema_validator()
+    except Exception as exc:  # noqa: BLE001 - schema load failure is a rejection
+        return [f"schema unavailable: {exc}"]
+    for err in validator.iter_errors(filled):
+        path = "/".join(map(str, err.path)) or "(root)"
+        reasons.append(f"schema: {path}: {err.message}")
+    # Category must be in the single taxonomy even if schema drifts.
+    cat = str(brief.get("category") or "")
+    if cat and cat not in CATEGORY_IDS:
+        reasons.append(f"category not in taxonomy: {cat!r}")
+    return reasons
+
+
+def _check_source_ids(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:
+    reasons: list[str] = []
+    members = _members(cluster)
+    if not members:
+        return ["cluster has no members"]
+    for m in members:
+        if not str(m.get("url") or "").strip():
+            reasons.append(f"source missing URL: {m.get('id') or m.get('sourceId') or '?'}")
+    cited = brief.get("sourceIds", [])
+    if not isinstance(cited, list) or not cited:
+        return reasons + ["sourceIds must be a non-empty list"]
+    id_set, lookup = _member_id_set(cluster)
+    id_set_lower = {s.lower() for s in id_set}
+    for sid in cited:
+        s = str(sid)
+        if s not in id_set and s.lower() not in id_set_lower:
+            reasons.append(f"unknown sourceId: {s!r}")
+            continue
+        member = lookup.get(s) or lookup.get(s.lower())
+        if member is not None and not str(member.get("url") or "").strip():
+            reasons.append(f"cited source has no URL: {s!r}")
+    return reasons
+
+
+def _check_entities(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:
+    """Every multi-word capitalized span in body+dek and every people/org
+    entry must appear in the source text. Headline Title Case is skipped
+    (run on body + dek only) per the benchmark fix."""
+    reasons: list[str] = []
+    source_norm = _normalize_for_match(_source_text_headline_excerpt(cluster))
+    body = str(brief.get("body") or "")
+    dek = str(brief.get("dek") or "")
+    text = f"{body} {dek}"
+    spans = set(_MULTIWORD_RE.findall(text))
+    for span in spans:
+        # Sentence-initial articles ("The Central Avenue ...") are not names:
+        # strip one leading The/A/An and re-check the remainder.
+        core = re.sub(r"^(?:The|A|An)\s+", "", span.strip())
+        if not core or " " not in core:
+            continue  # single word left -- single words are not entity-checked
+        norm = _normalize_for_match(core)
+        if not norm:
+            continue
+        if norm not in source_norm:
+            reasons.append(f"unsupported name/span not in sources: {span!r}")
+    for field_name in ("people", "organizations"):
+        entries = brief.get(field_name, []) or []
+        if not isinstance(entries, list):
+            continue
+        for entry in entries:
+            norm = _normalize_for_match(str(entry))
+            if not norm:
+                continue
+            if norm not in source_norm:
+                reasons.append(f"unsupported {field_name[:-1]} not in sources: {entry!r}")
+    return reasons
+
+
+def _extract_dates(text: str) -> tuple[list[tuple[int | None, int, int]], list[str]]:
+    """Parse dates; return ([(year|None, month, day)], [matched substrings])."""
+    found: list[tuple[int | None, int, int]] = []
+    spans: list[str] = []
+    for m in _ISO_DATE_RE.finditer(text):
+        try:
+            y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        except ValueError:
+            continue
+        if 1 <= mo <= 12 and 1 <= d <= 31:
+            found.append((y, mo, d))
+            spans.append(m.group(0))
+    for m in _MONTH_DAY_RE.finditer(text):
+        try:
+            mo = _MONTHS[m.group(1).lower()]
+            d = int(m.group(2))
+            y = int(m.group(3)) if m.group(3) else None
+            if y is not None and y < 100:
+                y += 2000 if y < 50 else 1900
+        except (ValueError, KeyError):
+            continue
+        if 1 <= d <= 31:
+            found.append((y, mo, d))
+            spans.append(m.group(0))
+    for m in _SLASH_DATE_RE.finditer(text):
+        try:
+            a, b = int(m.group(1)), int(m.group(2))
+            y = m.group(3)
+        except ValueError:
+            continue
+        # Assume M/D (US market); skip bare times like 5/2 vote? A vote
+        # "5-2" uses a dash, not a slash, so slash dates are real dates.
+        if 1 <= a <= 12 and 1 <= b <= 31:
+            year: int | None = None
+            if y:
+                year = int(y)
+                if year < 100:
+                    year += 2000 if year < 50 else 1900
+            found.append((year, a, b))
+            spans.append(m.group(0))
+    return found, spans
+
+
+def _norm_num(token: str) -> str:
+    return token.replace("$", "").replace(",", "").replace("%", "").strip()
+
+
+def _extract_numbers(text: str) -> set[str]:
+    out: set[str] = set()
+    for m in _NUMBER_RE.finditer(text):
+        tok = m.group(0)
+        if not re.search(r"\d", tok):
+            continue
+        norm = _norm_num(tok)
+        if norm:
+            out.add(norm)
+            # Float-canonical form so "98.40" matches "98.4".
+            try:
+                out.add(str(float(norm)))
+            except ValueError:
+                pass
+    return out
+
+
+def _strip_dates(text: str) -> str:
+    cleaned = _ISO_DATE_RE.sub(" ", text)
+    cleaned = _MONTH_DAY_RE.sub(" ", cleaned)
+    # Slash dates: only strip when they look like dates (M/D with valid ranges).
+    def _slash_repl(m: re.Match[str]) -> str:
+        try:
+            a, b = int(m.group(1)), int(m.group(2))
+        except ValueError:
+            return m.group(0)
+        if 1 <= a <= 12 and 1 <= b <= 31:
+            return " "
+        return m.group(0)
+
+    return _SLASH_DATE_RE.sub(_slash_repl, cleaned)
+
+
+def _check_numbers_and_dates(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    reasons: list[str] = []
+    # Source text includes publishedAt values (benchmark fix).
+    source_full = source_text_for_cluster(cluster, include_timestamps=True)
+    source_dates, _ = _extract_dates(source_full)
+    source_nodate = _strip_dates(source_full)
+    source_nums = _extract_numbers(source_nodate)
+
+    output_text = " ".join(
+        str(brief.get(k) or "") for k in ("headline", "dek", "body")
+    )
+    output_dates, _ = _extract_dates(output_text)
+    for year, month, day in output_dates:
+        if year is not None:
+            if (year, month, day) not in source_dates:
+                reasons.append(f"date not in sources: {year:04d}-{month:02d}-{day:02d}")
+        else:
+            if not any(mo == month and d == day for _, mo, d in source_dates):
+                # Also allow month-day appearing as words in source text
+                # (e.g. excerpt says "Tuesday" won't match; that's fine,
+                # bare weekdays are not parsed as dates here).
+                reasons.append(f"date not in sources: month {month} day {day}")
+    output_nodate = _strip_dates(output_text)
+    output_nums = _extract_numbers(output_nodate)
+    # Float set for tolerant comparison.
+    source_floats: set[float] = set()
+    for n in source_nums:
+        try:
+            source_floats.add(float(n))
+        except ValueError:
+            pass
+    for n in sorted(output_nums):
+        if n in source_nums:
+            continue
+        try:
+            if float(n) in source_floats:
+                continue
+        except ValueError:
+            pass
+        reasons.append(f"number not in sources: {n!r}")
+    return reasons
+
+
+def _check_background_coverage(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    reasons: list[str] = []
+    source_text = _source_text_headline_excerpt(cluster)
+    source_norm = _normalize_for_match(source_text)
+    for phrase in _BANNED_BACKGROUND_PHRASES:
+        if phrase in _normalize_for_match(str(brief.get("body") or "") + " " + str(brief.get("dek") or "")):
+            if phrase not in source_norm:
+                reasons.append(f"unsupported background phrase not in sources: {phrase!r}")
+    source_vocab = set(_coverage_words(source_text))
+    body = str(brief.get("body") or "")
+    sentences = [s.strip() for s in re.split(r"[.!?]+", body) if s.strip()]
+    for sent in sentences:
+        words = _coverage_words(sent)
+        if len(words) < 5:
+            continue
+        covered = sum(1 for w in words if w in source_vocab)
+        if covered / len(words) < 0.60:
+            reasons.append(
+                f"unsupported background: sentence <60% covered by sources: {sent[:120]!r}..."
+            )
+            break  # one flag per brief is enough
+    return reasons
+
+
+def _numbers_with_context(text: str) -> list[tuple[str, set[str]]]:
+    """Numbers with their surrounding content-word context."""
+    tokens = re.findall(r"[A-Za-z0-9$%.,/-]+", text)
+    out: list[tuple[str, set[str]]] = []
+    for i, tok in enumerate(tokens):
+        for m in _NUMBER_RE.finditer(tok):
+            raw = m.group(0)
+            if not re.search(r"\d", raw):
+                continue
+            norm = _norm_num(raw)
+            if not norm:
+                continue
+            window = tokens[max(0, i - 5): i + 6]
+            ctx = set(_content_words(" ".join(window)))
+            # Drop the number itself from context when numeric.
+            out.append((norm, ctx))
+    return out
+
+
+def _check_disagreement(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    members = _members(cluster)
+    if len(members) < 2:
+        return []
+    per_source: list[set[str]] = []
+    contexts: dict[str, set[str]] = {}
+    for m in members:
+        text = f"{m.get('headline') or ''} {m.get('excerpt') or ''}"
+        nodate = _strip_dates(text)
+        pairs = _numbers_with_context(nodate)
+        nums = {n for n, _ in pairs}
+        per_source.append(nums)
+        for n, ctx in pairs:
+            contexts.setdefault(n, set()).update(ctx)
+    union = set().union(*per_source) if per_source else set()
+    if len(union) < 2:
+        return []
+    # Candidate disagreements: distinct numbers from different sources with
+    # overlapping context (same kind of number).
+    body_nodate = _strip_dates(f"{brief.get('body') or ''} {brief.get('dek') or ''}")
+    body_nums = _extract_numbers(body_nodate)
+    body_floats: set[float] = set()
+    for n in body_nums:
+        try:
+            body_floats.add(float(n))
+        except ValueError:
+            pass
+
+    def _in_body(n: str) -> bool:
+        if n in body_nums:
+            return True
+        try:
+            return float(n) in body_floats
+        except ValueError:
+            return False
+
+    distinct = sorted(union)
+    for i in range(len(distinct)):
+        for j in range(i + 1, len(distinct)):
+            n1, n2 = distinct[i], distinct[j]
+            # Must come from different sources (no single source has both).
+            holders1 = {k for k, s in enumerate(per_source) if n1 in s}
+            holders2 = {k for k, s in enumerate(per_source) if n2 in s}
+            if not holders1 or not holders2:
+                continue
+            if holders1 == holders2 and len(holders1) == 1 and holders1 & holders2:
+                # Both numbers in the same single source: not a cross-source
+                # disagreement (still could be, but don't force).
+                # Only skip when they share exactly the same sole holder
+                # AND that holder is the only holder of both.
+                same_sole = holders1 == holders2 and len(holders1) == 1
+                if same_sole:
+                    continue
+            # Same-kind test: shared context or shared affected keyword.
+            c1, c2 = contexts.get(n1, set()), contexts.get(n2, set())
+            shared = c1 & c2
+            same_kind = len(shared) >= 2 or bool(
+                (c1 | c2) & AFFECTED_KEYWORDS and (c1 & AFFECTED_KEYWORDS or c2 & AFFECTED_KEYWORDS or len(shared) >= 1)
+            )
+            # Fallback: if both numbers are large counts (>10) and share any
+            # content word, treat as same kind (covers 300 homes vs 500
+            # customers sharing troy/water/break).
+            if not same_kind and len(shared) >= 1:
+                try:
+                    if float(n1) > 10 and float(n2) > 10:
+                        same_kind = True
+                except ValueError:
+                    pass
+            if not same_kind:
+                continue
+            missing = [n for n in (n1, n2) if not _in_body(n)]
+            if missing:
+                return [
+                    f"disagreement not attributed: sources give {n1} vs {n2} "
+                    f"(shared context: {sorted(shared)[:4]}), body must contain both"
+                ]
+    return []
+
+
+def _location_key(loc: Mapping[str, Any]) -> tuple[str, ...]:
+    return (
+        str(loc.get("country") or "").upper(),
+        str(loc.get("admin1") or "").upper(),
+        str(loc.get("admin2") or "").lower(),
+        str(loc.get("city") or "").lower(),
+        str(loc.get("metro") or "").lower(),
+    )
+
+
+def _check_locations(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    reasons: list[str] = []
+    cluster_locs = [dict(l) for l in (cluster.get("locations", []) or []) if isinstance(l, Mapping)]
+    cluster_keys = {_location_key(l) for l in cluster_locs}
+    brief_locs = brief.get("locations", []) or []
+    if not isinstance(brief_locs, list):
+        return ["locations must be a list"]
+    source_norm = _normalize_for_match(_source_text_headline_excerpt(cluster))
+    for loc in brief_locs:
+        if not isinstance(loc, Mapping):
+            reasons.append("location entry must be an object")
+            continue
+        if _location_key(loc) in cluster_keys:
+            continue
+        # Gazetteer-name fallback: a city/admin2/metro named in the sources.
+        names = [str(loc.get(k) or "") for k in ("city", "admin2", "metro", "admin1")]
+        if any(n and _normalize_for_match(n) in source_norm for n in names if n):
+            continue
+        # Country-only locations match any cluster with the same country.
+        if set(loc.keys()) == {"country"} and any(
+            str(c.get("country") or "").upper() == str(loc.get("country") or "").upper()
+            for c in cluster_locs
+        ):
+            continue
+        reasons.append(f"location not in cluster or sources: {dict(loc)}")
+    return reasons
+
+
+def _check_length(brief: Mapping[str, Any]) -> list[str]:
+    reasons: list[str] = []
+    headline = str(brief.get("headline") or "")
+    dek = str(brief.get("dek") or "")
+    body = str(brief.get("body") or "")
+    if len(headline) > 110:
+        reasons.append(f"headline too long: {len(headline)} chars (max 110)")
+    if len(dek) > 200:
+        reasons.append(f"dek too long: {len(dek)} chars (max 200)")
+    words = len(body.split())
+    if not 60 <= words <= 220:
+        reasons.append(f"body must be 60-220 words, got {words}")
+    return reasons
+
+
+def _check_verbatim(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:
+    # Fields are checked separately (no cross-boundary grams): a 12-word run
+    # must sit inside one brief field and inside one source field. This avoids
+    # false positives where a dek ending ("... in Albany.") plus a body
+    # opening ("Firefighters ...") mirrors the source headline->excerpt
+    # boundary without copying 12 words from any single field.
+    reasons: list[str] = []
+    brief_fields = [str(brief.get(k) or "") for k in ("headline", "dek", "body")]
+    for m in _members(cluster):
+        rights = str(m.get("rightsMode") or "")
+        if rights in ("PUBLIC_DOMAIN", "OPEN_LICENSE"):
+            continue
+        for src_field in (str(m.get("headline") or ""), str(m.get("excerpt") or "")):
+            src_words = _words_for_verbatim(src_field)
+            if len(src_words) < 12:
+                continue
+            src_grams = {tuple(src_words[i:i + 12]) for i in range(len(src_words) - 11)}
+            for field_text in brief_fields:
+                words = _words_for_verbatim(field_text)
+                for i in range(len(words) - 11):
+                    if tuple(words[i:i + 12]) in src_grams:
+                        reasons.append(
+                            f"verbatim copy: 12+ consecutive words from non-{rights} source "
+                            f"{m.get('sourceId') or m.get('id')}"
+                        )
+                        return reasons
+    return reasons
+
+
+_QUOTE_RES = (
+    re.compile(r'"([^"]{3,})"'),
+    re.compile(r"“([^”]{3,})”"),
+)
+
+
+def _check_quotes(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:
+    reasons: list[str] = []
+    brief_text = " ".join(
+        str(brief.get(k) or "") for k in ("headline", "dek", "body")
+    )
+    if not any(q in brief_text for q in ('"', "“", "”")):
+        return []
+    source_norm = _normalize_text(_source_text_headline_excerpt(cluster))
+    quoted: list[str] = []
+    for rx in _QUOTE_RES:
+        quoted.extend(rx.findall(brief_text))
+    if not quoted:
+        return ["quotation marks present but no quoted text extracted"]
+    for q in quoted:
+        if _normalize_text(q) not in source_norm:
+            reasons.append(f"fake quote not in sources: {q[:120]!r}")
+    return reasons
+
+
+# ---------------------------------------------------------------------------
+# Top-level entry point
+# ---------------------------------------------------------------------------
+
+def validate_brief(
+    brief: Mapping[str, Any],
+    cluster: Mapping[str, Any],
+    *,
+    check_factcheck: Mapping[str, Any] | None = None,
+) -> ValidationResult:
+    """Run every deterministic check. Returns ok + rejection reasons."""
+    reasons: list[str] = []
+    if not isinstance(brief, Mapping):
+        return ValidationResult(ok=False, reasons=["brief must be an object"])
+    reasons.extend(_check_schema(brief))
+    reasons.extend(_check_source_ids(brief, cluster))
+    reasons.extend(_check_entities(brief, cluster))
+    reasons.extend(_check_numbers_and_dates(brief, cluster))
+    reasons.extend(_check_background_coverage(brief, cluster))
+    reasons.extend(_check_disagreement(brief, cluster))
+    reasons.extend(_check_locations(brief, cluster))
+    reasons.extend(_check_length(brief))
+    reasons.extend(_check_verbatim(brief, cluster))
+    reasons.extend(_check_quotes(brief, cluster))
+    if check_factcheck is not None:
+        unsupported = check_factcheck.get("unsupported", [])
+        if isinstance(unsupported, list) and unsupported:
+            reasons.append(f"second AI pass flagged unsupported: {unsupported[:3]}")
+    return ValidationResult(ok=not reasons, reasons=reasons)
