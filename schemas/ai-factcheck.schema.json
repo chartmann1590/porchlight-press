@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chartmann1590.github.io/porchlight-press/schemas/ai-factcheck.schema.json",
+  "title": "Porchlight Press AI factcheck check output",
+  "description": "Grammar-constrained output of the factcheck pass (Phase 3). Lists statements in the generated brief that are not supported by the source facts. An empty 'unsupported' array means the story is fully supported.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["unsupported"],
+  "properties": {
+    "unsupported": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "One string per statement in the story not supported by the source facts."
+    }
+  }
+}

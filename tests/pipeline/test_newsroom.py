@@ -257,3 +257,91 @@ def test_stories_validate_against_schema(tmp_path, monkeypatch):
     validator = jsonschema.validators.validator_for(schema)(schema)
     for story in json.loads(out_path.read_text(encoding="utf-8"))["stories"]:
         assert not list(validator.iter_errors(story)), story["id"]
+
+
+def test_factcheck_rejects_unsupported_claims(tmp_path, monkeypatch):
+    from pipeline import newsroom as nr
+
+    cluster = _cluster("eid-fc-reject-01", tier="high")
+    in_path = tmp_path / "clusters.json"
+    out_path = tmp_path / "stories.json"
+    _write_clusters(in_path, [cluster])
+
+    def _fake_generate(self, cluster):
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    def _fake_factcheck(self, messages):
+        return ["The fire started at midnight (unsupported by sources)."], "raw", None
+
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate", _fake_generate)
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate_factcheck", _fake_factcheck)
+
+    rc = nr.main(["--in", str(in_path), "--out", str(out_path),
+                  "--state", str(tmp_path / "state.json"),
+                  "--sources-dir", str(tmp_path / "no-sources"),
+                  "--enable-factcheck"])
+    assert rc == 0
+    stories = json.loads(out_path.read_text(encoding="utf-8"))["stories"]
+    assert len(stories) == 1
+    # Factcheck flagged support -> brief rejected -> source card fallback.
+    assert stories[0]["aiGenerated"] is False
+
+
+def test_factcheck_keeps_brief_when_fully_supported(tmp_path, monkeypatch):
+    from pipeline import newsroom as nr
+
+    cluster = _cluster("eid-fc-keep-02", tier="high")
+    in_path = tmp_path / "clusters.json"
+    out_path = tmp_path / "stories.json"
+    _write_clusters(in_path, [cluster])
+
+    def _fake_generate(self, cluster):
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    def _fake_factcheck(self, messages):
+        return [], "raw", None
+
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate", _fake_generate)
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate_factcheck", _fake_factcheck)
+
+    rc = nr.main(["--in", str(in_path), "--out", str(out_path),
+                  "--state", str(tmp_path / "state.json"),
+                  "--sources-dir", str(tmp_path / "no-sources"),
+                  "--enable-factcheck"])
+    assert rc == 0
+    stories = json.loads(out_path.read_text(encoding="utf-8"))["stories"]
+    assert len(stories) == 1
+    # Empty unsupported list -> brief kept as an AI story.
+    assert stories[0]["aiGenerated"] is True
+
+
+def test_factcheck_failure_is_fail_open(tmp_path, monkeypatch):
+    from pipeline import newsroom as nr
+
+    cluster = _cluster("eid-fc-open-03", tier="high")
+    in_path = tmp_path / "clusters.json"
+    out_path = tmp_path / "stories.json"
+    _write_clusters(in_path, [cluster])
+
+    def _fake_generate(self, cluster):
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    def _fake_factcheck(self, messages):
+        # Provider error (transport / parse) -> _factcheck returns None ->
+        # fail-open keeps the already-validated brief.
+        return None, "", "factcheck transport: ConnectionError: down"
+
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate", _fake_generate)
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate_factcheck", _fake_factcheck)
+
+    rc = nr.main(["--in", str(in_path), "--out", str(out_path),
+                  "--state", str(tmp_path / "state.json"),
+                  "--sources-dir", str(tmp_path / "no-sources"),
+                  "--enable-factcheck"])
+    assert rc == 0
+    stories = json.loads(out_path.read_text(encoding="utf-8"))["stories"]
+    assert len(stories) == 1
+    assert stories[0]["aiGenerated"] is True

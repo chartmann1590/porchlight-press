@@ -16,6 +16,7 @@ from .prompts import (
 from .validate import (
     ValidationResult,
     parse_brief_json,
+    parse_factcheck_json,
     source_text_for_cluster,
     validate_brief,
 )
@@ -33,6 +34,7 @@ __all__ = [
     "build_user_message",
     "ValidationResult",
     "parse_brief_json",
+    "parse_factcheck_json",
     "source_text_for_cluster",
     "validate_brief",
 ]

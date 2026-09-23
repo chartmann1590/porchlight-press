@@ -45,7 +45,7 @@ from .ai import (
     try_brief_with_retry,
 )
 from .ai.prompts import build_factcheck_messages
-from .ai.validate import parse_brief_json, source_text_for_cluster
+from .ai.validate import source_text_for_cluster
 from .config import load_config
 from .providers import load_sources
 
@@ -216,22 +216,19 @@ def main(argv: list[str] | None = None) -> int:
 
         def _factcheck(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> dict | None:
             """Optional second AI pass. Returns {'unsupported': [...]} or None
-            when the check itself fails (fail-open: keep the validated brief)."""
-            try:
-                from .ai import validate as _v  # noqa: F401  (keeps import local)
+            when the check itself fails (fail-open: keep the validated brief).
 
+            Uses ``generate_factcheck`` so the model is constrained to the
+            factcheck JSON schema (``{"unsupported": [...]}``) rather than the
+            brief schema -- the previous call through ``generate_with_messages``
+            always failed to parse the factcheck response and the check could
+            never reject anything.
+            """
+            try:
                 source_text = source_text_for_cluster(cluster)
                 messages = build_factcheck_messages(str(brief.get("body") or ""), source_text)
-                _b, raw, err = local.generate_with_messages(messages)
-                # _b unused; parse raw directly for the factcheck shape.
-                del _b
-                if err or not raw:
-                    return None
-                data, perr = parse_brief_json(raw)
-                if perr or not isinstance(data, dict):
-                    return None
-                unsupported = data.get("unsupported", [])
-                if not isinstance(unsupported, list):
+                unsupported, _raw, err = local.generate_factcheck(messages)
+                if err or unsupported is None:
                     return None
                 return {"unsupported": unsupported}
             except Exception:  # noqa: BLE001 - optional pass never blocks publish

@@ -140,6 +140,26 @@ def parse_brief_json(raw: str) -> tuple[dict[str, Any] | None, str | None]:
     return data, None
 
 
+def parse_factcheck_json(raw: str) -> tuple[list[str] | None, str | None]:
+    """Parse model output for the factcheck shape {"unsupported": [...]}.
+
+    Returns (unsupported_list, None) on success, (None, reason) on failure.
+    The response must be a JSON object whose "unsupported" member is a list
+    of strings. One or more non-empty strings means the brief is not fully
+    supported and should be rejected.
+    """
+    data, err = parse_brief_json(raw)
+    if err is not None:
+        return None, err
+    unsupported = data.get("unsupported")
+    if not isinstance(unsupported, list):
+        return None, "unsupported must be an array"
+    for i, item in enumerate(unsupported):
+        if not isinstance(item, str):
+            return None, f"unsupported[{i}] must be a string, got {type(item).__name__}"
+    return unsupported, None
+
+
 def _brief_schema_validator():
     import jsonschema
 

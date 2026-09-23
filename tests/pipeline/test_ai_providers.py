@@ -1,7 +1,7 @@
 """Provider chain tests (offline, mocked transport -- never a real LLM)."""
 import json
 
-from pipeline.ai.prompts import build_user_message
+from pipeline.ai.prompts import build_factcheck_messages, build_user_message
 from pipeline.ai.providers import (
     CloudflareWorkersAIProvider,
     LocalLlamaProvider,
@@ -184,3 +184,65 @@ def test_ai_story_carries_attribution_and_model_overwrite():
     assert story["generatedAt"].startswith("2026-09-23T12:00")
     assert story["aiGenerated"] is True
     assert len(story["sources"]) == 2
+
+
+def _factcheck_envelope(unsupported: list[str]) -> dict:
+    return {"choices": [{"message": {"content": json.dumps({"unsupported": unsupported})}}]}
+
+
+def test_factcheck_provider_returns_unsupported_claims():
+    expected = ["The fire started at midnight.", "12 casualties reported."]
+
+    provider = LocalLlamaProvider(
+        post_fn=lambda payload: _envelope(_good_brief_payload()),
+        factcheck_post_fn=lambda payload: _factcheck_envelope(expected),
+    )
+    unsupported, raw, err = provider.generate_factcheck(
+        build_factcheck_messages("story body", "source facts")
+    )
+    assert err is None
+    assert unsupported == expected
+    assert "unsupported" in raw
+
+
+def test_factcheck_provider_empty_list_means_supported():
+    provider = LocalLlamaProvider(
+        factcheck_post_fn=lambda payload: _factcheck_envelope([]),
+    )
+    unsupported, raw, err = provider.generate_factcheck(
+        [{"role": "user", "content": "story body"}]
+    )
+    assert err is None
+    assert unsupported == []
+
+
+def test_factcheck_provider_transport_failure_is_fail_open():
+    def _boom(payload):
+        raise ConnectionError("server down")
+
+    provider = LocalLlamaProvider(factcheck_post_fn=_boom)
+    unsupported, raw, err = provider.generate_factcheck(
+        [{"role": "user", "content": "story body"}]
+    )
+    assert unsupported is None and err is not None
+    assert provider.last_error is not None
+
+
+def test_factcheck_provider_malformed_response_is_error():
+    provider = LocalLlamaProvider(
+        factcheck_post_fn=lambda payload: {"choices": [{"message": {"content": "not json"}}]},
+    )
+    unsupported, raw, err = provider.generate_factcheck(
+        [{"role": "user", "content": "story body"}]
+    )
+    assert unsupported is None and err is not None
+
+
+def test_factcheck_provider_rejects_non_string_items():
+    provider = LocalLlamaProvider(
+        factcheck_post_fn=lambda payload: _factcheck_envelope(["ok", 42]),
+    )
+    unsupported, raw, err = provider.generate_factcheck(
+        [{"role": "user", "content": "story body"}]
+    )
+    assert unsupported is None and err is not None

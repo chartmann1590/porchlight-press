@@ -13,7 +13,12 @@ from datetime import datetime, timezone
 from typing import Any, Callable, Mapping, Protocol
 
 from .prompts import build_messages, build_retry_messages
-from .validate import ValidationResult, parse_brief_json, validate_brief
+from .validate import (
+    ValidationResult,
+    parse_brief_json,
+    parse_factcheck_json,
+    validate_brief,
+)
 
 PRIMARY_MODEL = "Qwen3-4B-Q4_K_M"
 FALLBACK_MODEL = "Qwen3-1.7B-Q8_0"
@@ -27,10 +32,10 @@ class BriefProvider(Protocol):
         ...
 
 
-def _brief_json_schema() -> dict[str, Any]:
+def _load_json_schema(filename: str) -> dict[str, Any]:
     from pathlib import Path
 
-    schema_path = Path(__file__).resolve().parent.parent.parent / "schemas" / "ai-brief.schema.json"
+    schema_path = Path(__file__).resolve().parent.parent.parent / "schemas" / filename
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     # llama.cpp consumes the JSON schema; drop meta keys it doesn't need.
     schema.pop("$schema", None)
@@ -38,18 +43,28 @@ def _brief_json_schema() -> dict[str, Any]:
     return schema
 
 
-def _default_post_fn(base_url: str, timeout_seconds: int) -> PostFn:
-    schema = _brief_json_schema()
+def _brief_json_schema() -> dict[str, Any]:
+    return _load_json_schema("ai-brief.schema.json")
 
+
+def _factcheck_json_schema() -> dict[str, Any]:
+    return _load_json_schema("ai-factcheck.schema.json")
+
+
+def _json_post_fn(
+    base_url: str, timeout_seconds: int, schema: dict[str, Any] | None,
+    schema_name: str = "output", max_tokens: int = 800,
+) -> PostFn:
     def _post(payload: dict[str, Any]) -> dict[str, Any]:
         body = dict(payload)
         # Grammar-constrained, non-thinking output (proven in ai-feasibility.yml).
         body.setdefault("temperature", 0.2)
-        body.setdefault("max_tokens", 800)
-        body["response_format"] = {
-            "type": "json_schema",
-            "json_schema": {"name": "brief", "schema": schema},
-        }
+        body.setdefault("max_tokens", max_tokens)
+        if schema is not None:
+            body["response_format"] = {
+                "type": "json_schema",
+                "json_schema": {"name": schema_name, "schema": schema},
+            }
         body["chat_template_kwargs"] = {"enable_thinking": False}
         req = urllib.request.Request(
             base_url.rstrip("/") + "/v1/chat/completions",
@@ -62,6 +77,14 @@ def _default_post_fn(base_url: str, timeout_seconds: int) -> PostFn:
     return _post
 
 
+def _brief_post_fn(base_url: str, timeout_seconds: int) -> PostFn:
+    return _json_post_fn(base_url, timeout_seconds, _brief_json_schema(), "brief", 800)
+
+
+def _factcheck_post_fn(base_url: str, timeout_seconds: int) -> PostFn:
+    return _json_post_fn(base_url, timeout_seconds, _factcheck_json_schema(), "factcheck", 256)
+
+
 class LocalLlamaProvider:
     """Primary: prebuilt llama.cpp llama-server over its OpenAI-compatible API."""
 
@@ -71,11 +94,15 @@ class LocalLlamaProvider:
         model_name: str = PRIMARY_MODEL,
         timeout_seconds: int = 180,
         post_fn: PostFn | None = None,
+        factcheck_post_fn: PostFn | None = None,
     ) -> None:
         self.base_url = base_url
         self.model_name = model_name
         self.timeout_seconds = timeout_seconds
-        self._post_fn = post_fn or _default_post_fn(base_url, timeout_seconds)
+        self._post_fn = post_fn or _brief_post_fn(base_url, timeout_seconds)
+        self._factcheck_post_fn = (
+            factcheck_post_fn or _factcheck_post_fn(base_url, timeout_seconds)
+        )
         self.last_raw: str = ""
         self.last_error: str | None = None
 
@@ -108,6 +135,41 @@ class LocalLlamaProvider:
             return None, content, err
         self.last_error = None
         return brief, content, None
+
+    def generate_factcheck(
+        self, messages: list[dict[str, str]]
+    ) -> tuple[list[str] | None, str, str | None]:
+        """Factcheck pass over an already-validated brief.
+
+        Unlike ``generate_with_messages`` this is constrained by the
+        factcheck JSON schema (``{"unsupported": [...]}``) -- *not* the brief
+        schema -- and parses the model response into that separate shape.
+        Returns ``(unsupported_list, raw_content, error)`` where
+        ``unsupported_list`` is a list of strings (possibly empty). An
+        empty list means the brief is fully supported; a non-empty list
+        means the caller should reject the brief.
+        """
+        try:
+            resp = self._factcheck_post_fn({"messages": messages})
+        except Exception as exc:  # noqa: BLE001 - transport failure -> fail-open
+            self.last_raw = ""
+            self.last_error = f"factcheck transport: {type(exc).__name__}: {str(exc)[:200]}"
+            return None, "", self.last_error
+        try:
+            content = resp["choices"][0]["message"]["content"]
+        except (KeyError, IndexError, TypeError) as exc:
+            self.last_raw = ""
+            self.last_error = f"factcheck bad response envelope: {exc}"
+            return None, "", self.last_error
+        if not isinstance(content, str):
+            content = json.dumps(content)
+        self.last_raw = content
+        unsupported, err = parse_factcheck_json(content)
+        if err:
+            self.last_error = f"factcheck parse: {err}"
+            return None, content, self.last_error
+        self.last_error = None
+        return unsupported, content, None
 
 
 class CloudflareWorkersAIProvider:
