@@ -4,6 +4,7 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.charleshartman.porchlightpress.data.local.AppDatabase
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,7 +16,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MigrationTest {
     @Test
-    fun v1CreatesAndRetainsData() {
+    fun v1CreatesAndRetainsData() = runTest {
         val helper = androidx.room.testing.MigrationTestHelper(
             InstrumentationRegistry.getInstrumentation(),
             AppDatabase::class.java,

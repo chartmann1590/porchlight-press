@@ -10,6 +10,7 @@ import com.charleshartman.porchlightpress.data.local.SavedStory
 import com.charleshartman.porchlightpress.data.local.Story
 import com.charleshartman.porchlightpress.data.local.StoryFts
 import com.charleshartman.porchlightpress.data.local.WeatherCache
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -37,7 +38,7 @@ class RoomTest {
     }
 
     @Test
-    fun savedLocationCrud() {
+    fun savedLocationCrud() = runTest {
         val dao = db.savedLocationDao()
         dao.upsert(
             SavedLocation(
@@ -52,7 +53,7 @@ class RoomTest {
     }
 
     @Test
-    fun editionWithContentJoin() {
+    fun editionWithContentJoin() = runTest {
         val loc = SavedLocation(id = "loc", label = "Schenectady, NY", country = "US")
         db.savedLocationDao().upsert(loc)
         db.editionDao().upsertEdition(
@@ -81,7 +82,7 @@ class RoomTest {
     }
 
     @Test
-    fun ftsFindsStoryText() {
+    fun ftsFindsStoryText() = runTest {
         db.storyDao().upsertStories(
             listOf(
                 Story(
@@ -105,7 +106,7 @@ class RoomTest {
     }
 
     @Test
-    fun expiryKeepsSavedStories() {
+    fun expiryKeepsSavedStories() = runTest {
         db.storyDao().upsertStories(
             listOf(
                 Story(id = "old-unsaved", headline = "Old", generatedAt = "2020-01-01T00:00:00Z"),
@@ -122,7 +123,7 @@ class RoomTest {
     }
 
     @Test
-    fun weatherCacheRoundTrip() {
+    fun weatherCacheRoundTrip() = runTest {
         db.weatherDao().upsert(
             WeatherCache(
                 bucketKey = "42.8,-73.9", provider = "nws", payloadJson = "{}",

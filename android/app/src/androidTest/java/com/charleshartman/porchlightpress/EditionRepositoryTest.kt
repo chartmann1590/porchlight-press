@@ -6,7 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.charleshartman.porchlightpress.data.local.AppDatabase
 import com.charleshartman.porchlightpress.data.repo.EditionRepository
-import com.charleshartman.porchlightpress.data.repo.FeedResult
+import com.charleshartman.porchlightpress.domain.FeedResult
 import com.charleshartman.porchlightpress.domain.Place
 import kotlinx.coroutines.test.runTest
 import org.junit.After
