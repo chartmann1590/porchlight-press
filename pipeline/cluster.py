@@ -7,9 +7,10 @@ so the same input order always yields the same output.
 Anti-overmerge invariant: a shared place name alone must never merge two
 items. Place-derived capitalized spans (city/county/metro/state names from
 either item's resolved locations) are excluded from entity evidence, and a
-join additionally requires genuine non-place evidence -- a non-place shared
-entity or TF-IDF cosine at/above MIN_TEXT_SIM. Location + recency can only
-confirm a textual match, never create one.
+join additionally requires genuine textual evidence -- TF-IDF cosine
+at/above MIN_TEXT_SIM alone, or a shared entity PLUS cosine at/above
+MIN_ENTITY_TEXT_SIM. Location + recency can only confirm a textual match,
+never create one.
 
 Stable IDs: eventId = sha256(canonical URL of the seed item)[:16]. The seed
 is the earliest member (sorted input => first member). When clusters merge,
@@ -35,6 +36,16 @@ DEFAULT_WEIGHTS = {"tfidf": 0.55, "location": 0.20, "entity": 0.15, "time": 0.10
 # fire fixture) score >= 0.27. Location + recency (0.30 combined) can never
 # reach the 0.45 join threshold on their own.
 MIN_TEXT_SIM = 0.20
+# Minimum TF-IDF cosine required even when a shared entity exists.
+# Root cause of 0d0cf2f78345feea: the live Ballston pair shares exactly one
+# entity ('ballston spa', ent=1.0) with cos=0.052, loc=1.0, time=0.76 for a
+# combined 0.454 >= 0.45. The place exclusion missed it because the items'
+# `locations` metadata lists only Albany/Albany County (Ballston Spa appears
+# only in prose, and the trimmed gazetteer has no Ballston Spa entry), so
+# the shared place name passed the gate on entity evidence alone. Requiring
+# a small text floor with any entity blocks it (0.052 < 0.08) while true
+# same-event pairs (Albany fire 0.23-0.33, award reword 0.35) pass with margin.
+MIN_ENTITY_TEXT_SIM = 0.08
 
 _ENTITY_RE = re.compile(r"\b([A-Z][a-z]{2,}(?:\s+[A-Z][a-z]{2,})*)\b")
 _ENTITY_STOP = frozenset({
@@ -174,9 +185,12 @@ def place_names_for_item(item: Mapping[str, Any]) -> set[str]:
 
 
 def has_genuine_overlap(tfidf_cos: float, ent: float) -> bool:
-    """Non-place evidence gate: a shared non-place entity, or enough raw
-    textual overlap. A shared place name with thin text never passes."""
-    return ent > 0.0 or tfidf_cos >= MIN_TEXT_SIM
+    """Non-place evidence gate: shared entity PLUS real textual overlap,
+    or strong textual overlap alone. A shared place name with thin text
+    never passes (live Ballston pair: ent=1.0 but cos=0.052 < 0.08)."""
+    if tfidf_cos >= MIN_TEXT_SIM:
+        return True
+    return ent > 0.0 and tfidf_cos >= MIN_ENTITY_TEXT_SIM
 
 
 def place_names_for_members(members: list[Mapping[str, Any]]) -> set[str]:

@@ -1,4 +1,11 @@
-"""Persisted-state revalidation: heal pre-#12 place-only merges + U+FFFD on load."""
+"""Persisted-state revalidation: heal pre-#12 place-only merges + U+FFFD on load.
+
+Regression guard for 0d0cf2f78345feea: the EXACT stored pair below is copied
+from origin/pipeline-state:state/clusters.json (headlines, excerpts,
+locations, publishedAt, urls, ids). The old gate merged it (shared entity
+'ballston spa', ent=1.0, cos=0.052, loc=1.0 -> combined 0.454 >= 0.45);
+the hardened gate requires a text floor with any shared entity and splits it.
+"""
 import json
 
 from pipeline.state import (
@@ -9,6 +16,40 @@ from pipeline.state import (
 
 _BALLSTON_LOC = [{"country": "US", "admin1": "US-NY", "admin2": "Saratoga County",
                   "city": "Ballston Spa", "metro": "us-ny-capital-region"}]
+
+# Exact stored member 1 of 0d0cf2f78345feea.
+_REAL_AWARD = {
+    "id": "e81d72c90f678d594683fc78ea04e4e8", "sourceId": "wten-news10",
+    "publisher": "WTEN News10 ABC",
+    "headline": "Ballston Spa HS student nominated for Heart of a Giant Award",
+    "excerpt": ("USA Football\u2019s Heart of a Giant Award, presented by Hospital "
+                "for Special Surgery and the New York Giants is now on! A local "
+                "Ballston Spa student has been nominated."),
+    "url": "https://www.news10.com/news/week-1-ballston-spa-hs-student-nominated-for-heart-of-a-giant-award/",
+    "publishedAt": "2026-09-23T22:00:35Z", "language": "en",
+    "rightsMode": "RSS_EXCERPT_ALLOWED", "imageCandidate": None, "rawLocations": [],
+    "locations": [
+        {"country": "US", "admin1": "US-NY"},
+        {"country": "US", "admin1": "US-NY", "admin2": "Albany County",
+         "city": "Albany", "metro": "us-ny-capital-region"},
+    ],
+}
+
+# Exact stored member 2 of 0d0cf2f78345feea.
+_REAL_CANCER = {
+    "id": "2b337ec0e52732877445cbf011b86dff", "sourceId": "wamc-northeast-report",
+    "publisher": "WAMC Northeast Public Radio",
+    "headline": "A husband and father from Ballston Spa got cancer \u2014 his friends stepped up",
+    "excerpt": ("After 39-year-old Nick Henry got diagnosed with a rare and aggressive "
+                "cancer, his friends created an organization to support his family and other"),
+    "url": "https://www.wamc.org/news/2026-09-24/the-miles-together-cancer-burnt-hills-cross-country-track-ballston-spa",
+    "publishedAt": "2026-09-24T15:38:41Z", "language": "en",
+    "rightsMode": "RSS_EXCERPT_ALLOWED", "imageCandidate": None, "rawLocations": [],
+    "locations": [
+        {"country": "US", "admin1": "US-NY", "admin2": "Albany County",
+         "city": "Albany", "metro": "us-ny-capital-region"},
+    ],
+}
 
 
 def _wten_award():
@@ -35,7 +76,7 @@ def _wamc_cancer():
     }
 
 
-def _persisted_record(event_id, members, headline=None, brief=None):
+def _persisted_record(event_id, members, headline=None, brief=None, locations=None):
     rec = {
         "eventId": event_id,
         "members": [dict(m) for m in members],
@@ -46,7 +87,7 @@ def _persisted_record(event_id, members, headline=None, brief=None):
         "firstSeen": members[0].get("publishedAt"),
         "lastSeen": members[-1].get("publishedAt"),
         "headline": headline if headline is not None else members[-1].get("headline", ""),
-        "locations": _BALLSTON_LOC,
+        "locations": locations if locations is not None else _BALLSTON_LOC,
         "sources": [
             {"sourceId": m.get("sourceId", ""), "publisher": m.get("publisher", ""),
              "headline": m.get("headline", ""), "url": m.get("url", ""),
@@ -79,9 +120,29 @@ def _good_brief():
             "body": "Body with enough words here for a brief."}
 
 
-def test_persisted_ballston_pair_splits_and_brief_not_reused(tmp_path):
-    members = [_wten_award(), _wamc_cancer()]
-    rec = _persisted_record("0d0cf2f78345feea", members, brief=_good_brief())
+def test_real_ballston_pair_does_not_cluster():
+    from pipeline.cluster import cluster_items, maybe_merge_clusters
+
+    members = [dict(_REAL_AWARD), dict(_REAL_CANCER)]
+    clusters = cluster_items(members)
+    assert len(clusters) == 2
+    assert {len(c["members"]) for c in clusters} == {1}
+    ca = cluster_items([dict(_REAL_AWARD)])[0]
+    cb = cluster_items([dict(_REAL_CANCER)])[0]
+    assert len(maybe_merge_clusters([ca, cb])) == 2
+
+
+def test_persisted_real_ballston_pair_splits_and_brief_not_reused(tmp_path):
+    members = [dict(_REAL_AWARD), dict(_REAL_CANCER)]
+    rec = _persisted_record(
+        "0d0cf2f78345feea", members,
+        headline=members[1]["headline"], brief=_good_brief(),
+        locations=[
+            {"country": "US", "admin1": "US-NY", "admin2": "Albany County",
+             "city": "Albany", "metro": "us-ny-capital-region"},
+            {"country": "US", "admin1": "US-NY"},
+        ],
+    )
     state_path = tmp_path / "clusters.json"
     _write_state(state_path, {"0d0cf2f78345feea": rec})
 
@@ -89,17 +150,18 @@ def test_persisted_ballston_pair_splits_and_brief_not_reused(tmp_path):
     # Split into two single-member clusters.
     assert len(loaded) == 2
     all_member_ids = sorted([mid for r in loaded.values() for mid in r.get("memberIds", [])])
-    assert all_member_ids == sorted(["wten-award-001", "wamc-cancer-002"])
+    assert all_member_ids == sorted(["e81d72c90f678d594683fc78ea04e4e8",
+                                     "2b337ec0e52732877445cbf011b86dff"])
     # Original eventId stays with anchor (earliest member = award).
     assert "0d0cf2f78345feea" in loaded
-    assert loaded["0d0cf2f78345feea"]["memberIds"] == ["wten-award-001"]
+    assert loaded["0d0cf2f78345feea"]["memberIds"] == ["e81d72c90f678d594683fc78ea04e4e8"]
     # Split survivor must not reuse the old 2-member brief.
     assert not stored_brief_usable(loaded["0d0cf2f78345feea"])
     assert loaded["0d0cf2f78345feea"].get("lastBrief") is None
     # Split-off has no brief either.
     other_ids = [k for k in loaded if k != "0d0cf2f78345feea"]
     assert len(other_ids) == 1
-    assert loaded[other_ids[0]]["memberIds"] == ["wamc-cancer-002"]
+    assert loaded[other_ids[0]]["memberIds"] == ["2b337ec0e52732877445cbf011b86dff"]
     assert not stored_brief_usable(loaded[other_ids[0]])
     # Fingerprint check from PR #11 already covers membership change:
     # old 2-member fingerprint differs from either 1-member fingerprint.
