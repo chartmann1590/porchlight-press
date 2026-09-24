@@ -677,6 +677,78 @@ def carry_forward_share(
 
 
 # ---------------------------------------------------------------------------
+# Stale-brief revalidation (publish-time safety net)
+# ---------------------------------------------------------------------------
+
+def _brief_from_ai_story(
+    story: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Rebuild a validator-shaped brief from a published AI story.
+
+    Stories carry no people/organizations/sourceIds, so those reconstruct
+    as empty/all-members (the entity-span, number, and outcome checks that
+    matter here only need headline/dek/body + cluster source text).
+    """
+    members = [m for m in (cluster.get("members", []) or []) if isinstance(m, Mapping)]
+    ids: list[str] = []
+    for m in members:
+        for key in ("id", "sourceId", "url"):
+            val = str(m.get(key) or "").strip()
+            if val:
+                ids.append(val)
+                break
+    return {
+        "headline": str(story.get("headline") or ""),
+        "dek": str(story.get("dek") or ""),
+        "body": str(story.get("body") or ""),
+        "category": str(story.get("category") or "local"),
+        "locations": list(story.get("locations", []) or []),
+        "people": [],
+        "organizations": [],
+        "sourceIds": ids,
+        "aiModel": str(story.get("aiModel") or "unknown"),
+        "confidence": 0.5,
+    }
+
+
+def revalidate_ai_stories(
+    stories: list[dict[str, Any]],
+    clusters_by_id: Mapping[str, Any],
+) -> tuple[list[dict[str, Any]], int]:
+    """Downgrade stale AI briefs that fail the current validator.
+
+    Safety net for briefs generated under an older/weaker validator (e.g.
+    the f50f7807554b049d "died" brief): an aiGenerated story whose cluster
+    still carries source members is re-checked with validate_brief and
+    falls back to a deterministic source card on failure. Stories with no
+    linked cluster members are left untouched (nothing to check against).
+    Returns (stories, n_downgraded).
+    """
+    from .ai.providers import SourceCardProvider
+    from .ai.validate import validate_brief
+
+    cards = SourceCardProvider()
+    out: list[dict[str, Any]] = []
+    downgraded = 0
+    for story in stories:
+        if not isinstance(story, dict) or not story.get("aiGenerated"):
+            out.append(story)
+            continue
+        cluster = clusters_by_id.get(str(story.get("id") or ""))
+        members = (cluster.get("members", []) or []) if isinstance(cluster, Mapping) else []
+        if not isinstance(cluster, Mapping) or not members:
+            out.append(story)
+            continue
+        result = validate_brief(_brief_from_ai_story(story, cluster), cluster)
+        if result.ok:
+            out.append(story)
+            continue
+        out.append(cards.build_card(cluster, None))
+        downgraded += 1
+    return out, downgraded
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -745,6 +817,11 @@ def main(argv: list[str] | None = None) -> int:
             for cluster in raw_clusters or []:
                 if isinstance(cluster, Mapping) and cluster.get("eventId"):
                     clusters_by_id[str(cluster["eventId"])] = cluster
+
+        step = "revalidate"
+        stories, n_downgraded = revalidate_ai_stories(stories, clusters_by_id)
+        if n_downgraded:
+            print(f"revalidate: downgraded {n_downgraded} stale AI brief(s) to source cards")
 
         step = "geo"
         geo_default = ROOT / "pipeline" / "geo" / "places.json"

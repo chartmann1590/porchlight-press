@@ -425,7 +425,9 @@ def _gazetteer_geo() -> tuple[dict[str, set[tuple[str, frozenset[str]]]], dict[s
     return city_areas, state_names
 
 
-def _cluster_location_names(cluster: Mapping[str, Any]) -> set[str]:
+def _cluster_location_names(
+    cluster: Mapping[str, Any], *, include_metro: bool = True
+) -> set[str]:
     """Normalized place names from the cluster's own resolved locations.
 
     Covers city, county/admin2, state/admin1 full names and their common
@@ -433,6 +435,11 @@ def _cluster_location_names(cluster: Mapping[str, Any]) -> set[str]:
     Region / Capital District, United States, ...). Only names tied to THIS
     cluster count -- an invented county/state still fails. Strict everywhere
     else: people, orgs, numbers, quotes, and background filler are unchanged.
+
+    ``include_metro=False`` drops the metro slug and its aliases: the
+    event-location guard needs city/county/state/country only, since
+    asserting an event "occurred in" the broad metro is exactly the vague
+    attribution it rejects.
     """
     admin1_map, metro_map, country_map = _gazetteer_lookups()
     allowed: set[str] = set()
@@ -441,6 +448,8 @@ def _cluster_location_names(cluster: Mapping[str, Any]) -> set[str]:
         if not isinstance(loc, Mapping):
             continue
         for key in ("city", "admin2", "metro", "admin1"):
+            if key == "metro" and not include_metro:
+                continue
             raw = str(loc.get(key) or "").strip()
             if not raw:
                 continue
@@ -1033,6 +1042,109 @@ def _check_place_containment(
     return reasons
 
 
+# ---------------------------------------------------------------------------
+# High-stakes outcome claims: death, criminal-justice results, injuries.
+# ---------------------------------------------------------------------------
+
+# Concept -> word-family regex. A brief term is supported when the SAME
+# concept appears in the cluster's source text (headlines + excerpts), so
+# faithful paraphrases pass (source "fatal" supports brief "died"; source
+# "arrested" supports "arrest") while escalations ("injured" -> "died")
+# and inventions fail. Stdlib regexes only, no NLP deps.
+_OUTCOME_CONCEPTS: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("death", re.compile(
+        r"\b(?:dying|die[sd]?|dead(?:ly)?|deaths?|kill(?:s|ed|ing)?"
+        r"|fatal(?:ly|ity|ities)?)\b",
+        re.IGNORECASE)),
+    ("arrest", re.compile(r"\barrest(?:s|ed|ing)?\b", re.IGNORECASE)),
+    ("charge", re.compile(r"\bcharg(?:e|es|ed|ing)\b", re.IGNORECASE)),
+    ("conviction", re.compile(r"\b(?:convict(?:s|ed|ion|ions)?|guilty)\b", re.IGNORECASE)),
+    ("sentencing", re.compile(r"\bsentenc(?:e|es|ed|ing)\b", re.IGNORECASE)),
+    ("custody", re.compile(r"\b(?:custody|custodial)\b", re.IGNORECASE)),
+    ("indictment", re.compile(r"\bindict(?:s|ed|ment|ments)?\b", re.IGNORECASE)),
+    ("arraignment", re.compile(r"\barraign(?:s|ed|ment|ments)?\b", re.IGNORECASE)),
+    ("imprisonment", re.compile(r"\b(?:jail(?:s|ed)?|imprison(?:ed)?|prison)\b", re.IGNORECASE)),
+    ("injury", re.compile(r"\binjur(?:y|ies|ed)?\b|\bwound(?:s|ed)?\b", re.IGNORECASE)),
+)
+
+
+def _check_outcome_claims(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    """Reject high-stakes outcome terms the sources never state.
+
+    Production failure (story f50f7807554b049d): WTEN reported a Guard
+    crew chief INJURED in a helicopter crash; the brief headlined that a
+    veteran DIED. Saying someone died when the source says injured is the
+    worst error a news app can make, so every death/legal/injury term in
+    the headline, dek, or body must be backed by the same concept in the
+    cluster's source headlines + excerpts. Strict by design (no negation
+    exceptions): a true-but-unstated outcome must be dropped, never
+    asserted.
+    """
+    reasons: list[str] = []
+    source_text = " ".join(
+        f"{m.get('headline') or ''} {m.get('excerpt') or ''}"
+        for m in _members(cluster)
+    )
+    brief_text = " ".join(
+        str(brief.get(k) or "") for k in ("headline", "dek", "body")
+    )
+    for concept, rx in _OUTCOME_CONCEPTS:
+        found = sorted({m.group(0).lower() for m in rx.finditer(brief_text)})
+        if not found:
+            continue
+        if not rx.search(source_text):
+            reasons.append(
+                "unsupported outcome claim not in sources: "
+                f"{'/'.join(found)} ({concept})"
+            )
+    return reasons
+
+
+# Event-localization assertions: "the crash occurred in X". The
+# place-containment guard deliberately skips bare locatives ("arrest
+# occurred in Troy" is normal prose), so this targeted check covers the
+# occurred/happened/took-place-in shape instead.
+_EVENT_LOCATION_RE = re.compile(
+    r"\b(?:occurred|happened|took place|takes? place|taking place)"
+    r"\s+in\s+(?:the\s+)?([A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.'-]*)*)"
+)
+
+
+def _check_event_location(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    """Reject event-location assertions the sources never localize.
+
+    Production failure (story f50f7807554b049d): "The crash occurred in
+    the Capital Region, according to the source" -- the source never said
+    where the crash happened. The entity allowlist correctly permits
+    mentioning the cluster metro, but asserting the EVENT happened there
+    is a factual localization that needs source proof: the place must be
+    named in the source headlines/excerpts, or be the cluster's own
+    city/county/state/country (never the broad metro alone -- the Troy
+    brief's "occurred in Rensselaer County" still passes while the
+    Capital Region claim still fails).
+    """
+    reasons: list[str] = []
+    source_norm = _normalize_for_match(_source_text_headline_excerpt(cluster))
+    allowed = _cluster_location_names(cluster, include_metro=False)
+    text = " ".join(
+        str(brief.get(k) or "") for k in ("headline", "dek", "body")
+    )
+    for m in _EVENT_LOCATION_RE.finditer(text):
+        place = _normalize_for_match(m.group(1))
+        if not place:
+            continue
+        if place in source_norm:
+            continue
+        if place in allowed:
+            continue
+        reasons.append(f"unsupported event location not in sources: {m.group(1)!r}")
+    return reasons
+
+
 def _min_body_words(cluster: Mapping[str, Any]) -> int:
     """Scaled length floor: thin RSS sources cannot honestly fill 60 words.
 
@@ -1141,6 +1253,8 @@ def validate_brief(
     reasons.extend(_check_disagreement(brief, cluster))
     reasons.extend(_check_locations(brief, cluster))
     reasons.extend(_check_place_containment(brief, cluster))
+    reasons.extend(_check_outcome_claims(brief, cluster))
+    reasons.extend(_check_event_location(brief, cluster))
     reasons.extend(_check_length(brief, cluster))
     reasons.extend(_check_verbatim(brief, cluster))
     reasons.extend(_check_quotes(brief, cluster))

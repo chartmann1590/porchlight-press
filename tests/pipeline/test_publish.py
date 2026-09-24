@@ -170,6 +170,65 @@ def test_invalid_story_aborts_deploy(tmp_path):
     assert not (out / "index.json").exists()
 
 
+def _heli_cluster_for_story(sid):
+    return {
+        "eventId": sid,
+        "score": 0.6,
+        "section": "regional",
+        "locations": [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}],
+        "members": [{
+            "id": "h1",
+            "sourceId": "wten-news10",
+            "publisher": "WTEN News10 ABC",
+            "headline": "NY Army National Guard crew chief injured in helicopter crash takes 'final flight'",
+            "excerpt": "The crew chief was injured when the helicopter went down during a training flight, according to Guard officials. He was taken to the hospital for treatment.",
+            "url": "https://example.com/heli",
+            "publishedAt": "2026-09-23T19:44:55Z",
+            "rightsMode": "RSS_EXCERPT_ALLOWED",
+        }],
+    }
+
+
+def test_stale_ai_brief_failing_validator_downgraded_to_card(tmp_path):
+    # Production story f50f7807554b049d: a "died" brief generated under the
+    # old validator must not be republished -- publish revalidates cached AI
+    # briefs against the current validator and falls back to the source card.
+    # An honest brief on the same sources still ships as AI.
+    bad = _story("f50f7807554b049d")
+    bad.update({
+        "headline": "Military veteran dies in helicopter crash",
+        "dek": "WTEN News10 reports a military veteran died in a helicopter crash.",
+        "body": ("According to Guard officials, a helicopter went down during a training "
+                 "flight and the crew chief was injured. He was taken to the hospital for "
+                 "treatment, WTEN News10 ABC reported. The crash occurred in the Capital "
+                 "Region, according to the source. A military veteran died in the helicopter "
+                 "crash on the training flight with the Guard crew chief."),
+        "category": "public-safety",
+        "locations": [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}],
+    })
+    good = _story("aa50f7807554b049d")
+    good.update({
+        "headline": "Guard crew chief injured in helicopter crash",
+        "dek": "WTEN News10 reports a Guard crew chief was injured in a helicopter crash.",
+        "body": ("According to Guard officials, a helicopter went down during a training "
+                 "flight and the crew chief was injured. He was taken to the hospital for "
+                 "treatment, WTEN News10 ABC reported. The Guard crew chief was injured in "
+                 "the helicopter crash on the training flight."),
+        "category": "public-safety",
+        "locations": [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}],
+    })
+    clusters = [_heli_cluster_for_story("f50f7807554b049d"),
+                _heli_cluster_for_story("aa50f7807554b049d")]
+    sp, cp = _write_inputs(tmp_path, [bad, good], clusters)
+    out = _run_publish(tmp_path, sp, cp, "2026-09-23T10:17:00Z")
+    stories = {s["id"]: s for s in
+               json.loads((out / "feeds/us/ny/regions/us-ny-capital-region/latest.json")
+                          .read_text(encoding="utf-8"))["stories"]}
+    assert stories["f50f7807554b049d"]["aiGenerated"] is False
+    assert "injured in helicopter crash" in stories["f50f7807554b049d"]["headline"]
+    assert stories["aa50f7807554b049d"]["aiGenerated"] is True
+
+
 def test_share_carry_forward_and_prune(tmp_path):
     from pipeline import publish as pub
 

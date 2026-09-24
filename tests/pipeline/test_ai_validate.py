@@ -796,3 +796,190 @@ def test_gazetteer_duplicate_city_names_all_areas_accepted():
     # Restore real gazetteer for subsequent tests
     _gazetteer_geo()
     _gazetteer_lookups()
+
+
+# --- fix/ai-outcome-claims: unsupported death/legal/injury outcomes ---
+
+def _heli_cluster():
+    # Production story f50f7807554b049d: WTEN reported a Guard crew chief
+    # INJURED; the metro (Capital Region) is the cluster location, which is
+    # exactly why the entity allowlist let the bad brief through.
+    return {
+        "eventId": "f50f7807554b049d",
+        "members": [
+            {
+                "id": "h1",
+                "sourceId": "wten-news10",
+                "publisher": "WTEN News10 ABC",
+                "headline": "NY Army National Guard crew chief injured in helicopter crash takes 'final flight'",
+                "excerpt": "The crew chief was injured when the helicopter went down during a training flight, according to Guard officials. He was taken to the hospital for treatment.",
+                "url": "https://example.com/heli",
+                "publishedAt": "2026-09-23T19:44:55Z",
+                "rightsMode": "RSS_EXCERPT_ALLOWED",
+            },
+        ],
+        "locations": [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}],
+        "confidenceTier": "medium",
+        "category": "public-safety",
+        "score": 0.6,
+        "status": "new",
+        "version": 1,
+        "firstSeen": "2026-09-23T19:44:55Z",
+        "lastSeen": "2026-09-23T19:44:55Z",
+    }
+
+
+def _heli_brief(headline, dek, body):
+    return {
+        "headline": headline,
+        "dek": dek,
+        "body": body,
+        "category": "public-safety",
+        "locations": [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}],
+        "people": [],
+        "organizations": [],
+        "sourceIds": ["h1"],
+        "aiModel": "test",
+        "confidence": 0.7,
+    }
+
+
+_HELI_S1 = (
+    "According to Guard officials, a helicopter went down during a training "
+    "flight and the crew chief was injured."
+)
+_HELI_S2 = "He was taken to the hospital for treatment, WTEN News10 ABC reported."
+_HELI_S3 = "The crash occurred in the Capital Region, according to the source."
+
+
+def test_died_when_source_says_injured_rejected():
+    # The exact production failure: source says injured, brief says died
+    # (headline + dek + body), plus an invented "occurred in the Capital
+    # Region". Every other sentence is grounded, so the new checks -- not
+    # the coverage guard -- must be the catchers.
+    body = (
+        f"{_HELI_S1} {_HELI_S2} {_HELI_S3} "
+        "A military veteran died in the helicopter crash on the training "
+        "flight with the Guard crew chief."
+    )
+    assert 30 <= len(body.split()) <= 220
+    bad = _heli_brief(
+        "Military veteran dies in helicopter crash",
+        "WTEN News10 reports a military veteran died in a helicopter crash.",
+        body,
+    )
+    result = validate_brief(bad, _heli_cluster())
+    assert not result.ok, result.reasons
+    assert any("outcome" in r and "died" in r for r in result.reasons), result.reasons
+    assert any("Capital Region" in r for r in result.reasons), result.reasons
+    assert not any("background" in r.lower() for r in result.reasons), result.reasons
+
+
+def test_injured_supported_but_vague_location_still_rejected():
+    # Same cluster, honest outcome ("injured" is in the source): the outcome
+    # check passes and ONLY the event-location check fires.
+    body = (
+        f"{_HELI_S1} {_HELI_S2} {_HELI_S3} "
+        "The Guard crew chief was injured in the helicopter crash on the "
+        "training flight."
+    )
+    assert 30 <= len(body.split()) <= 220
+    bad = _heli_brief(
+        "Guard crew chief injured in helicopter crash",
+        "WTEN News10 reports a Guard crew chief was injured in a helicopter crash.",
+        body,
+    )
+    result = validate_brief(bad, _heli_cluster())
+    assert not result.ok, result.reasons
+    assert not any("outcome" in r for r in result.reasons), result.reasons
+    assert any("event location" in r for r in result.reasons), result.reasons
+
+
+def test_killed_in_source_supports_died_in_brief():
+    # Concept-level support (not word-level): source "killed" backs brief
+    # "died", so an honest fatality brief still passes end to end.
+    cluster = {
+        "eventId": "kill" + "0" * 12,
+        "members": [
+            {
+                "id": "k1",
+                "sourceId": "s-k",
+                "publisher": "WTEN",
+                "headline": "Two workers killed in factory fire in Troy",
+                "excerpt": "Two workers were killed in a factory fire in Troy on Tuesday, according to police. Firefighters responded to the blaze on River Street.",
+                "url": "https://example.com/k1",
+                "publishedAt": "2026-09-23T19:44:55Z",
+                "rightsMode": "RSS_EXCERPT_ALLOWED",
+            },
+        ],
+        "locations": [{"country": "US", "admin1": "US-NY", "admin2": "Rensselaer County",
+                       "city": "Troy"}],
+        "confidenceTier": "medium",
+        "category": "local",
+        "score": 0.6,
+        "status": "new",
+        "version": 1,
+        "firstSeen": "2026-09-23T19:44:55Z",
+        "lastSeen": "2026-09-23T19:44:55Z",
+    }
+    body = (
+        "According to police, a factory fire in Troy killed two workers on Tuesday. "
+        "Firefighters responded to the blaze on River Street in Troy. "
+        "Police said the factory fire in Troy killed two workers Tuesday. "
+        "Firefighters responded to the River Street blaze in Troy."
+    )
+    assert 30 <= len(body.split()) <= 220
+    good = {
+        "headline": "Two workers die in Troy factory fire",
+        "dek": "Police report two workers died in the Troy fire.",
+        "body": body,
+        "category": "local",
+        "locations": [{"country": "US", "admin1": "US-NY", "admin2": "Rensselaer County",
+                       "city": "Troy"}],
+        "people": [],
+        "organizations": [],
+        "sourceIds": ["k1"],
+        "aiModel": "test",
+        "confidence": 0.7,
+    }
+    result = validate_brief(good, cluster)
+    assert result.ok, result.reasons
+
+
+def test_arrested_in_source_supports_arrest_in_brief():
+    # The thin-Troy honest brief leans on "arrested"/"arrest": supported,
+    # so the outcome check stays silent on it.
+    from pipeline.ai.validate import _check_outcome_claims
+
+    cluster = _thin_troy_cluster()
+    body = (
+        "Police arrested a Troy woman on Tuesday, according to News10. "
+        "The arrest occurred in Rensselaer County, New York as a result of an animal abuse investigation. "
+        "Police in Troy arrested the woman on Tuesday. News10 reported the Troy arrest on Tuesday."
+    )
+    assert _check_outcome_claims(_thin_troy_brief(body), cluster) == []
+
+
+def test_convicted_without_source_support_rejected():
+    # Arrest-only sources do not support a conviction claim.
+    from pipeline.ai.validate import _check_outcome_claims
+
+    cluster = _thin_troy_cluster()
+    brief = _thin_troy_brief("x")
+    brief["headline"] = "Troy woman convicted on neglect charge"
+    reasons = _check_outcome_claims(brief, cluster)
+    assert any("convicted" in r and "conviction" in r for r in reasons), reasons
+
+
+def test_event_location_county_still_passes_but_metro_fails():
+    # The county/state form the pipeline itself resolved stays allowed;
+    # the broad metro alone does not localize an event.
+    from pipeline.ai.validate import _check_event_location
+
+    cluster = _thin_troy_cluster()
+    county = {"headline": "h", "dek": "d",
+              "body": "The arrest occurred in Rensselaer County, New York as a result of an investigation."}
+    assert _check_event_location(county, cluster) == []
+    metro = {"headline": "h", "dek": "d",
+             "body": "The arrest occurred in the Capital Region, according to the source."}
+    assert any("Capital Region" in r for r in _check_event_location(metro, cluster))

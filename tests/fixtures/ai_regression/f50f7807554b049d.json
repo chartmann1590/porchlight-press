@@ -1,0 +1,70 @@
+{
+  "eventId": "f50f7807554b049d",
+  "members": [
+    {
+      "id": "f50f7807554b049da1b2c3d4e5f60718",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "NY Army National Guard crew chief injured in helicopter crash takes 'final flight'",
+      "excerpt": "The crew chief was injured when the helicopter went down during a training flight, according to Guard officials. He was taken to the hospital for treatment.",
+      "url": "https://www.news10.com/news/ny-army-national-guard-crew-chief-injured-in-helicopter-crash/",
+      "publishedAt": "2026-09-23T19:44:55Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    }
+  ],
+  "memberIds": [
+    "f50f7807554b049da1b2c3d4e5f60718"
+  ],
+  "aliases": [],
+  "firstSeen": "2026-09-23T19:44:55Z",
+  "lastSeen": "2026-09-23T19:44:55Z",
+  "locations": [
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "metro": "us-ny-capital-region"
+    }
+  ],
+  "section": "regional",
+  "category": "public-safety",
+  "headline": "NY Army National Guard crew chief injured in helicopter crash takes 'final flight'",
+  "score": 0.6524787899913195,
+  "scoreComponents": {
+    "freshness": 0.9299151599652777,
+    "locality": 1.0,
+    "corroboration": 0.0,
+    "sourcePriority": 0.8,
+    "breaking": 0.0,
+    "categoryBoost": 1.0,
+    "stalePenalty": 0.0,
+    "duplicatePenalty": 0.0
+  },
+  "breaking": false,
+  "confidence": "MEDIUM",
+  "confidenceTier": "medium",
+  "independentSources": 1,
+  "sources": [
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "NY Army National Guard crew chief injured in helicopter crash takes 'final flight'",
+      "url": "https://www.news10.com/news/ny-army-national-guard-crew-chief-injured-in-helicopter-crash/",
+      "publishedAt": "2026-09-23T19:44:55Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    }
+  ],
+  "status": "new",
+  "version": 1,
+  "lastBriefHash": null,
+  "lastGeneratedAt": null
+}
