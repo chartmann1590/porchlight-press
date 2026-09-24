@@ -271,8 +271,11 @@ class NewspaperUiTest {
         rule.onNodeWithTag("sources-header").assertIsDisplayed()
         rule.onNodeWithTag("source-link", useUnmergedTree = true).performScrollTo()
         rule.onNodeWithTag("source-link", useUnmergedTree = true).assertIsDisplayed()
-        // Tapping fires an open-URL intent (IntentsRule stubs the external
-        // launch, so the article stays put and the intent is verifiable).
+        // Tapping fires an open-URL intent. Stub the external launch so the
+        // article stays put and the fired intent becomes verifiable.
+        androidx.test.espresso.intent.Intents.intending(
+            androidx.test.espresso.intent.matcher.IntentMatchers.hasAction(android.content.Intent.ACTION_VIEW),
+        ).respondWith(android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_OK, null))
         rule.onNodeWithTag("source-link", useUnmergedTree = true).performClick()
         androidx.test.espresso.intent.Intents.intended(
             org.hamcrest.CoreMatchers.allOf(
