@@ -63,16 +63,17 @@ fun HomeScreen(container: AppContainer) {
 private fun EditionSummary(container: AppContainer, locationId: String) {
     val content = androidx.compose.runtime.produceState<Result<String>?>(initialValue = null, locationId) {
         value = runCatching {
-            val c = container.editionRepository.cachedContent(locationId, "latest")
-                ?: return@runCatching "Fetching your paper…"
-            val stories = c.sections.sumOf { it.second.size }
-            buildString {
-                append("Latest edition · $stories ${if (stories == 1) "story" else "stories"}")
-                if (c.sections.isNotEmpty()) {
-                    append("\n")
-                    append(c.sections.joinToString(" · ") { it.first.title })
-                }
-            }
+            container.editionRepository.cachedContent(locationId, "latest")
+                ?.let { c ->
+                    val stories = c.sections.sumOf { it.second.size }
+                    buildString {
+                        append("Latest edition · $stories ${if (stories == 1) "story" else "stories"}")
+                        if (c.sections.isNotEmpty()) {
+                            append("\n")
+                            append(c.sections.joinToString(" · ") { it.first.title })
+                        }
+                    }
+                } ?: "Fetching your paper…"
         }
     }.value
     Text(
