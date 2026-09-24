@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T09:45:18.452817Z",
+  "generatedAt": "2026-09-24T10:18:01.473728Z",
   "model": "Qwen3-1.7B-Q8_0",
   "stories": [
     {
@@ -9,13 +9,13 @@
       "category": "politics",
       "publishedAt": "2026-09-22T17:29:02Z",
       "updatedAt": "2026-09-24T02:21:40Z",
-      "generatedAt": "2026-09-24T09:21:35.568056Z",
+      "generatedAt": "2026-09-24T09:54:33.161822Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:21:35.568056Z"
+          "updatedAt": "2026-09-24T09:54:33.161822Z"
         }
       ],
       "confidenceTier": "high",
@@ -113,13 +113,13 @@
       "category": "weather",
       "publishedAt": "2026-09-24T08:49:00Z",
       "updatedAt": "2026-09-24T08:49:00Z",
-      "generatedAt": "2026-09-24T09:22:25.026750Z",
+      "generatedAt": "2026-09-24T09:55:39.799929Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:22:25.026750Z"
+          "updatedAt": "2026-09-24T09:55:39.799929Z"
         }
       ],
       "confidenceTier": "medium",
@@ -156,12 +156,12 @@
       ],
       "excerpt": "Areas of fog, locally dense with visibility occasionally down to around a quarter mile will continue to occur across the Greater Capital Region, Mohawk Valley, Schoharie Valley, Upper Hudson River Valley, Lake George Saratoga Region, northern Taconics, southern Adirondacks, northern Berkshires and s",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Design_Motel_in_Saratoga_Springs%2C_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Design Motel in Saratoga Springs, New York \u2014 Tyler A. McNeil / Wikimedia Commons (CC BY-SA 4.0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC BY-SA 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Design_Motel_in_Saratoga_Springs,_New_York.jpg"
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Downtown_Saratoga_Springs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Downtown Saratoga Springs \u2014 UpstateNYer / Wikimedia Commons (CC BY-SA 3.0)",
+        "creator": "UpstateNYer",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Saratoga_Springs.jpg"
       }
     },
     {
@@ -171,13 +171,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T02:52:16Z",
       "updatedAt": "2026-09-24T02:52:16Z",
-      "generatedAt": "2026-09-24T09:23:06.331264Z",
+      "generatedAt": "2026-09-24T09:56:32.754244Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:23:06.331264Z"
+          "updatedAt": "2026-09-24T09:56:32.754244Z"
         }
       ],
       "confidenceTier": "medium",
@@ -202,12 +202,12 @@
       ],
       "excerpt": "It was a tense few hours for many residents in Poestenkill, Averill Park and Sand Lake who received texts from police about their search for a man who was believed to be armed with multiple weapons.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -217,13 +217,13 @@
       "category": "weather",
       "publishedAt": "2026-09-23T22:02:25Z",
       "updatedAt": "2026-09-23T22:02:25Z",
-      "generatedAt": "2026-09-24T09:23:40.104437Z",
+      "generatedAt": "2026-09-24T09:57:26.742338Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:23:40.104437Z"
+          "updatedAt": "2026-09-24T09:57:26.742338Z"
         }
       ],
       "confidenceTier": "medium",
@@ -263,13 +263,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T16:58:00Z",
       "updatedAt": "2026-09-23T16:58:00Z",
-      "generatedAt": "2026-09-24T09:24:32.413912Z",
+      "generatedAt": "2026-09-24T09:58:10.248061Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:24:32.413912Z"
+          "updatedAt": "2026-09-24T09:58:10.248061Z"
         }
       ],
       "confidenceTier": "medium",
@@ -309,13 +309,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T20:36:22Z",
       "updatedAt": "2026-09-23T20:36:22Z",
-      "generatedAt": "2026-09-24T09:25:11.758702Z",
+      "generatedAt": "2026-09-24T09:58:46.640213Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:25:11.758702Z"
+          "updatedAt": "2026-09-24T09:58:46.640213Z"
         }
       ],
       "confidenceTier": "medium",
@@ -352,16 +352,19 @@
       "apiVersion": 1,
       "id": "65497cffb2af21d4",
       "headline": "State Police: Poestenkill suspect taken into custody",
+      "dek": "New York State Police issued a public safety alert as they searched for the armed man in Poestenkill.",
+      "body": "39-year-old James Cooper IV has been taken into custody by New York State Police. The public safety alert was issued on Wednesday afternoon, according to Wten News10 ABC. The search for the suspect in Poestenkill was conducted by state police, as reported by the source.",
       "category": "public-safety",
       "publishedAt": "2026-09-23T19:44:55Z",
       "updatedAt": "2026-09-23T19:44:55Z",
-      "generatedAt": "2026-09-24T09:25:51.518280Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T09:59:07.621809Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-1.7B-Q8_0",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:25:51.518280Z"
+          "updatedAt": "2026-09-24T09:59:07.621809Z"
         }
       ],
       "confidenceTier": "medium",
@@ -388,7 +391,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "39-year-old James Cooper IV has been taken into custody. New York State Police issued a public safety alert on Wednesday afternoon as they searched for the armed man in Poestenkill.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/State_Police_Head_Quarters%2C_Bhubaneswar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: State Police Head Quarters, Bhubaneswar \u2014 Subhrasingh / Wikimedia Commons (CC BY-SA 4.0)",
@@ -405,13 +407,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T19:42:56Z",
       "updatedAt": "2026-09-23T19:42:56Z",
-      "generatedAt": "2026-09-24T09:26:27.159440Z",
+      "generatedAt": "2026-09-24T09:59:54.315735Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:26:27.159440Z"
+          "updatedAt": "2026-09-24T09:59:54.315735Z"
         }
       ],
       "confidenceTier": "medium",
@@ -451,13 +453,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T17:59:31Z",
       "updatedAt": "2026-09-23T17:59:31Z",
-      "generatedAt": "2026-09-24T09:27:04.127688Z",
+      "generatedAt": "2026-09-24T10:00:37.209203Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:27:04.127688Z"
+          "updatedAt": "2026-09-24T10:00:37.209203Z"
         }
       ],
       "confidenceTier": "medium",
@@ -497,13 +499,13 @@
       "category": "sports",
       "publishedAt": "2026-09-24T07:30:22Z",
       "updatedAt": "2026-09-24T07:30:22Z",
-      "generatedAt": "2026-09-24T09:28:02.625311Z",
+      "generatedAt": "2026-09-24T10:01:37.810807Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:28:02.625311Z"
+          "updatedAt": "2026-09-24T10:01:37.810807Z"
         }
       ],
       "confidenceTier": "medium",
@@ -543,13 +545,13 @@
       "category": "sports",
       "publishedAt": "2026-09-24T07:04:54Z",
       "updatedAt": "2026-09-24T07:04:54Z",
-      "generatedAt": "2026-09-24T09:28:40.203358Z",
+      "generatedAt": "2026-09-24T10:02:29.120191Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:28:40.203358Z"
+          "updatedAt": "2026-09-24T10:02:29.120191Z"
         }
       ],
       "confidenceTier": "medium",
@@ -574,12 +576,12 @@
       ],
       "excerpt": "UAlbany is trying to bounce back from another close-knit defeat. The Danes lost, 28-20, to Monmouth Saturday after being stopped just outside the goal line with 2:25 to play in the fourth quarter.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Albany_County_Route_306_-_New_York_-_4358066232.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany County Route 306 - New York - 4358066232 \u2014 Dougtone / Wikimedia Commons (CC BY-SA 2.0)",
+        "creator": "Dougtone",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany_County_Route_306_-_New_York_-_4358066232.jpg"
       }
     },
     {
@@ -589,13 +591,13 @@
       "category": "business",
       "publishedAt": "2026-09-24T02:39:57Z",
       "updatedAt": "2026-09-24T02:39:57Z",
-      "generatedAt": "2026-09-24T09:29:25.914928Z",
+      "generatedAt": "2026-09-24T10:03:21.949801Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:29:25.914928Z"
+          "updatedAt": "2026-09-24T10:03:21.949801Z"
         }
       ],
       "confidenceTier": "medium",
@@ -635,13 +637,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T02:00:51Z",
       "updatedAt": "2026-09-24T02:00:51Z",
-      "generatedAt": "2026-09-24T09:30:09.316420Z",
+      "generatedAt": "2026-09-24T10:04:09.612575Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:30:09.316420Z"
+          "updatedAt": "2026-09-24T10:04:09.612575Z"
         }
       ],
       "confidenceTier": "medium",
@@ -681,13 +683,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T10:39:14Z",
       "updatedAt": "2026-09-23T10:39:14Z",
-      "generatedAt": "2026-09-24T09:30:46.708457Z",
+      "generatedAt": "2026-09-24T10:04:53.196517Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:30:46.708457Z"
+          "updatedAt": "2026-09-24T10:04:53.196517Z"
         }
       ],
       "confidenceTier": "medium",
@@ -727,13 +729,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T20:38:14Z",
       "updatedAt": "2026-09-23T20:38:14Z",
-      "generatedAt": "2026-09-24T09:31:34.433588Z",
+      "generatedAt": "2026-09-24T10:05:46.937827Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:31:34.433588Z"
+          "updatedAt": "2026-09-24T10:05:46.937827Z"
         }
       ],
       "confidenceTier": "medium",
@@ -772,13 +774,13 @@
       "category": "politics",
       "publishedAt": "2026-09-23T20:25:45Z",
       "updatedAt": "2026-09-23T20:25:45Z",
-      "generatedAt": "2026-09-24T09:32:16.712556Z",
+      "generatedAt": "2026-09-24T10:06:32.031546Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:32:16.712556Z"
+          "updatedAt": "2026-09-24T10:06:32.031546Z"
         }
       ],
       "confidenceTier": "medium",
@@ -818,13 +820,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T10:01:31Z",
       "updatedAt": "2026-09-23T10:01:31Z",
-      "generatedAt": "2026-09-24T09:32:55.096899Z",
+      "generatedAt": "2026-09-24T10:07:31.688611Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:32:55.096899Z"
+          "updatedAt": "2026-09-24T10:07:31.688611Z"
         }
       ],
       "confidenceTier": "medium",
@@ -849,12 +851,12 @@
       ],
       "excerpt": "The U.S. Marshals Service has raised its reward offer for information leading to the arrest of a Lansingburgh homicide suspect. Also, the case against a teenager charged with killing her father in a fire, has been moved to family court. These stories, and more, are in your five things to know, spons",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -864,13 +866,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T00:11:50Z",
       "updatedAt": "2026-09-24T00:11:50Z",
-      "generatedAt": "2026-09-24T09:33:30.706775Z",
+      "generatedAt": "2026-09-24T10:08:15.454486Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:33:30.706775Z"
+          "updatedAt": "2026-09-24T10:08:15.454486Z"
         }
       ],
       "confidenceTier": "medium",
@@ -910,13 +912,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:28:23Z",
       "updatedAt": "2026-09-23T21:28:23Z",
-      "generatedAt": "2026-09-24T09:34:16.465008Z",
+      "generatedAt": "2026-09-24T10:09:11.112616Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:34:16.465008Z"
+          "updatedAt": "2026-09-24T10:09:11.112616Z"
         }
       ],
       "confidenceTier": "medium",
@@ -962,13 +964,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T17:06:00Z",
       "updatedAt": "2026-09-23T17:06:00Z",
-      "generatedAt": "2026-09-24T09:34:56.051078Z",
+      "generatedAt": "2026-09-24T10:09:56.228239Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:34:56.051078Z"
+          "updatedAt": "2026-09-24T10:09:56.228239Z"
         }
       ],
       "confidenceTier": "medium",
@@ -993,12 +995,12 @@
       ],
       "excerpt": "On Monday, Ulster County Judge Kevin Bryant ruled to extend an injunction that says the County must keep the Senior Care Center at Sunset Lake open temporarily.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1008,13 +1010,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T13:37:30Z",
       "updatedAt": "2026-09-23T21:02:48Z",
-      "generatedAt": "2026-09-24T09:34:56.051118Z",
+      "generatedAt": "2026-09-24T10:09:56.228289Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:34:56.051118Z"
+          "updatedAt": "2026-09-24T10:09:56.228289Z"
         }
       ],
       "confidenceTier": "low",
@@ -1059,12 +1061,12 @@
       ],
       "excerpt": "Saratoga Springs County Supervisor Sarah Burger created the Horse Racing Fire Safety and Prevention Advisory Committee directly following that fatal June 16 fire. They just released their first set of recommendations, which largely focus on structure, fire resistance, fire barriers, and fire suppres",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Design_Motel_in_Saratoga_Springs%2C_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Design Motel in Saratoga Springs, New York \u2014 Tyler A. McNeil / Wikimedia Commons (CC BY-SA 4.0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC BY-SA 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Design_Motel_in_Saratoga_Springs,_New_York.jpg"
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Downtown_Saratoga_Springs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Downtown Saratoga Springs \u2014 UpstateNYer / Wikimedia Commons (CC BY-SA 3.0)",
+        "creator": "UpstateNYer",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Saratoga_Springs.jpg"
       }
     },
     {
@@ -1074,13 +1076,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:01:39Z",
       "updatedAt": "2026-09-23T21:01:39Z",
-      "generatedAt": "2026-09-24T09:35:36.782911Z",
+      "generatedAt": "2026-09-24T10:10:37.449545Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:35:36.782911Z"
+          "updatedAt": "2026-09-24T10:10:37.449545Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1126,13 +1128,13 @@
       "category": "health",
       "publishedAt": "2026-09-23T18:17:57Z",
       "updatedAt": "2026-09-23T18:17:57Z",
-      "generatedAt": "2026-09-24T09:36:18.705065Z",
+      "generatedAt": "2026-09-24T10:11:51.477697Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:36:18.705065Z"
+          "updatedAt": "2026-09-24T10:11:51.477697Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1157,12 +1159,12 @@
       ],
       "excerpt": "ALBANY, N.Y. (NEWS10) - September is Perimenopause Awareness Month! Perimenopause is the stage of life for women before menopause. Menopause is the point in time when a woman has gone 12 consecutive months without a menstrual period, marking the permanent end of her reproductive years. During perime",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1172,13 +1174,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:50:54Z",
       "updatedAt": "2026-09-23T15:50:54Z",
-      "generatedAt": "2026-09-24T09:36:58.998596Z",
+      "generatedAt": "2026-09-24T10:12:36.225845Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:36:58.998596Z"
+          "updatedAt": "2026-09-24T10:12:36.225845Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1218,13 +1220,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:31:50Z",
       "updatedAt": "2026-09-23T15:31:50Z",
-      "generatedAt": "2026-09-24T09:37:32.327466Z",
+      "generatedAt": "2026-09-24T10:13:21.698937Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:37:32.327466Z"
+          "updatedAt": "2026-09-24T10:13:21.698937Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1249,12 +1251,12 @@
       ],
       "excerpt": "ALDI has set an opening date for its new location in Latham.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1264,13 +1266,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:03:13Z",
       "updatedAt": "2026-09-23T15:03:13Z",
-      "generatedAt": "2026-09-24T09:38:09.061343Z",
+      "generatedAt": "2026-09-24T10:14:08.610253Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:38:09.061343Z"
+          "updatedAt": "2026-09-24T10:14:08.610253Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1310,13 +1312,13 @@
       "category": "business",
       "publishedAt": "2026-09-23T13:08:32Z",
       "updatedAt": "2026-09-23T13:08:32Z",
-      "generatedAt": "2026-09-24T09:38:58.022648Z",
+      "generatedAt": "2026-09-24T10:14:52.819946Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:38:58.022648Z"
+          "updatedAt": "2026-09-24T10:14:52.819946Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1351,70 +1353,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "2208d0348022818a",
-      "headline": "New animal shelter opens at the Albany County Jail",
-      "category": "local",
-      "publishedAt": "2026-09-23T12:48:09Z",
-      "updatedAt": "2026-09-23T12:48:09Z",
-      "generatedAt": "2026-09-24T09:39:40.691571Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:39:40.691571Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        },
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "New animal shelter opens at the Albany County Jail",
-          "url": "https://www.news10.com/news/albany-county/new-animal-shelter-opens-at-the-albany-county-jail/",
-          "publishedAt": "2026-09-23T12:48:09Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "A new animal shelter has opened at the Albany County Jail in Colonie. According to Albany County Sheriff Craig Apple, the shelter will expand capacity for the Mohawk Hudson Humane Society and give employment opportunities to people experiencing homelessness.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "77983e011211c4ce",
       "headline": "Woman accused of intentionally hitting car in Fort Edward",
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:49:15Z",
       "updatedAt": "2026-09-22T17:49:15Z",
-      "generatedAt": "2026-09-24T09:40:11.400273Z",
+      "generatedAt": "2026-09-24T10:15:36.497198Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:40:11.400273Z"
+          "updatedAt": "2026-09-24T10:15:36.497198Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1454,13 +1404,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:41:13Z",
       "updatedAt": "2026-09-22T17:41:13Z",
-      "generatedAt": "2026-09-24T09:40:53.533080Z",
+      "generatedAt": "2026-09-24T10:16:21.745453Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:40:53.533080Z"
+          "updatedAt": "2026-09-24T10:16:21.745453Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1499,18 +1449,70 @@
     },
     {
       "apiVersion": 1,
-      "id": "987fa59d5009e7b0",
-      "headline": "Thai chicken restaurant chain opens in Clifton Park",
-      "category": "environment",
-      "publishedAt": "2026-09-23T12:18:51Z",
-      "updatedAt": "2026-09-23T12:18:51Z",
-      "generatedAt": "2026-09-24T09:41:31.726970Z",
+      "id": "2208d0348022818a",
+      "headline": "New animal shelter opens at the Albany County Jail",
+      "category": "local",
+      "publishedAt": "2026-09-23T12:48:09Z",
+      "updatedAt": "2026-09-23T12:48:09Z",
+      "generatedAt": "2026-09-24T10:17:21.860366Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:41:31.726970Z"
+          "updatedAt": "2026-09-24T10:17:21.860366Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "New animal shelter opens at the Albany County Jail",
+          "url": "https://www.news10.com/news/albany-county/new-animal-shelter-opens-at-the-albany-county-jail/",
+          "publishedAt": "2026-09-23T12:48:09Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "A new animal shelter has opened at the Albany County Jail in Colonie. According to Albany County Sheriff Craig Apple, the shelter will expand capacity for the Mohawk Hudson Humane Society and give employment opportunities to people experiencing homelessness.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "987fa59d5009e7b0",
+      "headline": "Thai chicken restaurant chain opens in Clifton Park",
+      "category": "environment",
+      "publishedAt": "2026-09-23T12:18:51Z",
+      "updatedAt": "2026-09-23T12:18:51Z",
+      "generatedAt": "2026-09-24T10:18:01.472392Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.472392Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1550,13 +1552,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T10:59:33Z",
       "updatedAt": "2026-09-23T10:59:33Z",
-      "generatedAt": "2026-09-24T09:42:06.171029Z",
+      "generatedAt": "2026-09-24T10:18:01.472441Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:42:06.171029Z"
+          "updatedAt": "2026-09-24T10:18:01.472441Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1581,12 +1583,12 @@
       ],
       "excerpt": "Overall we have a similar atmospheric setup for today as recent days, but this time high pressure to the north will flex its muscles a bit more, providing us with more sunshine and slightly milder temperatures. All eyes are on a coastal low for the weekend, though the worst impacts felt from that po",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1596,13 +1598,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T16:27:46Z",
       "updatedAt": "2026-09-22T16:27:46Z",
-      "generatedAt": "2026-09-24T09:42:44.435767Z",
+      "generatedAt": "2026-09-24T10:18:01.472462Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:42:44.435767Z"
+          "updatedAt": "2026-09-24T10:18:01.472462Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1642,13 +1644,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T03:03:53Z",
       "updatedAt": "2026-09-23T22:00:35Z",
-      "generatedAt": "2026-09-24T09:42:44.435809Z",
+      "generatedAt": "2026-09-24T10:18:01.472480Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:42:44.435809Z"
+          "updatedAt": "2026-09-24T10:18:01.472480Z"
         }
       ],
       "confidenceTier": "low",
@@ -1684,12 +1686,12 @@
       ],
       "excerpt": "USA Football\u2019s Heart of a Giant Award, presented by Hospital for Special Surgery and the New York Giants is now on! A local Ballston Spa student has been nominated.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1699,13 +1701,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T21:31:44Z",
       "updatedAt": "2026-09-23T21:49:18Z",
-      "generatedAt": "2026-09-24T09:42:44.435829Z",
+      "generatedAt": "2026-09-24T10:18:01.472501Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:42:44.435829Z"
+          "updatedAt": "2026-09-24T10:18:01.472501Z"
         }
       ],
       "confidenceTier": "low",
@@ -1756,13 +1758,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T21:40:31Z",
       "updatedAt": "2026-09-22T21:40:31Z",
-      "generatedAt": "2026-09-24T09:43:24.439800Z",
+      "generatedAt": "2026-09-24T10:18:01.472525Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:43:24.439800Z"
+          "updatedAt": "2026-09-24T10:18:01.472525Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1802,13 +1804,13 @@
       "category": "weather",
       "publishedAt": "2026-09-22T21:22:41Z",
       "updatedAt": "2026-09-22T21:22:41Z",
-      "generatedAt": "2026-09-24T09:43:59.267486Z",
+      "generatedAt": "2026-09-24T10:18:01.472540Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:43:59.267486Z"
+          "updatedAt": "2026-09-24T10:18:01.472540Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1848,13 +1850,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T21:00:17Z",
       "updatedAt": "2026-09-22T21:00:17Z",
-      "generatedAt": "2026-09-24T09:44:37.422206Z",
+      "generatedAt": "2026-09-24T10:18:01.472554Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:44:37.422206Z"
+          "updatedAt": "2026-09-24T10:18:01.472554Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1892,13 +1894,13 @@
       "category": "sports",
       "publishedAt": "2026-09-23T05:59:14Z",
       "updatedAt": "2026-09-23T05:59:14Z",
-      "generatedAt": "2026-09-24T09:45:18.451786Z",
+      "generatedAt": "2026-09-24T10:18:01.472568Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451786Z"
+          "updatedAt": "2026-09-24T10:18:01.472568Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1938,13 +1940,13 @@
       "category": "sports",
       "publishedAt": "2026-09-23T05:14:31Z",
       "updatedAt": "2026-09-23T05:14:31Z",
-      "generatedAt": "2026-09-24T09:45:18.451828Z",
+      "generatedAt": "2026-09-24T10:18:01.472581Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451828Z"
+          "updatedAt": "2026-09-24T10:18:01.472581Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1979,123 +1981,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "cc0e2a87205e74db",
-      "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
-      "category": "public-safety",
-      "publishedAt": "2026-09-22T16:02:00Z",
-      "updatedAt": "2026-09-22T16:02:00Z",
-      "generatedAt": "2026-09-24T09:45:18.451845Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451845Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "metro": "us-ny-capital-region"
-        },
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WAMC Northeast Public Radio",
-          "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
-          "url": "https://www.wamc.org/news/2026-09-22/father-of-murdered-mechanicville-children-moves-toward-400m-suit-against-city-schools",
-          "publishedAt": "2026-09-22T16:02:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The father of four children who police say were killed by their mother and grandmother has filed a notice of claim against Saratoga County and the City of Mechanicville alleging more could have been done to protect his family.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Saratoga_County_Route_71_-_New_York_-_5618417587.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Saratoga County Route 71 - New York - 5618417587 \u2014 Dougtone / Wikimedia Commons (CC BY-SA 2.0)",
-        "creator": "Dougtone",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Saratoga_County_Route_71_-_New_York_-_5618417587.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
-      "id": "2898cc93a3890534",
-      "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-      "category": "sports",
-      "publishedAt": "2026-09-23T00:16:32Z",
-      "updatedAt": "2026-09-23T14:36:24Z",
-      "generatedAt": "2026-09-24T09:45:18.451859Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451859Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "city": "Saratoga Springs",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "Saratoga Springs festival to offer sweet taste of fall",
-          "url": "https://www.news10.com/news/saratoga-county/saratoga-springs-festival-to-offer-sweet-taste-of-fall/",
-          "publishedAt": "2026-09-23T00:16:32Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        },
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
-          "publishedAt": "2026-09-23T14:36:24Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Downtown_Saratoga_Springs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Downtown Saratoga Springs \u2014 UpstateNYer / Wikimedia Commons (CC BY-SA 3.0)",
-        "creator": "UpstateNYer",
-        "license": "CC BY-SA 3.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Saratoga_Springs.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "74fafcfaf50af8de",
       "headline": "18-year-old convicted in 2025 Albany murder case",
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:25:38Z",
       "updatedAt": "2026-09-22T18:59:25Z",
-      "generatedAt": "2026-09-24T09:45:18.451889Z",
+      "generatedAt": "2026-09-24T10:18:01.472595Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451889Z"
+          "updatedAt": "2026-09-24T10:18:01.472595Z"
         }
       ],
       "confidenceTier": "low",
@@ -2148,13 +2045,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T18:49:58Z",
       "updatedAt": "2026-09-22T18:49:58Z",
-      "generatedAt": "2026-09-24T09:45:18.451906Z",
+      "generatedAt": "2026-09-24T10:18:01.472614Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451906Z"
+          "updatedAt": "2026-09-24T10:18:01.472614Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2189,18 +2086,123 @@
     },
     {
       "apiVersion": 1,
-      "id": "6099203deeedad9f",
-      "headline": "Residents weigh in on new sidewalks on the horizon in Niskayuna",
-      "category": "local",
-      "publishedAt": "2026-09-23T03:15:34Z",
-      "updatedAt": "2026-09-23T03:15:34Z",
-      "generatedAt": "2026-09-24T09:45:18.451919Z",
+      "id": "2898cc93a3890534",
+      "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+      "category": "sports",
+      "publishedAt": "2026-09-23T00:16:32Z",
+      "updatedAt": "2026-09-23T14:36:24Z",
+      "generatedAt": "2026-09-24T10:18:01.472628Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451919Z"
+          "updatedAt": "2026-09-24T10:18:01.472628Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
+          "city": "Saratoga Springs",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Saratoga Springs festival to offer sweet taste of fall",
+          "url": "https://www.news10.com/news/saratoga-county/saratoga-springs-festival-to-offer-sweet-taste-of-fall/",
+          "publishedAt": "2026-09-23T00:16:32Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        },
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
+          "publishedAt": "2026-09-23T14:36:24Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Downtown_Saratoga_Springs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Downtown Saratoga Springs \u2014 UpstateNYer / Wikimedia Commons (CC BY-SA 3.0)",
+        "creator": "UpstateNYer",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Saratoga_Springs.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "cc0e2a87205e74db",
+      "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
+      "category": "public-safety",
+      "publishedAt": "2026-09-22T16:02:00Z",
+      "updatedAt": "2026-09-22T16:02:00Z",
+      "generatedAt": "2026-09-24T10:18:01.472650Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.472650Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WAMC Northeast Public Radio",
+          "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
+          "url": "https://www.wamc.org/news/2026-09-22/father-of-murdered-mechanicville-children-moves-toward-400m-suit-against-city-schools",
+          "publishedAt": "2026-09-22T16:02:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The father of four children who police say were killed by their mother and grandmother has filed a notice of claim against Saratoga County and the City of Mechanicville alleging more could have been done to protect his family.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Saratoga_County_Route_24_-_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Saratoga County Route 24 - New York \u2014 Dougtone / Wikimedia Commons (CC BY-SA 2.0)",
+        "creator": "Dougtone",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Saratoga_County_Route_24_-_New_York.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "6099203deeedad9f",
+      "headline": "Residents weigh in on new sidewalks on the horizon in Niskayuna",
+      "category": "local",
+      "publishedAt": "2026-09-23T03:15:34Z",
+      "updatedAt": "2026-09-23T03:15:34Z",
+      "generatedAt": "2026-09-24T10:18:01.472666Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.472666Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2240,13 +2242,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T11:00:09Z",
       "updatedAt": "2026-09-23T11:00:09Z",
-      "generatedAt": "2026-09-24T09:45:18.451931Z",
+      "generatedAt": "2026-09-24T10:18:01.472682Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451931Z"
+          "updatedAt": "2026-09-24T10:18:01.472682Z"
         }
       ],
       "confidenceTier": "low",
@@ -2284,13 +2286,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T22:41:00Z",
       "updatedAt": "2026-09-22T22:41:00Z",
-      "generatedAt": "2026-09-24T09:45:18.451959Z",
+      "generatedAt": "2026-09-24T10:18:01.472697Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451959Z"
+          "updatedAt": "2026-09-24T10:18:01.472697Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2325,64 +2327,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "68416003223178d9",
-      "headline": "North Adams man charged for series of vehicle break-ins",
-      "category": "local",
-      "publishedAt": "2026-09-23T01:14:37Z",
-      "updatedAt": "2026-09-23T01:14:37Z",
-      "generatedAt": "2026-09-24T09:45:18.451972Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451972Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "North Adams man charged for series of vehicle break-ins",
-          "url": "https://www.news10.com/news/crime/north-adams-man-charged-for-series-of-vehicle-break-ins/",
-          "publishedAt": "2026-09-23T01:14:37Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "A North Adams man was arrested on Sunday after an investigation into a series of motor vehicle break-ins. Brian Dillard Sr. was identified as the suspect and has since been charged and arraigned.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "c78d0f32460216a0",
       "headline": "Troy deli, pizzeria closes after 31 years",
       "category": "business",
       "publishedAt": "2026-09-22T16:12:56Z",
       "updatedAt": "2026-09-22T16:12:56Z",
-      "generatedAt": "2026-09-24T09:45:18.451986Z",
+      "generatedAt": "2026-09-24T10:18:01.472711Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451986Z"
+          "updatedAt": "2026-09-24T10:18:01.472711Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2417,18 +2373,64 @@
     },
     {
       "apiVersion": 1,
-      "id": "2a640475bae5360e",
-      "headline": "Protesters call for end to Rensselaer County's ICE agreement",
+      "id": "68416003223178d9",
+      "headline": "North Adams man charged for series of vehicle break-ins",
       "category": "local",
-      "publishedAt": "2026-09-22T21:35:23Z",
-      "updatedAt": "2026-09-22T21:35:23Z",
-      "generatedAt": "2026-09-24T09:45:18.451999Z",
+      "publishedAt": "2026-09-23T01:14:37Z",
+      "updatedAt": "2026-09-23T01:14:37Z",
+      "generatedAt": "2026-09-24T10:18:01.472726Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.451999Z"
+          "updatedAt": "2026-09-24T10:18:01.472726Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "North Adams man charged for series of vehicle break-ins",
+          "url": "https://www.news10.com/news/crime/north-adams-man-charged-for-series-of-vehicle-break-ins/",
+          "publishedAt": "2026-09-23T01:14:37Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "A North Adams man was arrested on Sunday after an investigation into a series of motor vehicle break-ins. Brian Dillard Sr. was identified as the suspect and has since been charged and arraigned.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "2a640475bae5360e",
+      "headline": "Protesters call for end to Rensselaer County's ICE agreement",
+      "category": "local",
+      "publishedAt": "2026-09-22T21:35:23Z",
+      "updatedAt": "2026-09-22T21:35:23Z",
+      "generatedAt": "2026-09-24T10:18:01.472740Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.472740Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2474,13 +2476,13 @@
       "category": "politics",
       "publishedAt": "2026-09-22T20:59:50Z",
       "updatedAt": "2026-09-22T20:59:50Z",
-      "generatedAt": "2026-09-24T09:45:18.452012Z",
+      "generatedAt": "2026-09-24T10:18:01.472754Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452012Z"
+          "updatedAt": "2026-09-24T10:18:01.472754Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2520,13 +2522,13 @@
       "category": "business",
       "publishedAt": "2026-09-22T23:29:46Z",
       "updatedAt": "2026-09-22T23:29:46Z",
-      "generatedAt": "2026-09-24T09:45:18.452026Z",
+      "generatedAt": "2026-09-24T10:18:01.472767Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452026Z"
+          "updatedAt": "2026-09-24T10:18:01.472767Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2566,13 +2568,13 @@
       "category": "technology",
       "publishedAt": "2026-09-22T22:04:31Z",
       "updatedAt": "2026-09-22T22:04:31Z",
-      "generatedAt": "2026-09-24T09:45:18.452039Z",
+      "generatedAt": "2026-09-24T10:18:01.472781Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452039Z"
+          "updatedAt": "2026-09-24T10:18:01.472781Z"
         }
       ],
       "confidenceTier": "low",
@@ -2610,13 +2612,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T22:01:40Z",
       "updatedAt": "2026-09-22T22:01:40Z",
-      "generatedAt": "2026-09-24T09:45:18.452053Z",
+      "generatedAt": "2026-09-24T10:18:01.472795Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452053Z"
+          "updatedAt": "2026-09-24T10:18:01.472795Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2656,13 +2658,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T21:59:13Z",
       "updatedAt": "2026-09-22T21:59:13Z",
-      "generatedAt": "2026-09-24T09:45:18.452066Z",
+      "generatedAt": "2026-09-24T10:18:01.472808Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452066Z"
+          "updatedAt": "2026-09-24T10:18:01.472808Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2702,13 +2704,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-22T21:51:07Z",
       "updatedAt": "2026-09-22T21:51:07Z",
-      "generatedAt": "2026-09-24T09:45:18.452077Z",
+      "generatedAt": "2026-09-24T10:18:01.472825Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452077Z"
+          "updatedAt": "2026-09-24T10:18:01.472825Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2748,13 +2750,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T20:52:03Z",
       "updatedAt": "2026-09-22T20:52:03Z",
-      "generatedAt": "2026-09-24T09:45:18.452089Z",
+      "generatedAt": "2026-09-24T10:18:01.472841Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452089Z"
+          "updatedAt": "2026-09-24T10:18:01.472841Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2779,12 +2781,12 @@
       ],
       "excerpt": "A new women-focused gym studio has opened its doors in Slingerlands.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
       }
     },
     {
@@ -2794,13 +2796,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-22T17:38:08Z",
       "updatedAt": "2026-09-22T17:38:08Z",
-      "generatedAt": "2026-09-24T09:45:18.452101Z",
+      "generatedAt": "2026-09-24T10:18:01.472855Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452101Z"
+          "updatedAt": "2026-09-24T10:18:01.472855Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2840,13 +2842,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T17:25:31Z",
       "updatedAt": "2026-09-22T17:25:31Z",
-      "generatedAt": "2026-09-24T09:45:18.452113Z",
+      "generatedAt": "2026-09-24T10:18:01.472869Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452113Z"
+          "updatedAt": "2026-09-24T10:18:01.472869Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2886,13 +2888,13 @@
       "category": "weather",
       "publishedAt": "2026-09-24T03:19:45Z",
       "updatedAt": "2026-09-24T03:19:45Z",
-      "generatedAt": "2026-09-24T09:45:18.452125Z",
+      "generatedAt": "2026-09-24T10:18:01.472884Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452125Z"
+          "updatedAt": "2026-09-24T10:18:01.472884Z"
         }
       ],
       "confidenceTier": "low",
@@ -2920,13 +2922,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T09:45:18.452136Z",
+      "generatedAt": "2026-09-24T10:18:01.472898Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452136Z"
+          "updatedAt": "2026-09-24T10:18:01.472898Z"
         }
       ],
       "confidenceTier": "low",
@@ -2954,13 +2956,13 @@
       "category": "business",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T09:45:18.452147Z",
+      "generatedAt": "2026-09-24T10:18:01.472911Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452147Z"
+          "updatedAt": "2026-09-24T10:18:01.472911Z"
         }
       ],
       "confidenceTier": "low",
@@ -2996,13 +2998,13 @@
       "category": "business",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T09:45:18.452161Z",
+      "generatedAt": "2026-09-24T10:18:01.472924Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452161Z"
+          "updatedAt": "2026-09-24T10:18:01.472924Z"
         }
       ],
       "confidenceTier": "low",
@@ -3030,13 +3032,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T09:45:18.452173Z",
+      "generatedAt": "2026-09-24T10:18:01.472937Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452173Z"
+          "updatedAt": "2026-09-24T10:18:01.472937Z"
         }
       ],
       "confidenceTier": "low",
@@ -3064,13 +3066,13 @@
       "category": "business",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T09:45:18.452184Z",
+      "generatedAt": "2026-09-24T10:18:01.472950Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452184Z"
+          "updatedAt": "2026-09-24T10:18:01.472950Z"
         }
       ],
       "confidenceTier": "low",
@@ -3093,53 +3095,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "ad5c6e8e136fb52a",
-      "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
-      "category": "politics",
-      "publishedAt": "2026-09-23T21:26:14Z",
-      "updatedAt": "2026-09-23T21:26:14Z",
-      "generatedAt": "2026-09-24T09:45:18.452195Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452195Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
-          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-23T21:26:14Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York."
-    },
-    {
-      "apiVersion": 1,
       "id": "eac9d7de530aee00",
       "headline": "Judge considers restoring journalists' access to White House after Trump's ban",
       "category": "local",
       "publishedAt": "2026-09-23T22:40:39Z",
       "updatedAt": "2026-09-23T22:40:39Z",
-      "generatedAt": "2026-09-24T09:45:18.452206Z",
+      "generatedAt": "2026-09-24T10:18:01.472966Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452206Z"
+          "updatedAt": "2026-09-24T10:18:01.472966Z"
         }
       ],
       "confidenceTier": "low",
@@ -3170,18 +3137,53 @@
     },
     {
       "apiVersion": 1,
-      "id": "ffc5a2eeeb7b9f5e",
-      "headline": "Judge orders Trump administration to restore journalists' access to White House",
-      "category": "local",
-      "publishedAt": "2026-09-24T06:21:06Z",
-      "updatedAt": "2026-09-24T06:21:06Z",
-      "generatedAt": "2026-09-24T09:45:18.452221Z",
+      "id": "ad5c6e8e136fb52a",
+      "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
+      "category": "politics",
+      "publishedAt": "2026-09-23T21:26:14Z",
+      "updatedAt": "2026-09-23T21:26:14Z",
+      "generatedAt": "2026-09-24T10:18:01.472980Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452221Z"
+          "updatedAt": "2026-09-24T10:18:01.472980Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
+          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-23T21:26:14Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York."
+    },
+    {
+      "apiVersion": 1,
+      "id": "ffc5a2eeeb7b9f5e",
+      "headline": "Judge orders Trump administration to restore journalists' access to White House",
+      "category": "local",
+      "publishedAt": "2026-09-24T06:21:06Z",
+      "updatedAt": "2026-09-24T06:21:06Z",
+      "generatedAt": "2026-09-24T10:18:01.472993Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.472993Z"
         }
       ],
       "confidenceTier": "low",
@@ -3217,13 +3219,13 @@
       "category": "politics",
       "publishedAt": "2026-09-24T05:40:49Z",
       "updatedAt": "2026-09-24T05:40:49Z",
-      "generatedAt": "2026-09-24T09:45:18.452234Z",
+      "generatedAt": "2026-09-24T10:18:01.473006Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452234Z"
+          "updatedAt": "2026-09-24T10:18:01.473006Z"
         }
       ],
       "confidenceTier": "low",
@@ -3251,13 +3253,13 @@
       "category": "business",
       "publishedAt": "2026-09-24T05:14:11Z",
       "updatedAt": "2026-09-24T05:14:11Z",
-      "generatedAt": "2026-09-24T09:45:18.452245Z",
+      "generatedAt": "2026-09-24T10:18:01.473021Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452245Z"
+          "updatedAt": "2026-09-24T10:18:01.473021Z"
         }
       ],
       "confidenceTier": "low",
@@ -3285,13 +3287,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T04:23:38Z",
       "updatedAt": "2026-09-24T04:23:38Z",
-      "generatedAt": "2026-09-24T09:45:18.452255Z",
+      "generatedAt": "2026-09-24T10:18:01.473049Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452255Z"
+          "updatedAt": "2026-09-24T10:18:01.473049Z"
         }
       ],
       "confidenceTier": "low",
@@ -3319,13 +3321,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T18:23:19Z",
       "updatedAt": "2026-09-23T18:23:19Z",
-      "generatedAt": "2026-09-24T09:45:18.452266Z",
+      "generatedAt": "2026-09-24T10:18:01.473063Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452266Z"
+          "updatedAt": "2026-09-24T10:18:01.473063Z"
         }
       ],
       "confidenceTier": "low",
@@ -3353,13 +3355,13 @@
       "category": "politics",
       "publishedAt": "2026-09-23T18:14:40Z",
       "updatedAt": "2026-09-23T18:14:40Z",
-      "generatedAt": "2026-09-24T09:45:18.452280Z",
+      "generatedAt": "2026-09-24T10:18:01.473075Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452280Z"
+          "updatedAt": "2026-09-24T10:18:01.473075Z"
         }
       ],
       "confidenceTier": "low",
@@ -3387,13 +3389,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T18:09:31Z",
       "updatedAt": "2026-09-23T18:09:31Z",
-      "generatedAt": "2026-09-24T09:45:18.452291Z",
+      "generatedAt": "2026-09-24T10:18:01.473088Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452291Z"
+          "updatedAt": "2026-09-24T10:18:01.473088Z"
         }
       ],
       "confidenceTier": "low",
@@ -3421,13 +3423,13 @@
       "category": "politics",
       "publishedAt": "2026-09-23T16:13:52Z",
       "updatedAt": "2026-09-23T16:13:52Z",
-      "generatedAt": "2026-09-24T09:45:18.452303Z",
+      "generatedAt": "2026-09-24T10:18:01.473101Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452303Z"
+          "updatedAt": "2026-09-24T10:18:01.473101Z"
         }
       ],
       "confidenceTier": "low",
@@ -3450,51 +3452,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "41b6f43eb38205f2",
-      "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
-      "category": "science",
-      "publishedAt": "2026-09-24T07:40:58.138000Z",
-      "updatedAt": "2026-09-24T07:40:58.138000Z",
-      "generatedAt": "2026-09-24T09:45:18.452314Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452314Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx9u",
-          "publishedAt": "2026-09-24T07:40:58.138000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ]
-    },
-    {
-      "apiVersion": 1,
       "id": "ae613437a33f65c0",
       "headline": "It's getting harder to afford rent in the U.S., even for middle-income families",
       "category": "science",
       "publishedAt": "2026-09-23T14:09:10Z",
       "updatedAt": "2026-09-23T14:09:10Z",
-      "generatedAt": "2026-09-24T09:45:18.452326Z",
+      "generatedAt": "2026-09-24T10:18:01.473116Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452326Z"
+          "updatedAt": "2026-09-24T10:18:01.473116Z"
         }
       ],
       "confidenceTier": "low",
@@ -3517,18 +3486,51 @@
     },
     {
       "apiVersion": 1,
-      "id": "b888109abacff90d",
-      "headline": "Greetings from Edinburgh, where a cheeky tour guide makes art history hilarious",
-      "category": "entertainment",
-      "publishedAt": "2026-09-23T13:31:47Z",
-      "updatedAt": "2026-09-23T13:31:47Z",
-      "generatedAt": "2026-09-24T09:45:18.452338Z",
+      "id": "41b6f43eb38205f2",
+      "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
+      "category": "science",
+      "publishedAt": "2026-09-24T07:40:58.138000Z",
+      "updatedAt": "2026-09-24T07:40:58.138000Z",
+      "generatedAt": "2026-09-24T10:18:01.473131Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452338Z"
+          "updatedAt": "2026-09-24T10:18:01.473131Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx9u",
+          "publishedAt": "2026-09-24T07:40:58.138000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ]
+    },
+    {
+      "apiVersion": 1,
+      "id": "b888109abacff90d",
+      "headline": "Greetings from Edinburgh, where a cheeky tour guide makes art history hilarious",
+      "category": "entertainment",
+      "publishedAt": "2026-09-23T13:31:47Z",
+      "updatedAt": "2026-09-23T13:31:47Z",
+      "generatedAt": "2026-09-24T10:18:01.473146Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.473146Z"
         }
       ],
       "confidenceTier": "low",
@@ -3556,13 +3558,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T11:48:00Z",
       "updatedAt": "2026-09-23T11:48:00Z",
-      "generatedAt": "2026-09-24T09:45:18.452349Z",
+      "generatedAt": "2026-09-24T10:18:01.473160Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452349Z"
+          "updatedAt": "2026-09-24T10:18:01.473160Z"
         }
       ],
       "confidenceTier": "low",
@@ -3598,13 +3600,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T11:13:32Z",
       "updatedAt": "2026-09-23T11:13:32Z",
-      "generatedAt": "2026-09-24T09:45:18.452361Z",
+      "generatedAt": "2026-09-24T10:18:01.473174Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452361Z"
+          "updatedAt": "2026-09-24T10:18:01.473174Z"
         }
       ],
       "confidenceTier": "low",
@@ -3632,13 +3634,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T10:48:47Z",
       "updatedAt": "2026-09-23T10:48:47Z",
-      "generatedAt": "2026-09-24T09:45:18.452375Z",
+      "generatedAt": "2026-09-24T10:18:01.473186Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452375Z"
+          "updatedAt": "2026-09-24T10:18:01.473186Z"
         }
       ],
       "confidenceTier": "low",
@@ -3674,13 +3676,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T03:30:26.013000Z",
       "updatedAt": "2026-09-24T03:30:26.013000Z",
-      "generatedAt": "2026-09-24T09:45:18.452385Z",
+      "generatedAt": "2026-09-24T10:18:01.473203Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452385Z"
+          "updatedAt": "2026-09-24T10:18:01.473203Z"
         }
       ],
       "confidenceTier": "low",
@@ -3707,13 +3709,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T00:26:38.374000Z",
       "updatedAt": "2026-09-24T00:26:38.374000Z",
-      "generatedAt": "2026-09-24T09:45:18.452398Z",
+      "generatedAt": "2026-09-24T10:18:01.473218Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452398Z"
+          "updatedAt": "2026-09-24T10:18:01.473218Z"
         }
       ],
       "confidenceTier": "low",
@@ -3735,18 +3737,52 @@
     },
     {
       "apiVersion": 1,
-      "id": "67c5e56e123ec0d7",
-      "headline": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
-      "category": "technology",
-      "publishedAt": "2026-09-24T07:10:58Z",
-      "updatedAt": "2026-09-24T07:10:58Z",
-      "generatedAt": "2026-09-24T09:45:18.452408Z",
+      "id": "bf98018d9605ced6",
+      "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
+      "category": "travel",
+      "publishedAt": "2026-09-24T09:28:33Z",
+      "updatedAt": "2026-09-24T09:28:33Z",
+      "generatedAt": "2026-09-24T10:18:01.473230Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452408Z"
+          "updatedAt": "2026-09-24T10:18:01.473230Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
+          "url": "https://www.bbc.co.uk/news/articles/cry8zwwq21pxo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T09:28:33Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The local authorities reportedly seize Tigray's airports following reports of recent drone strikes."
+    },
+    {
+      "apiVersion": 1,
+      "id": "67c5e56e123ec0d7",
+      "headline": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
+      "category": "technology",
+      "publishedAt": "2026-09-24T07:10:58Z",
+      "updatedAt": "2026-09-24T07:10:58Z",
+      "generatedAt": "2026-09-24T10:18:01.473243Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.473243Z"
         }
       ],
       "confidenceTier": "low",
@@ -3769,18 +3805,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "bf98018d9605ced6",
-      "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
-      "category": "travel",
-      "publishedAt": "2026-09-24T04:37:47Z",
-      "updatedAt": "2026-09-24T04:37:47Z",
-      "generatedAt": "2026-09-24T09:45:18.452420Z",
+      "id": "fa5549143a001776",
+      "headline": "Trump offers warm welcome as China's Xi arrives for US visit",
+      "category": "local",
+      "publishedAt": "2026-09-24T03:52:21Z",
+      "updatedAt": "2026-09-24T03:52:21Z",
+      "generatedAt": "2026-09-24T10:18:01.473258Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452420Z"
+          "updatedAt": "2026-09-24T10:18:01.473258Z"
         }
       ],
       "confidenceTier": "low",
@@ -3793,79 +3829,13 @@
       "sources": [
         {
           "publisher": "BBC World",
-          "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
-          "url": "https://www.bbc.co.uk/news/articles/cry8zwwq21pxo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T04:37:47Z",
+          "headline": "Trump offers warm welcome as China's Xi arrives for US visit",
+          "url": "https://www.bbc.co.uk/news/articles/cqgmrk7187lzo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T03:52:21Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "The local authorities reportedly seize Tigray's airports following reports of recent drone strikes."
-    },
-    {
-      "apiVersion": 1,
-      "id": "b54f1d6445c0fe30",
-      "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
-      "category": "science",
-      "publishedAt": "2026-09-23T17:46:06.489000Z",
-      "updatedAt": "2026-09-23T17:46:06.489000Z",
-      "generatedAt": "2026-09-24T09:45:18.452431Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452431Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx58",
-          "publishedAt": "2026-09-23T17:46:06.489000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ]
-    },
-    {
-      "apiVersion": 1,
-      "id": "2b79dfde9c9345ba",
-      "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
-      "category": "science",
-      "publishedAt": "2026-09-23T17:20:32.721000Z",
-      "updatedAt": "2026-09-23T17:20:32.721000Z",
-      "generatedAt": "2026-09-24T09:45:18.452441Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452441Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx53",
-          "publishedAt": "2026-09-23T17:20:32.721000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ]
+      "excerpt": "The US treasury secretary said that the US and China had reached an agreement to extend a trade truce as Xi began his visit."
     },
     {
       "apiVersion": 1,
@@ -3874,13 +3844,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T08:41:58.018000Z",
       "updatedAt": "2026-09-23T08:41:58.018000Z",
-      "generatedAt": "2026-09-24T09:45:18.452451Z",
+      "generatedAt": "2026-09-24T10:18:01.473271Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452451Z"
+          "updatedAt": "2026-09-24T10:18:01.473271Z"
         }
       ],
       "confidenceTier": "low",
@@ -3910,18 +3880,84 @@
     },
     {
       "apiVersion": 1,
-      "id": "fa802d068016867b",
-      "headline": "M 4.6 - 59 km WNW of San Antonio de los Cobres, Argentina",
+      "id": "b54f1d6445c0fe30",
+      "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
       "category": "science",
-      "publishedAt": "2026-09-23T16:48:37.858000Z",
-      "updatedAt": "2026-09-23T16:48:37.858000Z",
-      "generatedAt": "2026-09-24T09:45:18.452462Z",
+      "publishedAt": "2026-09-23T17:46:06.489000Z",
+      "updatedAt": "2026-09-23T17:46:06.489000Z",
+      "generatedAt": "2026-09-24T10:18:01.473283Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452462Z"
+          "updatedAt": "2026-09-24T10:18:01.473283Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx58",
+          "publishedAt": "2026-09-23T17:46:06.489000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ]
+    },
+    {
+      "apiVersion": 1,
+      "id": "2b79dfde9c9345ba",
+      "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
+      "category": "science",
+      "publishedAt": "2026-09-23T17:20:32.721000Z",
+      "updatedAt": "2026-09-23T17:20:32.721000Z",
+      "generatedAt": "2026-09-24T10:18:01.473296Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.473296Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx53",
+          "publishedAt": "2026-09-23T17:20:32.721000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ]
+    },
+    {
+      "apiVersion": 1,
+      "id": "fa802d068016867b",
+      "headline": "M 4.6 - 59 km WNW of San Antonio de los Cobres, Argentina",
+      "category": "science",
+      "publishedAt": "2026-09-23T16:48:37.858000Z",
+      "updatedAt": "2026-09-23T16:48:37.858000Z",
+      "generatedAt": "2026-09-24T10:18:01.473308Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.473308Z"
         }
       ],
       "confidenceTier": "low",
@@ -3951,18 +3987,51 @@
     },
     {
       "apiVersion": 1,
-      "id": "ebd8cd761c0d29b3",
-      "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
-      "category": "entertainment",
-      "publishedAt": "2026-09-24T00:50:24Z",
-      "updatedAt": "2026-09-24T00:50:24Z",
-      "generatedAt": "2026-09-24T09:45:18.452471Z",
+      "id": "b4e10bc0e7f1c179",
+      "headline": "M 4.7 - 30 km SE of Khorugh, Tajikistan",
+      "category": "science",
+      "publishedAt": "2026-09-23T05:46:11.056000Z",
+      "updatedAt": "2026-09-23T05:46:11.056000Z",
+      "generatedAt": "2026-09-24T10:18:01.473321Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452471Z"
+          "updatedAt": "2026-09-24T10:18:01.473321Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.7 - 30 km SE of Khorugh, Tajikistan",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx16",
+          "publishedAt": "2026-09-23T05:46:11.056000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ]
+    },
+    {
+      "apiVersion": 1,
+      "id": "ebd8cd761c0d29b3",
+      "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
+      "category": "entertainment",
+      "publishedAt": "2026-09-24T00:50:24Z",
+      "updatedAt": "2026-09-24T00:50:24Z",
+      "generatedAt": "2026-09-24T10:18:01.473336Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T10:18:01.473336Z"
         }
       ],
       "confidenceTier": "low",
@@ -3990,13 +4059,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T14:45:35.743000Z",
       "updatedAt": "2026-09-23T14:45:35.743000Z",
-      "generatedAt": "2026-09-24T09:45:18.452483Z",
+      "generatedAt": "2026-09-24T10:18:01.473348Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452483Z"
+          "updatedAt": "2026-09-24T10:18:01.473348Z"
         }
       ],
       "confidenceTier": "low",
@@ -4023,13 +4092,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T14:41:02.650000Z",
       "updatedAt": "2026-09-23T14:41:02.650000Z",
-      "generatedAt": "2026-09-24T09:45:18.452493Z",
+      "generatedAt": "2026-09-24T10:18:01.473361Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452493Z"
+          "updatedAt": "2026-09-24T10:18:01.473361Z"
         }
       ],
       "confidenceTier": "low",
@@ -4051,51 +4120,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "b4e10bc0e7f1c179",
-      "headline": "M 4.7 - 30 km SE of Khorugh, Tajikistan",
-      "category": "science",
-      "publishedAt": "2026-09-23T05:46:11.056000Z",
-      "updatedAt": "2026-09-23T05:46:11.056000Z",
-      "generatedAt": "2026-09-24T09:45:18.452506Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452506Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.7 - 30 km SE of Khorugh, Tajikistan",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx16",
-          "publishedAt": "2026-09-23T05:46:11.056000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ]
-    },
-    {
-      "apiVersion": 1,
       "id": "2b2df0dbeb23b3c9",
       "headline": "In Amish country, nurses go door to door to stop deadly spread of measles",
       "category": "health",
       "publishedAt": "2026-09-24T00:15:46Z",
       "updatedAt": "2026-09-24T00:15:46Z",
-      "generatedAt": "2026-09-24T09:45:18.452517Z",
+      "generatedAt": "2026-09-24T10:18:01.473374Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452517Z"
+          "updatedAt": "2026-09-24T10:18:01.473374Z"
         }
       ],
       "confidenceTier": "low",
@@ -4131,13 +4167,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T23:58:50Z",
       "updatedAt": "2026-09-23T23:58:50Z",
-      "generatedAt": "2026-09-24T09:45:18.452528Z",
+      "generatedAt": "2026-09-24T10:18:01.473389Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452528Z"
+          "updatedAt": "2026-09-24T10:18:01.473389Z"
         }
       ],
       "confidenceTier": "low",
@@ -4165,13 +4201,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T23:42:38Z",
       "updatedAt": "2026-09-23T23:42:38Z",
-      "generatedAt": "2026-09-24T09:45:18.452538Z",
+      "generatedAt": "2026-09-24T10:18:01.473401Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452538Z"
+          "updatedAt": "2026-09-24T10:18:01.473401Z"
         }
       ],
       "confidenceTier": "low",
@@ -4199,13 +4235,13 @@
       "category": "sports",
       "publishedAt": "2026-09-23T23:14:10Z",
       "updatedAt": "2026-09-23T23:14:10Z",
-      "generatedAt": "2026-09-24T09:45:18.452548Z",
+      "generatedAt": "2026-09-24T10:18:01.473414Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452548Z"
+          "updatedAt": "2026-09-24T10:18:01.473414Z"
         }
       ],
       "confidenceTier": "low",
@@ -4233,13 +4269,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T13:01:51.614000Z",
       "updatedAt": "2026-09-23T13:01:51.614000Z",
-      "generatedAt": "2026-09-24T09:45:18.452558Z",
+      "generatedAt": "2026-09-24T10:18:01.473428Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452558Z"
+          "updatedAt": "2026-09-24T10:18:01.473428Z"
         }
       ],
       "confidenceTier": "low",
@@ -4274,13 +4310,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-23T23:03:56Z",
       "updatedAt": "2026-09-23T23:03:56Z",
-      "generatedAt": "2026-09-24T09:45:18.452569Z",
+      "generatedAt": "2026-09-24T10:18:01.473440Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452569Z"
+          "updatedAt": "2026-09-24T10:18:01.473440Z"
         }
       ],
       "confidenceTier": "low",
@@ -4316,13 +4352,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T15:46:28Z",
       "updatedAt": "2026-09-23T15:46:28Z",
-      "generatedAt": "2026-09-24T09:45:18.452582Z",
+      "generatedAt": "2026-09-24T10:18:01.473452Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452582Z"
+          "updatedAt": "2026-09-24T10:18:01.473452Z"
         }
       ],
       "confidenceTier": "low",
@@ -4350,13 +4386,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T12:23:20.274000Z",
       "updatedAt": "2026-09-23T12:23:20.274000Z",
-      "generatedAt": "2026-09-24T09:45:18.452592Z",
+      "generatedAt": "2026-09-24T10:18:01.473464Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452592Z"
+          "updatedAt": "2026-09-24T10:18:01.473464Z"
         }
       ],
       "confidenceTier": "low",
@@ -4383,13 +4419,13 @@
       "category": "technology",
       "publishedAt": "2026-09-23T22:01:17Z",
       "updatedAt": "2026-09-23T22:01:17Z",
-      "generatedAt": "2026-09-24T09:45:18.452602Z",
+      "generatedAt": "2026-09-24T10:18:01.473476Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452602Z"
+          "updatedAt": "2026-09-24T10:18:01.473476Z"
         }
       ],
       "confidenceTier": "low",
@@ -4417,13 +4453,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:29:04Z",
       "updatedAt": "2026-09-23T21:29:04Z",
-      "generatedAt": "2026-09-24T09:45:18.452615Z",
+      "generatedAt": "2026-09-24T10:18:01.473488Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452615Z"
+          "updatedAt": "2026-09-24T10:18:01.473488Z"
         }
       ],
       "confidenceTier": "low",
@@ -4451,13 +4487,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:16:00Z",
       "updatedAt": "2026-09-23T21:16:00Z",
-      "generatedAt": "2026-09-24T09:45:18.452626Z",
+      "generatedAt": "2026-09-24T10:18:01.473503Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452626Z"
+          "updatedAt": "2026-09-24T10:18:01.473503Z"
         }
       ],
       "confidenceTier": "low",
@@ -4485,13 +4521,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T14:02:55Z",
       "updatedAt": "2026-09-23T14:02:55Z",
-      "generatedAt": "2026-09-24T09:45:18.452636Z",
+      "generatedAt": "2026-09-24T10:18:01.473518Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452636Z"
+          "updatedAt": "2026-09-24T10:18:01.473518Z"
         }
       ],
       "confidenceTier": "low",
@@ -4527,13 +4563,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T02:02:43.755000Z",
       "updatedAt": "2026-09-23T02:02:43.755000Z",
-      "generatedAt": "2026-09-24T09:45:18.452647Z",
+      "generatedAt": "2026-09-24T10:18:01.473531Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452647Z"
+          "updatedAt": "2026-09-24T10:18:01.473531Z"
         }
       ],
       "confidenceTier": "low",
@@ -4560,13 +4596,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T09:21:14.600000Z",
       "updatedAt": "2026-09-23T09:21:14.600000Z",
-      "generatedAt": "2026-09-24T09:45:18.452658Z",
+      "generatedAt": "2026-09-24T10:18:01.473544Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452658Z"
+          "updatedAt": "2026-09-24T10:18:01.473544Z"
         }
       ],
       "confidenceTier": "low",
@@ -4593,13 +4629,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T18:51:12Z",
       "updatedAt": "2026-09-23T18:51:12Z",
-      "generatedAt": "2026-09-24T09:45:18.452669Z",
+      "generatedAt": "2026-09-24T10:18:01.473556Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452669Z"
+          "updatedAt": "2026-09-24T10:18:01.473556Z"
         }
       ],
       "confidenceTier": "low",
@@ -4635,13 +4671,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T18:15:31Z",
       "updatedAt": "2026-09-23T18:15:31Z",
-      "generatedAt": "2026-09-24T09:45:18.452681Z",
+      "generatedAt": "2026-09-24T10:18:01.473568Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452681Z"
+          "updatedAt": "2026-09-24T10:18:01.473568Z"
         }
       ],
       "confidenceTier": "low",
@@ -4669,13 +4705,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:37:20Z",
       "updatedAt": "2026-09-23T15:37:20Z",
-      "generatedAt": "2026-09-24T09:45:18.452693Z",
+      "generatedAt": "2026-09-24T10:18:01.473580Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452693Z"
+          "updatedAt": "2026-09-24T10:18:01.473580Z"
         }
       ],
       "confidenceTier": "low",
@@ -4703,13 +4739,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T12:31:31Z",
       "updatedAt": "2026-09-23T12:31:31Z",
-      "generatedAt": "2026-09-24T09:45:18.452703Z",
+      "generatedAt": "2026-09-24T10:18:01.473593Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452703Z"
+          "updatedAt": "2026-09-24T10:18:01.473593Z"
         }
       ],
       "confidenceTier": "low",
@@ -4737,13 +4773,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T12:22:53Z",
       "updatedAt": "2026-09-23T12:22:53Z",
-      "generatedAt": "2026-09-24T09:45:18.452714Z",
+      "generatedAt": "2026-09-24T10:18:01.473604Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452714Z"
+          "updatedAt": "2026-09-24T10:18:01.473604Z"
         }
       ],
       "confidenceTier": "low",
@@ -4779,13 +4815,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-23T00:05:34Z",
       "updatedAt": "2026-09-23T00:05:34Z",
-      "generatedAt": "2026-09-24T09:45:18.452726Z",
+      "generatedAt": "2026-09-24T10:18:01.473616Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452726Z"
+          "updatedAt": "2026-09-24T10:18:01.473616Z"
         }
       ],
       "confidenceTier": "low",
@@ -4813,13 +4849,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T05:02:26Z",
       "updatedAt": "2026-09-23T05:02:26Z",
-      "generatedAt": "2026-09-24T09:45:18.452735Z",
+      "generatedAt": "2026-09-24T10:18:01.473631Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452735Z"
+          "updatedAt": "2026-09-24T10:18:01.473631Z"
         }
       ],
       "confidenceTier": "low",
@@ -4847,13 +4883,13 @@
       "category": "politics",
       "publishedAt": "2026-09-22T20:59:00Z",
       "updatedAt": "2026-09-22T20:59:00Z",
-      "generatedAt": "2026-09-24T09:45:18.452745Z",
+      "generatedAt": "2026-09-24T10:18:01.473645Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T09:45:18.452745Z"
+          "updatedAt": "2026-09-24T10:18:01.473645Z"
         }
       ],
       "confidenceTier": "low",

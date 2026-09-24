@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T09:18:12.814857Z",
+  "generatedAt": "2026-09-24T09:52:29.639092Z",
   "clusters": [
     {
       "eventId": "d7dd17ec62b6ebaa",
@@ -265,9 +265,9 @@
       "section": "local",
       "category": "politics",
       "headline": "Climate debate heats up as New York gubernatorial election looms",
-      "score": 0.7108942757937886,
+      "score": 0.7089104561226852,
       "scoreComponents": {
-        "freshness": 0.9035771031751543,
+        "freshness": 0.8956418244907407,
         "locality": 1.0,
         "corroboration": 0.5,
         "sourcePriority": 0.9,
@@ -419,9 +419,9 @@
       "section": "local",
       "category": "weather",
       "headline": "Special Weather Statement issued September 24 at 4:49AM EDT by NWS Albany NY",
-      "score": 0.6908093992505787,
+      "score": 0.6888255795794753,
       "scoreComponents": {
-        "freshness": 0.9932375970023148,
+        "freshness": 0.9853023183179013,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.95,
@@ -444,7 +444,7 @@
           "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -493,9 +493,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Residents breathe sigh of relief after several hour manhunt ends with suspect in custody",
-      "score": 0.6476651091271219,
+      "score": 0.6456812894560185,
       "scoreComponents": {
-        "freshness": 0.9106604365084876,
+        "freshness": 0.902725157824074,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -518,7 +518,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -567,9 +567,9 @@
       "section": "local",
       "category": "weather",
       "headline": "9/23/26: Beautiful for Now, Coastal Storm This Weekend",
-      "score": 0.6308913822752701,
+      "score": 0.6289075626041667,
       "scoreComponents": {
-        "freshness": 0.8435655291010803,
+        "freshness": 0.8356302504166667,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -592,7 +592,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -641,9 +641,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Joint training brings together firefighters from across Clinton County",
-      "score": 0.6282746770283565,
+      "score": 0.6262908573572532,
       "scoreComponents": {
-        "freshness": 0.773098708113426,
+        "freshness": 0.7651634294290124,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -715,9 +715,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Glenville Police Department joins Blue Envelope Program",
-      "score": 0.6259116369048997,
+      "score": 0.6239278172337963,
       "scoreComponents": {
-        "freshness": 0.8236465476195988,
+        "freshness": 0.8157112689351852,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -797,9 +797,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "State Police: Poestenkill suspect taken into custody",
-      "score": 0.6229342063493442,
+      "score": 0.6209503866782408,
       "scoreComponents": {
-        "freshness": 0.8117368253973766,
+        "freshness": 0.803801546712963,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -824,8 +824,8 @@
       ],
       "status": "unchanged",
       "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
+      "lastBriefHash": "9d4906b5691448e8d8eca30711d38f95",
+      "lastGeneratedAt": "2026-09-24T09:58:46.640254Z"
     },
     {
       "eventId": "02fdc27bec1619c6",
@@ -871,9 +871,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Troy woman arrested on animal neglect charge",
-      "score": 0.6228194301147763,
+      "score": 0.6208356104436729,
       "scoreComponents": {
-        "freshness": 0.811277720459105,
+        "freshness": 0.8033424417746914,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -945,9 +945,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Albany PD identify suspect in social media video investigation",
-      "score": 0.6168346693123071,
+      "score": 0.6148508496412037,
       "scoreComponents": {
-        "freshness": 0.7873386772492283,
+        "freshness": 0.7794033985648148,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1019,9 +1019,9 @@
       "section": "local",
       "category": "sports",
       "headline": "UAlbany's Silas Richmond continues championship-winning ways up in the PLL",
-      "score": 0.6137588591271219,
+      "score": 0.6117750394560185,
       "scoreComponents": {
-        "freshness": 0.9750354365084877,
+        "freshness": 0.9671001578240741,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1044,7 +1044,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -1093,9 +1093,9 @@
       "section": "local",
       "category": "sports",
       "headline": "UAlbany football hoping to bring fight from Monmouth game into Princeton",
-      "score": 0.6122850936950232,
+      "score": 0.6103012740239198,
       "scoreComponents": {
-        "freshness": 0.9691403747800926,
+        "freshness": 0.9612050960956791,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1118,7 +1118,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -1167,9 +1167,9 @@
       "section": "local",
       "category": "business",
       "headline": "Man arrested for stealing over $5K in tools, cash in Kingston",
-      "score": 0.5969523390653935,
+      "score": 0.5949685193942902,
       "scoreComponents": {
-        "freshness": 0.9078093562615741,
+        "freshness": 0.8998740775771605,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1192,7 +1192,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -1241,9 +1241,9 @@
       "section": "local",
       "category": "local",
       "headline": "Santa Claus impersonator wanted on rape charges",
-      "score": 0.5946896075839121,
+      "score": 0.5927057879128086,
       "scoreComponents": {
-        "freshness": 0.8987584303356482,
+        "freshness": 0.8908231516512346,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1266,7 +1266,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -1315,9 +1315,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Mother, son charged in sexual assault investigation in Bennington",
-      "score": 0.591355309744406,
+      "score": 0.5893714900733025,
       "scoreComponents": {
-        "freshness": 0.6854212389776235,
+        "freshness": 0.67748596029321,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1403,9 +1403,9 @@
       "section": "local",
       "category": "local",
       "headline": "Northeast motorcycle dealership not feeling the pressure of US, Canada trade war",
-      "score": 0.5910196615962577,
+      "score": 0.5890358419251543,
       "scoreComponents": {
-        "freshness": 0.8240786463850309,
+        "freshness": 0.8161433677006174,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1477,9 +1477,9 @@
       "section": "local",
       "category": "politics",
       "headline": "As Healey backs starter home building rules initiative, municipal association opposed",
-      "score": 0.5902972464728009,
+      "score": 0.5883134268016975,
       "scoreComponents": {
-        "freshness": 0.8211889858912037,
+        "freshness": 0.8132537072067901,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1551,9 +1551,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "5 things to know this Wednesday, September 23",
-      "score": 0.5891726322752702,
+      "score": 0.5871888126041667,
       "scoreComponents": {
-        "freshness": 0.6766905291010803,
+        "freshness": 0.6687552504166667,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1625,9 +1625,9 @@
       "section": "local",
       "category": "local",
       "headline": "Man reported missing in Fulton County",
-      "score": 0.5883807727073689,
+      "score": 0.5863969530362654,
       "scoreComponents": {
-        "freshness": 0.8735230908294753,
+        "freshness": 0.8655878121450618,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1711,9 +1711,9 @@
       "section": "local",
       "category": "local",
       "headline": "Albany Co. DA reveals task force after woman indicted for husband's murder",
-      "score": 0.5789218606703318,
+      "score": 0.5769380409992284,
       "scoreComponents": {
-        "freshness": 0.8356874426813272,
+        "freshness": 0.8277521639969136,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1785,9 +1785,9 @@
       "section": "local",
       "category": "local",
       "headline": "Sullivan County Care Center to remain open temporarily, says Ulster County Judge",
-      "score": 0.5787376399913194,
+      "score": 0.576753820320216,
       "scoreComponents": {
-        "freshness": 0.7749505599652777,
+        "freshness": 0.7670152812808642,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1923,9 +1923,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Horse Racing Fire Safety Committee shares first recommendations",
-      "score": 0.5774413436950232,
+      "score": 0.5754575240239197,
       "scoreComponents": {
-        "freshness": 0.8297653747800926,
+        "freshness": 0.821830096095679,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2025,9 +2025,9 @@
       "section": "local",
       "category": "local",
       "headline": "Grand marshal named for 2026 Schenectady County Holiday Parade",
-      "score": 0.5773747927690972,
+      "score": 0.5753909730979938,
       "scoreComponents": {
-        "freshness": 0.8294991710763889,
+        "freshness": 0.8215638923919754,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2099,9 +2099,9 @@
       "section": "local",
       "category": "health",
       "headline": "Women's Health Wednesday: Perimenopause Awareness Month",
-      "score": 0.5679014131394676,
+      "score": 0.5659175934683642,
       "scoreComponents": {
-        "freshness": 0.7916056525578704,
+        "freshness": 0.7836703738734568,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2173,9 +2173,9 @@
       "section": "local",
       "category": "local",
       "headline": "State Route 66 paving project starts in Chatham, delays expected",
-      "score": 0.5593915751765046,
+      "score": 0.5574077555054012,
       "scoreComponents": {
-        "freshness": 0.7575663007060185,
+        "freshness": 0.7496310220216049,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2247,9 +2247,9 @@
       "section": "local",
       "category": "local",
       "headline": "ALDI sets opening date for new Latham location",
-      "score": 0.5582881801147762,
+      "score": 0.5563043604436728,
       "scoreComponents": {
-        "freshness": 0.753152720459105,
+        "freshness": 0.7452174417746914,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2321,9 +2321,9 @@
       "section": "local",
       "category": "local",
       "headline": "Ally the Piper bringing holiday tour to Albany",
-      "score": 0.5566321230160107,
+      "score": 0.5546483033449074,
       "scoreComponents": {
-        "freshness": 0.7465284920640431,
+        "freshness": 0.7385932133796296,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2395,9 +2395,9 @@
       "section": "local",
       "category": "business",
       "headline": "Cardona's unveils sandwich for Breast Cancer Awareness Month",
-      "score": 0.5499953560407022,
+      "score": 0.5480115363695988,
       "scoreComponents": {
-        "freshness": 0.7199814241628086,
+        "freshness": 0.7120461454783951,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2417,92 +2417,6 @@
           "headline": "Cardona's unveils sandwich for Breast Cancer Awareness Month",
           "url": "https://www.news10.com/community/restaurant-rundown/cardonas-unveils-sandwich-for-breast-cancer-awareness-month/",
           "publishedAt": "2026-09-23T13:08:32Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "2208d0348022818a",
-      "members": [
-        {
-          "id": "2208d0348022818a503abf449ecb9262",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "New animal shelter opens at the Albany County Jail",
-          "excerpt": "A new animal shelter has opened at the Albany County Jail in Colonie. According to Albany County Sheriff Craig Apple, the shelter will expand capacity for the Mohawk Hudson Humane Society and give employment opportunities to people experiencing homelessness.",
-          "url": "https://www.news10.com/news/albany-county/new-animal-shelter-opens-at-the-albany-county-jail/",
-          "publishedAt": "2026-09-23T12:48:09Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Albany County",
-              "city": "Albany",
-              "metro": "us-ny-capital-region"
-            },
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Albany County",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "2208d0348022818a503abf449ecb9262"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T12:48:09Z",
-      "lastSeen": "2026-09-23T12:48:09Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        },
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "section": "local",
-      "category": "local",
-      "headline": "New animal shelter opens at the Albany County Jail",
-      "score": 0.5488157649913195,
-      "scoreComponents": {
-        "freshness": 0.7152630599652777,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.8,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "MEDIUM",
-      "confidenceTier": "medium",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "New animal shelter opens at the Albany County Jail",
-          "url": "https://www.news10.com/news/albany-county/new-animal-shelter-opens-at-the-albany-county-jail/",
-          "publishedAt": "2026-09-23T12:48:09Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -2668,6 +2582,92 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "2208d0348022818a",
+      "members": [
+        {
+          "id": "2208d0348022818a503abf449ecb9262",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "New animal shelter opens at the Albany County Jail",
+          "excerpt": "A new animal shelter has opened at the Albany County Jail in Colonie. According to Albany County Sheriff Craig Apple, the shelter will expand capacity for the Mohawk Hudson Humane Society and give employment opportunities to people experiencing homelessness.",
+          "url": "https://www.news10.com/news/albany-county/new-animal-shelter-opens-at-the-albany-county-jail/",
+          "publishedAt": "2026-09-23T12:48:09Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Albany County",
+              "city": "Albany",
+              "metro": "us-ny-capital-region"
+            },
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Albany County",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "2208d0348022818a503abf449ecb9262"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T12:48:09Z",
+      "lastSeen": "2026-09-23T12:48:09Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "section": "local",
+      "category": "local",
+      "headline": "New animal shelter opens at the Albany County Jail",
+      "score": 0.5468319453202161,
+      "scoreComponents": {
+        "freshness": 0.7073277812808643,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.8,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "MEDIUM",
+      "confidenceTier": "medium",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "New animal shelter opens at the Albany County Jail",
+          "url": "https://www.news10.com/news/albany-county/new-animal-shelter-opens-at-the-albany-county-jail/",
+          "publishedAt": "2026-09-23T12:48:09Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
       "eventId": "987fa59d5009e7b0",
       "members": [
         {
@@ -2711,9 +2711,9 @@
       "section": "local",
       "category": "environment",
       "headline": "Thai chicken restaurant chain opens in Clifton Park",
-      "score": 0.5471201631394675,
+      "score": 0.5451363434683643,
       "scoreComponents": {
-        "freshness": 0.7084806525578704,
+        "freshness": 0.7005453738734568,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2785,9 +2785,9 @@
       "section": "local",
       "category": "local",
       "headline": "09/23/2026: Early Autumn at its Best",
-      "score": 0.5425310427690972,
+      "score": 0.5405472230979937,
       "scoreComponents": {
-        "freshness": 0.6901241710763888,
+        "freshness": 0.6821888923919752,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2964,9 +2964,9 @@
       "section": "local",
       "category": "local",
       "headline": "Ballston Spa HS student nominated for Heart of a Giant Award",
-      "score": 0.5307852865962577,
+      "score": 0.5288014669251543,
       "scoreComponents": {
-        "freshness": 0.8431411463850309,
+        "freshness": 0.8352058677006173,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -3081,9 +3081,9 @@
       "section": "local",
       "category": "local",
       "headline": "Measles cases jump across rural New York",
-      "score": 0.5301323159172453,
+      "score": 0.5281484962461419,
       "scoreComponents": {
-        "freshness": 0.8405292636689815,
+        "freshness": 0.8325939849845679,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -3163,15 +3163,15 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Roadway to remain closed in Bennington County due to crash, hazardous material spill",
-      "score": 0.5220651005293211,
+      "score": 0.5188909890555556,
       "scoreComponents": {
-        "freshness": 0.5051627513233025,
+        "freshness": 0.4972274726388889,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 1.0,
-        "stalePenalty": 0.02422558730150463,
+        "stalePenalty": 0.025415879104166674,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3237,15 +3237,15 @@
       "section": "local",
       "category": "weather",
       "headline": "09/22/2026: Welcome to Fall!",
-      "score": 0.5204138659614198,
+      "score": 0.5172397544876544,
       "scoreComponents": {
-        "freshness": 0.5010346649035493,
+        "freshness": 0.49309938621913585,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 1.0,
-        "stalePenalty": 0.024844800264467597,
+        "stalePenalty": 0.026035092067129624,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3307,15 +3307,15 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Pedestrian airlifted after crash in Fort Edward",
-      "score": 0.5183397918873457,
+      "score": 0.5151656804135804,
       "scoreComponents": {
-        "freshness": 0.49584947971836413,
+        "freshness": 0.48791420103395067,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 1.0,
-        "stalePenalty": 0.025622578042245377,
+        "stalePenalty": 0.026812869844907408,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3381,15 +3381,15 @@
       "section": "local",
       "category": "sports",
       "headline": "Saints bring championship expectation into first season under Nevada Smith",
-      "score": 0.5182425696651235,
+      "score": 0.5150684581913579,
       "scoreComponents": {
-        "freshness": 0.6206064241628086,
+        "freshness": 0.6126711454783951,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.006909036375578707,
+        "stalePenalty": 0.008099328178240743,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3455,15 +3455,15 @@
       "section": "local",
       "category": "sports",
       "headline": "UAlbany bringing fighter's mentality into new season",
-      "score": 0.5141021375663579,
+      "score": 0.5109280260925927,
       "scoreComponents": {
-        "freshness": 0.6102553439158951,
+        "freshness": 0.6023200652314815,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.008461698412615742,
+        "stalePenalty": 0.009651990215277777,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3477,197 +3477,6 @@
           "headline": "UAlbany bringing fighter's mentality into new season",
           "url": "https://www.news10.com/sports/saints-and-danes/ualbany-bringing-fighters-mentality-into-new-season/",
           "publishedAt": "2026-09-23T05:14:31Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "cc0e2a87205e74db",
-      "members": [
-        {
-          "id": "cc0e2a87205e74db8d59c65148985447",
-          "sourceId": "wamc-northeast-report",
-          "publisher": "WAMC Northeast Public Radio",
-          "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
-          "excerpt": "The father of four children who police say were killed by their mother and grandmother has filed a notice of claim against Saratoga County and the City of Mechanicville alleging more could have been done to protect his family.",
-          "url": "https://www.wamc.org/news/2026-09-22/father-of-murdered-mechanicville-children-moves-toward-400m-suit-against-city-schools",
-          "publishedAt": "2026-09-22T16:02:00Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Saratoga County",
-              "metro": "us-ny-capital-region"
-            },
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Albany County",
-              "city": "Albany",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "cc0e2a87205e74db8d59c65148985447"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-22T16:02:00Z",
-      "lastSeen": "2026-09-22T16:02:00Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "metro": "us-ny-capital-region"
-        },
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "section": "local",
-      "category": "public-safety",
-      "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
-      "score": 0.5057209647268519,
-      "scoreComponents": {
-        "freshness": 0.42680241181712963,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.9,
-        "breaking": 0.0,
-        "categoryBoost": 1.0,
-        "stalePenalty": 0.03597963822743055,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "MEDIUM",
-      "confidenceTier": "medium",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wamc-northeast-report",
-          "publisher": "WAMC Northeast Public Radio",
-          "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
-          "url": "https://www.wamc.org/news/2026-09-22/father-of-murdered-mechanicville-children-moves-toward-400m-suit-against-city-schools",
-          "publishedAt": "2026-09-22T16:02:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "2898cc93a3890534",
-      "members": [
-        {
-          "id": "2898cc93a3890534bb8e06abac29fe6d",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Saratoga Springs festival to offer sweet taste of fall",
-          "excerpt": "A multi-venue festival is returning to Saratoga Springs to ring in fall with the sweet tastes of the season. The Saratoga Cider & Doughnut Fest will take place on Saturday October 3.",
-          "url": "https://www.news10.com/news/saratoga-county/saratoga-springs-festival-to-offer-sweet-taste-of-fall/",
-          "publishedAt": "2026-09-23T00:16:32Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Saratoga County",
-              "city": "Saratoga Springs",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        },
-        {
-          "id": "c4c280dc6fdd6e6b013b87e4b5bcba62",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-          "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
-          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
-          "publishedAt": "2026-09-23T14:36:24Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Saratoga County",
-              "city": "Saratoga Springs",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "2898cc93a3890534bb8e06abac29fe6d",
-        "c4c280dc6fdd6e6b013b87e4b5bcba62"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T00:16:32Z",
-      "lastSeen": "2026-09-23T14:36:24Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "city": "Saratoga Springs",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "section": "local",
-      "category": "sports",
-      "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-      "score": 0.505080232583912,
-      "scoreComponents": {
-        "freshness": 0.7403209303356482,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.8,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.05
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Saratoga Springs festival to offer sweet taste of fall",
-          "url": "https://www.news10.com/news/saratoga-county/saratoga-springs-festival-to-offer-sweet-taste-of-fall/",
-          "publishedAt": "2026-09-23T00:16:32Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        },
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
-          "publishedAt": "2026-09-23T14:36:24Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -3868,6 +3677,197 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "2898cc93a3890534",
+      "members": [
+        {
+          "id": "2898cc93a3890534bb8e06abac29fe6d",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Saratoga Springs festival to offer sweet taste of fall",
+          "excerpt": "A multi-venue festival is returning to Saratoga Springs to ring in fall with the sweet tastes of the season. The Saratoga Cider & Doughnut Fest will take place on Saturday October 3.",
+          "url": "https://www.news10.com/news/saratoga-county/saratoga-springs-festival-to-offer-sweet-taste-of-fall/",
+          "publishedAt": "2026-09-23T00:16:32Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Saratoga County",
+              "city": "Saratoga Springs",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        },
+        {
+          "id": "c4c280dc6fdd6e6b013b87e4b5bcba62",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+          "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
+          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
+          "publishedAt": "2026-09-23T14:36:24Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Saratoga County",
+              "city": "Saratoga Springs",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "2898cc93a3890534bb8e06abac29fe6d",
+        "c4c280dc6fdd6e6b013b87e4b5bcba62"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T00:16:32Z",
+      "lastSeen": "2026-09-23T14:36:24Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
+          "city": "Saratoga Springs",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "section": "local",
+      "category": "sports",
+      "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+      "score": 0.5030964129128086,
+      "scoreComponents": {
+        "freshness": 0.7323856516512346,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.8,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.05
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Saratoga Springs festival to offer sweet taste of fall",
+          "url": "https://www.news10.com/news/saratoga-county/saratoga-springs-festival-to-offer-sweet-taste-of-fall/",
+          "publishedAt": "2026-09-23T00:16:32Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        },
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
+          "publishedAt": "2026-09-23T14:36:24Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
+      "eventId": "cc0e2a87205e74db",
+      "members": [
+        {
+          "id": "cc0e2a87205e74db8d59c65148985447",
+          "sourceId": "wamc-northeast-report",
+          "publisher": "WAMC Northeast Public Radio",
+          "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
+          "excerpt": "The father of four children who police say were killed by their mother and grandmother has filed a notice of claim against Saratoga County and the City of Mechanicville alleging more could have been done to protect his family.",
+          "url": "https://www.wamc.org/news/2026-09-22/father-of-murdered-mechanicville-children-moves-toward-400m-suit-against-city-schools",
+          "publishedAt": "2026-09-22T16:02:00Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Saratoga County",
+              "metro": "us-ny-capital-region"
+            },
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Albany County",
+              "city": "Albany",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "cc0e2a87205e74db8d59c65148985447"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-22T16:02:00Z",
+      "lastSeen": "2026-09-22T16:02:00Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "section": "local",
+      "category": "public-safety",
+      "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
+      "score": 0.5025468532530865,
+      "scoreComponents": {
+        "freshness": 0.41886713313271606,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.9,
+        "breaking": 0.0,
+        "categoryBoost": 1.0,
+        "stalePenalty": 0.03716993003009259,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "MEDIUM",
+      "confidenceTier": "medium",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wamc-northeast-report",
+          "publisher": "WAMC Northeast Public Radio",
+          "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
+          "url": "https://www.wamc.org/news/2026-09-22/father-of-murdered-mechanicville-children-moves-toward-400m-suit-against-city-schools",
+          "publishedAt": "2026-09-22T16:02:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
       "eventId": "6099203deeedad9f",
       "members": [
         {
@@ -3911,15 +3911,15 @@
       "section": "local",
       "category": "local",
       "headline": "Residents weigh in on new sidewalks on the horizon in Niskayuna",
-      "score": 0.5030882486774692,
+      "score": 0.49991413720370365,
       "scoreComponents": {
-        "freshness": 0.5827206216936729,
+        "freshness": 0.5747853430092593,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.012591906745949078,
+        "stalePenalty": 0.013782198548611114,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3981,9 +3981,9 @@
       "section": "local",
       "category": "local",
       "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
-      "score": 0.49756576499131944,
+      "score": 0.49558194532021604,
       "scoreComponents": {
-        "freshness": 0.6902630599652777,
+        "freshness": 0.6823277812808641,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -4055,15 +4055,15 @@
       "section": "local",
       "category": "local",
       "headline": "Sullivan County residents say high energy prices need to come down",
-      "score": 0.49266540917129636,
+      "score": 0.4894912976975308,
       "scoreComponents": {
-        "freshness": 0.5191635229282408,
+        "freshness": 0.5112282442438272,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0221254715607639,
+        "stalePenalty": 0.023315763363425928,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4077,80 +4077,6 @@
           "headline": "Sullivan County residents say high energy prices need to come down",
           "url": "https://www.wamc.org/news/2026-09-22/sullivan-county-residents-say-high-energy-prices-need-to-come-down",
           "publishedAt": "2026-09-22T22:41:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "68416003223178d9",
-      "members": [
-        {
-          "id": "68416003223178d9b50971b889cf576d",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "North Adams man charged for series of vehicle break-ins",
-          "excerpt": "A North Adams man was arrested on Sunday after an investigation into a series of motor vehicle break-ins. Brian Dillard Sr. was identified as the suspect and has since been charged and arraigned.",
-          "url": "https://www.news10.com/news/crime/north-adams-man-charged-for-series-of-vehicle-break-ins/",
-          "publishedAt": "2026-09-23T01:14:37Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Albany County",
-              "city": "Albany",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "68416003223178d9b50971b889cf576d"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T01:14:37Z",
-      "lastSeen": "2026-09-23T01:14:37Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "section": "local",
-      "category": "local",
-      "headline": "North Adams man charged for series of vehicle break-ins",
-      "score": 0.49188917460339504,
-      "scoreComponents": {
-        "freshness": 0.5547229365084877,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.8,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.016791559523726848,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "MEDIUM",
-      "confidenceTier": "medium",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "North Adams man charged for series of vehicle break-ins",
-          "url": "https://www.news10.com/news/crime/north-adams-man-charged-for-series-of-vehicle-break-ins/",
-          "publishedAt": "2026-09-23T01:14:37Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -4234,6 +4160,80 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "68416003223178d9",
+      "members": [
+        {
+          "id": "68416003223178d9b50971b889cf576d",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "North Adams man charged for series of vehicle break-ins",
+          "excerpt": "A North Adams man was arrested on Sunday after an investigation into a series of motor vehicle break-ins. Brian Dillard Sr. was identified as the suspect and has since been charged and arraigned.",
+          "url": "https://www.news10.com/news/crime/north-adams-man-charged-for-series-of-vehicle-break-ins/",
+          "publishedAt": "2026-09-23T01:14:37Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Albany County",
+              "city": "Albany",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "68416003223178d9b50971b889cf576d"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T01:14:37Z",
+      "lastSeen": "2026-09-23T01:14:37Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "section": "local",
+      "category": "local",
+      "headline": "North Adams man charged for series of vehicle break-ins",
+      "score": 0.4887150631296296,
+      "scoreComponents": {
+        "freshness": 0.546787657824074,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.8,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.01798185132638889,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "MEDIUM",
+      "confidenceTier": "medium",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "North Adams man charged for series of vehicle break-ins",
+          "url": "https://www.news10.com/news/crime/north-adams-man-charged-for-series-of-vehicle-break-ins/",
+          "publishedAt": "2026-09-23T01:14:37Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
       "eventId": "2a640475bae5360e",
       "members": [
         {
@@ -4289,15 +4289,15 @@
       "section": "local",
       "category": "local",
       "headline": "Protesters call for end to Rensselaer County's ICE agreement",
-      "score": 0.48658979188734564,
+      "score": 0.48341568041358024,
       "scoreComponents": {
-        "freshness": 0.5039744797183642,
+        "freshness": 0.4960392010339506,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.024403828042245376,
+        "stalePenalty": 0.025594119844907406,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4363,15 +4363,15 @@
       "section": "local",
       "category": "politics",
       "headline": "NY Olympic authority plans to expand staff after facilities struggled to meet demand",
-      "score": 0.48329812522067894,
+      "score": 0.48012401374691355,
       "scoreComponents": {
-        "freshness": 0.49574531305169744,
+        "freshness": 0.487810034367284,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.02563820304224538,
+        "stalePenalty": 0.02682849484490741,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4437,15 +4437,15 @@
       "section": "local",
       "category": "business",
       "headline": "What could replace former National Lead site in Colonie",
-      "score": 0.4821808412700618,
+      "score": 0.47900672979629627,
       "scoreComponents": {
-        "freshness": 0.5304521031751543,
+        "freshness": 0.5225168244907408,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.020432184523726853,
+        "stalePenalty": 0.021622476326388883,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4581,15 +4581,15 @@
       "section": "local",
       "category": "local",
       "headline": "Friend of man shot by troopers in Greene County speaks",
-      "score": 0.47402343386265433,
+      "score": 0.47084932238888894,
       "scoreComponents": {
-        "freshness": 0.5100585846566358,
+        "freshness": 0.5021233059722223,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.02349121230150463,
+        "stalePenalty": 0.02468150410416666,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4655,15 +4655,15 @@
       "section": "local",
       "category": "local",
       "headline": "Verizon moving away from copper landlines: What customers need to know",
-      "score": 0.4737965820108025,
+      "score": 0.47062247053703704,
       "scoreComponents": {
-        "freshness": 0.5094914550270062,
+        "freshness": 0.5015561763425926,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.02357628174594907,
+        "stalePenalty": 0.024766573548611115,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4729,15 +4729,15 @@
       "section": "local",
       "category": "entertainment",
       "headline": "Catskill construction sees long-awaited progress",
-      "score": 0.47304658201080246,
+      "score": 0.469872470537037,
       "scoreComponents": {
-        "freshness": 0.5076164550270061,
+        "freshness": 0.49968117634259257,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.02385753174594908,
+        "stalePenalty": 0.02504782354861111,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4803,15 +4803,15 @@
       "section": "local",
       "category": "local",
       "headline": "Women-only gym opens new location in Slingerlands",
-      "score": 0.46757744620833336,
+      "score": 0.46440333473456785,
       "scoreComponents": {
-        "freshness": 0.49394361552083343,
+        "freshness": 0.48600833683641975,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.025908457671874992,
+        "stalePenalty": 0.027098749474537033,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4877,15 +4877,15 @@
       "section": "local",
       "category": "entertainment",
       "headline": "With loaners already flying, fleet of F-35As to land in western Mass.",
-      "score": 0.4646221992947531,
+      "score": 0.4614480878209877,
       "scoreComponents": {
-        "freshness": 0.44905549823688284,
+        "freshness": 0.44112021955246916,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.03264167526446758,
+        "stalePenalty": 0.033831967067129626,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4951,15 +4951,15 @@
       "section": "local",
       "category": "local",
       "headline": "Report examines mismanagement of Mass. unemployment assistance program",
-      "score": 0.46345398941820987,
+      "score": 0.46027987794444447,
       "scoreComponents": {
-        "freshness": 0.44613497354552467,
+        "freshness": 0.4381996948611111,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0330797539681713,
+        "stalePenalty": 0.03427004577083334,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -5017,9 +5017,9 @@
       "section": "national",
       "category": "weather",
       "headline": "Hurricane Polo fuels fears of landslides in Mexico as Nolo closes in on Hawaii",
-      "score": 0.4442555798061343,
+      "score": 0.4422717601350309,
       "scoreComponents": {
-        "freshness": 0.917022319224537,
+        "freshness": 0.9090870405401235,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5042,7 +5042,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -5083,9 +5083,9 @@
       "section": "national",
       "category": "local",
       "headline": "The Education Dept. hasn't been dismantled. It's become more inefficient, staff say",
-      "score": 0.4389459733246528,
+      "score": 0.4369621536535494,
       "scoreComponents": {
-        "freshness": 0.9957838932986111,
+        "freshness": 0.9878486146141975,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5108,7 +5108,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -5149,9 +5149,9 @@
       "section": "national",
       "category": "business",
       "headline": "Under Trump, NIH funding disruptions have evolved. Here's what the numbers show",
-      "score": 0.4389459733246528,
+      "score": 0.4369621536535494,
       "scoreComponents": {
-        "freshness": 0.9957838932986111,
+        "freshness": 0.9878486146141975,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5174,7 +5174,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -5215,9 +5215,9 @@
       "section": "national",
       "category": "business",
       "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
-      "score": 0.4389459733246528,
+      "score": 0.4369621536535494,
       "scoreComponents": {
-        "freshness": 0.9957838932986111,
+        "freshness": 0.9878486146141975,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5240,7 +5240,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -5281,9 +5281,9 @@
       "section": "national",
       "category": "local",
       "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
-      "score": 0.4389459733246528,
+      "score": 0.4369621536535494,
       "scoreComponents": {
-        "freshness": 0.9957838932986111,
+        "freshness": 0.9878486146141975,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5306,7 +5306,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -5347,9 +5347,9 @@
       "section": "national",
       "category": "business",
       "headline": "States threaten action against company earning millions off disabled vets",
-      "score": 0.4389459733246528,
+      "score": 0.4369621536535494,
       "scoreComponents": {
-        "freshness": 0.9957838932986111,
+        "freshness": 0.9878486146141975,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5369,74 +5369,6 @@
           "headline": "States threaten action against company earning millions off disabled vets",
           "url": "https://www.npr.org/2026/09/24/nx-s1-5978816/va-mortgages-trajector-bankruptcy-investigations",
           "publishedAt": "2026-09-24T09:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "new",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "ad5c6e8e136fb52a",
-      "members": [
-        {
-          "id": "ad5c6e8e136fb52aa5e2299c3a77ad44",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
-          "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York.",
-          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-23T21:26:14Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "ad5c6e8e136fb52aa5e2299c3a77ad44"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T21:26:14Z",
-      "lastSeen": "2026-09-23T21:26:14Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY"
-        }
-      ],
-      "section": "state",
-      "category": "politics",
-      "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
-      "score": 0.43379743937403553,
-      "scoreComponents": {
-        "freshness": 0.835189757496142,
-        "locality": 0.6,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
-          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-23T21:26:14Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -5512,6 +5444,74 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "ad5c6e8e136fb52a",
+      "members": [
+        {
+          "id": "ad5c6e8e136fb52aa5e2299c3a77ad44",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
+          "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York.",
+          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-23T21:26:14Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "ad5c6e8e136fb52aa5e2299c3a77ad44"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T21:26:14Z",
+      "lastSeen": "2026-09-23T21:26:14Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        }
+      ],
+      "section": "state",
+      "category": "politics",
+      "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
+      "score": 0.43181361970293214,
+      "scoreComponents": {
+        "freshness": 0.8272544788117284,
+        "locality": 0.6,
+        "corroboration": 0.0,
+        "sourcePriority": 0.5,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Trump's Board of Peace unveils $2.45bn plan to begin Gaza's reconstruction",
+          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-23T21:26:14Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
       "eventId": "ffc5a2eeeb7b9f5e",
       "members": [
         {
@@ -5547,9 +5547,9 @@
       "section": "national",
       "category": "local",
       "headline": "Judge orders Trump administration to restore journalists' access to White House",
-      "score": 0.42975037147280093,
+      "score": 0.42776655180169754,
       "scoreComponents": {
-        "freshness": 0.9590014858912037,
+        "freshness": 0.9510662072067901,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5572,7 +5572,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -5613,9 +5613,9 @@
       "section": "national",
       "category": "politics",
       "headline": "Venezuela's acting leader promises elections at the 'right moment'",
-      "score": 0.4274191600530478,
+      "score": 0.4254353403819444,
       "scoreComponents": {
-        "freshness": 0.9496766402121913,
+        "freshness": 0.9417413615277778,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5638,7 +5638,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -5679,9 +5679,9 @@
       "section": "national",
       "category": "business",
       "headline": "OpenAI's breach of Australian health department website prompts rebuke",
-      "score": 0.42587787918885034,
+      "score": 0.42389405951774695,
       "scoreComponents": {
-        "freshness": 0.9435115167554012,
+        "freshness": 0.9355762380709877,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5704,7 +5704,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -5745,9 +5745,9 @@
       "section": "national",
       "category": "local",
       "headline": "Fears of return to war grow in Ethiopia's Tigray region",
-      "score": 0.4229525319666281,
+      "score": 0.4209687122955247,
       "scoreComponents": {
-        "freshness": 0.9318101278665123,
+        "freshness": 0.9238748491820987,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -5770,7 +5770,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -6040,72 +6040,6 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "41b6f43eb38205f2",
-      "members": [
-        {
-          "id": "41b6f43eb38205f20a0263e4032e034e",
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
-          "excerpt": null,
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx9u",
-          "publishedAt": "2026-09-24T07:40:58.138000Z",
-          "language": "en",
-          "rightsMode": "PUBLIC_DOMAIN",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "41b6f43eb38205f20a0263e4032e034e"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T07:40:58.138000Z",
-      "lastSeen": "2026-09-24T07:40:58.138000Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "science",
-      "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
-      "score": 0.4043724181548997,
-      "scoreComponents": {
-        "freshness": 0.9774896726195987,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.4,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx9u",
-          "publishedAt": "2026-09-24T07:40:58.138000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ],
-      "status": "new",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
       "eventId": "ae613437a33f65c0",
       "members": [
         {
@@ -6164,6 +6098,72 @@
           "url": "https://www.npr.org/2026/09/23/nx-s1-5977022/rent-affordability-middle-income",
           "publishedAt": "2026-09-23T14:09:10Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
+      "eventId": "41b6f43eb38205f2",
+      "members": [
+        {
+          "id": "41b6f43eb38205f20a0263e4032e034e",
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
+          "excerpt": null,
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx9u",
+          "publishedAt": "2026-09-24T07:40:58.138000Z",
+          "language": "en",
+          "rightsMode": "PUBLIC_DOMAIN",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "41b6f43eb38205f20a0263e4032e034e"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T07:40:58.138000Z",
+      "lastSeen": "2026-09-24T07:40:58.138000Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "science",
+      "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
+      "score": 0.4023885984837963,
+      "scoreComponents": {
+        "freshness": 0.9695543939351852,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.4,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx9u",
+          "publishedAt": "2026-09-24T07:40:58.138000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
       "status": "unchanged",
@@ -6471,9 +6471,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 4.5 - 31 km NNW of Komodo, Indonesia",
-      "score": 0.3898738408015046,
+      "score": 0.3878900211304012,
       "scoreComponents": {
-        "freshness": 0.9194953632060185,
+        "freshness": 0.911560084521605,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -6496,7 +6496,7 @@
           "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -6537,9 +6537,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 4.6 - 223 km WNW of Abepura, Indonesia",
-      "score": 0.3792376149141589,
+      "score": 0.3772537952430555,
       "scoreComponents": {
-        "freshness": 0.8769504596566358,
+        "freshness": 0.8690151809722222,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -6562,7 +6562,73 @@
           "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
+      "eventId": "bf98018d9605ced6",
+      "members": [
+        {
+          "id": "bf98018d9605ced60b049c2280f18724",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
+          "excerpt": "The local authorities reportedly seize Tigray's airports following reports of recent drone strikes.",
+          "url": "https://www.bbc.co.uk/news/articles/cry8zwwq21pxo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T09:28:33Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "GB"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "bf98018d9605ced60b049c2280f18724"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T09:28:33Z",
+      "lastSeen": "2026-09-24T09:28:33Z",
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "section": "world",
+      "category": "travel",
+      "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
+      "score": 0.37361435272762344,
+      "scoreComponents": {
+        "freshness": 0.9944574109104938,
+        "locality": 0.2,
+        "corroboration": 0.0,
+        "sourcePriority": 0.5,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
+          "url": "https://www.bbc.co.uk/news/articles/cry8zwwq21pxo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T09:28:33Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -6603,9 +6669,9 @@
       "section": "world",
       "category": "technology",
       "headline": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
-      "score": 0.36763617394193676,
+      "score": 0.36565235427083337,
       "scoreComponents": {
-        "freshness": 0.9705446957677469,
+        "freshness": 0.9626094170833334,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -6634,16 +6700,16 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "bf98018d9605ced6",
+      "eventId": "fa5549143a001776",
       "members": [
         {
-          "id": "bf98018d9605ced60b049c2280f18724",
+          "id": "fa5549143a001776bab66cd9332310fe",
           "sourceId": "bbc-world",
           "publisher": "BBC World",
-          "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
-          "excerpt": "The local authorities reportedly seize Tigray's airports following reports of recent drone strikes.",
-          "url": "https://www.bbc.co.uk/news/articles/cry8zwwq21pxo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T04:37:47Z",
+          "headline": "Trump offers warm welcome as China's Xi arrives for US visit",
+          "excerpt": "The US treasury secretary said that the US and China had reached an agreement to extend a trade truce as Xi began his visit.",
+          "url": "https://www.bbc.co.uk/news/articles/cqgmrk7187lzo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T03:52:21Z",
           "language": "en",
           "rightsMode": "RSS_EXCERPT_ALLOWED",
           "imageCandidate": null,
@@ -6656,22 +6722,22 @@
         }
       ],
       "memberIds": [
-        "bf98018d9605ced60b049c2280f18724"
+        "fa5549143a001776bab66cd9332310fe"
       ],
       "aliases": [],
-      "firstSeen": "2026-09-24T04:37:47Z",
-      "lastSeen": "2026-09-24T04:37:47Z",
+      "firstSeen": "2026-09-24T03:52:21Z",
+      "lastSeen": "2026-09-24T03:52:21Z",
       "locations": [
         {
           "country": "GB"
         }
       ],
       "section": "world",
-      "category": "travel",
-      "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
-      "score": 0.3587713977073688,
+      "category": "local",
+      "headline": "Trump offers warm welcome as China's Xi arrives for US visit",
+      "score": 0.354158334209105,
       "scoreComponents": {
-        "freshness": 0.9350855908294753,
+        "freshness": 0.9166333368364198,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -6688,145 +6754,13 @@
         {
           "sourceId": "bbc-world",
           "publisher": "BBC World",
-          "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
-          "url": "https://www.bbc.co.uk/news/articles/cry8zwwq21pxo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T04:37:47Z",
+          "headline": "Trump offers warm welcome as China's Xi arrives for US visit",
+          "url": "https://www.bbc.co.uk/news/articles/cqgmrk7187lzo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T03:52:21Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "b54f1d6445c0fe30",
-      "members": [
-        {
-          "id": "b54f1d6445c0fe30eddce02f50660d88",
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
-          "excerpt": null,
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx58",
-          "publishedAt": "2026-09-23T17:46:06.489000Z",
-          "language": "en",
-          "rightsMode": "PUBLIC_DOMAIN",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "b54f1d6445c0fe30eddce02f50660d88"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T17:46:06.489000Z",
-      "lastSeen": "2026-09-23T17:46:06.489000Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "science",
-      "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
-      "score": 0.3560587134866898,
-      "scoreComponents": {
-        "freshness": 0.7842348539467593,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.4,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx58",
-          "publishedAt": "2026-09-23T17:46:06.489000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "2b79dfde9c9345ba",
-      "members": [
-        {
-          "id": "2b79dfde9c9345bad3611fda4361667e",
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
-          "excerpt": null,
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx53",
-          "publishedAt": "2026-09-23T17:20:32.721000Z",
-          "language": "en",
-          "rightsMode": "PUBLIC_DOMAIN",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "2b79dfde9c9345bad3611fda4361667e"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T17:20:32.721000Z",
-      "lastSeen": "2026-09-23T17:20:32.721000Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "science",
-      "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
-      "score": 0.3545793847829861,
-      "scoreComponents": {
-        "freshness": 0.7783175391319445,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.4,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx53",
-          "publishedAt": "2026-09-23T17:20:32.721000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ],
-      "status": "unchanged",
+      "status": "new",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -6898,6 +6832,138 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "b54f1d6445c0fe30",
+      "members": [
+        {
+          "id": "b54f1d6445c0fe30eddce02f50660d88",
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
+          "excerpt": null,
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx58",
+          "publishedAt": "2026-09-23T17:46:06.489000Z",
+          "language": "en",
+          "rightsMode": "PUBLIC_DOMAIN",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "b54f1d6445c0fe30eddce02f50660d88"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T17:46:06.489000Z",
+      "lastSeen": "2026-09-23T17:46:06.489000Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "science",
+      "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
+      "score": 0.3540748938155864,
+      "scoreComponents": {
+        "freshness": 0.7762995752623456,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.4,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx58",
+          "publishedAt": "2026-09-23T17:46:06.489000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
+      "eventId": "2b79dfde9c9345ba",
+      "members": [
+        {
+          "id": "2b79dfde9c9345bad3611fda4361667e",
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
+          "excerpt": null,
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx53",
+          "publishedAt": "2026-09-23T17:20:32.721000Z",
+          "language": "en",
+          "rightsMode": "PUBLIC_DOMAIN",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "2b79dfde9c9345bad3611fda4361667e"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T17:20:32.721000Z",
+      "lastSeen": "2026-09-23T17:20:32.721000Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "science",
+      "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
+      "score": 0.3525955651118827,
+      "scoreComponents": {
+        "freshness": 0.7703822604475309,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.4,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx53",
+          "publishedAt": "2026-09-23T17:20:32.721000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
       "eventId": "fa802d068016867b",
       "members": [
         {
@@ -6933,9 +6999,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 4.6 - 59 km WNW of San Antonio de los Cobres, Argentina",
-      "score": 0.3527324875993441,
+      "score": 0.3507486679282407,
       "scoreComponents": {
-        "freshness": 0.7709299503973766,
+        "freshness": 0.762994671712963,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -6955,204 +7021,6 @@
           "headline": "M 4.6 - 59 km WNW of San Antonio de los Cobres, Argentina",
           "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx4w",
           "publishedAt": "2026-09-23T16:48:37.858000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "ebd8cd761c0d29b3",
-      "members": [
-        {
-          "id": "ebd8cd761c0d29b3fd93c5c8788abe9c",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
-          "excerpt": "Meta has unveiled audio-only smart glasses, with some questioning whether it is a response to the backlash over privacy.",
-          "url": "https://www.bbc.co.uk/news/articles/cwp80l0my1x2o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T00:50:24Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "GB"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "ebd8cd761c0d29b3fd93c5c8788abe9c"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T00:50:24Z",
-      "lastSeen": "2026-09-24T00:50:24Z",
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "section": "world",
-      "category": "entertainment",
-      "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
-      "score": 0.34561263999131947,
-      "scoreComponents": {
-        "freshness": 0.8824505599652778,
-        "locality": 0.2,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
-          "url": "https://www.bbc.co.uk/news/articles/cwp80l0my1x2o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T00:50:24Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "new",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "0bc45c6da7a3fab7",
-      "members": [
-        {
-          "id": "0bc45c6da7a3fab79c8255d4c7b64dd1",
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.6 - south of the Fiji Islands",
-          "excerpt": null,
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx3n",
-          "publishedAt": "2026-09-23T14:45:35.743000Z",
-          "language": "en",
-          "rightsMode": "PUBLIC_DOMAIN",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "0bc45c6da7a3fab79c8255d4c7b64dd1"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T14:45:35.743000Z",
-      "lastSeen": "2026-09-23T14:45:35.743000Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "science",
-      "headline": "M 4.6 - south of the Fiji Islands",
-      "score": 0.345612392113233,
-      "scoreComponents": {
-        "freshness": 0.7424495684529321,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.4,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.6 - south of the Fiji Islands",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx3n",
-          "publishedAt": "2026-09-23T14:45:35.743000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null
-    },
-    {
-      "eventId": "085220ca10c2f6ab",
-      "members": [
-        {
-          "id": "085220ca10c2f6ab8e9a39c630fc0e60",
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.7 - 180 km NW of Hihifo, Tonga",
-          "excerpt": null,
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx3m",
-          "publishedAt": "2026-09-23T14:41:02.650000Z",
-          "language": "en",
-          "rightsMode": "PUBLIC_DOMAIN",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "085220ca10c2f6ab8e9a39c630fc0e60"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T14:41:02.650000Z",
-      "lastSeen": "2026-09-23T14:41:02.650000Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "science",
-      "headline": "M 5.7 - 180 km NW of Hihifo, Tonga",
-      "score": 0.3453489922289738,
-      "scoreComponents": {
-        "freshness": 0.7413959689158951,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.4,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.7 - 180 km NW of Hihifo, Tonga",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx3m",
-          "publishedAt": "2026-09-23T14:41:02.650000Z",
           "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
@@ -7228,6 +7096,204 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "ebd8cd761c0d29b3",
+      "members": [
+        {
+          "id": "ebd8cd761c0d29b3fd93c5c8788abe9c",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
+          "excerpt": "Meta has unveiled audio-only smart glasses, with some questioning whether it is a response to the backlash over privacy.",
+          "url": "https://www.bbc.co.uk/news/articles/cwp80l0my1x2o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T00:50:24Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "GB"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "ebd8cd761c0d29b3fd93c5c8788abe9c"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T00:50:24Z",
+      "lastSeen": "2026-09-24T00:50:24Z",
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "section": "world",
+      "category": "entertainment",
+      "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
+      "score": 0.3436288203202161,
+      "scoreComponents": {
+        "freshness": 0.8745152812808642,
+        "locality": 0.2,
+        "corroboration": 0.0,
+        "sourcePriority": 0.5,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
+          "url": "https://www.bbc.co.uk/news/articles/cwp80l0my1x2o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T00:50:24Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
+      "eventId": "0bc45c6da7a3fab7",
+      "members": [
+        {
+          "id": "0bc45c6da7a3fab79c8255d4c7b64dd1",
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.6 - south of the Fiji Islands",
+          "excerpt": null,
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx3n",
+          "publishedAt": "2026-09-23T14:45:35.743000Z",
+          "language": "en",
+          "rightsMode": "PUBLIC_DOMAIN",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "0bc45c6da7a3fab79c8255d4c7b64dd1"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T14:45:35.743000Z",
+      "lastSeen": "2026-09-23T14:45:35.743000Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "science",
+      "headline": "M 4.6 - south of the Fiji Islands",
+      "score": 0.3436285724421297,
+      "scoreComponents": {
+        "freshness": 0.7345142897685186,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.4,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.6 - south of the Fiji Islands",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx3n",
+          "publishedAt": "2026-09-23T14:45:35.743000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
+      "eventId": "085220ca10c2f6ab",
+      "members": [
+        {
+          "id": "085220ca10c2f6ab8e9a39c630fc0e60",
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.7 - 180 km NW of Hihifo, Tonga",
+          "excerpt": null,
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx3m",
+          "publishedAt": "2026-09-23T14:41:02.650000Z",
+          "language": "en",
+          "rightsMode": "PUBLIC_DOMAIN",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "085220ca10c2f6ab8e9a39c630fc0e60"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T14:41:02.650000Z",
+      "lastSeen": "2026-09-23T14:41:02.650000Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "science",
+      "headline": "M 5.7 - 180 km NW of Hihifo, Tonga",
+      "score": 0.3433651725578704,
+      "scoreComponents": {
+        "freshness": 0.7334606902314815,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.4,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.7 - 180 km NW of Hihifo, Tonga",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx3m",
+          "publishedAt": "2026-09-23T14:41:02.650000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null
+    },
+    {
       "eventId": "2b2df0dbeb23b3c9",
       "members": [
         {
@@ -7263,9 +7329,9 @@
       "section": "world",
       "category": "health",
       "headline": "In Amish country, nurses go door to door to stop deadly spread of measles",
-      "score": 0.34360839616415895,
+      "score": 0.34162457649305555,
       "scoreComponents": {
-        "freshness": 0.8744335846566358,
+        "freshness": 0.8664983059722222,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7288,7 +7354,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
@@ -7329,9 +7395,9 @@
       "section": "world",
       "category": "local",
       "headline": "Eating garden weeds to survive in Russian-occupied city cut off from food and water",
-      "score": 0.34262845789255403,
+      "score": 0.34064463822145064,
       "scoreComponents": {
-        "freshness": 0.8705138315702161,
+        "freshness": 0.8625785528858024,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7395,9 +7461,9 @@
       "section": "world",
       "category": "local",
       "headline": "'Make women feel seen': Why the Dutch have a new word for labia",
-      "score": 0.34169095789255405,
+      "score": 0.33970713822145066,
       "scoreComponents": {
-        "freshness": 0.8667638315702161,
+        "freshness": 0.8588285528858025,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7461,9 +7527,9 @@
       "section": "world",
       "category": "sports",
       "headline": "Indians are discovering the thrill of shopping without paying",
-      "score": 0.34004358134934415,
+      "score": 0.33805976167824076,
       "scoreComponents": {
-        "freshness": 0.8601743253973766,
+        "freshness": 0.852239046712963,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7527,9 +7593,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 5.0 - Mariana Islands region",
-      "score": 0.33960918127218365,
+      "score": 0.33762536160108025,
       "scoreComponents": {
-        "freshness": 0.7184367250887346,
+        "freshness": 0.710501446404321,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -7593,9 +7659,9 @@
       "section": "world",
       "category": "entertainment",
       "headline": "A red carpet and military flyover - How Trump welcomed Xi",
-      "score": 0.3394513745592207,
+      "score": 0.3374675548881173,
       "scoreComponents": {
-        "freshness": 0.8578054982368827,
+        "freshness": 0.8498702195524691,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7659,9 +7725,9 @@
       "section": "world",
       "category": "public-safety",
       "headline": "Watch: How toxic smog from wildfires is making Indonesians sick",
-      "score": 0.3391350165345294,
+      "score": 0.33715119686342593,
       "scoreComponents": {
-        "freshness": 0.7565400661381173,
+        "freshness": 0.7486047874537036,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7725,9 +7791,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 4.6 - 106 km WNW of Ternate, Indonesia",
-      "score": 0.3373798795746528,
+      "score": 0.3353960599035494,
       "scoreComponents": {
-        "freshness": 0.7095195182986112,
+        "freshness": 0.7015842396141976,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -7791,9 +7857,9 @@
       "section": "world",
       "category": "technology",
       "headline": "Trump and Xi come face-to-face as US and China jostle for dominance over AI",
-      "score": 0.335825795855517,
+      "score": 0.3338419761844136,
       "scoreComponents": {
-        "freshness": 0.8433031834220679,
+        "freshness": 0.8353679047376543,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7857,9 +7923,9 @@
       "section": "world",
       "category": "local",
       "headline": "Watch: The arms race in space and how the UK is defending itself",
-      "score": 0.33396140542341823,
+      "score": 0.33197758575231484,
       "scoreComponents": {
-        "freshness": 0.8358456216936728,
+        "freshness": 0.8279103430092593,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7923,9 +7989,9 @@
       "section": "world",
       "category": "local",
       "headline": "UK survivor of Canadian poison seller says he exploited her despair",
-      "score": 0.33320523258391205,
+      "score": 0.33122141291280865,
       "scoreComponents": {
-        "freshness": 0.8328209303356482,
+        "freshness": 0.8248856516512346,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -7989,9 +8055,9 @@
       "section": "world",
       "category": "public-safety",
       "headline": "Eleven killed in mass shooting at house in South Africa",
-      "score": 0.3331425396826775,
+      "score": 0.3311587200115741,
       "scoreComponents": {
-        "freshness": 0.7325701587307099,
+        "freshness": 0.7246348800462963,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -8187,9 +8253,9 @@
       "section": "world",
       "category": "local",
       "headline": "Harvey Weinstein sentenced to 15 years in prison for sexual assault",
-      "score": 0.3248256029542824,
+      "score": 0.32284178328317903,
       "scoreComponents": {
-        "freshness": 0.7993024118171297,
+        "freshness": 0.7913671331327161,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -8253,9 +8319,9 @@
       "section": "world",
       "category": "local",
       "headline": "Iran's president tells Trump it will never 'bend the knee'",
-      "score": 0.32276059523823303,
+      "score": 0.32077677556712964,
       "scoreComponents": {
-        "freshness": 0.7910423809529321,
+        "freshness": 0.7831071022685185,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -8319,9 +8385,9 @@
       "section": "world",
       "category": "local",
       "headline": "Poland accuses Russian military helicopter of violating its airspace",
-      "score": 0.3136064671518133,
+      "score": 0.3116226474807099,
       "scoreComponents": {
-        "freshness": 0.7544258686072531,
+        "freshness": 0.7464905899228396,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -8385,9 +8451,9 @@
       "section": "world",
       "category": "local",
       "headline": "Dramatic eviction of woman aged 87 highlights Spain's housing shortage",
-      "score": 0.3028531878308256,
+      "score": 0.30086936815972226,
       "scoreComponents": {
-        "freshness": 0.7114127513233024,
+        "freshness": 0.7034774726388889,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -8451,9 +8517,9 @@
       "section": "world",
       "category": "local",
       "headline": "Dolly Parton's manager accuses her nephew of 'threats and intimidation'",
-      "score": 0.30235357363329474,
+      "score": 0.30036975396219134,
       "scoreComponents": {
-        "freshness": 0.709414294533179,
+        "freshness": 0.7014790158487654,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -8583,15 +8649,15 @@
       "section": "world",
       "category": "local",
       "headline": "Reports of violence against women in Gaza surge, UN agency finds",
-      "score": 0.2679833104058642,
+      "score": 0.26480919893209875,
       "scoreComponents": {
-        "freshness": 0.6074582760146605,
+        "freshness": 0.5995229973302469,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.008881258597800928,
+        "stalePenalty": 0.010071550400462963,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -8649,15 +8715,15 @@
       "section": "world",
       "category": "politics",
       "headline": "How Ceuta, football and Israel are shaping Morocco's election",
-      "score": 0.22322096472685188,
+      "score": 0.22004685325308646,
       "scoreComponents": {
-        "freshness": 0.4955524118171296,
+        "freshness": 0.48761713313271615,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.02566713822743056,
+        "stalePenalty": 0.026857430030092583,
         "duplicatePenalty": 0.0
       },
       "breaking": false,

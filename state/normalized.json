@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T09:17:54.474649Z",
+  "generatedAt": "2026-09-24T09:52:10.273316Z",
   "items": [
     {
       "id": "67c5e56e123ec0d767af6a914e24823f",
@@ -9,6 +9,19 @@
       "excerpt": "Australia criticised OpenAI for taking \"too long\" to tell them about the breach which happened in June.",
       "url": "https://www.bbc.co.uk/news/articles/c6vgy0333dppo?at_campaign=rss&at_medium=RSS",
       "publishedAt": "2026-09-24T07:10:58Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
+      "id": "fa5549143a001776bab66cd9332310fe",
+      "sourceId": "bbc-world",
+      "publisher": "BBC World",
+      "headline": "Trump offers warm welcome as China's Xi arrives for US visit",
+      "excerpt": "The US treasury secretary said that the US and China had reached an agreement to extend a trade truce as Xi began his visit.",
+      "url": "https://www.bbc.co.uk/news/articles/cqgmrk7187lzo?at_campaign=rss&at_medium=RSS",
+      "publishedAt": "2026-09-24T03:52:21Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -47,7 +60,7 @@
       "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
       "excerpt": "The local authorities reportedly seize Tigray's airports following reports of recent drone strikes.",
       "url": "https://www.bbc.co.uk/news/articles/cry8zwwq21pxo?at_campaign=rss&at_medium=RSS",
-      "publishedAt": "2026-09-24T04:37:47Z",
+      "publishedAt": "2026-09-24T09:28:33Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -288,6 +301,19 @@
       "rawLocations": []
     },
     {
+      "id": "59da3a9aed3113a8fc214b499c937be7",
+      "sourceId": "npr-news",
+      "publisher": "NPR News",
+      "headline": "The Education Dept. hasn't been dismantled. It's become more inefficient, staff say",
+      "excerpt": "Education staff are being scattered across several other federal agencies. Despite the Trump administration's claims, employees say it's adding bureaucracy and making it harder to serve students.",
+      "url": "https://www.npr.org/2026/09/24/nx-s1-5968605/education-department-dismantling-how-its-going",
+      "publishedAt": "2026-09-24T09:00:00Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
       "id": "8324c24fac73c14352e0afc6696c02b2",
       "sourceId": "npr-news",
       "publisher": "NPR News",
@@ -301,12 +327,12 @@
       "rawLocations": []
     },
     {
-      "id": "59da3a9aed3113a8fc214b499c937be7",
+      "id": "cbe163b40645fce5f9798652dbf44dc1",
       "sourceId": "npr-news",
       "publisher": "NPR News",
-      "headline": "The Education Dept. hasn't been dismantled. It's become more inefficient, staff say",
-      "excerpt": "Education staff are being scattered across several other federal agencies. Despite the Trump administration's claims, employees say it's adding bureaucracy and making it harder to serve students.",
-      "url": "https://www.npr.org/2026/09/24/nx-s1-5968605/education-department-dismantling-how-its-going",
+      "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
+      "excerpt": "Democratic Sen. Elizabeth Warren asked Trump officials to explain why the Census Bureau's parent agency cut a ban on political interference from its scientific integrity policy, as NPR first reported.",
+      "url": "https://www.npr.org/2026/09/24/nx-s1-5979070/department-commerce-census-bureau-elizabeth-warren",
       "publishedAt": "2026-09-24T09:00:00Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
@@ -333,19 +359,6 @@
       "headline": "States threaten action against company earning millions off disabled vets",
       "excerpt": "The investigations by attorneys general follow a recent bankruptcy filing in the face of civil lawsuits, falling revenues, and impending debt payments.",
       "url": "https://www.npr.org/2026/09/24/nx-s1-5978816/va-mortgages-trajector-bankruptcy-investigations",
-      "publishedAt": "2026-09-24T09:00:00Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "cbe163b40645fce5f9798652dbf44dc1",
-      "sourceId": "npr-news",
-      "publisher": "NPR News",
-      "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
-      "excerpt": "Democratic Sen. Elizabeth Warren asked Trump officials to explain why the Census Bureau's parent agency cut a ban on political interference from its scientific integrity policy, as NPR first reported.",
-      "url": "https://www.npr.org/2026/09/24/nx-s1-5979070/department-commerce-census-bureau-elizabeth-warren",
       "publishedAt": "2026-09-24T09:00:00Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
@@ -542,19 +555,6 @@
       "excerpt": null,
       "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx31",
       "publishedAt": "2026-09-23T12:23:20.274000Z",
-      "language": "en",
-      "rightsMode": "PUBLIC_DOMAIN",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "189b76d8ea8a721576481c4cb8deee18",
-      "sourceId": "usgs-earthquakes",
-      "publisher": "USGS Earthquake Hazards Program",
-      "headline": "M 5.3 - 51 km WSW of Arauco, Argentina",
-      "excerpt": null,
-      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx29",
-      "publishedAt": "2026-09-23T09:21:14.600000Z",
       "language": "en",
       "rightsMode": "PUBLIC_DOMAIN",
       "imageCandidate": null,
