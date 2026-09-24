@@ -30,6 +30,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.charleshartman.porchlightpress.BuildConfig
 import com.charleshartman.porchlightpress.data.local.StorySource
 import com.charleshartman.porchlightpress.ui.components.AiBadge
 import com.charleshartman.porchlightpress.ui.components.AiDisclosureBox
@@ -62,7 +63,7 @@ fun ArticleScreen(
                         val shareText = buildString {
                             append(story.headline)
                             if (!story.dek.isNullOrBlank()) append("\n\n${story.dek}")
-                            append("\n\nhttps://chartmann1590.github.io/porchlight-press/s/${story.id}.html")
+                            append("\n\n${sharePageUrl(story.id)}")
                             append("\n\nvia Porchlight Press \u00b7 AI-written brief, sources linked")
                         }
                         val intent = Intent(Intent.ACTION_SEND).apply {
@@ -165,7 +166,6 @@ fun ArticleScreen(
                             Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                 Text("Source card — AI brief withheld or not yet generated.", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold))
                                 Text(story.headline, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("source-card-headline"))
-                                if (false) { Text("") } // excerpt not stored separately; body shown below when present
                                 if (!story.body.isNullOrBlank()) {
                                     Text(story.body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
@@ -183,8 +183,8 @@ fun ArticleScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.semantics { heading() }.testTag("sources-header"),
                     )
-                    cur.sources.forEach { src ->
-                        SourceRow(src = src, modifier = Modifier.testTag("source-${src.url.hashCode()}"))
+                    cur.sources.forEachIndexed { index, src ->
+                        SourceRow(src = src, modifier = Modifier.testTag("source-$index"))
                     }
                     if (cur.sources.isEmpty()) {
                         Text("Sources unavailable.", style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("sources-empty"))
@@ -205,6 +205,10 @@ fun ArticleScreen(
         }
     }
 }
+
+/** Shareable story page, derived from the feed base so staging/custom domains work. */
+fun sharePageUrl(storyId: String): String =
+    "${BuildConfig.FEED_BASE_URL.trimEnd('/')}/s/$storyId.html"
 
 @Composable
 private fun SourceRow(src: StorySource, modifier: Modifier = Modifier) {

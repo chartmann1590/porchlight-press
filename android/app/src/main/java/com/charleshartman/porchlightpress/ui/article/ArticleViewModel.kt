@@ -45,12 +45,20 @@ class ArticleViewModel(
         val sources = container.db.storyDao().sourcesFor(storyId)
         val translation = if (lang != "en") container.db.translationDao().storyTranslation(storyId, story.version, lang) else null
         val isTranslating = lang != "en" && translation == null
+        _state.value = ArticleUiState(isLoading = false, story = story, sources = sources, translation = translation, isTranslating = isTranslating)
         if (isTranslating) {
             viewModelScope.launch {
-                container.translationRepository.translateStory(storyId, story.version, story.headline, story.dek, story.body, lang)
+                try {
+                    val result = container.translationRepository.translateStory(
+                        storyId, story.version, story.headline, story.dek, story.body, lang,
+                    )
+                    _state.value = _state.value.copy(translation = result, isTranslating = false)
+                } catch (e: Exception) {
+                    android.util.Log.w("Porchlight", "Story translation failed", e)
+                    _state.value = _state.value.copy(isTranslating = false)
+                }
             }
         }
-        _state.value = ArticleUiState(isLoading = false, story = story, sources = sources, translation = translation, isTranslating = isTranslating)
     }
 
     fun toggleOriginal() {

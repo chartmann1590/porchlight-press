@@ -66,13 +66,35 @@ class SectionViewModel(
             val sources = container.db.storyDao().sourcesFor(story.id)
             val label = sources.firstOrNull()?.publisher
             val tr = if (lang != "en") container.db.translationDao().storyTranslation(story.id, story.version, lang) else null
-            val isTranslating = lang != "en" && tr == null
-            if (isTranslating) viewModelScope.launch {
-                container.translationRepository.translateStory(story.id, story.version, story.headline, story.dek, story.body, lang)
-            }
-            FrontStoryUi(story, tr, isTranslating, label)
+            FrontStoryUi(story, tr, lang != "en" && tr == null, label)
         }
         _state.value = SectionUiState(isLoading = false, title = displayTitle(sectionId), stories = ui)
+        // Background translation after state is set; failures clear the flag
+        // so no permanent "translating…" chip lingers (see FrontPageViewModel).
+        if (lang != "en") {
+            for (story in effective) {
+                if (ui.find { it.story.id == story.id }?.isTranslating != true) continue
+                viewModelScope.launch {
+                    try {
+                        val result = container.translationRepository.translateStory(
+                            story.id, story.version, story.headline, story.dek, story.body, lang,
+                        )
+                        _state.value = _state.value.copy(
+                            stories = _state.value.stories.map { s ->
+                                if (s.story.id == story.id) s.copy(translation = result, isTranslating = false) else s
+                            },
+                        )
+                    } catch (e: Exception) {
+                        android.util.Log.w("Porchlight", "Story translation failed", e)
+                        _state.value = _state.value.copy(
+                            stories = _state.value.stories.map { s ->
+                                if (s.story.id == story.id) s.copy(isTranslating = false) else s
+                            },
+                        )
+                    }
+                }
+            }
+        }
     }
 
     private fun displayTitle(sectionId: String): String {

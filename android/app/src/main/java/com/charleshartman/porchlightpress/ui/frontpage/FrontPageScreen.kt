@@ -294,6 +294,23 @@ private fun TranslationChipRow(isTranslating: Boolean, lang: String) {
     }
 }
 
+/**
+ * Metro IDs look like "us-ny-capital-region": strip one leading
+ * "{country}-{admin1}-" segment when present, then prettify. Unknown
+ * formats fall through to the generic label instead of garbage.
+ */
+private fun humanizeMetro(metro: String?): String {
+    if (metro.isNullOrBlank()) return "REGIONAL"
+    val stripped = metro.replace(Regex("^[a-zA-Z]{2}-[a-zA-Z0-9]+-"), "")
+    return stripped.replace("-", " ").uppercase().ifBlank { "REGIONAL" }
+}
+
+/** "US-NY" -> "NY"; anything without a subdivision code -> generic label. */
+private fun stateName(admin1: String?): String {
+    if (admin1.isNullOrBlank() || "-" !in admin1) return "STATE"
+    return admin1.substringAfter("-").uppercase()
+}
+
 private fun displaySectionTitle(sec: com.charleshartman.porchlightpress.ui.frontpage.SectionUi, state: FrontPageUiState): String {
     // Map generic Top Stories → location-aware titles per Phase 6 spec:
     // "LOCAL — SCHENECTADY", "CAPITAL REGION", "NEW YORK", "UNITED STATES"
@@ -302,13 +319,13 @@ private fun displaySectionTitle(sec: com.charleshartman.porchlightpress.ui.front
         "top" -> when {
             p?.city != null -> "LOCAL \u2014 ${p.city.uppercase()}"
             p?.admin2 != null -> p.admin2.uppercase()
-            p?.admin1 != null -> p.admin1.substringAfter("-").uppercase()
+            p?.admin1 != null -> stateName(p.admin1)
             p?.country == "US" -> "UNITED STATES"
             else -> sec.title.uppercase()
         }
         "local" -> "LOCAL \u2014 ${(p?.city ?: p?.label ?: "LOCAL").uppercase()}"
-        "regional" -> (p?.metro?.let { it } ?: "REGIONAL").uppercase().replace("US-NY-", "").replace("-", " ")
-        "state" -> (p?.admin1?.substringAfter("-") ?: "STATE").uppercase()
+        "regional" -> humanizeMetro(p?.metro)
+        "state" -> stateName(p?.admin1)
         "national" -> "UNITED STATES"
         "world" -> "WORLD"
         else -> sec.title.uppercase()

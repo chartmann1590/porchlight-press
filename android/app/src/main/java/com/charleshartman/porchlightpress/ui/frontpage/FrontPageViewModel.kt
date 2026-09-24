@@ -111,14 +111,6 @@ class FrontPageViewModel(
                     container.db.translationDao().storyTranslation(story.id, story.version, lang)
                 } else null
                 val isTranslating = lang != "en" && translation == null
-                // Kick off background translation if missing (non-blocking)
-                if (isTranslating) {
-                    viewModelScope.launch {
-                        container.translationRepository.translateStory(
-                            story.id, story.version, story.headline, story.dek, story.body, lang,
-                        )
-                    }
-                }
                 FrontStoryUi(story, translation, isTranslating, label)
             }
             // Build sections: respect feed sections if >1, else synthesize from categories/places.
@@ -133,9 +125,46 @@ class FrontPageViewModel(
                 allStories = uiStories,
                 offline = false,
             )
+            // Kick off background translation for stories that need it, after
+            // state is set. Success swaps the translation in place; failure
+            // clears the flag so no permanent "translating…" chip lingers.
+            if (lang != "en") {
+                for (story in allStoriesRaw) {
+                    if (uiStories.find { it.story.id == story.id }?.isTranslating != true) continue
+                    viewModelScope.launch {
+                        try {
+                            val result = container.translationRepository.translateStory(
+                                story.id, story.version, story.headline, story.dek, story.body, lang,
+                            )
+                            patchTranslation(story.id, result, false)
+                        } catch (e: Exception) {
+                            android.util.Log.w("Porchlight", "Story translation failed", e)
+                            patchTranslation(story.id, null, false)
+                        }
+                    }
+                }
+            }
         } catch (e: Exception) {
             _state.value = _state.value.copy(isLoading = false, error = e.message ?: "Couldn't load your paper.")
         }
+    }
+
+    /** Patch one story's translation into both lists the UI renders from. */
+    private fun patchTranslation(
+        storyId: String,
+        translation: com.charleshartman.porchlightpress.data.local.StoryTranslation?,
+        isTranslating: Boolean,
+    ) {
+        _state.value = _state.value.copy(
+            allStories = _state.value.allStories.map { s ->
+                if (s.story.id == storyId) s.copy(translation = translation, isTranslating = isTranslating) else s
+            },
+            sections = _state.value.sections.map { sec ->
+                sec.copy(stories = sec.stories.map { s ->
+                    if (s.story.id == storyId) s.copy(translation = translation, isTranslating = isTranslating) else s
+                })
+            },
+        )
     }
 
     private fun buildSections(

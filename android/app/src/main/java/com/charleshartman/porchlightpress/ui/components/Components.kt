@@ -255,6 +255,7 @@ private fun rememberImageDto(imageJson: String?): StoryImageDto? {
     return try {
         NetworkModule.feedJson.decodeFromString<StoryImageDto>(imageJson)
     } catch (e: Exception) {
+        android.util.Log.w("Porchlight", "Ignoring malformed story imageJson", e)
         null
     }
 }
@@ -376,12 +377,12 @@ fun StoryCard(
     }
 }
 
-private fun Story.publisherLabel(): String? {
-    // Cheap parse of locationsJson not needed; publisher is first source headline publisher?
-    // Story row doesn't store publisher directly; callers pass sourceLabel from sourcesFor.
-    // Fallback: aiGenerated label.
-    return if (aiGenerated) "Porchlight Press" else null
-}
+/**
+ * Last-resort publisher label. The Story row stores no publisher, so callers
+ * pass sourceLabel from sourcesFor(); this returns null so SourceLine simply
+ * omits the line rather than printing a wrong "Porchlight Press" byline.
+ */
+private fun Story.publisherLabel(): String? = null
 
 // ---------------------------------------------------------------------------
 // AI disclosure box (spec wording) + Reporting Sources + AlertBanner stub

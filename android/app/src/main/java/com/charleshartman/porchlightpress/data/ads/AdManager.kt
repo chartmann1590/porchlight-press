@@ -77,7 +77,14 @@ class AdMobGate(private val context: Context) {
     var config: AdConfig = AdConfig()
 
     fun initializeIfConsented(consented: Boolean) {
-        if (initialized) return
+        // MobileAds.initialize is idempotent, but the ready flag and preload
+        // must follow the current config: ads can flip from disabled (no
+        // consent yet) to enabled later, so never get stuck by an early call.
+        if (initialized) {
+            _adsReady.value = config.enabled
+            if (config.enabled) preloadInterstitial()
+            return
+        }
         // UMP must resolve before MobileAds.initialize; if consent unknown we still
         // initialize with non-personalized default (Phase 9: no consent → npa=1).
         // Simplest policy: always initialize after consent resolves (either
@@ -85,7 +92,7 @@ class AdMobGate(private val context: Context) {
         try {
             MobileAds.initialize(context) {}
             initialized = true
-            _adsReady.value = true && config.enabled
+            _adsReady.value = config.enabled
             preloadInterstitial()
         } catch (e: Exception) {
             _adsReady.value = false
@@ -106,8 +113,8 @@ class AdMobGate(private val context: Context) {
     fun popInterstitial(): InterstitialAd? {
         val ad = interstitial
         interstitial = null
-        // Preload next one after show (Phase 9 spec).
-        if (ad != null) preloadInterstitial() else preloadInterstitial()
+        // Preload the next one after each show (Phase 9 spec).
+        preloadInterstitial()
         return ad
     }
 
