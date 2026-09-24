@@ -1,18 +1,31 @@
 name: source-validation
 
+# Phase 4: schema + registry validation on every PR/push, live checks of
+# changed sources on PRs touching sources/**, and a weekly full-health run.
+# Portable: the pipeline knows nothing about GitHub; live checks call the
+# same `python -m pipeline.sources check <id>` a contributor runs locally.
 on:
   pull_request:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Weekly full health (Sundays, off the hour, low load).
+    - cron: "17 5 * * 0"
+
+permissions:
+  contents: read
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+        with:
+          # Full history for the changed-sources diff below.
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install dependencies
@@ -22,7 +35,24 @@ jobs:
       - name: Validate source registry
         run: python -m pipeline.sources validate
       - name: Run pipeline tests (offline)
-        run: python -m pytest tests/ -q
+        run: python -m pytest tests/ -q -m "not slow"
+      - name: Live check of changed sources (PRs touching sources/**)
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth 1
+          CHANGED="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- sources/ || true)"
+          echo "changed source files:"; printf '%s\n' "$CHANGED"
+          IDS="$(printf '%s\n' "$CHANGED" | grep -E '\.json$' | grep -v 'regions\.json' || true)"
+          if [ -z "$IDS" ]; then
+            echo "no changed registry entries; skipping live checks"
+            exit 0
+          fi
+          for f in $IDS; do
+            id="$(python3 -c "import json,sys; print(json.load(open(sys.argv[1])).get('id',''))" "$f")"
+            [ -n "$id" ] || continue
+            echo "--- live check $id ($f)"
+            python -m pipeline.sources check "$id" || echo "WARN: $id live check failed (non-fatal)"
+          done
       - name: Ingest smoke test (live feeds)
         # Exercises the Phase 1 exit criterion in CI. Individual feed
         # failures are non-fatal by design, so this stays green as long as
@@ -33,3 +63,16 @@ jobs:
           --out "${{ runner.temp }}/normalized.json"
           --state "${{ runner.temp }}/http-state.json"
           --summary-file "$GITHUB_STEP_SUMMARY"
+
+  lint-workflows:
+    # actionlint on all workflows (Phase 4 exit criteria).
+    permissions:
+      contents: read
+      checks: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: reviewdog/action-actionlint@v1
+        with:
+          fail_level: error

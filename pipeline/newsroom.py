@@ -9,6 +9,12 @@ Defaults: --in state/clusters.json, --out state/stories.json,
 --state state/clusters.json (updated with lastBriefHash/lastGeneratedAt for
 successful briefs so budget-skipped clusters are retried next run).
 
+--choose-model: print the queued-cluster count and the model for the run
+(and record them to --model-choice-file / --queue-file) WITHOUT contacting
+any model server. The scheduled workflow runs this BEFORE downloading and
+starting llama-server so it serves exactly the chosen model; no restart is
+ever needed. Portable: plain file arguments only, no CI env vars.
+
 Budget (MASTER_PLAN section 11, phase-03): AI_MAX_ARTICLES_PER_RUN (default
 50) and a wall-clock cap (default 25 min). The queue is processed in rank
 order (score desc, local/breaking first via process.py ordering). When more
@@ -91,7 +97,7 @@ def _ai_usable(cluster: Mapping[str, Any]) -> bool:
     return False
 
 
-def _queue_for_ai(clusters: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def queue_for_ai(clusters: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """New/updated MEDIUM+ AI-usable clusters, plus unchanged MEDIUM+ clusters
     that still have no brief hash (budget-skipped last run -> retry)."""
     queue: list[dict[str, Any]] = []
@@ -117,6 +123,32 @@ def _queue_for_ai(clusters: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return queue
 
 
+def _overflow_threshold(ai_cfg: Mapping[str, Any]) -> int:
+    try:
+        return int(ai_cfg.get("overflowThreshold", 50))
+    except (TypeError, ValueError):
+        return 50
+
+
+def choose_model(
+    n_queued: int,
+    ai_cfg: Mapping[str, Any],
+    override: str | None = None,
+) -> str:
+    """Pick the model for a run (MASTER_PLAN section 11).
+
+    More than ``overflowThreshold`` (default 50) queued clusters switches the
+    whole run to the fallback model. The count is compared BEFORE any article
+    cap is applied: 55 queued with a cap of 50 still switches. An explicit
+    ``override`` (--model) always wins. Pure function: no I/O, no network.
+    """
+    if override:
+        return str(override)
+    if n_queued > _overflow_threshold(ai_cfg):
+        return str(ai_cfg.get("fallbackModel", FALLBACK_MODEL))
+    return str(ai_cfg.get("primaryModel", PRIMARY_MODEL))
+
+
 def _brief_hash(brief: Mapping[str, Any]) -> str:
     canonical = json.dumps(brief, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:32]
@@ -135,6 +167,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--wall-clock-minutes", type=float, default=None)
     parser.add_argument("--enable-factcheck", action="store_true", default=None)
     parser.add_argument("--summary-file", default=None)
+    parser.add_argument(
+        "--choose-model",
+        action="store_true",
+        help="Only compute the AI queue and record the model choice to "
+             "--model-choice-file (plus the queue manifest to --queue-file); "
+             "never contacts a model server.",
+    )
+    parser.add_argument("--model-choice-file", default="state/model-choice.txt")
+    parser.add_argument("--queue-file", default="state/queue.json")
     args = parser.parse_args(argv)
 
     step = "config"
@@ -153,7 +194,6 @@ def main(argv: list[str] | None = None) -> int:
             else float(ai_cfg.get("wallClockMinutes", 25))
         )
         llama_url = args.llama_url or ai_cfg.get("llamaUrl", "http://127.0.0.1:8080")
-        overflow_threshold = int(ai_cfg.get("overflowThreshold", 50))
         factcheck_enabled = (
             args.enable_factcheck
             if args.enable_factcheck is not None
@@ -180,7 +220,7 @@ def main(argv: list[str] | None = None) -> int:
         sources_by_id = {str(s.get("id")): dict(s) for s in sources}
 
         step = "queue"
-        queue = _queue_for_ai(clusters)
+        queue = queue_for_ai(clusters)
         queue_ids = {str(c.get("eventId")) for c in queue}
         # Model choice is made on the FULL queue size, before the
         # max_articles cap is applied. That is deliberate, not a bug:
@@ -189,12 +229,33 @@ def main(argv: list[str] | None = None) -> int:
         # cap of 50 still switches the whole run to 1.7B (MASTER_PLAN
         # section 11: "more than ~50 clusters are queued"). Do not
         # compare against max_articles here.
-        if args.model:
-            model_name = args.model
-        elif len(queue) > overflow_threshold:
-            model_name = str(ai_cfg.get("fallbackModel", FALLBACK_MODEL))
-        else:
-            model_name = str(ai_cfg.get("primaryModel", PRIMARY_MODEL))
+        model_name = choose_model(len(queue), ai_cfg, args.model)
+
+        if args.choose_model:
+            # Record the choice for the workflow (which downloads and starts
+            # exactly this model next) and stop before touching any server.
+            step = "choose-model"
+            choice_path = Path(args.model_choice_file)
+            choice_path.parent.mkdir(parents=True, exist_ok=True)
+            choice_path.write_text(model_name + "\n", encoding="utf-8")
+            queue_path = Path(args.queue_file)
+            queue_path.parent.mkdir(parents=True, exist_ok=True)
+            queue_path.write_text(
+                json.dumps({
+                    "generatedAt": _now_iso(),
+                    "threshold": _overflow_threshold(ai_cfg),
+                    "model": model_name,
+                    "queued": [str(c.get("eventId")) for c in queue],
+                }, indent=2),
+                encoding="utf-8",
+            )
+            print(f"queued={len(queue)} model={model_name} "
+                  f"choice={choice_path} queue={queue_path}")
+            if args.summary_file:
+                with open(args.summary_file, "a", encoding="utf-8") as fh:
+                    fh.write("## Model choice\n\n")
+                    fh.write(f"Queued {len(queue)} clusters for AI; model {model_name}.\n\n")
+            return 0
 
         step = "providers"
         local = LocalLlamaProvider(base_url=llama_url, model_name=model_name)

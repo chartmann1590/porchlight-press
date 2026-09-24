@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chartmann1590.github.io/porchlight-press/schemas/postal.schema.json",
+  "title": "Porchlight Press postal slice for ZIP onboarding",
+  "description": "Per-country postal-code list published as public/locations/{country}-postal.json (Phase 4). US ZCTA (public domain) + GeoNames postal (CC BY 4.0); see docs/GEO_DATA_SOURCES.md. For onboarding pickers only, never story coordinates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "generatedAt", "country", "postal"],
+  "properties": {
+    "apiVersion": {"const": 1},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "country": {"type": "string", "pattern": "^[A-Z]{2}$"},
+    "postal": {
+      "type": "array",
+      "items": {"type": "object"}
+    }
+  }
+}

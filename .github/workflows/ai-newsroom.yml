@@ -29,8 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install dependencies
@@ -63,6 +63,14 @@ jobs:
             --llama-url http://127.0.0.1:9 \
             --summary-file "$GITHUB_STEP_SUMMARY"
           python -c "import json; s=json.load(open('${{ runner.temp }}/smoke-stories.json'))['stories']; assert s, 'no stories'; assert all(not x['aiGenerated'] for x in s), 'dead server must yield cards'; print(f'smoke OK: {len(s)} source cards')"
+      - name: Model choice recorded without a server (staging contract)
+        run: |
+          python -m pipeline.newsroom \
+            --choose-model \
+            --in "${{ runner.temp }}/smoke-clusters.json" \
+            --model-choice-file "${{ runner.temp }}/model-choice.txt" \
+            --queue-file "${{ runner.temp }}/queue.json"
+          grep -q "Qwen3-4B-Q4_K_M" "${{ runner.temp }}/model-choice.txt"
 
   live-model:
     # Nightly only: PRs/pushes use the offline job above (no 2.5 GB download).
@@ -70,14 +78,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install -r requirements-dev.txt
       - name: Cache model
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/newspaper-models
           key: model-${{ env.PRIMARY_FILE }}-${{ env.PRIMARY_SHA }}
@@ -90,12 +98,18 @@ jobs:
           if [ ! -f "${{ env.PRIMARY_FILE }}" ]; then
             # Prefer our own Release (split shards for the 4B file); fall back
             # to Hugging Face when the Release is not yet populated.
-            gh release download model-qwen3 -R "${{ github.repository }}" \
-              -p "Qwen3-4B-Q4_K_M-00001-of-00002.gguf" 2>/dev/null && \
-            gh release download model-qwen3 -R "${{ github.repository }}" \
-              -p "Qwen3-4B-Q4_K_M-00002-of-00002.gguf" 2>/dev/null && \
-            echo "using Release shards" || \
-            curl -fL --retry 3 -o "${{ env.PRIMARY_FILE }}" "${{ env.PRIMARY_HF }}"
+            if gh release download model-qwen3 -R "${{ github.repository }}" \
+              -p "Qwen3-4B-Q4_K_M-00001-of-00002.gguf" 2>/dev/null; then
+              if gh release download model-qwen3 -R "${{ github.repository }}" \
+                -p "Qwen3-4B-Q4_K_M-00002-of-00002.gguf" 2>/dev/null; then
+                echo "using Release shards"
+              else
+                rm -f "Qwen3-4B-Q4_K_M-00001-of-00002.gguf"
+                curl -fL --retry 3 -o "${{ env.PRIMARY_FILE }}" "${{ env.PRIMARY_HF }}"
+              fi
+            else
+              curl -fL --retry 3 -o "${{ env.PRIMARY_FILE }}" "${{ env.PRIMARY_HF }}"
+            fi
           fi
           ls -lh
           if [ -f "Qwen3-4B-Q4_K_M-00001-of-00002.gguf" ] && [ -f "Qwen3-4B-Q4_K_M-00002-of-00002.gguf" ]; then
@@ -117,7 +131,7 @@ jobs:
           export LD_LIBRARY_PATH="$LLAMA_DIR:$LD_LIBRARY_PATH"
           nohup "$LLAMA_DIR/llama-server" -m "$MODEL_PATH" --jinja -c 4096 -np 1 \
             -t "$(nproc)" --host 127.0.0.1 --port 8080 > /tmp/server.log 2>&1 &
-          for i in $(seq 1 120); do
+          for _ in $(seq 1 120); do
             curl -sf http://127.0.0.1:8080/health && exit 0
             sleep 2
           done
@@ -149,7 +163,7 @@ jobs:
         run: python -m pytest tests/pipeline/test_ai_slow.py -q -m slow
       - name: Upload live output
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ai-newsroom-live
           path: |

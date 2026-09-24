@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chartmann1590.github.io/porchlight-press/schemas/locations.schema.json",
+  "title": "Porchlight Press gazetteer slice for onboarding pickers",
+  "description": "Per-country place list published as public/locations/{country}.json (Phase 4). Built from Census (public domain) + GeoNames (CC BY 4.0); see docs/GEO_DATA_SOURCES.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "generatedAt", "country", "places"],
+  "properties": {
+    "apiVersion": {"const": 1},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "country": {"type": "string", "pattern": "^[A-Z]{2}$"},
+    "places": {
+      "type": "array",
+      "items": {"type": "object"}
+    }
+  }
+}

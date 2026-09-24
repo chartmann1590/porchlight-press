@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Resolve files from models.lock
         id: lock
@@ -99,8 +99,13 @@ jobs:
           if [ "${#shards[@]}" -gt 0 ]; then
             echo "shards already present, skipping split"
           else
+            # gguf-split needs IN and OUT-prefix args (see tools/gguf-split/tests.sh:
+            # `$SPLIT --split-max-size 500M in.gguf out-prefix`). The OUT prefix
+            # yields `<prefix>-00001-of-00002.gguf` shards that llama-server loads
+            # natively via `-m <first shard>`.
             "$SPLIT_BIN" --split --split-max-size 1900M \
-              "${{ steps.lock.outputs.big_file }}"
+              "${{ steps.lock.outputs.big_file }}" \
+              "${{ steps.lock.outputs.shard_prefix }}"
           fi
           ls -lh "${{ steps.lock.outputs.shard_prefix }}"-*.gguf
 

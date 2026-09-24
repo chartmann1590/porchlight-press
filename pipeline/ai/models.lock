@@ -16,10 +16,18 @@
       "huggingFace": "https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf",
       "license": "Apache-2.0",
       "releaseAssets": [
-        "Qwen3-4B-Q4_K_M-00001-of-00002.gguf",
-        "Qwen3-4B-Q4_K_M-00002-of-00002.gguf"
+        {
+          "file": "Qwen3-4B-Q4_K_M-00001-of-00002.gguf",
+          "sizeBytes": 1894436192,
+          "sha256": "d544dddedabac7d6646f4c31a65a91ee0d79aa48e9aaafaa7bd2cecc3abbcb71"
+        },
+        {
+          "file": "Qwen3-4B-Q4_K_M-00002-of-00002.gguf",
+          "sizeBytes": 602844256,
+          "sha256": "bc24712753f77da09314403cdf7926f4fd84c583f97f276da40006c57cf15b1c"
+        }
       ],
-      "releaseAssetNote": "Shard SHA-256 values are recorded here from the mirror-models run summary on the next docs pass; until then the workflow falls back to Hugging Face and verifies the single-file sha256 above."
+      "releaseAssetNote": "Shard sizes/hashes from the model-qwen3 release assets (mirror-models run 35934367419, 2026-09-23; digests reported by the GitHub API). Split with llama-gguf-split --split --split-max-size 1900M <file> <prefix> (b11138); llama-server -m <first shard> loads them natively."
     },
     "Qwen3-1.7B-Q8_0": {
       "role": "fallback (whole run switches to this when more than ~50 clusters are queued)",
