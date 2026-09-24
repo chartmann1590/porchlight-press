@@ -556,6 +556,24 @@ def test_stemmed_paraphrase_covered_but_invention_not():
     assert any("background" in r.lower() for r in result.reasons)
 
 
+def test_stemmer_keeps_inflections_together_and_lemmas_apart():
+    # The coverage guard matches on stems: every inflection of one lemma
+    # must share a stem (past bug: "named"->"nam" vs "name"->"name"), while
+    # distinct lemmas must never merge ("educate" vs "education").
+    from pipeline.ai.validate import _stem
+
+    for inflected, plain in (
+        ("named", "name"), ("arrested", "arrest"), ("videos", "video"),
+        ("preparing", "prepare"), ("gearing", "gear"), ("places", "place"),
+        ("boxes", "box"), ("classes", "class"), ("closed", "close"),
+        ("responded", "respond"), ("parade", "parade"),
+    ):
+        assert _stem(inflected) == _stem(plain), (inflected, plain)
+    assert _stem("menopause") != _stem("perimenopause")
+    assert _stem("educate") != _stem("education")
+    assert _stem("event") != _stem("parade")
+
+
 def test_place_weekday_span_accepted_invented_place_not():
     # "Central Avenue Tuesday" is place + weekday, not a fake name; an
     # invented place with a weekday attached still fails.

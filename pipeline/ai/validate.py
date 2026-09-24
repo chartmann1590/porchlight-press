@@ -103,24 +103,35 @@ def _content_words(text: str) -> list[str]:
 def _stem(token: str) -> str:
     """Light stemmer so faithful paraphrases match their sources.
 
-    Strips a single common suffix (ing/ed/es/s, ies->y, trailing e) with a
-    length guard. Applied identically to source and brief text, so
-    "arrested"/"arrest" and "videos"/"video" count as the same word while
-    genuinely different words ("menopause" vs "perimenopause",
-    "educate" vs "education") stay distinct. Stdlib only, deterministic.
+    Applied identically to source and brief text, so "arrested"/"arrest",
+    "named"/"name", "videos"/"video", and "preparing"/"prepare" count as the
+    same word, while genuinely different words ("menopause" vs
+    "perimenopause", "educate" vs "education") stay distinct. Stdlib only,
+    deterministic. The critical property is CONSISTENCY: every inflection of
+    one lemma must land on one stem (a past bug mapped "named"->"nam" but
+    "name"->"name", failing valid paraphrases).
     """
+    # Sequential (no early return): plural strip, then trailing-e strip, so
+    # "places"->"place"->"plac" meets brief-side "place"->"plac".
     t = token
     if len(t) > 5 and t.endswith("ies"):
         return t[:-3] + "y"
-    for suffix in ("ing", "ed", "es"):
-        if len(t) > len(suffix) + 3 and t.endswith(suffix):
-            # Keep "sing"/"used"-style roots intact: require a consonant
-            # before the suffix... simple length guard is enough here.
-            return t[: -len(suffix)]
-    if len(t) > 4 and t.endswith("s"):
-        return t[:-1]
-    if len(t) > 4 and t.endswith("e"):
-        return t[:-1]
+    verb_stripped = False
+    if len(t) > 5 and t.endswith("ing"):
+        t = t[:-3]
+        verb_stripped = True
+    elif len(t) > 4 and t.endswith("ed"):
+        t = t[:-2]
+        verb_stripped = True
+    if not verb_stripped:
+        # Skipped after a verb strip: the -s in "clos" (from "closed")
+        # is stem, not a plural (brief-side "close"->"clos" must meet it).
+        if len(t) > 5 and t.endswith(("ses", "xes", "zes", "ches", "shes")):
+            t = t[:-2]  # classes->class, boxes->box
+        elif len(t) > 3 and t.endswith("s") and not t.endswith("ss"):
+            t = t[:-1]  # videos->video, places->place; press/class intact
+    if len(t) > 3 and t.endswith("e"):
+        t = t[:-1]  # place->plac, name->nam, prepare->prepar
     return t
 
 
