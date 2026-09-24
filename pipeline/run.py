@@ -120,7 +120,9 @@ def _stage_finish(args: argparse.Namespace, cfg: Mapping[str, Any]) -> int:
     if model is None:
         choice_path = Path(args.model_choice_file) if args.model_choice_file else state_dir / "model-choice.txt"
         try:
-            model = choice_path.read_text(encoding="utf-8").strip() or None
+            model = choice_path.read_text(encoding="utf-8").strip()
+            if not model:
+                model = None
         except OSError:
             model = None
 
