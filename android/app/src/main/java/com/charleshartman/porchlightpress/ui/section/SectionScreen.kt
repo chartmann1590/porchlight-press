@@ -90,7 +90,7 @@ fun SectionScreen(
                                             title = cat,
                                             subtitle = "Coverage from this edition",
                                             badge = "${state.stories.count { it.story.category == cat }} stories",
-                                            onClick = { },
+                                            onClick = { /* TODO: navigate to filtered section view */ },
                                             modifier = Modifier.weight(1f),
                                         )
                                     }
