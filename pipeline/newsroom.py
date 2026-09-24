@@ -47,7 +47,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Mapping, TypedDict
 
 from .ai import (
     FALLBACK_MODEL,
@@ -106,32 +106,51 @@ def _ai_usable(cluster: Mapping[str, Any]) -> bool:
     return False
 
 
-def _reusable_brief(cluster: Mapping[str, Any]) -> dict[str, Any] | None:
+class StoredBrief(TypedDict):
+    """One accepted brief plus its persistence metadata (single record per
+    cluster id, replacing the parallel brief_*/dicts)."""
+    brief_hash: str
+    generated_at: str
+    brief: dict[str, Any]
+    fingerprint: str
+    model: str
+
+
+def _reusable_brief(
+    cluster: Mapping[str, Any], fingerprint: str | None = None,
+) -> dict[str, Any] | None:
     """Stored accepted brief reusable without a model call, or None.
 
     Requires MEDIUM+ tier, AI-usable members, a stored lastBrief whose
     fingerprint matches the current source content (member ids/urls +
     headlines/excerpts). Legacy records with only lastBriefHash (no brief
-    content) are never reusable and re-enter the queue once.
+    content) are never reusable and re-enter the queue once. Pass a
+    precomputed fingerprint to avoid hashing the members twice.
     """
     if _tier_of(cluster) not in ("high", "medium"):
         return None
     if not _ai_usable(cluster):
         return None
-    if not stored_brief_usable(cluster):
+    if fingerprint is None:
+        fingerprint = cluster_content_fingerprint(cluster)
+    if not stored_brief_usable(cluster, fingerprint):
         return None
     brief = cluster.get("lastBrief")
     return dict(brief) if isinstance(brief, dict) else None
 
 
-def queue_for_ai(clusters: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def queue_for_ai(
+    clusters: list[dict[str, Any]],
+    fingerprints: Mapping[str, str] | None = None,
+) -> list[dict[str, Any]]:
     """New/changed/never-briefed MEDIUM+ AI-usable clusters.
 
     New/updated clusters always queue. Unchanged clusters queue only when
     they have no reusable stored brief (never briefed, legacy hash-only
     record, or fingerprint mismatch from new/edited members) so
     budget-skipped clusters retry next run while accepted briefs are reused
-    without a model call.
+    without a model call. ``fingerprints`` maps eventId to a precomputed
+    content fingerprint so members are hashed once per run, not per check.
     """
     queue: list[dict[str, Any]] = []
     for c in clusters:
@@ -143,10 +162,11 @@ def queue_for_ai(clusters: list[dict[str, Any]]) -> list[dict[str, Any]]:
         status = str(c.get("status") or "new")
         if status in ("new", "updated"):
             queue.append(c)
-        elif status == "unchanged" and _reusable_brief(c) is None:
-            queue.append(c)
-        elif status not in ("new", "updated", "unchanged") and _reusable_brief(c) is None:
-            # Unknown status: be conservative and queue unless reusable.
+            continue
+        fp = (fingerprints or {}).get(str(c.get("eventId") or ""))
+        if _reusable_brief(c, fp) is None:
+            # Unchanged without a reusable brief, or unknown status:
+            # queue conservatively unless reusable.
             queue.append(c)
     # Rank order: score desc, then firstSeen, then eventId (process.py order).
     queue.sort(
@@ -257,7 +277,11 @@ def main(argv: list[str] | None = None) -> int:
         sources_by_id = {str(s.get("id")): dict(s) for s in sources}
 
         step = "queue"
-        queue = queue_for_ai(clusters)
+        fingerprints = {
+            str(c.get("eventId") or ""): cluster_content_fingerprint(c)
+            for c in clusters
+        }
+        queue = queue_for_ai(clusters, fingerprints)
         queue_ids = {str(c.get("eventId")) for c in queue}
         # Model choice always uses the 4B primary for quality (live
         # regression: 4B 5/8, 1.7B 1/30). The old >50 overflow switch is
@@ -301,11 +325,7 @@ def main(argv: list[str] | None = None) -> int:
         t0 = time.monotonic()
         cap_seconds = max(0.0, wall_minutes * 60.0)
         stories: list[dict[str, Any]] = []
-        brief_hashes: dict[str, str] = {}
-        brief_times: dict[str, str] = {}
-        brief_contents: dict[str, dict[str, Any]] = {}
-        brief_fingerprints: dict[str, str] = {}
-        brief_models: dict[str, str] = {}
+        stored: dict[str, StoredBrief] = {}
         n_attempted = 0
         n_new = 0
         n_reused = 0
@@ -349,7 +369,7 @@ def main(argv: list[str] | None = None) -> int:
                 # call. It still passes publish-time revalidation downstream.
                 # No budget consumed; version/updatedAt come from the cluster
                 # record per the existing revision rules.
-                reusable = _reusable_brief(cluster)
+                reusable = _reusable_brief(cluster, fingerprints.get(eid))
                 if reusable is not None:
                     reuse_model = str(cluster.get("lastBriefModel") or model_name)
                     story = build_ai_story(
@@ -398,11 +418,13 @@ def main(argv: list[str] | None = None) -> int:
                 if brief is not None:
                     story = build_ai_story(brief, cluster, model_name=model_name, now=datetime.now(timezone.utc))
                     stories.append(story)
-                    brief_hashes[eid] = _brief_hash(brief)
-                    brief_times[eid] = moment
-                    brief_contents[eid] = dict(brief)
-                    brief_fingerprints[eid] = cluster_content_fingerprint(cluster)
-                    brief_models[eid] = model_name
+                    stored[eid] = StoredBrief(
+                        brief_hash=_brief_hash(brief),
+                        generated_at=moment,
+                        brief=dict(brief),
+                        fingerprint=fingerprints.get(eid, cluster_content_fingerprint(cluster)),
+                        model=model_name,
+                    )
                     n_new += 1
                 else:
                     n_rejected += 1
@@ -428,26 +450,27 @@ def main(argv: list[str] | None = None) -> int:
         )
 
         step = "state"
-        if brief_hashes:
+        if stored:
             state_path = Path(args.state)
             if state_path.exists():
                 try:
                     raw_state = json.loads(state_path.read_text(encoding="utf-8"))
 
                     def _store(rec: dict[str, Any], eid2: str) -> None:
-                        rec["lastBriefHash"] = brief_hashes[eid2]
-                        rec["lastGeneratedAt"] = brief_times[eid2]
-                        rec["lastBrief"] = brief_contents[eid2]
-                        rec["lastBriefFingerprint"] = brief_fingerprints[eid2]
-                        rec["lastBriefModel"] = brief_models[eid2]
+                        entry = stored[eid2]
+                        rec["lastBriefHash"] = entry["brief_hash"]
+                        rec["lastGeneratedAt"] = entry["generated_at"]
+                        rec["lastBrief"] = entry["brief"]
+                        rec["lastBriefFingerprint"] = entry["fingerprint"]
+                        rec["lastBriefModel"] = entry["model"]
 
                     if isinstance(raw_state.get("clusters"), list):
                         for rec in raw_state["clusters"]:
-                            if isinstance(rec, dict) and str(rec.get("eventId") or "") in brief_hashes:
+                            if isinstance(rec, dict) and str(rec.get("eventId") or "") in stored:
                                 _store(rec, str(rec["eventId"]))
                         state_path.write_text(json.dumps(raw_state, indent=2), encoding="utf-8")
                     elif isinstance(raw_state.get("clusters"), dict):
-                        for eid2 in brief_hashes:
+                        for eid2 in stored:
                             if eid2 in raw_state["clusters"]:
                                 _store(raw_state["clusters"][eid2], eid2)
                         state_path.write_text(json.dumps(raw_state, indent=2), encoding="utf-8")

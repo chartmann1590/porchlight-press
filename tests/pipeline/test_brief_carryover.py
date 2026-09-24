@@ -260,3 +260,37 @@ def test_reused_brief_failing_revalidation_still_downgraded(tmp_path, monkeypatc
     out, n_downgraded, _log = revalidate_ai_stories(stories, clusters_by_id)
     assert n_downgraded == 1
     assert out[0]["aiGenerated"] is False
+
+
+def test_fingerprint_ignores_member_order():
+    from pipeline.state import cluster_content_fingerprint
+
+    members = [_member(1, "a"), _member(2, "b"), _member(3, "c")]
+    c1 = _cluster("eid-order-0001", members=list(members))
+    c2 = _cluster("eid-order-0001", members=[members[2], members[0], members[1]])
+    assert cluster_content_fingerprint(c1) == cluster_content_fingerprint(c2)
+
+
+def test_reordered_members_still_reuse_without_model_call(tmp_path, monkeypatch):
+    from pipeline import newsroom as nr
+
+    c = _cluster("eid-reorder-0001", status="unchanged")
+    _attach_stored_brief(c)
+    # Same members, shuffled order: fingerprint must still match.
+    c["members"] = [c["members"][1], c["members"][0]]
+    c["memberIds"] = [m["id"] for m in c["members"]]
+    in_path = tmp_path / "clusters.json"
+    out_path = tmp_path / "stories.json"
+    _write_clusters(in_path, [c])
+
+    def _fail_on_call(self, cl):
+        raise AssertionError("reordered members must still reuse without a model call")
+
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate", _fail_on_call)
+
+    rc = nr.main(["--in", str(in_path), "--out", str(out_path),
+                  "--state", str(tmp_path / "state.json"),
+                  "--sources-dir", str(tmp_path / "no-sources")])
+    assert rc == 0
+    stories = json.loads(out_path.read_text(encoding="utf-8"))["stories"]
+    assert len(stories) == 1 and stories[0]["aiGenerated"] is True

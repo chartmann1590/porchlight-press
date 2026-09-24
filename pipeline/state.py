@@ -122,21 +122,32 @@ def cluster_content_fingerprint(cluster: Mapping[str, Any]) -> str:
             "excerpt": str(m.get("excerpt") or ""),
             "publishedAt": str(m.get("publishedAt") or ""),
         })
-    entries.sort(key=lambda e: (e["id"], e["url"], e["headline"], e["excerpt"]))
+    entries.sort(key=lambda e: (
+        e["id"], e["sourceId"], e["url"],
+        e["headline"], e["excerpt"], e["publishedAt"],
+    ))
     canonical = json.dumps(entries, sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:32]
 
 
-def stored_brief_usable(cluster: Mapping[str, Any]) -> bool:
+def stored_brief_usable(
+    cluster: Mapping[str, Any], fingerprint: str | None = None,
+) -> bool:
     """True when the cluster carries a stored accepted brief whose stored
-    fingerprint matches its current source content."""
+    fingerprint matches its current source content.
+
+    Pass a precomputed ``cluster_content_fingerprint`` to avoid hashing the
+    members twice when the caller already holds it.
+    """
     brief = cluster.get("lastBrief")
     if not isinstance(brief, dict) or not brief.get("headline") or not brief.get("body"):
         return False
     stored = str(cluster.get("lastBriefFingerprint") or "")
     if not stored:
         return False
-    return stored == cluster_content_fingerprint(cluster)
+    if fingerprint is None:
+        fingerprint = cluster_content_fingerprint(cluster)
+    return stored == fingerprint
 
 
 def update_state(
