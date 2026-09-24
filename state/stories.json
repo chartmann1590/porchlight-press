@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T16:28:46.210797Z",
+  "generatedAt": "2026-09-24T17:30:08.201923Z",
   "model": "Qwen3-4B-Q4_K_M",
   "stories": [
     {
@@ -9,13 +9,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T03:03:53Z",
       "updatedAt": "2026-09-24T15:38:41Z",
-      "generatedAt": "2026-09-24T16:05:00.758184Z",
+      "generatedAt": "2026-09-24T17:06:34.200225Z",
       "aiGenerated": false,
       "version": 2,
       "revisions": [
         {
           "version": 2,
-          "updatedAt": "2026-09-24T16:05:00.758184Z"
+          "updatedAt": "2026-09-24T17:06:34.200225Z"
         }
       ],
       "confidenceTier": "high",
@@ -58,31 +58,28 @@
       ],
       "excerpt": "After 39-year-old Nick Henry got diagnosed with a rare and aggressive cancer, his friends created an organization to support his family and other",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Ballston_Spa%2C_New_York_view.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Ballston Spa, New York view \u2014 Tyler A. McNeil / Wikimedia Commons (CC BY-SA 4.0)",
         "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ballston_Spa,_New_York_view.jpg"
       }
     },
     {
       "apiVersion": 1,
       "id": "a545cb518d699115",
-      "headline": "Measles Cases Increase in New York",
-      "dek": "New York State reports an increase in measles cases",
-      "body": "New York State saw an increase in measles cases during September, with the number rising from 57 to 75, as reported by NYS Department of Health Commissioner Dr. James McDonald.",
+      "headline": "Comptroller's report: Albany under 'significant' fiscal stress",
       "category": "health",
       "publishedAt": "2026-09-23T21:49:18Z",
       "updatedAt": "2026-09-24T15:29:09Z",
-      "generatedAt": "2026-09-24T16:06:04.542645Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:06:34.200282Z",
+      "aiGenerated": false,
       "version": 2,
       "revisions": [
         {
           "version": 2,
-          "updatedAt": "2026-09-24T16:06:04.542645Z"
+          "updatedAt": "2026-09-24T17:06:34.200282Z"
         }
       ],
       "confidenceTier": "high",
@@ -116,32 +113,22 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: View of Empire State Building from Rockefeller Center New York City dllu \u2014 Dllu / Wikimedia Commons (CC BY-SA 4.0)",
-        "creator": "Dllu",
-        "license": "CC BY-SA 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu.jpg"
-      }
+      "excerpt": "The comptroller determined that the City of Albany is the second most fiscally stressed municipality in New York State as Albany faces eight-figure budget gaps."
     },
     {
       "apiVersion": 1,
       "id": "2b7d6de76a1aff71",
-      "headline": "NWS Issues Fog Advisory for Capital Region",
-      "dek": "NWS Albany NY issues fog advisory for Capital Region",
-      "body": "The National Weather Service issued a special weather statement on September 24 at 4:49AM EDT, warning of continued fog across the Capital Region. The advisory notes visibility may drop to a quarter mile in some areas and cautions drivers to maintain safe distances and allow extra time for travel. The fog is expected to dissipate around 8 am.",
+      "headline": "Special Weather Statement issued September 24 at 4:49AM EDT by NWS Albany NY",
       "category": "weather",
       "publishedAt": "2026-09-24T08:49:00Z",
       "updatedAt": "2026-09-24T08:49:00Z",
-      "generatedAt": "2026-09-24T16:06:39.931273Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:06:34.200304Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:06:39.931273Z"
+          "updatedAt": "2026-09-24T17:06:34.200304Z"
         }
       ],
       "confidenceTier": "medium",
@@ -176,32 +163,181 @@
           "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
+      "excerpt": "Areas of fog, locally dense with visibility occasionally down to around a quarter mile will continue to occur across the Greater Capital Region, Mohawk Valley, Schoharie Valley, Upper Hudson River Valley, Lake George Saratoga Region, northern Taconics, southern Adirondacks, northern Berkshires and s",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Downtown_Saratoga_Springs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Downtown Saratoga Springs \u2014 UpstateNYer / Wikimedia Commons (CC BY-SA 3.0)",
-        "creator": "UpstateNYer",
-        "license": "CC BY-SA 3.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Saratoga_Springs.jpg"
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Design_Motel_in_Saratoga_Springs%2C_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Design Motel in Saratoga Springs, New York \u2014 Tyler A. McNeil / Wikimedia Commons (CC BY-SA 4.0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Design_Motel_in_Saratoga_Springs,_New_York.jpg"
       }
     },
     {
       "apiVersion": 1,
-      "id": "f50f7807554b049d",
-      "headline": "Military veteran dies in helicopter crash",
-      "dek": "WTEN News10 reports a military veteran died in a helicopter crash.",
-      "body": "WTEN News10 reported a military veteran died in a helicopter crash. The veteran, a crew chief in the NY Army National Guard, completed his military career with a symbolic final flight on Sept. 17. The crash occurred in the Capital Region, according to the source.",
+      "id": "6db6bc29ddd6e731",
+      "headline": "Montgomery County approves property tax exemption for spouses of fallen officers",
+      "dek": "Montgomery County has approved a law allowing 50% property tax exemption for surviving spouses of police officers killed in the line of duty.",
+      "body": "Montgomery County has approved a law allowing 50% property tax exemption for surviving spouses of police officers killed in the line of duty, according to WTEN News10. The local law was passed by the Montgomery County Legislature and aims to provide financial relief for families of fallen officers.",
       "category": "public-safety",
-      "publishedAt": "2026-09-24T15:11:12Z",
-      "updatedAt": "2026-09-24T15:11:12Z",
-      "generatedAt": "2026-09-24T16:07:43.007066Z",
+      "publishedAt": "2026-09-24T16:45:28Z",
+      "updatedAt": "2026-09-24T16:45:28Z",
+      "generatedAt": "2026-09-24T17:07:09.564323Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:07:43.007066Z"
+          "updatedAt": "2026-09-24T17:07:09.564323Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Property tax exemption for spouses of fallen officers approved in Montgomery County",
+          "url": "https://www.news10.com/news/montgomery-county/property-tax-exemption-for-spouses-of-fallen-officers-approved-in-montgomery-county/",
+          "publishedAt": "2026-09-24T16:45:28Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "99d26e1ae77c36bb",
+      "headline": "Troy homicide suspect arrested in Georgia",
+      "category": "public-safety",
+      "publishedAt": "2026-09-24T16:34:47Z",
+      "updatedAt": "2026-09-24T16:34:47Z",
+      "generatedAt": "2026-09-24T17:08:13.580648Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:08:13.580648Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Rensselaer County",
+          "city": "Troy",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Troy homicide suspect arrested in Georgia",
+          "url": "https://www.news10.com/news/crime/troy-homicide-suspect-arrested-in-georgia/",
+          "publishedAt": "2026-09-24T16:34:47Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Wiggins is a suspect in the fatal shooting of Shardonay Tyce in Troy.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/ef/A_view_from_Troy_Ancient_City%2C_%C3%87anakkale%2C_Turkey.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: A view from Troy Ancient City, \u00c7anakkale, Turkey \u2014 Kad\u0131 / Wikimedia Commons (CC BY-SA 4.0)",
+        "creator": "Kad\u0131",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_view_from_Troy_Ancient_City,_%C3%87anakkale,_Turkey.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "88ead7d88b066dae",
+      "headline": "Climate debate heats up as New York gubernatorial election looms",
+      "category": "politics",
+      "publishedAt": "2026-09-22T20:56:26Z",
+      "updatedAt": "2026-09-23T21:16:26Z",
+      "generatedAt": "2026-09-24T17:09:53.946075Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:09:53.946075Z"
+        }
+      ],
+      "confidenceTier": "high",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WAMC Northeast Public Radio",
+          "headline": "Climate debate heats up as New York gubernatorial election looms",
+          "url": "https://www.wamc.org/news/2026-09-22/new-york-governor-election-climate-affordability-debate",
+          "publishedAt": "2026-09-22T20:56:26Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        },
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "New York faces $12 billion safety net cliff with OBBBA slashing SNAP, Essential Plan",
+          "url": "https://www.news10.com/capitol/ny-obba-cuts-snap-essential-plan/",
+          "publishedAt": "2026-09-23T21:16:26Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "New York faces significant losses in federal health and nutrition funding due to the One Big Beautiful Bill Act of 2025, forcing local counties to shoulder increased costs for SNAP and threatening the long-term viability of the Essential Plan.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Long_Island_City_New_York_May_2015_panorama_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Long Island City New York May 2015 panorama 3 \u2014 King of Hearts / Wikimedia Commons (CC BY-SA 3.0)",
+        "creator": "King of Hearts",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Long_Island_City_New_York_May_2015_panorama_3.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "f50f7807554b049d",
+      "headline": "NY Army National Guard crew chief injured in helicopter crash takes 'final flight'",
+      "category": "public-safety",
+      "publishedAt": "2026-09-24T15:11:12Z",
+      "updatedAt": "2026-09-24T15:11:12Z",
+      "generatedAt": "2026-09-24T17:09:53.946118Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:09:53.946118Z"
         }
       ],
       "confidenceTier": "medium",
@@ -224,6 +360,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "A military veteran took his final flight on Sept. 17 to symbolically conclude his military career.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -236,20 +373,17 @@
     {
       "apiVersion": 1,
       "id": "b814aaf953f64c21",
-      "headline": "Manhunt ends with suspect in custody in Poestenkill",
-      "dek": "Suspect in custody after tense manhunt in Poestenkill",
-      "body": "WTEN News10 reported that a manhunt in Poestenkill ended with the suspect in custody. Residents received texts from police about the search for a man believed to be armed with multiple weapons.",
+      "headline": "Residents breathe sigh of relief after several hour manhunt ends with suspect in custody",
       "category": "public-safety",
       "publishedAt": "2026-09-24T02:52:16Z",
       "updatedAt": "2026-09-24T02:52:16Z",
-      "generatedAt": "2026-09-24T16:08:45.091997Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:09:53.946132Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:08:45.091997Z"
+          "updatedAt": "2026-09-24T17:09:53.946132Z"
         }
       ],
       "confidenceTier": "medium",
@@ -272,6 +406,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "It was a tense few hours for many residents in Poestenkill, Averill Park and Sand Lake who received texts from police about their search for a man who was believed to be armed with multiple weapons.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -288,13 +423,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T11:37:06Z",
       "updatedAt": "2026-09-24T11:37:06Z",
-      "generatedAt": "2026-09-24T16:09:55.681431Z",
+      "generatedAt": "2026-09-24T17:11:07.682970Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:09:55.681431Z"
+          "updatedAt": "2026-09-24T17:11:07.682970Z"
         }
       ],
       "confidenceTier": "medium",
@@ -334,13 +469,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T19:44:55Z",
       "updatedAt": "2026-09-24T15:15:12Z",
-      "generatedAt": "2026-09-24T16:09:55.681479Z",
+      "generatedAt": "2026-09-24T17:11:07.683007Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:09:55.681479Z"
+          "updatedAt": "2026-09-24T17:11:07.683007Z"
         }
       ],
       "confidenceTier": "low",
@@ -379,20 +514,17 @@
     {
       "apiVersion": 1,
       "id": "a4474b02bd1820d8",
-      "headline": "Events in Capital Region this weekend",
-      "dek": "Capital Region events include Sasquatch Festival and Giant Pumpkinfest in Saratoga Springs",
-      "body": "WTEN News10 ABC reported events in the Capital Region this weekend including Sasquatch Festival and Giant Pumpkinfest in Saratoga Springs. The weekend also features several Oktoberfest events, according to the source.",
+      "headline": "Things to do in the Capital Region this weekend: September 25-27",
       "category": "entertainment",
       "publishedAt": "2026-09-24T15:06:22Z",
       "updatedAt": "2026-09-24T15:06:22Z",
-      "generatedAt": "2026-09-24T16:10:24.326455Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:11:07.683027Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:10:24.326455Z"
+          "updatedAt": "2026-09-24T17:11:07.683027Z"
         }
       ],
       "confidenceTier": "medium",
@@ -420,32 +552,30 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "The weekend is almost here! From Whitehall's Sasquatch Festival to the Saratoga Giant Pumpkinfest to several Oktoberfest events, there are quite a few things happening on September 25, 26 and 27.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Design_Motel_in_Saratoga_Springs%2C_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Design Motel in Saratoga Springs, New York \u2014 Tyler A. McNeil / Wikimedia Commons (CC BY-SA 4.0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC BY-SA 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Design_Motel_in_Saratoga_Springs,_New_York.jpg"
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Downtown_Saratoga_Springs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Downtown Saratoga Springs \u2014 UpstateNYer / Wikimedia Commons (CC BY-SA 3.0)",
+        "creator": "UpstateNYer",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Saratoga_Springs.jpg"
       }
     },
     {
       "apiVersion": 1,
       "id": "b591dcd3a34f1705",
-      "headline": "Man from Ulster County Wins $2M on Lottery Ticket",
-      "dek": "A man from Ulster County won $2 million on a lottery ticket.",
-      "body": "WTEN News10 ABC reported that the New York Lottery announced a top prize-winning ticket for the \"100X Cashword\" scratch-off game was purchased in Ulster County. The win is part of the lottery's ongoing promotions.",
+      "headline": "Ulster County man wins $2M on scratch-off ticket",
       "category": "sports",
       "publishedAt": "2026-09-24T14:30:53Z",
       "updatedAt": "2026-09-24T14:30:53Z",
-      "generatedAt": "2026-09-24T16:11:26.575927Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:11:07.683042Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:11:26.575927Z"
+          "updatedAt": "2026-09-24T17:11:07.683042Z"
         }
       ],
       "confidenceTier": "medium",
@@ -472,32 +602,30 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "The New York Lottery announced that a top prize-winning ticket from the \"100X Cashword\" scratch-off game was purchased in Ulster County.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Agathe_Rostel_The_young_lottery_ticket_sellers.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Agathe Rostel The young lottery ticket sellers \u2014 Agathe R\u00f6stel (1833 - 1917) / Wikimedia Commons (Public domain)",
-        "creator": "Agathe R\u00f6stel (1833 - 1917)",
-        "license": "Public domain",
-        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Agathe_Rostel_The_young_lottery_ticket_sellers.jpg"
+        "url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Ulster_County_Route_3_-_New_York_-_4984900472.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Ulster County Route 3 - New York - 4984900472 \u2014 Dougtone / Wikimedia Commons (CC BY-SA 2.0)",
+        "creator": "Dougtone",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ulster_County_Route_3_-_New_York_-_4984900472.jpg"
       }
     },
     {
       "apiVersion": 1,
       "id": "f50bb366eeffc9c7",
-      "headline": "Clear Skies Expected in Capital Region",
-      "dek": "WTEN News10 reports clear skies and cool temperatures in the Capital Region.",
-      "body": "WTEN News10 reported clear skies and cool temperatures in the Capital Region, with lows falling into the 40s and 30s by morning. The forecast indicates a dominating area of high pressure to the north bringing quiet weather to the region.",
+      "headline": "9/23/26: Beautiful for Now, Coastal Storm This Weekend",
       "category": "weather",
       "publishedAt": "2026-09-23T22:02:25Z",
       "updatedAt": "2026-09-23T22:02:25Z",
-      "generatedAt": "2026-09-24T16:11:57.273030Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:11:07.683053Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:11:57.273030Z"
+          "updatedAt": "2026-09-24T17:11:07.683053Z"
         }
       ],
       "confidenceTier": "medium",
@@ -520,32 +648,30 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "Here is your latest StormTracker forecast from meteorologist Alyssa Caroprese. A dominating area of high pressure to our north continues to bring quiet weather to the region. Skies will be clear and temperatures chilly again tonight with lows falling into the 40s and 30s by morning. There will likel",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
       }
     },
     {
       "apiVersion": 1,
       "id": "3c5ef9143bb005e6",
-      "headline": "Local Weather Update",
-      "dek": "WTEN News10 reports on coastal low and weather conditions",
-      "body": "WTEN News10 reported on a coastal low expected to bring clouds, some rain, and a breeze to the Capital Region on September 24, 2026. The weather forecast includes monitoring for the weekend's coastal low, according to WTEN News10.",
+      "headline": "09/24/2026: Another Beautiful Weekday",
       "category": "local",
       "publishedAt": "2026-09-24T11:59:35Z",
       "updatedAt": "2026-09-24T11:59:35Z",
-      "generatedAt": "2026-09-24T16:12:27.108011Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:11:07.683062Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:12:27.108011Z"
+          "updatedAt": "2026-09-24T17:11:07.683062Z"
         }
       ],
       "confidenceTier": "medium",
@@ -568,6 +694,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "If you liked yesterday, you'll like today as the overall atmospheric setup has hardly changed. We continue to closely monitor guidance for this weekend's coastal low, which looks to bring clouds, some rain, and a breeze to our region. Temperatures do moderate a bit towards the tail end of the foreca",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -584,13 +711,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T16:58:00Z",
       "updatedAt": "2026-09-23T16:58:00Z",
-      "generatedAt": "2026-09-24T16:13:18.911381Z",
+      "generatedAt": "2026-09-24T17:12:03.841145Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:13:18.911381Z"
+          "updatedAt": "2026-09-24T17:12:03.841145Z"
         }
       ],
       "confidenceTier": "medium",
@@ -630,13 +757,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T11:07:20Z",
       "updatedAt": "2026-09-24T11:07:20Z",
-      "generatedAt": "2026-09-24T16:14:23.231149Z",
+      "generatedAt": "2026-09-24T17:13:14.935177Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:14:23.231149Z"
+          "updatedAt": "2026-09-24T17:13:14.935177Z"
         }
       ],
       "confidenceTier": "medium",
@@ -661,12 +788,12 @@
       ],
       "excerpt": "On Wednesday, the LaSalle School in Albany unveiled a youth-oriented campus center in the Pine Hills neighborhood. According to the school, The Landing at LaSalle will provide a safe and supportive space for teens and young adults to gather while also giving them helpful day-to-day resources.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
       }
     },
     {
@@ -676,13 +803,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T20:36:22Z",
       "updatedAt": "2026-09-23T20:36:22Z",
-      "generatedAt": "2026-09-24T16:15:19.917748Z",
+      "generatedAt": "2026-09-24T17:14:18.174606Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:15:19.917748Z"
+          "updatedAt": "2026-09-24T17:14:18.174606Z"
         }
       ],
       "confidenceTier": "medium",
@@ -718,17 +845,20 @@
     {
       "apiVersion": 1,
       "id": "02fdc27bec1619c6",
-      "headline": "Troy woman arrested on animal neglect charge",
+      "headline": "Troy Woman Arrested on Animal Neglect Charge",
+      "dek": "A woman from Troy was arrested on an animal neglect charge.",
+      "body": "A woman from Troy was arrested on an animal neglect charge, according to WTEN News10 ABC. Police arrested the woman on Tuesday as a result of an animal abuse investigation.",
       "category": "public-safety",
       "publishedAt": "2026-09-23T19:42:56Z",
       "updatedAt": "2026-09-23T19:42:56Z",
-      "generatedAt": "2026-09-24T16:16:26.022642Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T17:14:45.729196Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:16:26.022642Z"
+          "updatedAt": "2026-09-24T17:14:45.729196Z"
         }
       ],
       "confidenceTier": "medium",
@@ -751,7 +881,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "Police arrested a Troy woman on Tuesday as a result of an animal abuse investigation.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/e/ef/A_view_from_Troy_Ancient_City%2C_%C3%87anakkale%2C_Turkey.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: A view from Troy Ancient City, \u00c7anakkale, Turkey \u2014 Kad\u0131 / Wikimedia Commons (CC BY-SA 4.0)",
@@ -764,20 +893,17 @@
     {
       "apiVersion": 1,
       "id": "bfe68ff7f2462812",
-      "headline": "Albany PD to hold press conference on social media video investigation",
-      "dek": "Albany Police Department will hold press conference on Wednesday regarding social media video investigation",
-      "body": "Albany Police Department will hold a press conference on Wednesday regarding social media video investigation, according to WTEN News10. The department will address videos that have recently circulated on social media platforms.",
+      "headline": "Albany PD identify suspect in social media video investigation",
       "category": "public-safety",
       "publishedAt": "2026-09-23T17:59:31Z",
       "updatedAt": "2026-09-23T17:59:31Z",
-      "generatedAt": "2026-09-24T16:16:53.622590Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:14:45.729277Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:16:53.622590Z"
+          "updatedAt": "2026-09-24T17:14:45.729277Z"
         }
       ],
       "confidenceTier": "medium",
@@ -800,6 +926,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "The Albany Police Department will be holding a press conference on Wednesday about videos that have recently circulated on social media platforms.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -812,20 +939,17 @@
     {
       "apiVersion": 1,
       "id": "a410bab66bb3a661",
-      "headline": "UAlbany Great Dane Silas Richmond Celebrates Championship Win in PLL",
-      "dek": "UAlbany's Silas Richmond celebrates championship win in PLL",
-      "body": "UAlbany's Silas Richmond continued his championship-winning legacy in the Premier Lacrosse League playoffs, according to WTEN News10. The former UAlbany Great Dane was present at the championship festivities, as reported by the news outlet.",
+      "headline": "UAlbany's Silas Richmond continues championship-winning ways up in the PLL",
       "category": "sports",
       "publishedAt": "2026-09-24T07:30:22Z",
       "updatedAt": "2026-09-24T07:30:22Z",
-      "generatedAt": "2026-09-24T16:17:23.231558Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:14:45.729299Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:17:23.231558Z"
+          "updatedAt": "2026-09-24T17:14:45.729299Z"
         }
       ],
       "confidenceTier": "medium",
@@ -848,6 +972,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "The Premier Lacrosse League playoffs wrapped up Sunday, and a former UAlbany Great Dane got to partake in the championship festivities: Silas Richmond, who's become very familiar around championship hardware.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -864,13 +989,13 @@
       "category": "sports",
       "publishedAt": "2026-09-24T07:04:54Z",
       "updatedAt": "2026-09-24T07:04:54Z",
-      "generatedAt": "2026-09-24T16:18:29.621630Z",
+      "generatedAt": "2026-09-24T17:15:55.845358Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:18:29.621630Z"
+          "updatedAt": "2026-09-24T17:15:55.845358Z"
         }
       ],
       "confidenceTier": "medium",
@@ -905,18 +1030,76 @@
     },
     {
       "apiVersion": 1,
-      "id": "d5fb7fbe3ae9deeb",
-      "headline": "Santa Claus impersonator wanted on rape charges",
-      "category": "local",
-      "publishedAt": "2026-09-24T02:00:51Z",
-      "updatedAt": "2026-09-24T02:00:51Z",
-      "generatedAt": "2026-09-24T16:19:32.274109Z",
+      "id": "f3871be7d1e5fea4",
+      "headline": "Hochul seeks disaster loans for July flood victims",
+      "category": "politics",
+      "publishedAt": "2026-09-24T02:21:40Z",
+      "updatedAt": "2026-09-24T02:21:40Z",
+      "generatedAt": "2026-09-24T17:17:10.106018Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:19:32.274109Z"
+          "updatedAt": "2026-09-24T17:17:10.106018Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-DC",
+          "city": "Washington"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
+          "city": "Saratoga Springs",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Hochul seeks disaster loans for July flood victims",
+          "url": "https://www.news10.com/news/local-news/hochul-seeks-disaster-loans-for-july-flood-victims/",
+          "publishedAt": "2026-09-24T02:21:40Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "In the aftermath of July's flooding, which affected so many across the region, Governor Kathy Hochul has requested a Physical Disaster Declaration from the U.S. Small Business Administration (SBA) for Columbia, Rensselaer and the contiguous counties of Albany, Saratoga, Washington, Dutchess, Greene",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Washington%2C_Nebraska_Dorchester_from_Greene_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Washington, Nebraska Dorchester from Greene 2 \u2014 Ammodramus / Wikimedia Commons (CC0)",
+        "creator": "Ammodramus",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Washington,_Nebraska_Dorchester_from_Greene_2.JPG"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "d5fb7fbe3ae9deeb",
+      "headline": "Santa Claus impersonator wanted on rape charges",
+      "category": "local",
+      "publishedAt": "2026-09-24T02:00:51Z",
+      "updatedAt": "2026-09-24T02:00:51Z",
+      "generatedAt": "2026-09-24T17:18:13.976309Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:18:13.976309Z"
         }
       ],
       "confidenceTier": "medium",
@@ -956,13 +1139,13 @@
       "category": "business",
       "publishedAt": "2026-09-24T02:39:57Z",
       "updatedAt": "2026-09-24T15:42:05Z",
-      "generatedAt": "2026-09-24T16:19:32.274151Z",
+      "generatedAt": "2026-09-24T17:18:13.976348Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:19:32.274151Z"
+          "updatedAt": "2026-09-24T17:18:13.976348Z"
         }
       ],
       "confidenceTier": "low",
@@ -992,25 +1175,30 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "Police arrested a Kingston man last week following a sex crime investigation."
+      "excerpt": "Police arrested a Kingston man last week following a sex crime investigation.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+      }
     },
     {
       "apiVersion": 1,
       "id": "23ccda726f7e68ab",
-      "headline": "Northeast motorcycle dealership not feeling trade war pressure",
-      "dek": "WAMC Northeast Public Radio reports on trade war impact on motorcycle dealership",
-      "body": "WAMC Northeast Public Radio reports that President Donald Trump has imposed tariffs on Canadian goods and a ban on Canadian motorcycle imports. A dealership in the Northeast is not experiencing pressure from the trade war, according to the report. Can-Am is at the center of the newest bans.",
+      "headline": "Northeast motorcycle dealership not feeling the pressure of US, Canada trade war",
       "category": "local",
       "publishedAt": "2026-09-23T20:38:14Z",
       "updatedAt": "2026-09-23T20:38:14Z",
-      "generatedAt": "2026-09-24T16:20:02.221830Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:18:13.976368Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:20:02.221830Z"
+          "updatedAt": "2026-09-24T17:18:13.976368Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1039,7 +1227,8 @@
           "publishedAt": "2026-09-23T20:38:14Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
-      ]
+      ],
+      "excerpt": "In one of the latest folds in the ongoing trade war between Canada and the United States, President Donald Trump has enacted a series of tariffs on some Canadian goods and an outright ban on the import of some Canadian motorcycles. One brand in particular, Can-Am, is at the center of the newest bans"
     },
     {
       "apiVersion": 1,
@@ -1048,13 +1237,13 @@
       "category": "politics",
       "publishedAt": "2026-09-23T20:25:45Z",
       "updatedAt": "2026-09-23T20:25:45Z",
-      "generatedAt": "2026-09-24T16:21:10.641074Z",
+      "generatedAt": "2026-09-24T17:19:26.981194Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:21:10.641074Z"
+          "updatedAt": "2026-09-24T17:19:26.981194Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1079,31 +1268,28 @@
       ],
       "excerpt": "This week, Massachusetts Gov. Maura Healey threw her support behind a November ballot question that would override local zoning ordinances to allow homes to be built on small lots across the Commonwealth.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
       "apiVersion": 1,
       "id": "552ba9de8d8aa613",
-      "headline": "Man missing in Fulton County",
-      "dek": "Fulton County authorities seek public assistance in finding missing man",
-      "body": "Fulton County authorities are requesting public assistance in locating a missing man, as reported by WTEN News10. Noel P. Phillips, a 68-year-old resident of the Town of Perth, was reported missing.",
+      "headline": "Man reported missing in Fulton County",
       "category": "local",
       "publishedAt": "2026-09-24T00:11:50Z",
       "updatedAt": "2026-09-24T00:11:50Z",
-      "generatedAt": "2026-09-24T16:22:08.424110Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:19:26.981235Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:22:08.424110Z"
+          "updatedAt": "2026-09-24T17:19:26.981235Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1126,13 +1312,14 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "The Fulton County Sheriff's Office is asking for the public's help to locate a missing man. 68-year-old Noel P. Phillips was reported missing out of the Town of Perth.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
       }
     },
     {
@@ -1142,13 +1329,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T20:27:55Z",
       "updatedAt": "2026-09-24T12:39:06Z",
-      "generatedAt": "2026-09-24T16:22:08.424184Z",
+      "generatedAt": "2026-09-24T17:19:26.981251Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:22:08.424184Z"
+          "updatedAt": "2026-09-24T17:19:26.981251Z"
         }
       ],
       "confidenceTier": "low",
@@ -1199,69 +1386,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "34e18e496f0dc6f4",
-      "headline": "Mother and son charged in sexual assault case in Bennington",
-      "dek": "Vermont State Police charge mother and son in sexual assault investigation",
-      "body": "Vermont State Police charged a mother and son in a sexual assault case, according to WTEN News10. Tyler Twiss was involved in the incident, while his mother Chastity Twiss was aware of it.",
-      "category": "public-safety",
-      "publishedAt": "2026-09-23T10:39:14Z",
-      "updatedAt": "2026-09-23T10:39:14Z",
-      "generatedAt": "2026-09-24T16:23:09.125284Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:23:09.125284Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "Mother, son charged in sexual assault investigation in Bennington",
-          "url": "https://www.news10.com/news/crime/mother-son-charged-in-sexual-assault-investigation-in-bennington/",
-          "publishedAt": "2026-09-23T10:39:14Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "e35856a488764280",
-      "headline": "Albany County DA forms task force after woman indicted for husband's murder",
-      "dek": "Albany County DA forms task force after woman indicted for husband's murder",
-      "body": "Albany County District Attorney Lee Kindlon announced a new initiative following the indictment of Sabrina Balchand-Jackson for the murder of her husband, according to WTEN News10. The woman pled not guilty to four charges in Albany County Court. The task force is aimed at addressing intimate partner violence, as reported by the source.",
+      "headline": "Albany Co. DA reveals task force after woman indicted for husband's murder",
       "category": "local",
       "publishedAt": "2026-09-23T21:28:23Z",
       "updatedAt": "2026-09-23T21:28:23Z",
-      "generatedAt": "2026-09-24T16:23:41.421983Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:19:26.981269Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:23:41.421983Z"
+          "updatedAt": "2026-09-24T17:19:26.981269Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1290,6 +1426,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "Nearly two weeks after Sabrina Balchand-Jackson allegedly killed her husband, she pled not guilty to four charges in Albany County Court on Wednesday. Albany County District Attorney Lee Kindlon said this incident of intimate partner violence, warranted a new initiative that has been brewing in his",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -1306,13 +1443,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T17:06:00Z",
       "updatedAt": "2026-09-23T17:06:00Z",
-      "generatedAt": "2026-09-24T16:24:43.219305Z",
+      "generatedAt": "2026-09-24T17:20:31.740748Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:24:43.219305Z"
+          "updatedAt": "2026-09-24T17:20:31.740748Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1337,12 +1474,58 @@
       ],
       "excerpt": "On Monday, Ulster County Judge Kevin Bryant ruled to extend an injunction that says the County must keep the Senior Care Center at Sunset Lake open temporarily.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "34e18e496f0dc6f4",
+      "headline": "Mother, son charged in sexual assault investigation in Bennington",
+      "category": "public-safety",
+      "publishedAt": "2026-09-23T10:39:14Z",
+      "updatedAt": "2026-09-23T10:39:14Z",
+      "generatedAt": "2026-09-24T17:20:31.740787Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:20:31.740787Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Mother, son charged in sexual assault investigation in Bennington",
+          "url": "https://www.news10.com/news/crime/mother-son-charged-in-sexual-assault-investigation-in-bennington/",
+          "publishedAt": "2026-09-23T10:39:14Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "On Tuesday, a Bennington mother and son duo were arrested in connection to a sexual assault investigation. Vermont State Police said Tyler Twiss committed the act but his mother Chastity Twiss, knew about it.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1352,13 +1535,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T13:37:30Z",
       "updatedAt": "2026-09-23T21:02:48Z",
-      "generatedAt": "2026-09-24T16:24:43.219348Z",
+      "generatedAt": "2026-09-24T17:20:31.740816Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:24:43.219348Z"
+          "updatedAt": "2026-09-24T17:20:31.740816Z"
         }
       ],
       "confidenceTier": "low",
@@ -1418,13 +1601,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:01:39Z",
       "updatedAt": "2026-09-23T21:01:39Z",
-      "generatedAt": "2026-09-24T16:25:45.399677Z",
+      "generatedAt": "2026-09-24T17:21:35.669231Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:25:45.399677Z"
+          "updatedAt": "2026-09-24T17:21:35.669231Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1470,13 +1653,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:49:15Z",
       "updatedAt": "2026-09-22T17:49:15Z",
-      "generatedAt": "2026-09-24T16:26:45.820074Z",
+      "generatedAt": "2026-09-24T17:22:41.124266Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:26:45.820074Z"
+          "updatedAt": "2026-09-24T17:22:41.124266Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1512,20 +1695,17 @@
     {
       "apiVersion": 1,
       "id": "dc728246c7c3b949",
-      "headline": "Authorities raise reward for Troy homicide suspect",
-      "dek": "Authorities increased the reward for the Troy homicide suspect",
-      "body": "The United States Marshals Service is offering a $7,500 reward for information leading to the suspect of a fatal shooting in Troy, according to WTEN News10. The reward was increased as the search continues for the individual involved in the homicide.",
+      "headline": "Authorities increase reward in search for Troy homicide suspect",
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:41:13Z",
       "updatedAt": "2026-09-22T17:41:13Z",
-      "generatedAt": "2026-09-24T16:27:13.588608Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:22:41.124311Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:27:13.588608Z"
+          "updatedAt": "2026-09-24T17:22:41.124311Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1552,6 +1732,7 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "The United States Marshals Service is now offering a $7,500 reward as the search continues for the suspect of a fatal shooting out of Troy.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/e/ef/A_view_from_Troy_Ancient_City%2C_%C3%87anakkale%2C_Turkey.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: A view from Troy Ancient City, \u00c7anakkale, Turkey \u2014 Kad\u0131 / Wikimedia Commons (CC BY-SA 4.0)",
@@ -1564,20 +1745,17 @@
     {
       "apiVersion": 1,
       "id": "92423aa1adf8fbab",
-      "headline": "Perimenopause Awareness Month in Albany",
-      "dek": "Albany, N.Y. - Perimenopause Awareness Month is highlighted in local health initiatives.",
-      "body": "WTEN News10 ABC reported that September is Perimenopause Awareness Month in Albany, N.Y. Perimenopause is the stage before menopause, according to the source. Menopause is defined as 12 consecutive months without a menstrual period, marking the end of reproductive years.",
+      "headline": "Women's Health Wednesday: Perimenopause Awareness Month",
       "category": "health",
       "publishedAt": "2026-09-23T18:17:57Z",
       "updatedAt": "2026-09-23T18:17:57Z",
-      "generatedAt": "2026-09-24T16:27:43.991923Z",
-      "aiGenerated": true,
-      "aiModel": "Qwen3-4B-Q4_K_M",
+      "generatedAt": "2026-09-24T17:22:41.124324Z",
+      "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:27:43.991923Z"
+          "updatedAt": "2026-09-24T17:22:41.124324Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1600,13 +1778,14 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
+      "excerpt": "ALBANY, N.Y. (NEWS10) - September is Perimenopause Awareness Month! Perimenopause is the stage of life for women before menopause. Menopause is the point in time when a woman has gone 12 consecutive months without a menstrual period, marking the permanent end of her reproductive years. During perime",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1616,13 +1795,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T16:27:46Z",
       "updatedAt": "2026-09-22T16:27:46Z",
-      "generatedAt": "2026-09-24T16:28:46.208973Z",
+      "generatedAt": "2026-09-24T17:23:48.035984Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.208973Z"
+          "updatedAt": "2026-09-24T17:23:48.035984Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1662,13 +1841,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:50:54Z",
       "updatedAt": "2026-09-23T15:50:54Z",
-      "generatedAt": "2026-09-24T16:28:46.209018Z",
+      "generatedAt": "2026-09-24T17:24:49.229422Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209018Z"
+          "updatedAt": "2026-09-24T17:24:49.229422Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1708,13 +1887,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:31:50Z",
       "updatedAt": "2026-09-23T15:31:50Z",
-      "generatedAt": "2026-09-24T16:28:46.209056Z",
+      "generatedAt": "2026-09-24T17:25:48.823533Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209056Z"
+          "updatedAt": "2026-09-24T17:25:48.823533Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1754,13 +1933,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:03:13Z",
       "updatedAt": "2026-09-23T15:03:13Z",
-      "generatedAt": "2026-09-24T16:28:46.209090Z",
+      "generatedAt": "2026-09-24T17:26:52.226661Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209090Z"
+          "updatedAt": "2026-09-24T17:26:52.226661Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1785,6 +1964,54 @@
       ],
       "excerpt": "The Egg will be ending the year with a performance by bagpipe artist and songwriter Ally the Piper.",
       "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "093408b10a4044df",
+      "headline": "Fall Begins with Clear Skies",
+      "dek": "WTEN News10 reports fall begins with clear skies in Capital Region.",
+      "body": "WTEN News10 reported that the first day of fall has brought clear skies across the Capital Region. Meteorologists Rob Lindenmuth and Allison Lancia noted a mix of sun and clouds for the most part, with partly to mainly clear conditions expected tonight. The weather is expected to remain chilly overnight.",
+      "category": "weather",
+      "publishedAt": "2026-09-22T21:22:41Z",
+      "updatedAt": "2026-09-22T21:22:41Z",
+      "generatedAt": "2026-09-24T17:27:24.897497Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:27:24.897497Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "09/22/2026: Welcome to Fall!",
+          "url": "https://www.news10.com/forecast/09-22-2026-welcome-to-fall/",
+          "publishedAt": "2026-09-22T21:22:41Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
@@ -1795,18 +2022,65 @@
     },
     {
       "apiVersion": 1,
-      "id": "1cd073f538017acd",
-      "headline": "Cardona's unveils sandwich for Breast Cancer Awareness Month",
-      "category": "business",
-      "publishedAt": "2026-09-23T13:08:32Z",
-      "updatedAt": "2026-09-23T13:08:32Z",
-      "generatedAt": "2026-09-24T16:28:46.209109Z",
+      "id": "e723ede8f06aa436",
+      "headline": "Pedestrian airlifted after crash in Fort Edward",
+      "category": "public-safety",
+      "publishedAt": "2026-09-22T21:00:17Z",
+      "updatedAt": "2026-09-22T21:00:17Z",
+      "generatedAt": "2026-09-24T17:28:31.284697Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209109Z"
+          "updatedAt": "2026-09-24T17:28:31.284697Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-DC",
+          "city": "Washington"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Pedestrian airlifted after crash in Fort Edward",
+          "url": "https://www.news10.com/news/washington-county/pedestrian-airlifted-after-crash-in-fort-edward/",
+          "publishedAt": "2026-09-22T21:00:17Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The Washington County Sheriff's Office responded to a crash involving a pedestrian in Fort Edward on Tuesday morning.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Washington%2C_Nebraska_Dorchester_from_Greene_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Washington, Nebraska Dorchester from Greene 2 \u2014 Ammodramus / Wikimedia Commons (CC0)",
+        "creator": "Ammodramus",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Washington,_Nebraska_Dorchester_from_Greene_2.JPG"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "1cd073f538017acd",
+      "headline": "Cardona's Market Launches Breast Cancer Awareness Sandwich",
+      "dek": "Cardona's Market introduces 'Chicken Cordon Pink' sandwich for Breast Cancer Awareness Month.",
+      "body": "Cardona's Market has launched a 'Chicken Cordon Pink' sandwich in support of Breast Cancer Awareness Month, according to WTEN News10. The sandwich will be available at Cardona's locations through October 31.",
+      "category": "business",
+      "publishedAt": "2026-09-23T13:08:32Z",
+      "updatedAt": "2026-09-23T13:08:32Z",
+      "generatedAt": "2026-09-24T17:29:01.437470Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:29:01.437470Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1829,7 +2103,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "Cardona's Market has launched a sandwich in support of Breast Cancer Awareness Month. The \"Chicken Cordon Pink\" will be available at Cardona's locations through October 31.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -1842,17 +2115,20 @@
     {
       "apiVersion": 1,
       "id": "2208d0348022818a",
-      "headline": "New animal shelter opens at the Albany County Jail",
+      "headline": "Animal shelter opens at Albany County Jail",
+      "dek": "New animal shelter now operates at Albany County Jail in Colonie.",
+      "body": "A new animal shelter has been established at the Albany County Jail in Colonie, as reported by WTEN News10. The facility will help increase the capacity of the Mohawk Hudson Humane Society and offer job opportunities for individuals facing homelessness, according to Albany County Sheriff Craig Apple.",
       "category": "local",
       "publishedAt": "2026-09-23T12:48:09Z",
       "updatedAt": "2026-09-23T12:48:09Z",
-      "generatedAt": "2026-09-24T16:28:46.209125Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T17:30:08.200848Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209125Z"
+          "updatedAt": "2026-09-24T17:30:08.200848Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1881,53 +2157,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "A new animal shelter has opened at the Albany County Jail in Colonie. According to Albany County Sheriff Craig Apple, the shelter will expand capacity for the Mohawk Hudson Humane Society and give employment opportunities to people experiencing homelessness.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
-      "id": "093408b10a4044df",
-      "headline": "09/22/2026: Welcome to Fall!",
-      "category": "weather",
-      "publishedAt": "2026-09-22T21:22:41Z",
-      "updatedAt": "2026-09-22T21:22:41Z",
-      "generatedAt": "2026-09-24T16:28:46.209141Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209141Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "09/22/2026: Welcome to Fall!",
-          "url": "https://www.news10.com/forecast/09-22-2026-welcome-to-fall/",
-          "publishedAt": "2026-09-22T21:22:41Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The Latest Storm Tracker Forecast from Meteorologists Rob Lindenmuth and Allison Lancia: The first day of fall has brought some nice weather across the region! Skies featured a mix of sun and clouds for the most part, and we should remain partly to mainly clear tonight. It should be a chilly night t",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -1944,13 +2173,13 @@
       "category": "environment",
       "publishedAt": "2026-09-23T12:18:51Z",
       "updatedAt": "2026-09-23T12:18:51Z",
-      "generatedAt": "2026-09-24T16:28:46.209158Z",
+      "generatedAt": "2026-09-24T17:30:08.200931Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209158Z"
+          "updatedAt": "2026-09-24T17:30:08.200931Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1985,108 +2214,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "e723ede8f06aa436",
-      "headline": "Pedestrian airlifted after crash in Fort Edward",
-      "category": "public-safety",
-      "publishedAt": "2026-09-22T21:00:17Z",
-      "updatedAt": "2026-09-22T21:00:17Z",
-      "generatedAt": "2026-09-24T16:28:46.209175Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209175Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-DC",
-          "city": "Washington"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "Pedestrian airlifted after crash in Fort Edward",
-          "url": "https://www.news10.com/news/washington-county/pedestrian-airlifted-after-crash-in-fort-edward/",
-          "publishedAt": "2026-09-22T21:00:17Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The Washington County Sheriff's Office responded to a crash involving a pedestrian in Fort Edward on Tuesday morning.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Washington%2C_Nebraska_Dorchester_from_Greene_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Washington, Nebraska Dorchester from Greene 2 \u2014 Ammodramus / Wikimedia Commons (CC0)",
-        "creator": "Ammodramus",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Washington,_Nebraska_Dorchester_from_Greene_2.JPG"
-      }
-    },
-    {
-      "apiVersion": 1,
-      "id": "7b312f75f9182700",
-      "headline": "09/23/2026: Early Autumn at its Best",
-      "category": "local",
-      "publishedAt": "2026-09-23T10:59:33Z",
-      "updatedAt": "2026-09-23T10:59:33Z",
-      "generatedAt": "2026-09-24T16:28:46.209191Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209191Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "09/23/2026: Early Autumn at its Best",
-          "url": "https://www.news10.com/weather/09-23-2026-early-autumn-at-its-best/",
-          "publishedAt": "2026-09-23T10:59:33Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Overall we have a similar atmospheric setup for today as recent days, but this time high pressure to the north will flex its muscles a bit more, providing us with more sunshine and slightly milder temperatures. All eyes are on a coastal low for the weekend, though the worst impacts felt from that po",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "74fafcfaf50af8de",
       "headline": "18-year-old convicted in 2025 Albany murder case",
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:25:38Z",
       "updatedAt": "2026-09-22T18:59:25Z",
-      "generatedAt": "2026-09-24T16:28:46.209207Z",
+      "generatedAt": "2026-09-24T17:30:08.200953Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209207Z"
+          "updatedAt": "2026-09-24T17:30:08.200953Z"
         }
       ],
       "confidenceTier": "low",
@@ -2139,13 +2278,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T18:49:58Z",
       "updatedAt": "2026-09-22T18:49:58Z",
-      "generatedAt": "2026-09-24T16:28:46.209229Z",
+      "generatedAt": "2026-09-24T17:30:08.200971Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209229Z"
+          "updatedAt": "2026-09-24T17:30:08.200971Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2180,18 +2319,64 @@
     },
     {
       "apiVersion": 1,
-      "id": "cc0e2a87205e74db",
-      "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
-      "category": "public-safety",
-      "publishedAt": "2026-09-22T16:02:00Z",
-      "updatedAt": "2026-09-22T16:02:00Z",
-      "generatedAt": "2026-09-24T16:28:46.209245Z",
+      "id": "7b312f75f9182700",
+      "headline": "09/23/2026: Early Autumn at its Best",
+      "category": "local",
+      "publishedAt": "2026-09-23T10:59:33Z",
+      "updatedAt": "2026-09-23T10:59:33Z",
+      "generatedAt": "2026-09-24T17:30:08.200982Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209245Z"
+          "updatedAt": "2026-09-24T17:30:08.200982Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "09/23/2026: Early Autumn at its Best",
+          "url": "https://www.news10.com/weather/09-23-2026-early-autumn-at-its-best/",
+          "publishedAt": "2026-09-23T10:59:33Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Overall we have a similar atmospheric setup for today as recent days, but this time high pressure to the north will flex its muscles a bit more, providing us with more sunshine and slightly milder temperatures. All eyes are on a coastal low for the weekend, though the worst impacts felt from that po",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "cc0e2a87205e74db",
+      "headline": "Father of murdered Mechanicville children moves toward $400M suit against city, schools",
+      "category": "public-safety",
+      "publishedAt": "2026-09-22T16:02:00Z",
+      "updatedAt": "2026-09-22T16:02:00Z",
+      "generatedAt": "2026-09-24T17:30:08.200992Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.200992Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2237,13 +2422,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T21:40:31Z",
       "updatedAt": "2026-09-22T21:40:31Z",
-      "generatedAt": "2026-09-24T16:28:46.209266Z",
+      "generatedAt": "2026-09-24T17:30:08.201001Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209266Z"
+          "updatedAt": "2026-09-24T17:30:08.201001Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2283,13 +2468,13 @@
       "category": "business",
       "publishedAt": "2026-09-22T16:12:56Z",
       "updatedAt": "2026-09-22T16:12:56Z",
-      "generatedAt": "2026-09-24T16:28:46.209283Z",
+      "generatedAt": "2026-09-24T17:30:08.201011Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209283Z"
+          "updatedAt": "2026-09-24T17:30:08.201011Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2324,18 +2509,62 @@
     },
     {
       "apiVersion": 1,
-      "id": "88311be05db018f0",
-      "headline": "Saints bring championship expectation into first season under Nevada Smith",
-      "category": "sports",
-      "publishedAt": "2026-09-23T05:59:14Z",
-      "updatedAt": "2026-09-23T05:59:14Z",
-      "generatedAt": "2026-09-24T16:28:46.209301Z",
+      "id": "2794024e2007bbb0",
+      "headline": "Huge data centres rise at 'China speed' to power its AI ambitions",
+      "category": "technology",
+      "publishedAt": "2026-09-22T22:04:31Z",
+      "updatedAt": "2026-09-22T22:04:31Z",
+      "generatedAt": "2026-09-24T17:30:08.201034Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209301Z"
+          "updatedAt": "2026-09-24T17:30:08.201034Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-DC",
+          "city": "Washington"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Huge data centres rise at 'China speed' to power its AI ambitions",
+          "url": "https://www.bbc.co.uk/news/articles/cm5ydz4kl65ro?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-22T22:04:31Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The BBC visits Inner Mongolia, an unlikely frontier in Beijing's AI race with Washington.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Washington%2C_Nebraska_Dorchester_from_Greene_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Washington, Nebraska Dorchester from Greene 2 \u2014 Ammodramus / Wikimedia Commons (CC0)",
+        "creator": "Ammodramus",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Washington,_Nebraska_Dorchester_from_Greene_2.JPG"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "88311be05db018f0",
+      "headline": "Saints bring championship expectation into first season under Nevada Smith",
+      "category": "sports",
+      "publishedAt": "2026-09-23T05:59:14Z",
+      "updatedAt": "2026-09-23T05:59:14Z",
+      "generatedAt": "2026-09-24T17:30:08.201047Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201047Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2375,13 +2604,13 @@
       "category": "sports",
       "publishedAt": "2026-09-23T00:16:32Z",
       "updatedAt": "2026-09-23T14:36:24Z",
-      "generatedAt": "2026-09-24T16:28:46.209319Z",
+      "generatedAt": "2026-09-24T17:30:08.201058Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209319Z"
+          "updatedAt": "2026-09-24T17:30:08.201058Z"
         }
       ],
       "confidenceTier": "low",
@@ -2413,12 +2642,12 @@
       ],
       "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Design_Motel_in_Saratoga_Springs%2C_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Design Motel in Saratoga Springs, New York \u2014 Tyler A. McNeil / Wikimedia Commons (CC BY-SA 4.0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC BY-SA 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Design_Motel_in_Saratoga_Springs,_New_York.jpg"
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Downtown_Saratoga_Springs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Downtown Saratoga Springs \u2014 UpstateNYer / Wikimedia Commons (CC BY-SA 3.0)",
+        "creator": "UpstateNYer",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Downtown_Saratoga_Springs.jpg"
       }
     },
     {
@@ -2428,13 +2657,13 @@
       "category": "sports",
       "publishedAt": "2026-09-23T05:14:31Z",
       "updatedAt": "2026-09-23T05:14:31Z",
-      "generatedAt": "2026-09-24T16:28:46.209341Z",
+      "generatedAt": "2026-09-24T17:30:08.201081Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209341Z"
+          "updatedAt": "2026-09-24T17:30:08.201081Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2469,108 +2698,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "2794024e2007bbb0",
-      "headline": "Huge data centres rise at 'China speed' to power its AI ambitions",
-      "category": "technology",
-      "publishedAt": "2026-09-22T22:04:31Z",
-      "updatedAt": "2026-09-22T22:04:31Z",
-      "generatedAt": "2026-09-24T16:28:46.209357Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209357Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-DC",
-          "city": "Washington"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "Huge data centres rise at 'China speed' to power its AI ambitions",
-          "url": "https://www.bbc.co.uk/news/articles/cm5ydz4kl65ro?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-22T22:04:31Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The BBC visits Inner Mongolia, an unlikely frontier in Beijing's AI race with Washington.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Washington%2C_Nebraska_Dorchester_from_Greene_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Washington, Nebraska Dorchester from Greene 2 \u2014 Ammodramus / Wikimedia Commons (CC0)",
-        "creator": "Ammodramus",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Washington,_Nebraska_Dorchester_from_Greene_2.JPG"
-      }
-    },
-    {
-      "apiVersion": 1,
-      "id": "6099203deeedad9f",
-      "headline": "Residents weigh in on new sidewalks on the horizon in Niskayuna",
-      "category": "local",
-      "publishedAt": "2026-09-23T03:15:34Z",
-      "updatedAt": "2026-09-23T03:15:34Z",
-      "generatedAt": "2026-09-24T16:28:46.209374Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209374Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "Residents weigh in on new sidewalks on the horizon in Niskayuna",
-          "url": "https://www.news10.com/news/schenectady-county/residents-weigh-in-on-new-sidewalks-on-the-horizon-in-niskayuna/",
-          "publishedAt": "2026-09-23T03:15:34Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Residents in Niskayuna have differing opinions on new sidewalks being installed starting in the spring.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "1db4334cd600564c",
       "headline": "Women-only gym opens new location in Slingerlands",
       "category": "local",
       "publishedAt": "2026-09-22T20:52:03Z",
       "updatedAt": "2026-09-22T20:52:03Z",
-      "generatedAt": "2026-09-24T16:28:46.209390Z",
+      "generatedAt": "2026-09-24T17:30:08.201093Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209390Z"
+          "updatedAt": "2026-09-24T17:30:08.201093Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2605,18 +2744,64 @@
     },
     {
       "apiVersion": 1,
-      "id": "9f7a3f95e23ee2b0",
-      "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
+      "id": "6099203deeedad9f",
+      "headline": "Residents weigh in on new sidewalks on the horizon in Niskayuna",
       "category": "local",
-      "publishedAt": "2026-09-23T11:00:09Z",
-      "updatedAt": "2026-09-23T11:00:09Z",
-      "generatedAt": "2026-09-24T16:28:46.209405Z",
+      "publishedAt": "2026-09-23T03:15:34Z",
+      "updatedAt": "2026-09-23T03:15:34Z",
+      "generatedAt": "2026-09-24T17:30:08.201103Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209405Z"
+          "updatedAt": "2026-09-24T17:30:08.201103Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Residents weigh in on new sidewalks on the horizon in Niskayuna",
+          "url": "https://www.news10.com/news/schenectady-county/residents-weigh-in-on-new-sidewalks-on-the-horizon-in-niskayuna/",
+          "publishedAt": "2026-09-23T03:15:34Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Residents in Niskayuna have differing opinions on new sidewalks being installed starting in the spring.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "9f7a3f95e23ee2b0",
+      "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
+      "category": "local",
+      "publishedAt": "2026-09-23T11:00:09Z",
+      "updatedAt": "2026-09-23T11:00:09Z",
+      "generatedAt": "2026-09-24T17:30:08.201114Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201114Z"
         }
       ],
       "confidenceTier": "low",
@@ -2649,18 +2834,53 @@
     },
     {
       "apiVersion": 1,
-      "id": "1f5ec44b26d3e00a",
-      "headline": "Sullivan County residents say high energy prices need to come down",
-      "category": "local",
-      "publishedAt": "2026-09-22T22:41:00Z",
-      "updatedAt": "2026-09-22T22:41:00Z",
-      "generatedAt": "2026-09-24T16:28:46.209422Z",
+      "id": "ad5c6e8e136fb52a",
+      "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
+      "category": "politics",
+      "publishedAt": "2026-09-24T10:11:15Z",
+      "updatedAt": "2026-09-24T10:11:15Z",
+      "generatedAt": "2026-09-24T17:30:08.201125Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209422Z"
+          "updatedAt": "2026-09-24T17:30:08.201125Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
+          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T10:11:15Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York."
+    },
+    {
+      "apiVersion": 1,
+      "id": "1f5ec44b26d3e00a",
+      "headline": "Sullivan County residents say high energy prices need to come down",
+      "category": "local",
+      "publishedAt": "2026-09-22T22:41:00Z",
+      "updatedAt": "2026-09-22T22:41:00Z",
+      "generatedAt": "2026-09-24T17:30:08.201134Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201134Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2695,53 +2915,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "ad5c6e8e136fb52a",
-      "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
-      "category": "politics",
-      "publishedAt": "2026-09-24T10:11:15Z",
-      "updatedAt": "2026-09-24T10:11:15Z",
-      "generatedAt": "2026-09-24T16:28:46.209438Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209438Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
-          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T10:11:15Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York."
-    },
-    {
-      "apiVersion": 1,
       "id": "68416003223178d9",
       "headline": "North Adams man charged for series of vehicle break-ins",
       "category": "local",
       "publishedAt": "2026-09-23T01:14:37Z",
       "updatedAt": "2026-09-23T01:14:37Z",
-      "generatedAt": "2026-09-24T16:28:46.209455Z",
+      "generatedAt": "2026-09-24T17:30:08.201145Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209455Z"
+          "updatedAt": "2026-09-24T17:30:08.201145Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2781,13 +2966,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T10:01:31Z",
       "updatedAt": "2026-09-23T10:01:31Z",
-      "generatedAt": "2026-09-24T16:28:46.209473Z",
+      "generatedAt": "2026-09-24T17:30:08.201156Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209473Z"
+          "updatedAt": "2026-09-24T17:30:08.201156Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2827,13 +3012,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T21:35:23Z",
       "updatedAt": "2026-09-22T21:35:23Z",
-      "generatedAt": "2026-09-24T16:28:46.209489Z",
+      "generatedAt": "2026-09-24T17:30:08.201168Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209489Z"
+          "updatedAt": "2026-09-24T17:30:08.201168Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2874,110 +3059,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "8657fa8d5d0fa67e",
-      "headline": "NY Olympic authority plans to expand staff after facilities struggled to meet demand",
-      "category": "politics",
-      "publishedAt": "2026-09-22T20:59:50Z",
-      "updatedAt": "2026-09-22T20:59:50Z",
-      "generatedAt": "2026-09-24T16:28:46.209505Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209505Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WAMC Northeast Public Radio",
-          "headline": "NY Olympic authority plans to expand staff after facilities struggled to meet demand",
-          "url": "https://www.wamc.org/news/2026-09-22/ny-olympic-authority-plans-to-expand-staff-after-facilities-struggled-to-meet-demand",
-          "publishedAt": "2026-09-22T20:59:50Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "According to a budget approved by Olympic Regional Development Authority leadership, one of the biggest employers in the Adirondacks and Catskills is gearing up to bring on new full-time staff.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
-      "id": "c3e39297624a5ed8",
-      "headline": "What could replace former National Lead site in Colonie",
-      "category": "business",
-      "publishedAt": "2026-09-22T23:29:46Z",
-      "updatedAt": "2026-09-22T23:29:46Z",
-      "generatedAt": "2026-09-24T16:28:46.209522Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209522Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "What could replace former National Lead site in Colonie",
-          "url": "https://www.news10.com/news/albany-county/what-could-replace-former-national-lead-site-in-colonie/",
-          "publishedAt": "2026-09-22T23:29:46Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Following a roughly 34-year-long clean up of the contamination caused by National Lead Industries in Colonie, a new company is ready to build on the site. The Asia Center Mall LLC made plans to put an Asian Supermarket there in 2023, and now the town said final approval could come soon.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "468421ba020907f3",
       "headline": "Hurricane Polo fuels fears of landslides in Mexico as Nolo closes in on Hawaii",
       "category": "weather",
       "publishedAt": "2026-09-24T03:19:45Z",
       "updatedAt": "2026-09-24T03:19:45Z",
-      "generatedAt": "2026-09-24T16:28:46.209541Z",
+      "generatedAt": "2026-09-24T17:30:08.201177Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209541Z"
+          "updatedAt": "2026-09-24T17:30:08.201177Z"
         }
       ],
       "confidenceTier": "low",
@@ -3005,13 +3098,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T22:01:40Z",
       "updatedAt": "2026-09-22T22:01:40Z",
-      "generatedAt": "2026-09-24T16:28:46.209558Z",
+      "generatedAt": "2026-09-24T17:30:08.201187Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209558Z"
+          "updatedAt": "2026-09-24T17:30:08.201187Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3051,13 +3144,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T21:59:13Z",
       "updatedAt": "2026-09-22T21:59:13Z",
-      "generatedAt": "2026-09-24T16:28:46.209574Z",
+      "generatedAt": "2026-09-24T17:30:08.201197Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209574Z"
+          "updatedAt": "2026-09-24T17:30:08.201197Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3097,13 +3190,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-22T21:51:07Z",
       "updatedAt": "2026-09-22T21:51:07Z",
-      "generatedAt": "2026-09-24T16:28:46.209590Z",
+      "generatedAt": "2026-09-24T17:30:08.201206Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209590Z"
+          "updatedAt": "2026-09-24T17:30:08.201206Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3138,18 +3231,144 @@
     },
     {
       "apiVersion": 1,
-      "id": "c946d865f984675b",
-      "headline": "The economic squeeze is pushing up poverty rates for older adults",
-      "category": "local",
-      "publishedAt": "2026-09-24T15:00:00Z",
-      "updatedAt": "2026-09-24T15:00:00Z",
-      "generatedAt": "2026-09-24T16:28:46.209608Z",
+      "id": "8657fa8d5d0fa67e",
+      "headline": "NY Olympic authority plans to expand staff after facilities struggled to meet demand",
+      "category": "politics",
+      "publishedAt": "2026-09-22T20:59:50Z",
+      "updatedAt": "2026-09-22T20:59:50Z",
+      "generatedAt": "2026-09-24T17:30:08.201215Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209608Z"
+          "updatedAt": "2026-09-24T17:30:08.201215Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WAMC Northeast Public Radio",
+          "headline": "NY Olympic authority plans to expand staff after facilities struggled to meet demand",
+          "url": "https://www.wamc.org/news/2026-09-22/ny-olympic-authority-plans-to-expand-staff-after-facilities-struggled-to-meet-demand",
+          "publishedAt": "2026-09-22T20:59:50Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "According to a budget approved by Olympic Regional Development Authority leadership, one of the biggest employers in the Adirondacks and Catskills is gearing up to bring on new full-time staff.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "c3e39297624a5ed8",
+      "headline": "What could replace former National Lead site in Colonie",
+      "category": "business",
+      "publishedAt": "2026-09-22T23:29:46Z",
+      "updatedAt": "2026-09-22T23:29:46Z",
+      "generatedAt": "2026-09-24T17:30:08.201224Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201224Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "What could replace former National Lead site in Colonie",
+          "url": "https://www.news10.com/news/albany-county/what-could-replace-former-national-lead-site-in-colonie/",
+          "publishedAt": "2026-09-22T23:29:46Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Following a roughly 34-year-long clean up of the contamination caused by National Lead Industries in Colonie, a new company is ready to build on the site. The Asia Center Mall LLC made plans to put an Asian Supermarket there in 2023, and now the town said final approval could come soon.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "60966cf1c9074d60",
+      "headline": "Mortgage rates have just surpassed 7% for the first time in well over a year",
+      "category": "local",
+      "publishedAt": "2026-09-24T16:01:44Z",
+      "updatedAt": "2026-09-24T16:01:44Z",
+      "generatedAt": "2026-09-24T17:30:08.201233Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201233Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "Mortgage rates have just surpassed 7% for the first time in well over a year",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5977796/mortgage-rates-freddie-mac-homebuying",
+          "publishedAt": "2026-09-24T16:01:44Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Rates have climbed more than a full percentage point since the U.S. war against Iran started."
+    },
+    {
+      "apiVersion": 1,
+      "id": "c946d865f984675b",
+      "headline": "The economic squeeze is pushing up poverty rates for older adults",
+      "category": "local",
+      "publishedAt": "2026-09-24T15:00:00Z",
+      "updatedAt": "2026-09-24T15:00:00Z",
+      "generatedAt": "2026-09-24T17:30:08.201241Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201241Z"
         }
       ],
       "confidenceTier": "low",
@@ -3177,13 +3396,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T22:40:39Z",
       "updatedAt": "2026-09-23T22:40:39Z",
-      "generatedAt": "2026-09-24T16:28:46.209623Z",
+      "generatedAt": "2026-09-24T17:30:08.201251Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209623Z"
+          "updatedAt": "2026-09-24T17:30:08.201251Z"
         }
       ],
       "confidenceTier": "low",
@@ -3219,13 +3438,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T17:25:31Z",
       "updatedAt": "2026-09-22T17:25:31Z",
-      "generatedAt": "2026-09-24T16:28:46.209639Z",
+      "generatedAt": "2026-09-24T17:30:08.201260Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209639Z"
+          "updatedAt": "2026-09-24T17:30:08.201260Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3265,13 +3484,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T12:43:15Z",
       "updatedAt": "2026-09-24T12:43:15Z",
-      "generatedAt": "2026-09-24T16:28:46.209654Z",
+      "generatedAt": "2026-09-24T17:30:08.201268Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209654Z"
+          "updatedAt": "2026-09-24T17:30:08.201268Z"
         }
       ],
       "confidenceTier": "low",
@@ -3299,13 +3518,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T06:21:06Z",
       "updatedAt": "2026-09-24T06:21:06Z",
-      "generatedAt": "2026-09-24T16:28:46.209669Z",
+      "generatedAt": "2026-09-24T17:30:08.201276Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209669Z"
+          "updatedAt": "2026-09-24T17:30:08.201276Z"
         }
       ],
       "confidenceTier": "low",
@@ -3336,18 +3555,120 @@
     },
     {
       "apiVersion": 1,
-      "id": "02b27a416743b0ef",
-      "headline": "With loaners already flying, fleet of F-35As to land in western Mass.",
-      "category": "entertainment",
-      "publishedAt": "2026-09-22T17:38:08Z",
-      "updatedAt": "2026-09-22T17:38:08Z",
-      "generatedAt": "2026-09-24T16:28:46.209687Z",
+      "id": "9872c465a23c4739",
+      "headline": "Venezuela's acting leader promises elections at the 'right moment'",
+      "category": "politics",
+      "publishedAt": "2026-09-24T05:40:49Z",
+      "updatedAt": "2026-09-24T05:40:49Z",
+      "generatedAt": "2026-09-24T17:30:08.201284Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209687Z"
+          "updatedAt": "2026-09-24T17:30:08.201284Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "Venezuela's acting leader promises elections at the 'right moment'",
+          "url": "https://www.npr.org/2026/09/24/g-s1-144837/venezuela-leader-un-general-assembly",
+          "publishedAt": "2026-09-24T05:40:49Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Venezuela's acting president, delivering her first address to the U.N. General Assembly since coming to power, promised elections and said the nation's people will determine the \"right moment.\""
+    },
+    {
+      "apiVersion": 1,
+      "id": "1170bd08f9453a79",
+      "headline": "Trump and Xi strike cordial tone at summit amid underlying tensions",
+      "category": "local",
+      "publishedAt": "2026-09-24T12:43:15Z",
+      "updatedAt": "2026-09-24T12:43:15Z",
+      "generatedAt": "2026-09-24T17:30:08.201293Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201293Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "Trump and Xi strike cordial tone at summit amid underlying tensions",
+          "url": "https://www.npr.org/2026/09/24/g-s1-144806/trump-xi-summit",
+          "publishedAt": "2026-09-24T12:43:15Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "On Thursday, the two leaders will hold meetings where Trump and Xi are expected to talk about artificial intelligence, rare earths, trade and geopolitics such as Iran and Taiwan."
+    },
+    {
+      "apiVersion": 1,
+      "id": "9ef38e05b5542d07",
+      "headline": "OpenAI's breach of Australian health department website prompts rebuke",
+      "category": "business",
+      "publishedAt": "2026-09-24T05:14:11Z",
+      "updatedAt": "2026-09-24T05:14:11Z",
+      "generatedAt": "2026-09-24T17:30:08.201301Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201301Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "OpenAI's breach of Australian health department website prompts rebuke",
+          "url": "https://www.npr.org/2026/09/24/g-s1-144835/openai-breach-australia",
+          "publishedAt": "2026-09-24T05:14:11Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Prime Minister Anthony Albanese said he was extremely concerned about OpenAI 's breach of an Australian health department website that the artificial intelligence company took too long to reveal."
+    },
+    {
+      "apiVersion": 1,
+      "id": "02b27a416743b0ef",
+      "headline": "With loaners already flying, fleet of F-35As to land in western Mass.",
+      "category": "entertainment",
+      "publishedAt": "2026-09-22T17:38:08Z",
+      "updatedAt": "2026-09-22T17:38:08Z",
+      "generatedAt": "2026-09-24T17:30:08.201310Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201310Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3372,28 +3693,28 @@
       ],
       "excerpt": "Bit by bit, a fleet of new, state-of-the-art fighter aircraft is coming to a Air National Guard base in Western Massachusetts.F-35As are already soaring fast and loud through the Pioneer Valley. As commanders tell WAMC, their arrival means better protection for the Northeast \u2013 and security for the b",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
       "apiVersion": 1,
-      "id": "9872c465a23c4739",
-      "headline": "Venezuela's acting leader promises elections at the 'right moment'",
-      "category": "politics",
-      "publishedAt": "2026-09-24T05:40:49Z",
-      "updatedAt": "2026-09-24T05:40:49Z",
-      "generatedAt": "2026-09-24T16:28:46.209702Z",
+      "id": "533d0d5ac8d58465",
+      "headline": "Fears of return to war grow in Ethiopia's Tigray region",
+      "category": "local",
+      "publishedAt": "2026-09-24T04:23:38Z",
+      "updatedAt": "2026-09-24T04:23:38Z",
+      "generatedAt": "2026-09-24T17:30:08.201318Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209702Z"
+          "updatedAt": "2026-09-24T17:30:08.201318Z"
         }
       ],
       "confidenceTier": "low",
@@ -3406,47 +3727,13 @@
       "sources": [
         {
           "publisher": "NPR News",
-          "headline": "Venezuela's acting leader promises elections at the 'right moment'",
-          "url": "https://www.npr.org/2026/09/24/g-s1-144837/venezuela-leader-un-general-assembly",
-          "publishedAt": "2026-09-24T05:40:49Z",
+          "headline": "Fears of return to war grow in Ethiopia's Tigray region",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5978861/conflict-ethiopia-tigray",
+          "publishedAt": "2026-09-24T04:23:38Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "Venezuela's acting president, delivering her first address to the U.N. General Assembly since coming to power, promised elections and said the nation's people will determine the \"right moment.\""
-    },
-    {
-      "apiVersion": 1,
-      "id": "9ef38e05b5542d07",
-      "headline": "OpenAI's breach of Australian health department website prompts rebuke",
-      "category": "business",
-      "publishedAt": "2026-09-24T05:14:11Z",
-      "updatedAt": "2026-09-24T05:14:11Z",
-      "generatedAt": "2026-09-24T16:28:46.209717Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209717Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "OpenAI's breach of Australian health department website prompts rebuke",
-          "url": "https://www.npr.org/2026/09/24/g-s1-144835/openai-breach-australia",
-          "publishedAt": "2026-09-24T05:14:11Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Prime Minister Anthony Albanese said he was extremely concerned about OpenAI 's breach of an Australian health department website that the artificial intelligence company took too long to reveal."
+      "excerpt": "Fears are growing of a return to war in Ethiopia's Tigray region, just four years after a devastating conflict ended in a fragile peace deal."
     },
     {
       "apiVersion": 1,
@@ -3455,13 +3742,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T11:10:14Z",
       "updatedAt": "2026-09-24T11:10:14Z",
-      "generatedAt": "2026-09-24T16:28:46.209732Z",
+      "generatedAt": "2026-09-24T17:30:08.201328Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209732Z"
+          "updatedAt": "2026-09-24T17:30:08.201328Z"
         }
       ],
       "confidenceTier": "low",
@@ -3497,13 +3784,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T10:43:25Z",
       "updatedAt": "2026-09-24T10:43:25Z",
-      "generatedAt": "2026-09-24T16:28:46.209747Z",
+      "generatedAt": "2026-09-24T17:30:08.201338Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209747Z"
+          "updatedAt": "2026-09-24T17:30:08.201338Z"
         }
       ],
       "confidenceTier": "low",
@@ -3526,52 +3813,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "533d0d5ac8d58465",
-      "headline": "Fears of return to war grow in Ethiopia's Tigray region",
-      "category": "local",
-      "publishedAt": "2026-09-24T04:23:38Z",
-      "updatedAt": "2026-09-24T04:23:38Z",
-      "generatedAt": "2026-09-24T16:28:46.209766Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209766Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "Fears of return to war grow in Ethiopia's Tigray region",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5978861/conflict-ethiopia-tigray",
-          "publishedAt": "2026-09-24T04:23:38Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Fears are growing of a return to war in Ethiopia's Tigray region, just four years after a devastating conflict ended in a fragile peace deal."
-    },
-    {
-      "apiVersion": 1,
       "id": "1071aea227086389",
       "headline": "Trump and Xi meet at moment of global consequence",
       "category": "local",
       "publishedAt": "2026-09-23T18:23:19Z",
       "updatedAt": "2026-09-23T18:23:19Z",
-      "generatedAt": "2026-09-24T16:28:46.209781Z",
+      "generatedAt": "2026-09-24T17:30:08.201346Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209781Z"
+          "updatedAt": "2026-09-24T17:30:08.201346Z"
         }
       ],
       "confidenceTier": "low",
@@ -3599,13 +3852,13 @@
       "category": "politics",
       "publishedAt": "2026-09-23T18:14:40Z",
       "updatedAt": "2026-09-23T18:14:40Z",
-      "generatedAt": "2026-09-24T16:28:46.209796Z",
+      "generatedAt": "2026-09-24T17:30:08.201354Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209796Z"
+          "updatedAt": "2026-09-24T17:30:08.201354Z"
         }
       ],
       "confidenceTier": "low",
@@ -3633,13 +3886,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T18:09:31Z",
       "updatedAt": "2026-09-23T18:09:31Z",
-      "generatedAt": "2026-09-24T16:28:46.209810Z",
+      "generatedAt": "2026-09-24T17:30:08.201362Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209810Z"
+          "updatedAt": "2026-09-24T17:30:08.201362Z"
         }
       ],
       "confidenceTier": "low",
@@ -3662,188 +3915,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "59da3a9aed3113a8",
-      "headline": "The Education Dept. hasn't been dismantled. It's become more inefficient, staff say",
-      "category": "local",
-      "publishedAt": "2026-09-24T09:00:00Z",
-      "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T16:28:46.209825Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209825Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "The Education Dept. hasn't been dismantled. It's become more inefficient, staff say",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5968605/education-department-dismantling-how-its-going",
-          "publishedAt": "2026-09-24T09:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Education staff are being scattered across several other federal agencies. Despite the Trump administration's claims, employees say it's adding bureaucracy and making it harder to serve students."
-    },
-    {
-      "apiVersion": 1,
-      "id": "8324c24fac73c143",
-      "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
-      "category": "business",
-      "publishedAt": "2026-09-24T09:00:00Z",
-      "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T16:28:46.209839Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209839Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5931971/trump-nih-science-funding-disruptions-charts",
-          "publishedAt": "2026-09-24T09:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Stories of science funding being cut, labs shutting down and scientists losing jobs have flooded the media under Trump's administration. These six graphics show how those changes have affected U.S. biomedical research."
-    },
-    {
-      "apiVersion": 1,
-      "id": "bc7c9f1ae519bc2c",
-      "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
-      "category": "business",
-      "publishedAt": "2026-09-24T09:00:00Z",
-      "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T16:28:46.209854Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209854Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5978124/ebay-bans-airbags-faulty-counterfeit-auto-parts",
-          "publishedAt": "2026-09-24T09:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "eBay became the latest online retailer to ban the sale of airbags and many of their components. Aftermarket parts can be risky if they turn out to be fake or defective."
-    },
-    {
-      "apiVersion": 1,
-      "id": "cbe163b40645fce5",
-      "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
-      "category": "local",
-      "publishedAt": "2026-09-24T09:00:00Z",
-      "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T16:28:46.209869Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209869Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5979070/department-commerce-census-bureau-elizabeth-warren",
-          "publishedAt": "2026-09-24T09:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Democratic Sen. Elizabeth Warren asked Trump officials to explain why the Census Bureau's parent agency cut a ban on political interference from its scientific integrity policy, as NPR first reported."
-    },
-    {
-      "apiVersion": 1,
-      "id": "dbcbb8441bf762f4",
-      "headline": "States threaten action against company profiting off disabled vets after NPR report",
-      "category": "business",
-      "publishedAt": "2026-09-24T09:00:00Z",
-      "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T16:28:46.209884Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209884Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "States threaten action against company profiting off disabled vets after NPR report",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5978816/va-mortgages-trajector-bankruptcy-investigations",
-          "publishedAt": "2026-09-24T09:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The investigations by attorneys general follow a recent bankruptcy filing in the face of civil lawsuits, falling revenues, and impending debt payments."
-    },
-    {
-      "apiVersion": 1,
       "id": "44328867a23f2cdc",
       "headline": "Could the White House try its press ban again? A press freedom expert explains",
       "category": "local",
       "publishedAt": "2026-09-24T08:44:54Z",
       "updatedAt": "2026-09-24T08:44:54Z",
-      "generatedAt": "2026-09-24T16:28:46.209899Z",
+      "generatedAt": "2026-09-24T17:30:08.201370Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209899Z"
+          "updatedAt": "2026-09-24T17:30:08.201370Z"
         }
       ],
       "confidenceTier": "low",
@@ -3874,18 +3957,188 @@
     },
     {
       "apiVersion": 1,
-      "id": "b0aa512009c321d7",
-      "headline": "From cybersecurity to AI to Taiwan, what's at stake in Trump's summit with Xi",
-      "category": "politics",
-      "publishedAt": "2026-09-23T16:13:52Z",
-      "updatedAt": "2026-09-23T16:13:52Z",
-      "generatedAt": "2026-09-24T16:28:46.209921Z",
+      "id": "59da3a9aed3113a8",
+      "headline": "The Education Dept. hasn't been dismantled. It's become more inefficient, staff say",
+      "category": "local",
+      "publishedAt": "2026-09-24T09:00:00Z",
+      "updatedAt": "2026-09-24T09:00:00Z",
+      "generatedAt": "2026-09-24T17:30:08.201377Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209921Z"
+          "updatedAt": "2026-09-24T17:30:08.201377Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "The Education Dept. hasn't been dismantled. It's become more inefficient, staff say",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5968605/education-department-dismantling-how-its-going",
+          "publishedAt": "2026-09-24T09:00:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Education staff are being scattered across several other federal agencies. Despite the Trump administration's claims, employees say it's adding bureaucracy and making it harder to serve students."
+    },
+    {
+      "apiVersion": 1,
+      "id": "8324c24fac73c143",
+      "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
+      "category": "business",
+      "publishedAt": "2026-09-24T09:00:00Z",
+      "updatedAt": "2026-09-24T09:00:00Z",
+      "generatedAt": "2026-09-24T17:30:08.201386Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201386Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5931971/trump-nih-science-funding-disruptions-charts",
+          "publishedAt": "2026-09-24T09:00:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Stories of science funding being cut, labs shutting down and scientists losing jobs have flooded the media under Trump's administration. These six graphics show how those changes have affected U.S. biomedical research."
+    },
+    {
+      "apiVersion": 1,
+      "id": "bc7c9f1ae519bc2c",
+      "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
+      "category": "business",
+      "publishedAt": "2026-09-24T09:00:00Z",
+      "updatedAt": "2026-09-24T09:00:00Z",
+      "generatedAt": "2026-09-24T17:30:08.201394Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201394Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5978124/ebay-bans-airbags-faulty-counterfeit-auto-parts",
+          "publishedAt": "2026-09-24T09:00:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "eBay became the latest online retailer to ban the sale of airbags and many of their components. Aftermarket parts can be risky if they turn out to be fake or defective."
+    },
+    {
+      "apiVersion": 1,
+      "id": "cbe163b40645fce5",
+      "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
+      "category": "local",
+      "publishedAt": "2026-09-24T09:00:00Z",
+      "updatedAt": "2026-09-24T09:00:00Z",
+      "generatedAt": "2026-09-24T17:30:08.201402Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201402Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5979070/department-commerce-census-bureau-elizabeth-warren",
+          "publishedAt": "2026-09-24T09:00:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Democratic Sen. Elizabeth Warren asked Trump officials to explain why the Census Bureau's parent agency cut a ban on political interference from its scientific integrity policy, as NPR first reported."
+    },
+    {
+      "apiVersion": 1,
+      "id": "dbcbb8441bf762f4",
+      "headline": "States threaten action against company profiting off disabled vets after NPR report",
+      "category": "business",
+      "publishedAt": "2026-09-24T09:00:00Z",
+      "updatedAt": "2026-09-24T09:00:00Z",
+      "generatedAt": "2026-09-24T17:30:08.201411Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201411Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "States threaten action against company profiting off disabled vets after NPR report",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5978816/va-mortgages-trajector-bankruptcy-investigations",
+          "publishedAt": "2026-09-24T09:00:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The investigations by attorneys general follow a recent bankruptcy filing in the face of civil lawsuits, falling revenues, and impending debt payments."
+    },
+    {
+      "apiVersion": 1,
+      "id": "b0aa512009c321d7",
+      "headline": "From cybersecurity to AI to Taiwan, what's at stake in Trump's summit with Xi",
+      "category": "politics",
+      "publishedAt": "2026-09-23T16:13:52Z",
+      "updatedAt": "2026-09-23T16:13:52Z",
+      "generatedAt": "2026-09-24T17:30:08.201423Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201423Z"
         }
       ],
       "confidenceTier": "low",
@@ -3913,13 +4166,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T14:09:10Z",
       "updatedAt": "2026-09-23T14:09:10Z",
-      "generatedAt": "2026-09-24T16:28:46.209940Z",
+      "generatedAt": "2026-09-24T17:30:08.201432Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209940Z"
+          "updatedAt": "2026-09-24T17:30:08.201432Z"
         }
       ],
       "confidenceTier": "low",
@@ -3947,13 +4200,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-23T13:31:47Z",
       "updatedAt": "2026-09-23T13:31:47Z",
-      "generatedAt": "2026-09-24T16:28:46.209957Z",
+      "generatedAt": "2026-09-24T17:30:08.201441Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209957Z"
+          "updatedAt": "2026-09-24T17:30:08.201441Z"
         }
       ],
       "confidenceTier": "low",
@@ -3981,13 +4234,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T16:00:29Z",
       "updatedAt": "2026-09-24T16:00:29Z",
-      "generatedAt": "2026-09-24T16:28:46.209973Z",
+      "generatedAt": "2026-09-24T17:30:08.201449Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209973Z"
+          "updatedAt": "2026-09-24T17:30:08.201449Z"
         }
       ],
       "confidenceTier": "low",
@@ -4010,59 +4263,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "333f6111e10de0b1",
-      "headline": "M 5.2 - 139 km SW of Kokopo, Papua New Guinea",
-      "category": "science",
-      "publishedAt": "2026-09-24T12:29:58.824000Z",
-      "updatedAt": "2026-09-24T12:29:58.824000Z",
-      "generatedAt": "2026-09-24T16:28:46.209988Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.209988Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.2 - 139 km SW of Kokopo, Papua New Guinea",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txbm",
-          "publishedAt": "2026-09-24T12:29:58.824000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ],
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Aegires_gardineri_Papua_New_Guinea_by_Nick_Hobgood-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Aegires gardineri Papua New Guinea by Nick Hobgood-001 \u2014 Nhobgood / Wikimedia Commons (CC BY-SA 3.0)",
-        "creator": "Nhobgood",
-        "license": "CC BY-SA 3.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aegires_gardineri_Papua_New_Guinea_by_Nick_Hobgood-001.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "566caf6a70cf8e80",
       "headline": "Is Nepal's flood a harbinger of what's to come in the Himalayas?",
       "category": "local",
       "publishedAt": "2026-09-23T11:48:00Z",
       "updatedAt": "2026-09-23T11:48:00Z",
-      "generatedAt": "2026-09-24T16:28:46.210006Z",
+      "generatedAt": "2026-09-24T17:30:08.201457Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210006Z"
+          "updatedAt": "2026-09-24T17:30:08.201457Z"
         }
       ],
       "confidenceTier": "low",
@@ -4093,18 +4305,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "53675376efc7d9eb",
-      "headline": "M 4.9 - Kermadec Islands, New Zealand",
+      "id": "333f6111e10de0b1",
+      "headline": "M 5.2 - 139 km SW of Kokopo, Papua New Guinea",
       "category": "science",
-      "publishedAt": "2026-09-24T11:08:24.838000Z",
-      "updatedAt": "2026-09-24T11:08:24.838000Z",
-      "generatedAt": "2026-09-24T16:28:46.210022Z",
+      "publishedAt": "2026-09-24T12:29:58.824000Z",
+      "updatedAt": "2026-09-24T12:29:58.824000Z",
+      "generatedAt": "2026-09-24T17:30:08.201466Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210022Z"
+          "updatedAt": "2026-09-24T17:30:08.201466Z"
         }
       ],
       "confidenceTier": "low",
@@ -4117,19 +4329,19 @@
       "sources": [
         {
           "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.9 - Kermadec Islands, New Zealand",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txb3",
-          "publishedAt": "2026-09-24T11:08:24.838000Z",
+          "headline": "M 5.2 - 139 km SW of Kokopo, Papua New Guinea",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txbm",
+          "publishedAt": "2026-09-24T12:29:58.824000Z",
           "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/DSIR_archive_37_10_Kermadec_Islands%2C_Kallisto_Expedition%2C_Jan_1977%2C_Hostel_and_Met._Station_on_Raoul_Island.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: DSIR archive 37 10 Kermadec Islands, Kallisto Expedition, Jan 1977, Hostel and Met. Station on Raoul Island \u2014 Department of Scientific and Industrial Research / Wikimedia Commons (CC BY 4.0)",
-        "creator": "Department of Scientific and Industrial Research",
-        "license": "CC BY 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:DSIR_archive_37_10_Kermadec_Islands,_Kallisto_Expedition,_Jan_1977,_Hostel_and_Met._Station_on_Raoul_Island.jpg"
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Aegires_gardineri_Papua_New_Guinea_by_Nick_Hobgood-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Aegires gardineri Papua New Guinea by Nick Hobgood-001 \u2014 Nhobgood / Wikimedia Commons (CC BY-SA 3.0)",
+        "creator": "Nhobgood",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aegires_gardineri_Papua_New_Guinea_by_Nick_Hobgood-001.jpg"
       }
     },
     {
@@ -4139,13 +4351,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T11:13:32Z",
       "updatedAt": "2026-09-23T11:13:32Z",
-      "generatedAt": "2026-09-24T16:28:46.210037Z",
+      "generatedAt": "2026-09-24T17:30:08.201475Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210037Z"
+          "updatedAt": "2026-09-24T17:30:08.201475Z"
         }
       ],
       "confidenceTier": "low",
@@ -4173,13 +4385,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T10:48:47Z",
       "updatedAt": "2026-09-23T10:48:47Z",
-      "generatedAt": "2026-09-24T16:28:46.210071Z",
+      "generatedAt": "2026-09-24T17:30:08.201483Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210071Z"
+          "updatedAt": "2026-09-24T17:30:08.201483Z"
         }
       ],
       "confidenceTier": "low",
@@ -4210,18 +4422,59 @@
     },
     {
       "apiVersion": 1,
-      "id": "41b6f43eb38205f2",
-      "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
+      "id": "53675376efc7d9eb",
+      "headline": "M 4.9 - Kermadec Islands, New Zealand",
       "category": "science",
-      "publishedAt": "2026-09-24T07:40:58.138000Z",
-      "updatedAt": "2026-09-24T07:40:58.138000Z",
-      "generatedAt": "2026-09-24T16:28:46.210087Z",
+      "publishedAt": "2026-09-24T11:08:24.838000Z",
+      "updatedAt": "2026-09-24T11:08:24.838000Z",
+      "generatedAt": "2026-09-24T17:30:08.201490Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210087Z"
+          "updatedAt": "2026-09-24T17:30:08.201490Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.9 - Kermadec Islands, New Zealand",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txb3",
+          "publishedAt": "2026-09-24T11:08:24.838000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ],
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/DSIR_archive_37_10_Kermadec_Islands%2C_Kallisto_Expedition%2C_Jan_1977%2C_Hostel_and_Met._Station_on_Raoul_Island.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: DSIR archive 37 10 Kermadec Islands, Kallisto Expedition, Jan 1977, Hostel and Met. Station on Raoul Island \u2014 Department of Scientific and Industrial Research / Wikimedia Commons (CC BY 4.0)",
+        "creator": "Department of Scientific and Industrial Research",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:DSIR_archive_37_10_Kermadec_Islands,_Kallisto_Expedition,_Jan_1977,_Hostel_and_Met._Station_on_Raoul_Island.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "41b6f43eb38205f2",
+      "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
+      "category": "science",
+      "publishedAt": "2026-09-24T07:40:58.138000Z",
+      "updatedAt": "2026-09-24T07:40:58.138000Z",
+      "generatedAt": "2026-09-24T17:30:08.201499Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201499Z"
         }
       ],
       "confidenceTier": "low",
@@ -4244,17 +4497,17 @@
     {
       "apiVersion": 1,
       "id": "a3f330e85ac6ebf5",
-      "headline": "White House 'repeatedly violated' court order to restore press access, say media outlets",
+      "headline": "White House restores access to media outlets banned by Trump after judge's order",
       "category": "local",
-      "publishedAt": "2026-09-24T15:53:06Z",
-      "updatedAt": "2026-09-24T15:53:06Z",
-      "generatedAt": "2026-09-24T16:28:46.210107Z",
+      "publishedAt": "2026-09-24T16:42:56Z",
+      "updatedAt": "2026-09-24T16:42:56Z",
+      "generatedAt": "2026-09-24T17:30:08.201508Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210107Z"
+          "updatedAt": "2026-09-24T17:30:08.201508Z"
         }
       ],
       "confidenceTier": "low",
@@ -4267,13 +4520,13 @@
       "sources": [
         {
           "publisher": "BBC World",
-          "headline": "White House 'repeatedly violated' court order to restore press access, say media outlets",
+          "headline": "White House restores access to media outlets banned by Trump after judge's order",
           "url": "https://www.bbc.co.uk/news/articles/cqe8ek7608mlo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T15:53:06Z",
+          "publishedAt": "2026-09-24T16:42:56Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "Employees from CNN, Politico and MS Now reported being denied entry, with some having passes confiscated.",
+      "excerpt": "CNN, Politico and MS NOW were allowed back into the White House after some of their staff were earlier turned away.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Latrobe_White_House_cropa2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Latrobe White House cropa2 \u2014 Benjamin Henry Latrobe / Wikimedia Commons (Public domain)",
@@ -4285,52 +4538,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "67c5e56e123ec0d7",
-      "headline": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
-      "category": "technology",
-      "publishedAt": "2026-09-24T15:42:07Z",
-      "updatedAt": "2026-09-24T15:42:07Z",
-      "generatedAt": "2026-09-24T16:28:46.210125Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210125Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
-          "url": "https://www.bbc.co.uk/news/articles/c6vgy0333dppo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T15:42:07Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Australia criticised OpenAI for taking \"too long\" to tell them about the breach which happened in June."
-    },
-    {
-      "apiVersion": 1,
       "id": "bf98018d9605ced6",
       "headline": "Ethiopia and Tigray accuse each of launching offensives, fuelling fears of new war",
       "category": "travel",
       "publishedAt": "2026-09-24T09:28:33Z",
       "updatedAt": "2026-09-24T09:28:33Z",
-      "generatedAt": "2026-09-24T16:28:46.210139Z",
+      "generatedAt": "2026-09-24T17:30:08.201518Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210139Z"
+          "updatedAt": "2026-09-24T17:30:08.201518Z"
         }
       ],
       "confidenceTier": "low",
@@ -4353,18 +4572,94 @@
     },
     {
       "apiVersion": 1,
-      "id": "19c65dda7cd33fee",
-      "headline": "Ethiopia's army says it has repelled attacks in first comment on fresh fighting",
+      "id": "c958b88090d6af69",
+      "headline": "Greek PM urges UK PM to return Elgin Marbles permanently",
       "category": "local",
-      "publishedAt": "2026-09-24T15:37:45Z",
-      "updatedAt": "2026-09-24T15:37:45Z",
-      "generatedAt": "2026-09-24T16:28:46.210154Z",
+      "publishedAt": "2026-09-24T16:36:33Z",
+      "updatedAt": "2026-09-24T16:36:33Z",
+      "generatedAt": "2026-09-24T17:30:08.201527Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210154Z"
+          "updatedAt": "2026-09-24T17:30:08.201527Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Greek PM urges UK PM to return Elgin Marbles permanently",
+          "url": "https://www.bbc.co.uk/news/articles/cqm2mgk6mlddo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T16:36:33Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Andy Burnham said in 2023 the sculptures should be returned to Greece with \"no strings attached\".",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/93/William_Etty_-_Study_from_the_Elgin_Marbles_-_circa_1840.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: William Etty - Study from the Elgin Marbles - circa 1840 \u2014 William Etty / Wikimedia Commons (Public domain)",
+        "creator": "William Etty",
+        "license": "Public domain",
+        "licenseUrl": "https://en.wikipedia.org/wiki/Public_domain",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:William_Etty_-_Study_from_the_Elgin_Marbles_-_circa_1840.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "67c5e56e123ec0d7",
+      "headline": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
+      "category": "technology",
+      "publishedAt": "2026-09-24T15:42:07Z",
+      "updatedAt": "2026-09-24T15:42:07Z",
+      "generatedAt": "2026-09-24T17:30:08.201535Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201535Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
+          "url": "https://www.bbc.co.uk/news/articles/c6vgy0333dppo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T15:42:07Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Australia criticised OpenAI for taking \"too long\" to tell them about the breach which happened in June."
+    },
+    {
+      "apiVersion": 1,
+      "id": "19c65dda7cd33fee",
+      "headline": "Ethiopia's army says it has repelled attacks in first comment on fresh fighting",
+      "category": "local",
+      "publishedAt": "2026-09-24T15:37:45Z",
+      "updatedAt": "2026-09-24T15:37:45Z",
+      "generatedAt": "2026-09-24T17:30:08.201544Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201544Z"
         }
       ],
       "confidenceTier": "low",
@@ -4392,13 +4687,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T14:37:34Z",
       "updatedAt": "2026-09-24T14:37:34Z",
-      "generatedAt": "2026-09-24T16:28:46.210169Z",
+      "generatedAt": "2026-09-24T17:30:08.201552Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210169Z"
+          "updatedAt": "2026-09-24T17:30:08.201552Z"
         }
       ],
       "confidenceTier": "low",
@@ -4426,13 +4721,13 @@
       "category": "health",
       "publishedAt": "2026-09-24T14:08:38Z",
       "updatedAt": "2026-09-24T14:08:38Z",
-      "generatedAt": "2026-09-24T16:28:46.210185Z",
+      "generatedAt": "2026-09-24T17:30:08.201560Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210185Z"
+          "updatedAt": "2026-09-24T17:30:08.201560Z"
         }
       ],
       "confidenceTier": "low",
@@ -4460,13 +4755,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T03:30:26.013000Z",
       "updatedAt": "2026-09-24T03:30:26.013000Z",
-      "generatedAt": "2026-09-24T16:28:46.210199Z",
+      "generatedAt": "2026-09-24T17:30:08.201570Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210199Z"
+          "updatedAt": "2026-09-24T17:30:08.201570Z"
         }
       ],
       "confidenceTier": "low",
@@ -4488,51 +4783,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "3b0d18caed19c5e4",
-      "headline": "M 4.6 - 223 km WNW of Abepura, Indonesia",
-      "category": "science",
-      "publishedAt": "2026-09-24T00:26:38.374000Z",
-      "updatedAt": "2026-09-24T00:26:38.374000Z",
-      "generatedAt": "2026-09-24T16:28:46.210214Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210214Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.6 - 223 km WNW of Abepura, Indonesia",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx7g",
-          "publishedAt": "2026-09-24T00:26:38.374000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ]
-    },
-    {
-      "apiVersion": 1,
       "id": "fa5549143a001776",
       "headline": "Trump offers warm welcome as China's Xi arrives for US visit",
       "category": "local",
       "publishedAt": "2026-09-24T03:52:21Z",
       "updatedAt": "2026-09-24T03:52:21Z",
-      "generatedAt": "2026-09-24T16:28:46.210230Z",
+      "generatedAt": "2026-09-24T17:30:08.201578Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210230Z"
+          "updatedAt": "2026-09-24T17:30:08.201578Z"
         }
       ],
       "confidenceTier": "low",
@@ -4560,13 +4822,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T08:41:58.018000Z",
       "updatedAt": "2026-09-23T08:41:58.018000Z",
-      "generatedAt": "2026-09-24T16:28:46.210245Z",
+      "generatedAt": "2026-09-24T17:30:08.201585Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210245Z"
+          "updatedAt": "2026-09-24T17:30:08.201585Z"
         }
       ],
       "confidenceTier": "low",
@@ -4596,18 +4858,51 @@
     },
     {
       "apiVersion": 1,
-      "id": "8a00f720375b1a31",
-      "headline": "Why India's Election Commission is in the eye of a storm - again",
-      "category": "politics",
-      "publishedAt": "2026-09-24T08:26:19Z",
-      "updatedAt": "2026-09-24T08:26:19Z",
-      "generatedAt": "2026-09-24T16:28:46.210262Z",
+      "id": "3b0d18caed19c5e4",
+      "headline": "M 4.6 - 223 km WNW of Abepura, Indonesia",
+      "category": "science",
+      "publishedAt": "2026-09-24T00:26:38.374000Z",
+      "updatedAt": "2026-09-24T00:26:38.374000Z",
+      "generatedAt": "2026-09-24T17:30:08.201594Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210262Z"
+          "updatedAt": "2026-09-24T17:30:08.201594Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.6 - 223 km WNW of Abepura, Indonesia",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx7g",
+          "publishedAt": "2026-09-24T00:26:38.374000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ]
+    },
+    {
+      "apiVersion": 1,
+      "id": "8a00f720375b1a31",
+      "headline": "Why India's Election Commission is in the eye of a storm - again",
+      "category": "politics",
+      "publishedAt": "2026-09-24T08:26:19Z",
+      "updatedAt": "2026-09-24T08:26:19Z",
+      "generatedAt": "2026-09-24T17:30:08.201602Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201602Z"
         }
       ],
       "confidenceTier": "low",
@@ -4643,13 +4938,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T05:46:11.056000Z",
       "updatedAt": "2026-09-23T05:46:11.056000Z",
-      "generatedAt": "2026-09-24T16:28:46.210276Z",
+      "generatedAt": "2026-09-24T17:30:08.201610Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210276Z"
+          "updatedAt": "2026-09-24T17:30:08.201610Z"
         }
       ],
       "confidenceTier": "low",
@@ -4676,13 +4971,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T14:45:35.743000Z",
       "updatedAt": "2026-09-23T14:45:35.743000Z",
-      "generatedAt": "2026-09-24T16:28:46.210294Z",
+      "generatedAt": "2026-09-24T17:30:08.201618Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210294Z"
+          "updatedAt": "2026-09-24T17:30:08.201618Z"
         }
       ],
       "confidenceTier": "low",
@@ -4709,13 +5004,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T14:41:02.650000Z",
       "updatedAt": "2026-09-23T14:41:02.650000Z",
-      "generatedAt": "2026-09-24T16:28:46.210309Z",
+      "generatedAt": "2026-09-24T17:30:08.201626Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210309Z"
+          "updatedAt": "2026-09-24T17:30:08.201626Z"
         }
       ],
       "confidenceTier": "low",
@@ -4742,13 +5037,13 @@
       "category": "technology",
       "publishedAt": "2026-09-24T06:47:12Z",
       "updatedAt": "2026-09-24T06:47:12Z",
-      "generatedAt": "2026-09-24T16:28:46.210324Z",
+      "generatedAt": "2026-09-24T17:30:08.201634Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210324Z"
+          "updatedAt": "2026-09-24T17:30:08.201634Z"
         }
       ],
       "confidenceTier": "low",
@@ -4784,13 +5079,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T13:01:51.614000Z",
       "updatedAt": "2026-09-23T13:01:51.614000Z",
-      "generatedAt": "2026-09-24T16:28:46.210339Z",
+      "generatedAt": "2026-09-24T17:30:08.201642Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210339Z"
+          "updatedAt": "2026-09-24T17:30:08.201642Z"
         }
       ],
       "confidenceTier": "low",
@@ -4825,13 +5120,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T12:23:20.274000Z",
       "updatedAt": "2026-09-23T12:23:20.274000Z",
-      "generatedAt": "2026-09-24T16:28:46.210356Z",
+      "generatedAt": "2026-09-24T17:30:08.201649Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210356Z"
+          "updatedAt": "2026-09-24T17:30:08.201649Z"
         }
       ],
       "confidenceTier": "low",
@@ -4853,84 +5148,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "b54f1d6445c0fe30",
-      "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
-      "category": "science",
-      "publishedAt": "2026-09-23T17:46:06.489000Z",
-      "updatedAt": "2026-09-23T17:46:06.489000Z",
-      "generatedAt": "2026-09-24T16:28:46.210371Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210371Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx58",
-          "publishedAt": "2026-09-23T17:46:06.489000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ]
-    },
-    {
-      "apiVersion": 1,
-      "id": "2b79dfde9c9345ba",
-      "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
-      "category": "science",
-      "publishedAt": "2026-09-23T17:20:32.721000Z",
-      "updatedAt": "2026-09-23T17:20:32.721000Z",
-      "generatedAt": "2026-09-24T16:28:46.210386Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210386Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx53",
-          "publishedAt": "2026-09-23T17:20:32.721000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ]
-    },
-    {
-      "apiVersion": 1,
       "id": "90057ea15afb23a4",
       "headline": "Eleven killed in mass shooting at house in South Africa",
       "category": "public-safety",
       "publishedAt": "2026-09-23T14:02:55Z",
       "updatedAt": "2026-09-23T14:02:55Z",
-      "generatedAt": "2026-09-24T16:28:46.210401Z",
+      "generatedAt": "2026-09-24T17:30:08.201657Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210401Z"
+          "updatedAt": "2026-09-24T17:30:08.201657Z"
         }
       ],
       "confidenceTier": "low",
@@ -4966,13 +5195,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T02:02:43.755000Z",
       "updatedAt": "2026-09-23T02:02:43.755000Z",
-      "generatedAt": "2026-09-24T16:28:46.210417Z",
+      "generatedAt": "2026-09-24T17:30:08.201664Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210417Z"
+          "updatedAt": "2026-09-24T17:30:08.201664Z"
         }
       ],
       "confidenceTier": "low",
@@ -4999,13 +5228,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T16:48:37.858000Z",
       "updatedAt": "2026-09-23T16:48:37.858000Z",
-      "generatedAt": "2026-09-24T16:28:46.210432Z",
+      "generatedAt": "2026-09-24T17:30:08.201674Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210432Z"
+          "updatedAt": "2026-09-24T17:30:08.201674Z"
         }
       ],
       "confidenceTier": "low",
@@ -5035,18 +5264,84 @@
     },
     {
       "apiVersion": 1,
-      "id": "189b76d8ea8a7215",
-      "headline": "M 5.3 - 51 km WSW of Arauco, Argentina",
+      "id": "b54f1d6445c0fe30",
+      "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
       "category": "science",
-      "publishedAt": "2026-09-23T09:21:14.600000Z",
-      "updatedAt": "2026-09-23T09:21:14.600000Z",
-      "generatedAt": "2026-09-24T16:28:46.210449Z",
+      "publishedAt": "2026-09-23T17:46:06.489000Z",
+      "updatedAt": "2026-09-23T17:46:06.489000Z",
+      "generatedAt": "2026-09-24T17:30:08.201682Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210449Z"
+          "updatedAt": "2026-09-24T17:30:08.201682Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.0 - 140 km NNE of Ba, Fiji",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx58",
+          "publishedAt": "2026-09-23T17:46:06.489000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ]
+    },
+    {
+      "apiVersion": 1,
+      "id": "2b79dfde9c9345ba",
+      "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
+      "category": "science",
+      "publishedAt": "2026-09-23T17:20:32.721000Z",
+      "updatedAt": "2026-09-23T17:20:32.721000Z",
+      "generatedAt": "2026-09-24T17:30:08.201690Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201690Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.9 - 193 km SE of Mata-Utu, Wallis and Futuna",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx53",
+          "publishedAt": "2026-09-23T17:20:32.721000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ]
+    },
+    {
+      "apiVersion": 1,
+      "id": "189b76d8ea8a7215",
+      "headline": "M 5.3 - 51 km WSW of Arauco, Argentina",
+      "category": "science",
+      "publishedAt": "2026-09-23T09:21:14.600000Z",
+      "updatedAt": "2026-09-23T09:21:14.600000Z",
+      "generatedAt": "2026-09-24T17:30:08.201699Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201699Z"
         }
       ],
       "confidenceTier": "low",
@@ -5073,13 +5368,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-24T00:50:24Z",
       "updatedAt": "2026-09-24T00:50:24Z",
-      "generatedAt": "2026-09-24T16:28:46.210463Z",
+      "generatedAt": "2026-09-24T17:30:08.201707Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210463Z"
+          "updatedAt": "2026-09-24T17:30:08.201707Z"
         }
       ],
       "confidenceTier": "low",
@@ -5107,13 +5402,13 @@
       "category": "health",
       "publishedAt": "2026-09-24T00:15:46Z",
       "updatedAt": "2026-09-24T00:15:46Z",
-      "generatedAt": "2026-09-24T16:28:46.210478Z",
+      "generatedAt": "2026-09-24T17:30:08.201715Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210478Z"
+          "updatedAt": "2026-09-24T17:30:08.201715Z"
         }
       ],
       "confidenceTier": "low",
@@ -5149,13 +5444,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T23:58:50Z",
       "updatedAt": "2026-09-23T23:58:50Z",
-      "generatedAt": "2026-09-24T16:28:46.210493Z",
+      "generatedAt": "2026-09-24T17:30:08.201723Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210493Z"
+          "updatedAt": "2026-09-24T17:30:08.201723Z"
         }
       ],
       "confidenceTier": "low",
@@ -5183,13 +5478,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T23:42:38Z",
       "updatedAt": "2026-09-23T23:42:38Z",
-      "generatedAt": "2026-09-24T16:28:46.210507Z",
+      "generatedAt": "2026-09-24T17:30:08.201731Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210507Z"
+          "updatedAt": "2026-09-24T17:30:08.201731Z"
         }
       ],
       "confidenceTier": "low",
@@ -5217,13 +5512,13 @@
       "category": "sports",
       "publishedAt": "2026-09-23T23:14:10Z",
       "updatedAt": "2026-09-23T23:14:10Z",
-      "generatedAt": "2026-09-24T16:28:46.210521Z",
+      "generatedAt": "2026-09-24T17:30:08.201738Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210521Z"
+          "updatedAt": "2026-09-24T17:30:08.201738Z"
         }
       ],
       "confidenceTier": "low",
@@ -5251,13 +5546,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-23T23:03:56Z",
       "updatedAt": "2026-09-23T23:03:56Z",
-      "generatedAt": "2026-09-24T16:28:46.210536Z",
+      "generatedAt": "2026-09-24T17:30:08.201746Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210536Z"
+          "updatedAt": "2026-09-24T17:30:08.201746Z"
         }
       ],
       "confidenceTier": "low",
@@ -5293,13 +5588,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T15:46:28Z",
       "updatedAt": "2026-09-23T15:46:28Z",
-      "generatedAt": "2026-09-24T16:28:46.210550Z",
+      "generatedAt": "2026-09-24T17:30:08.201755Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210550Z"
+          "updatedAt": "2026-09-24T17:30:08.201755Z"
         }
       ],
       "confidenceTier": "low",
@@ -5327,13 +5622,13 @@
       "category": "technology",
       "publishedAt": "2026-09-23T22:01:17Z",
       "updatedAt": "2026-09-23T22:01:17Z",
-      "generatedAt": "2026-09-24T16:28:46.210567Z",
+      "generatedAt": "2026-09-24T17:30:08.201763Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210567Z"
+          "updatedAt": "2026-09-24T17:30:08.201763Z"
         }
       ],
       "confidenceTier": "low",
@@ -5361,13 +5656,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:29:04Z",
       "updatedAt": "2026-09-23T21:29:04Z",
-      "generatedAt": "2026-09-24T16:28:46.210582Z",
+      "generatedAt": "2026-09-24T17:30:08.201771Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210582Z"
+          "updatedAt": "2026-09-24T17:30:08.201771Z"
         }
       ],
       "confidenceTier": "low",
@@ -5395,13 +5690,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:16:00Z",
       "updatedAt": "2026-09-23T21:16:00Z",
-      "generatedAt": "2026-09-24T16:28:46.210602Z",
+      "generatedAt": "2026-09-24T17:30:08.201780Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210602Z"
+          "updatedAt": "2026-09-24T17:30:08.201780Z"
         }
       ],
       "confidenceTier": "low",
@@ -5429,13 +5724,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T18:51:12Z",
       "updatedAt": "2026-09-23T18:51:12Z",
-      "generatedAt": "2026-09-24T16:28:46.210617Z",
+      "generatedAt": "2026-09-24T17:30:08.201788Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210617Z"
+          "updatedAt": "2026-09-24T17:30:08.201788Z"
         }
       ],
       "confidenceTier": "low",
@@ -5471,13 +5766,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T18:15:31Z",
       "updatedAt": "2026-09-23T18:15:31Z",
-      "generatedAt": "2026-09-24T16:28:46.210632Z",
+      "generatedAt": "2026-09-24T17:30:08.201796Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210632Z"
+          "updatedAt": "2026-09-24T17:30:08.201796Z"
         }
       ],
       "confidenceTier": "low",
@@ -5500,52 +5795,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "9d66a63aab8837d4",
-      "headline": "Poland accuses Russian military helicopter of violating its airspace",
-      "category": "local",
-      "publishedAt": "2026-09-23T15:37:20Z",
-      "updatedAt": "2026-09-23T15:37:20Z",
-      "generatedAt": "2026-09-24T16:28:46.210647Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210647Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "Poland accuses Russian military helicopter of violating its airspace",
-          "url": "https://www.bbc.co.uk/news/articles/c699d2dn9z0mo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-23T15:37:20Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Poland says the aircraft stayed in its skies for 42 seconds, forcing the Nato member to scramble its fighter jets."
-    },
-    {
-      "apiVersion": 1,
       "id": "44ac13922790230d",
       "headline": "Playing loud music on the bus? That will cost you hundreds of dollars in Singapore",
       "category": "entertainment",
       "publishedAt": "2026-09-23T00:05:34Z",
       "updatedAt": "2026-09-23T00:05:34Z",
-      "generatedAt": "2026-09-24T16:28:46.210661Z",
+      "generatedAt": "2026-09-24T17:30:08.201805Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210661Z"
+          "updatedAt": "2026-09-24T17:30:08.201805Z"
         }
       ],
       "confidenceTier": "low",
@@ -5568,18 +5829,52 @@
     },
     {
       "apiVersion": 1,
-      "id": "b014abb2b59a604d",
-      "headline": "Dramatic eviction of woman aged 87 highlights Spain's housing shortage",
+      "id": "9d66a63aab8837d4",
+      "headline": "Poland accuses Russian military helicopter of violating its airspace",
       "category": "local",
-      "publishedAt": "2026-09-23T12:31:31Z",
-      "updatedAt": "2026-09-23T12:31:31Z",
-      "generatedAt": "2026-09-24T16:28:46.210676Z",
+      "publishedAt": "2026-09-23T15:37:20Z",
+      "updatedAt": "2026-09-23T15:37:20Z",
+      "generatedAt": "2026-09-24T17:30:08.201813Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210676Z"
+          "updatedAt": "2026-09-24T17:30:08.201813Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Poland accuses Russian military helicopter of violating its airspace",
+          "url": "https://www.bbc.co.uk/news/articles/c699d2dn9z0mo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-23T15:37:20Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Poland says the aircraft stayed in its skies for 42 seconds, forcing the Nato member to scramble its fighter jets."
+    },
+    {
+      "apiVersion": 1,
+      "id": "b014abb2b59a604d",
+      "headline": "Dramatic eviction of woman aged 87 highlights Spain's housing shortage",
+      "category": "local",
+      "publishedAt": "2026-09-23T12:31:31Z",
+      "updatedAt": "2026-09-23T12:31:31Z",
+      "generatedAt": "2026-09-24T17:30:08.201824Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T17:30:08.201824Z"
         }
       ],
       "confidenceTier": "low",
@@ -5607,13 +5902,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T12:22:53Z",
       "updatedAt": "2026-09-23T12:22:53Z",
-      "generatedAt": "2026-09-24T16:28:46.210691Z",
+      "generatedAt": "2026-09-24T17:30:08.201831Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210691Z"
+          "updatedAt": "2026-09-24T17:30:08.201831Z"
         }
       ],
       "confidenceTier": "low",
@@ -5649,13 +5944,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T05:02:26Z",
       "updatedAt": "2026-09-23T05:02:26Z",
-      "generatedAt": "2026-09-24T16:28:46.210706Z",
+      "generatedAt": "2026-09-24T17:30:08.201840Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210706Z"
+          "updatedAt": "2026-09-24T17:30:08.201840Z"
         }
       ],
       "confidenceTier": "low",
@@ -5683,13 +5978,13 @@
       "category": "politics",
       "publishedAt": "2026-09-22T20:59:00Z",
       "updatedAt": "2026-09-22T20:59:00Z",
-      "generatedAt": "2026-09-24T16:28:46.210725Z",
+      "generatedAt": "2026-09-24T17:30:08.201848Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T16:28:46.210725Z"
+          "updatedAt": "2026-09-24T17:30:08.201848Z"
         }
       ],
       "confidenceTier": "low",
