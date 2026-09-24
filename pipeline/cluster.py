@@ -122,7 +122,7 @@ def entity_similarity(
 ) -> float:
     if not a or not b:
         return 0.0
-    inter = (a & b) - set(ignore)
+    inter = (a & b) - ignore
     if not inter:
         return 0.0
     # Any shared multi-word entity is strong; otherwise partial credit.
