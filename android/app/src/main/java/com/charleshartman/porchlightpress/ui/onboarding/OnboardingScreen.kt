@@ -9,8 +9,23 @@ import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -50,6 +65,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.charleshartman.porchlightpress.data.remote.PlaceDto
 import com.charleshartman.porchlightpress.domain.Place
+import com.charleshartman.porchlightpress.ui.components.PorchlightMark
+import com.charleshartman.porchlightpress.ui.motion.PorchlightMotion
+import com.charleshartman.porchlightpress.ui.motion.rememberReduceMotion
+import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
+import com.charleshartman.porchlightpress.ui.theme.classicPaperBrush
+import com.charleshartman.porchlightpress.ui.theme.modernSurfaceBrush
 
 private val ALL_STEPS = OnboardingStep.entries
 
@@ -62,20 +83,36 @@ fun OnboardingRoute(
 ) {
     val state by vm.state.collectAsState()
     BackHandler(enabled = state.step != OnboardingStep.WELCOME) { vm.onBack() }
+    val classic = LocalIsClassic.current
+    val bg = if (classic) Modifier.background(classicPaperBrush()) else Modifier.background(modernSurfaceBrush())
+    val reduce = rememberReduceMotion()
     Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
+        Modifier.fillMaxSize().then(bg).verticalScroll(rememberScrollState()).padding(20.dp),
     ) {
         ProgressDots(current = state.step.ordinal, total = ALL_STEPS.size)
         Spacer(Modifier.height(12.dp))
-        when (state.step) {
-            OnboardingStep.WELCOME -> WelcomeStep(onContinue = vm::onContinue)
-            OnboardingStep.LANGUAGE -> LanguageStep(vm)
-            OnboardingStep.LOCATION -> LocationStep(vm, gpsClickHandler)
-            OnboardingStep.CONFIRM -> ConfirmStep(vm)
-            OnboardingStep.INTERESTS -> InterestsStep(vm)
-            OnboardingStep.NOTIFICATIONS -> NotificationsStep(vm, notificationHandler)
-            OnboardingStep.PRIVACY -> PrivacyStep(vm, activity)
-            OnboardingStep.DONE -> DoneStep(vm)
+        AnimatedContent(
+            targetState = state.step,
+            transitionSpec = {
+                if (reduce) {
+                    fadeIn(tween(0)) togetherWith fadeOut(tween(0))
+                } else {
+                    (slideInHorizontally(tween(PorchlightMotion.slideMs(false))) { it / 4 } + fadeIn(tween(PorchlightMotion.fadeMs(false)))) togetherWith
+                        (slideOutHorizontally(tween(PorchlightMotion.slideMs(false))) { -it / 4 } + fadeOut(tween(PorchlightMotion.fadeMs(false))))
+                }
+            },
+            label = "onboarding-step",
+        ) { step ->
+            when (step) {
+                OnboardingStep.WELCOME -> WelcomeStep(onContinue = vm::onContinue)
+                OnboardingStep.LANGUAGE -> LanguageStep(vm)
+                OnboardingStep.LOCATION -> LocationStep(vm, gpsClickHandler)
+                OnboardingStep.CONFIRM -> ConfirmStep(vm)
+                OnboardingStep.INTERESTS -> InterestsStep(vm)
+                OnboardingStep.NOTIFICATIONS -> NotificationsStep(vm, notificationHandler)
+                OnboardingStep.PRIVACY -> PrivacyStep(vm, activity)
+                OnboardingStep.DONE -> DoneStep(vm)
+            }
         }
     }
 }
@@ -85,12 +122,23 @@ private fun ProgressDots(current: Int, total: Int) {
     Row(
         Modifier.fillMaxWidth().testTag("ob-progress"),
         horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         repeat(total) { i ->
-            Text(
-                if (i == current) "●" else "○",
-                style = MaterialTheme.typography.labelLarge,
-                color = if (i == current) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
+            val active = i == current
+            val done = i < current
+            val w by animateFloatAsState(if (active) 22f else 8f, label = "dot-w")
+            Box(
+                Modifier
+                    .height(8.dp)
+                    .width(w.dp)
+                    .clip(RoundedCornerShape(50))
+                    .background(
+                        when {
+                            active || done -> MaterialTheme.colorScheme.primary
+                            else -> MaterialTheme.colorScheme.outline.copy(alpha = 0.45f)
+                        },
+                    ),
             )
         }
     }
@@ -120,12 +168,13 @@ private fun StepNav(
 
 @Composable
 private fun WelcomeStep(onContinue: () -> Unit) {
-    Column(Modifier.fillMaxWidth().testTag("step-welcome"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(Modifier.fillMaxWidth().testTag("step-welcome"), verticalArrangement = Arrangement.spacedBy(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        PorchlightMark(size = 56.dp)
         Text("Welcome to Porchlight Press", style = MaterialTheme.typography.headlineSmall)
-        Text("Your personal newspaper: local news first, free, with ads.")
-        Text("Stories are AI-written briefs that always link the real reporting — and say so on every story.")
+        Text("Your personal newspaper: local news first, free, with ads.", style = MaterialTheme.typography.bodyLarge)
+        Text("Stories are AI-written briefs that always link the real reporting — and say so on every story.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Spacer(Modifier.height(8.dp))
-        Button(onClick = onContinue, modifier = Modifier.testTag("ob-continue")) { Text("Continue") }
+        Button(onClick = onContinue, modifier = Modifier.fillMaxWidth().testTag("ob-continue"), shape = RoundedCornerShape(50)) { Text("Continue") }
     }
 }
 
@@ -484,7 +533,7 @@ private fun DoneStep(vm: OnboardingViewModel) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("📰", style = MaterialTheme.typography.displaySmall)
+        PorchlightMark(size = 48.dp)
         Text("PORCHLIGHT PRESS", style = MaterialTheme.typography.headlineSmall)
         when (val sync = state.sync) {
             is com.charleshartman.porchlightpress.ui.onboarding.SyncUiState.Loading ->

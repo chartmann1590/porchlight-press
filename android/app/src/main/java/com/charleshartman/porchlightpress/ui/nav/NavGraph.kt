@@ -7,6 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -42,7 +48,22 @@ fun PorchlightNavGraph(
     onRequestLocationSwitchUi: () -> Unit = onSwitchLocation,
     navController: NavHostController = rememberNavController(),
 ) {
-    NavHost(navController = navController, startDestination = Routes.FRONT) {
+    NavHost(
+        navController = navController,
+        startDestination = Routes.FRONT,
+        enterTransition = {
+            slideInHorizontally(tween(380)) { it / 5 } + fadeIn(tween(280))
+        },
+        exitTransition = {
+            slideOutHorizontally(tween(320)) { -it / 8 } + fadeOut(tween(220))
+        },
+        popEnterTransition = {
+            slideInHorizontally(tween(360)) { -it / 5 } + fadeIn(tween(260))
+        },
+        popExitTransition = {
+            slideOutHorizontally(tween(320)) { it / 6 } + fadeOut(tween(220))
+        },
+    ) {
         composable(Routes.FRONT) {
             val factory = remember(container) {
                 object : ViewModelProvider.Factory {

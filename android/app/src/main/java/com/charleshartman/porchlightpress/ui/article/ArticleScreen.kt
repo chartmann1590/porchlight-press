@@ -2,6 +2,13 @@ package com.charleshartman.porchlightpress.ui.article
 
 import android.content.Intent
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,6 +43,11 @@ import com.charleshartman.porchlightpress.ui.components.AiBadge
 import com.charleshartman.porchlightpress.ui.components.AiDisclosureBox
 import com.charleshartman.porchlightpress.ui.components.ImageWithAttribution
 import com.charleshartman.porchlightpress.ui.components.TranslationLabel
+import com.charleshartman.porchlightpress.ui.motion.PorchlightMotion
+import com.charleshartman.porchlightpress.ui.motion.rememberReduceMotion
+import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
+import com.charleshartman.porchlightpress.ui.theme.classicPaperBrush
+import com.charleshartman.porchlightpress.ui.theme.modernSurfaceBrush
 import com.charleshartman.porchlightpress.ui.util.TimeFormat
 
 @Composable
@@ -48,7 +60,10 @@ fun ArticleScreen(
     val cur = stateVal
     val context = LocalContext.current
 
-    Column(modifier.fillMaxSize().testTag("article-screen")) {
+    val classic = LocalIsClassic.current
+    val bg = if (classic) Modifier.background(classicPaperBrush()) else Modifier.background(modernSurfaceBrush())
+    val reduce = rememberReduceMotion()
+    Column(modifier.fillMaxSize().then(bg).testTag("article-screen")) {
         // Top bar with Back + Share
         Row(
             Modifier.fillMaxWidth().padding(8.dp),
@@ -175,7 +190,7 @@ fun ArticleScreen(
                         }
                     }
 
-                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outline.copy(alpha = 0.6f))
 
                     // REPORTING SOURCES
                     Text(
@@ -214,14 +229,19 @@ fun sharePageUrl(storyId: String): String =
 @Composable
 private fun SourceRow(src: StorySource, modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    Column(
-        modifier
+    androidx.compose.material3.Surface(
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 1.dp,
+        modifier = modifier
             .fillMaxWidth()
             .clickable {
                 val intent = CustomTabsIntent.Builder().build()
                 intent.launchUrl(context, android.net.Uri.parse(src.url))
-            }
-            .padding(vertical = 6.dp),
+            },
+    ) {
+    Column(
+        Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         Text(src.publisher, style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), modifier = Modifier.testTag("source-publisher"))
@@ -234,6 +254,7 @@ private fun SourceRow(src: StorySource, modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Text("Read original →", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("source-link"))
+    }
     }
 }
 
