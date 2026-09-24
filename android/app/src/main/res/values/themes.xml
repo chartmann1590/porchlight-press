@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash via androidx core-splashscreen (backports to API 23+; the
+        windowSplashScreen* attrs here are the compat ones, not framework). -->
+    <style name="Theme.PorchlightPress" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.PorchlightPress.Main</item>
+    </style>
+    <style name="Theme.PorchlightPress.Main" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+</resources>

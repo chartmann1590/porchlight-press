@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Location lives only on this device; exclude prefs carrying it from
+        cloud backup (MASTER_PLAN privacy). Databases excluded for the same
+        reason; saved stories re-sync from feeds. -->
+    <exclude domain="sharedpref" path="porchlight_prefs.preferences_pb" />
+    <exclude domain="database" path="porchlight.db" />
+</full-backup-content>
