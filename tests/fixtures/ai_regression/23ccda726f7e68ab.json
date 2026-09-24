@@ -1,0 +1,88 @@
+{
+  "eventId": "23ccda726f7e68ab",
+  "members": [
+    {
+      "id": "23ccda726f7e68ab5ef188a72c269a22",
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Northeast motorcycle dealership not feeling the pressure of US, Canada trade war",
+      "excerpt": "In one of the latest folds in the ongoing trade war between Canada and the United States, President Donald Trump has enacted a series of tariffs on some Canadian goods and an outright ban on the import of some Canadian motorcycles. One brand in particular, Can-Am, is at the center of the newest bans",
+      "url": "https://www.wamc.org/news/2026-09-23/northeast-motorcycle-dealership-not-feeling-the-pressure-of-us-canada-trade-war",
+      "publishedAt": "2026-09-23T20:38:14Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "CA"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    }
+  ],
+  "memberIds": [
+    "23ccda726f7e68ab5ef188a72c269a22"
+  ],
+  "aliases": [],
+  "firstSeen": "2026-09-23T20:38:14Z",
+  "lastSeen": "2026-09-23T20:38:14Z",
+  "locations": [
+    {
+      "country": "US",
+      "admin1": "US-NY"
+    },
+    {
+      "country": "CA"
+    },
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": "Albany County",
+      "city": "Albany",
+      "metro": "us-ny-capital-region"
+    }
+  ],
+  "section": "local",
+  "category": "local",
+  "headline": "Northeast motorcycle dealership not feeling the pressure of US, Canada trade war",
+  "score": 0.6205642452382331,
+  "scoreComponents": {
+    "freshness": 0.9422569809529321,
+    "locality": 1.0,
+    "corroboration": 0.0,
+    "sourcePriority": 0.9,
+    "breaking": 0.0,
+    "categoryBoost": 0.0,
+    "stalePenalty": 0.0,
+    "duplicatePenalty": 0.0
+  },
+  "breaking": false,
+  "confidence": "MEDIUM",
+  "confidenceTier": "medium",
+  "independentSources": 1,
+  "sources": [
+    {
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Northeast motorcycle dealership not feeling the pressure of US, Canada trade war",
+      "url": "https://www.wamc.org/news/2026-09-23/northeast-motorcycle-dealership-not-feeling-the-pressure-of-us-canada-trade-war",
+      "publishedAt": "2026-09-23T20:38:14Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    }
+  ],
+  "status": "new",
+  "version": 1,
+  "lastBriefHash": null,
+  "lastGeneratedAt": null
+}

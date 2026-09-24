@@ -33,22 +33,38 @@ CATEGORY_IDS = (
 )
 
 SYSTEM_PROMPT = """You are an automated news editor.
-Write a concise newspaper-style news brief using ONLY the supplied source information.
-DO NOT: invent facts, invent quotes, invent names, invent dates, infer motives, make unsupported conclusions, add unsupported background, change numeric values, make political judgments, copy long passages verbatim.
-Clearly distinguish uncertainty. If sources disagree, say they disagree and attribute each version (name each source). If information is developing, say details are developing.
+Write a SHORT news brief using ONLY facts stated in the supplied SOURCES and clusterLocations. Every sentence must be grounded in that material. Shorter beats filler: stop when the sources run out.
+NEVER add background, context, speculation, or filler. BANNED filler (never write these or anything like them):
+- "Details ... are not yet available / are still developing / have not been released"
+- "part of a broader initiative / effort / campaign"
+- "The case is being handled by ..." / "The investigation is ongoing ..." unless a source says so
+- generic closers ("The report highlights the financial strain ...", "officials continue to monitor ...")
+- self-references to the source material ("as reported in the headline/excerpt", "as noted in the source material", "as per the cluster locations", "the report highlights ..."). Attribute facts to publishers ("according to WNYT"), never to "the headline", "the report", or "the cluster locations".
+If the sources say little, write a short brief and stop. If the sources give only one fact, write one or two sentences on that fact alone; never describe plans, details, or context not stated. Do not pad to fill space.
+DO NOT: invent facts, invent quotes, invent names, invent dates, infer motives, make unsupported conclusions, change numeric values, make political judgments.
+PARAPHRASE: never copy 12 or more consecutive words from any source. Rewrite in your own words. Keep agents and patients straight: if police searched for a suspect, do not write the suspect searching.
+GEOGRAPHY: state what happened in a place, never where the place is located. No "X is located in Y", "X is in Y County", "X, which is in Y". No "was reported on <date>" meta-sentences ("The event was reported on ..."): attribute to publishers instead ("WNYT reported ... on ...").
+Clearly distinguish uncertainty. If sources disagree, say they disagree and attribute each version (name each source).
 Use neutral journalistic language. Do not endorse candidates, parties, or positions. Do not give voting advice. Do not rank parties or candidates. Attribute political claims to their sources.
 Rules:
 - Headline: at most 110 characters, plain text, no quotation marks unless quoting a source verbatim.
 - Dek: one sentence, at most 200 characters, no new facts beyond the body.
-- Body: 60 to 220 words, newspaper style. Every name, number, date, and quote must come from the sources.
+- Body: 30 to 220 words, newspaper style. Match the sources: thin sources get a short brief (30-60 words); rich multi-source clusters get the fuller 60+ word treatment. Every name, number, date, and quote must come from the sources (headlines, excerpts, publishers, timestamps) or clusterLocations. Never pad with filler to hit a length.
 - Category: exactly one of: local, public-safety, business, technology, science, sports, entertainment, politics, health, environment, travel, weather.
-- Locations: only places named in the sources (city/county/state/country). Never invent coordinates.
-- People/organizations: only names appearing in the sources.
+- Locations: only places named in the sources or listed in clusterLocations (city/county/state/country). Use human-readable names (New York, Albany County, Troy). Never output raw codes or slugs like US-NY or us-ny-capital-region. Never invent coordinates.
+- People/organizations: only names appearing in the sources, copied EXACTLY as written (if sources say "President Donald Trump", write that -- never shorten to "President Trump").
 - sourceIds: every ID you list must be one of the supplied source entry IDs. Cite all sources you used.
 - If a fact appears in only one source, attribute it ("according to ...").
 - If sources disagree on a number, include BOTH values with attribution. Never pick one silently.
 - No quotation marks unless the quoted text appears verbatim in a source.
-- Return strict structured JSON only, no prose outside the JSON object."""
+- Return strict structured JSON only, no prose outside the JSON object.
+
+Example of GOOD grounded writing (short, no filler):
+SOURCES: WNYT "Fire on Central Avenue in Albany" / "Firefighters responded to a blaze on Central Avenue in Albany. About 14 residents were displaced." + CBS6 "Albany blaze prompts closures".
+GOOD body (46 words): "Firefighters responded to a blaze on Central Avenue in Albany, according to WNYT and CBS6. About 14 residents were displaced, WNYT reported. Crews closed Central Avenue while they worked the scene, according to CBS6."
+
+Example of BAD padding (never do this):
+BAD: "Details about the investigation are not yet available. The project is part of a broader initiative to improve infrastructure. The case is being handled by the police." (invented background, zero source support)."""
 
 
 FACTCHECK_SYSTEM = """You check whether a news brief is fully supported by its sources.
@@ -119,8 +135,38 @@ def build_retry_messages(
     previous_brief_json: str,
     failure_reason: str,
 ) -> list[dict[str, str]]:
-    """One regeneration: previous output + failure reason appended."""
+    """One regeneration (the single retry): previous output + the specific
+    violation appended, with targeted fix instructions per violation type."""
     base_user = build_user_message(cluster)
+    hints = []
+    low = failure_reason.lower()
+    if "verbatim" in low:
+        hints.append(
+            "For verbatim copy: rewrite EVERY sentence from scratch in your own "
+            "words -- change the sentence structure, not just a few words."
+        )
+    if "name/span" in low or "people" in low or "organization" in low:
+        hints.append(
+            "For unsupported names: copy personal and place names EXACTLY as "
+            "written in the sources; drop any name you cannot find there."
+        )
+    if "background" in low:
+        hints.append(
+            "For unsupported background: delete the flagged sentence and "
+            "replace it (if needed) with a sentence built only from source "
+            "words, or drop it entirely -- a shorter brief is fine."
+        )
+    if "date" in low or "number" in low:
+        hints.append(
+            "For dates/numbers: copy the exact values (and their format "
+            "context) from the sources; never round, shorten, or reformat "
+            "names around them."
+        )
+    if "body must be" in low:
+        hints.append(
+            "For length: add one more grounded sentence from the sources, or "
+            "trim filler -- never pad with background."
+        )
     retry_user = (
         base_user
         + "\n\nYour previous output FAILED validation for this reason:\n"
@@ -128,6 +174,7 @@ def build_retry_messages(
         + "\nPrevious output:\n"
         + previous_brief_json[:4000]
         + "\nFix ONLY the flagged problems. Keep everything else grounded in the sources."
+        + (" " + " ".join(hints) if hints else "")
     )
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
@@ -140,9 +187,12 @@ def build_factcheck_messages(
 ) -> list[dict[str, str]]:
     import json
 
+    # Short prompt: same server, small second call (throughput). The brief
+    # body is at most ~4000 chars; 2000 + 4000 chars of context is enough to
+    # judge support without re-sending the whole cluster.
     user = (
-        "STORY:\n" + brief_body[:4000]
-        + "\n\nSOURCE FACTS:\n" + source_text[:8000]
+        "STORY:\n" + brief_body[:2000]
+        + "\n\nSOURCE FACTS:\n" + source_text[:4000]
         + '\n\nList any statements in the story not supported by the source facts. Return JSON {"unsupported": []}.'
     )
     return [
@@ -160,7 +210,7 @@ def output_fields_doc() -> dict[str, str]:
     return {
         "headline": "at most 110 chars",
         "dek": "at most 200 chars",
-        "body": "60-220 words",
+        "body": "30-220 words (short when sources are thin, never padded)",
         "category": "|".join(CATEGORY_IDS),
         "locations": "places named in sources only",
         "people": "names in sources only",

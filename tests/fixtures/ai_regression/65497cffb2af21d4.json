@@ -1,0 +1,82 @@
+{
+  "eventId": "65497cffb2af21d4",
+  "members": [
+    {
+      "id": "65497cffb2af21d45ea774fa11462135",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "State Police: Poestenkill suspect taken into custody",
+      "excerpt": "39-year-old James Cooper IV has been taken into custody. New York State Police issued a public safety alert on Wednesday afternoon as they searched for the armed man in Poestenkill.",
+      "url": "https://www.news10.com/news/rensselaer-county/state-police-searching-for-armed-suspect-in-poestenkill/",
+      "publishedAt": "2026-09-23T19:44:55Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    }
+  ],
+  "memberIds": [
+    "65497cffb2af21d45ea774fa11462135"
+  ],
+  "aliases": [],
+  "firstSeen": "2026-09-23T19:44:55Z",
+  "lastSeen": "2026-09-23T19:44:55Z",
+  "locations": [
+    {
+      "country": "US",
+      "admin1": "US-NY"
+    },
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": "Albany County",
+      "city": "Albany",
+      "metro": "us-ny-capital-region"
+    }
+  ],
+  "section": "local",
+  "category": "public-safety",
+  "headline": "State Police: Poestenkill suspect taken into custody",
+  "score": 0.6524787899913195,
+  "scoreComponents": {
+    "freshness": 0.9299151599652777,
+    "locality": 1.0,
+    "corroboration": 0.0,
+    "sourcePriority": 0.8,
+    "breaking": 0.0,
+    "categoryBoost": 1.0,
+    "stalePenalty": 0.0,
+    "duplicatePenalty": 0.0
+  },
+  "breaking": false,
+  "confidence": "MEDIUM",
+  "confidenceTier": "medium",
+  "independentSources": 1,
+  "sources": [
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "State Police: Poestenkill suspect taken into custody",
+      "url": "https://www.news10.com/news/rensselaer-county/state-police-searching-for-armed-suspect-in-poestenkill/",
+      "publishedAt": "2026-09-23T19:44:55Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    }
+  ],
+  "status": "new",
+  "version": 1,
+  "lastBriefHash": null,
+  "lastGeneratedAt": null
+}

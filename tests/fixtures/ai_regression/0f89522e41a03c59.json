@@ -1,0 +1,86 @@
+{
+  "eventId": "0f89522e41a03c59",
+  "members": [
+    {
+      "id": "0f89522e41a03c59a02db83e45abb69e",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Grand marshal named for 2026 Schenectady County Holiday Parade",
+      "excerpt": "Schenectady County is already gearing up for its annual holiday parade.",
+      "url": "https://www.news10.com/holidays/grand-marshal-announced-for-2026-schenectady-county-holiday-parade/",
+      "publishedAt": "2026-09-23T21:01:39Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Schenectady County",
+          "city": "Schenectady",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Schenectady County",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    }
+  ],
+  "memberIds": [
+    "0f89522e41a03c59a02db83e45abb69e"
+  ],
+  "aliases": [],
+  "firstSeen": "2026-09-23T21:01:39Z",
+  "lastSeen": "2026-09-23T21:01:39Z",
+  "locations": [
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": "Schenectady County",
+      "city": "Schenectady",
+      "metro": "us-ny-capital-region"
+    },
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": "Schenectady County",
+      "metro": "us-ny-capital-region"
+    }
+  ],
+  "section": "local",
+  "category": "local",
+  "headline": "Grand marshal named for 2026 Schenectady County Holiday Parade",
+  "score": 0.6069193764110725,
+  "scoreComponents": {
+    "freshness": 0.9476775056442901,
+    "locality": 1.0,
+    "corroboration": 0.0,
+    "sourcePriority": 0.8,
+    "breaking": 0.0,
+    "categoryBoost": 0.0,
+    "stalePenalty": 0.0,
+    "duplicatePenalty": 0.0
+  },
+  "breaking": false,
+  "confidence": "MEDIUM",
+  "confidenceTier": "medium",
+  "independentSources": 1,
+  "sources": [
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Grand marshal named for 2026 Schenectady County Holiday Parade",
+      "url": "https://www.news10.com/holidays/grand-marshal-announced-for-2026-schenectady-county-holiday-parade/",
+      "publishedAt": "2026-09-23T21:01:39Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    }
+  ],
+  "status": "new",
+  "version": 1,
+  "lastBriefHash": null,
+  "lastGeneratedAt": null
+}

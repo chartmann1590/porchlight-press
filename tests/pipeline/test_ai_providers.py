@@ -186,6 +186,39 @@ def test_ai_story_carries_attribution_and_model_overwrite():
     assert len(story["sources"]) == 2
 
 
+def test_retry_messages_carry_targeted_hints():
+    from pipeline.ai.prompts import SYSTEM_PROMPT, build_retry_messages
+
+    cluster = _cluster()
+    verbatim = build_retry_messages(cluster, "{}", "verbatim copy: 12+ words")[1]["content"]
+    assert "rewrite EVERY sentence from scratch" in verbatim
+    bg = build_retry_messages(cluster, "{}", "unsupported background: sentence")[1]["content"]
+    assert "shorter brief is fine" in bg
+    # Prompt bans raw location codes/slugs and shortened personal names.
+    assert "US-NY" in SYSTEM_PROMPT and "EXACTLY as written" in SYSTEM_PROMPT
+
+
+def test_retry_runs_warmer_than_first_try():
+    from pipeline.ai.providers import RETRY_TEMPERATURE, try_brief_with_retry
+
+    seen: list = []
+
+    class _Fake:
+        def generate(self, cluster):
+            brief = _good_brief_payload()
+            brief["people"] = ["Invented Person XYZ"]
+            return dict(brief), json.dumps(brief), None
+
+        def generate_with_messages(self, messages, temperature=None):
+            seen.append(temperature)
+            brief = _good_brief_payload()
+            return brief, json.dumps(brief), None
+
+    brief, _result, _raw, _err = try_brief_with_retry(_Fake(), _cluster())
+    assert brief is not None  # retry with the valid payload passes
+    assert seen == [RETRY_TEMPERATURE] and RETRY_TEMPERATURE > 0.2
+
+
 def _factcheck_envelope(unsupported: list[str]) -> dict:
     return {"choices": [{"message": {"content": json.dumps({"unsupported": unsupported})}}]}
 
@@ -246,3 +279,41 @@ def test_factcheck_provider_rejects_non_string_items():
         [{"role": "user", "content": "story body"}]
     )
     assert unsupported is None and err is not None
+
+
+def test_retry_transport_keeps_first_reasons_and_appends_retry_failed():
+    """Kilo #4090372534: retry transport failure must not mix contexts.
+
+    When the first attempt fails validation and the retry itself fails in
+    transport, the return must keep the first attempt's reasons and append a
+    clear ``retry failed: ...`` reason while preserving the 4-tuple shape.
+    """
+    import json
+    from pipeline.ai.providers import try_brief_with_retry
+    from pipeline.ai.validate import ValidationResult
+
+    # First attempt fails validation (invented person), retry fails in transport
+    bad = _good_brief_payload()
+    bad["people"] = ["Invented Person XYZ"]
+    bad_raw = json.dumps(bad)
+
+    class _Fake:
+        def generate(self, cluster):
+            return dict(bad), bad_raw, None
+
+        def generate_with_messages(self, messages, temperature=None):
+            return None, "", "llm transport: ConnectionError: server down"
+
+    brief, result, raw, err = try_brief_with_retry(_Fake(), _cluster())
+    assert brief is None
+    assert isinstance(result, ValidationResult)
+    assert not result.ok
+    # First attempt's reason still present
+    assert any("invented" in r.lower() or "unsupported" in r.lower() for r in result.reasons), result.reasons
+    # Retry failure is appended with clear prefix
+    assert any("retry failed" in r.lower() for r in result.reasons), result.reasons
+    assert "retry failed" in err.lower(), err
+    # 4-tuple shape preserved and raw is from the retry attempt
+    assert raw == ""
+    # Combined error still carries the original validation context
+    assert any(k in err.lower() for k in ("invented", "unsupported", "retry failed")), err

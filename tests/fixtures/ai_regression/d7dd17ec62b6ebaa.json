@@ -1,0 +1,307 @@
+{
+  "eventId": "d7dd17ec62b6ebaa",
+  "members": [
+    {
+      "id": "d7dd17ec62b6ebaab3f3b951ff2216c2",
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Nonprofit: Pedestrian-centered infrastructure investment key to improving quality of life",
+      "excerpt": "James Rath's organization, Capital Streets, works to raise awareness about the importance of public transportation and pedestrian-centered infrastructure in New York's Capital Region. WAMC's Sajina Shrestha spoke with the executive director of the grassroots advocacy group about the importance of, a",
+      "url": "https://www.wamc.org/news/2026-09-22/capital-streets-publictransportation-pedestrian",
+      "publishedAt": "2026-09-22T17:29:02Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    },
+    {
+      "id": "88ead7d88b066dae96384640f5aa3de0",
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Climate debate heats up as New York gubernatorial election looms",
+      "excerpt": "New York Gov. Kathy Hochul is looking to balance climate action and affordability amid criticism from environmentalists and her opponent, Republican Bruce Blakeman.",
+      "url": "https://www.wamc.org/news/2026-09-22/new-york-governor-election-climate-affordability-debate",
+      "publishedAt": "2026-09-22T20:56:26Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    },
+    {
+      "id": "bc530cdf3e46bd7e02332ce65fa5e9dd",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "GE Aerospace invests $225M into Niskayuna Research Center",
+      "excerpt": "GE Aerospace is investing $225 million into the GE Aerospace Research Center over the next five years for innovation and facilities upgrades. The state of New York also committed $8.4 million to the project.",
+      "url": "https://www.news10.com/news/schenectady-county/ge-aerospace-invests-225m-into-niskayuna-research-center/",
+      "publishedAt": "2026-09-22T20:59:47Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    },
+    {
+      "id": "834dfc25c9de26d0e844af8ce149f62c",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "New York challenges $1.4 billion in federal offshore wind buyouts",
+      "excerpt": "New York Attorney General Letitia James and Governor Kathy Hochul led a multi-state lawsuit on Tuesday to block the federal government from paying $1.4 billion to developers who canceled offshore wind projects.",
+      "url": "https://www.news10.com/capitol/ny-hochul-james-wind-lawsuit/",
+      "publishedAt": "2026-09-22T22:20:42Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    },
+    {
+      "id": "b2563946dbbf28ff2818006948d6709b",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Report outlines 4 steps to fix New York's math scores",
+      "excerpt": "Two education advocacy groups released a report on Tuesday proposing four systemic reforms to address declining mathematics proficiency among New York students.",
+      "url": "https://www.news10.com/capitol/new-york-math-reform/",
+      "publishedAt": "2026-09-22T22:22:21Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    },
+    {
+      "id": "16644259fd7e4dbe20c30fe889f45f1b",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Capital Region getting $4.6M for playground projects",
+      "excerpt": "The grant money is from New York Places for Learning, Activity, and Youth Socialization (NY PLAYS).",
+      "url": "https://www.news10.com/news/ny-news/capital-region-getting-4-6m-for-playground-projects/",
+      "publishedAt": "2026-09-23T20:27:55Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    },
+    {
+      "id": "e81052b7fd7e8abb8c817e7d8c5553e5",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "New York faces $12 billion safety net cliff with OBBBA slashing SNAP, Essential Plan",
+      "excerpt": "New York faces significant losses in federal health and nutrition funding due to the One Big Beautiful Bill Act of 2025, forcing local counties to shoulder increased costs for SNAP and threatening the long-term viability of the Essential Plan.",
+      "url": "https://www.news10.com/capitol/ny-obba-cuts-snap-essential-plan/",
+      "publishedAt": "2026-09-23T21:16:26Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    }
+  ],
+  "memberIds": [
+    "d7dd17ec62b6ebaab3f3b951ff2216c2",
+    "88ead7d88b066dae96384640f5aa3de0",
+    "bc530cdf3e46bd7e02332ce65fa5e9dd",
+    "834dfc25c9de26d0e844af8ce149f62c",
+    "b2563946dbbf28ff2818006948d6709b",
+    "16644259fd7e4dbe20c30fe889f45f1b",
+    "e81052b7fd7e8abb8c817e7d8c5553e5"
+  ],
+  "aliases": [],
+  "firstSeen": "2026-09-22T17:29:02Z",
+  "lastSeen": "2026-09-23T21:16:26Z",
+  "locations": [
+    {
+      "country": "US",
+      "admin1": "US-NY"
+    },
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": "Albany County",
+      "city": "Albany",
+      "metro": "us-ny-capital-region"
+    },
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "metro": "us-ny-capital-region"
+    }
+  ],
+  "section": "local",
+  "category": "politics",
+  "headline": "Climate debate heats up as New York gubernatorial election looms",
+  "score": 0.7227748933863811,
+  "scoreComponents": {
+    "freshness": 0.9510995735455247,
+    "locality": 1.0,
+    "corroboration": 0.5,
+    "sourcePriority": 0.9,
+    "breaking": 0.0,
+    "categoryBoost": 0.0,
+    "stalePenalty": 0.0,
+    "duplicatePenalty": 0.0
+  },
+  "breaking": false,
+  "confidence": "HIGH",
+  "confidenceTier": "high",
+  "independentSources": 2,
+  "sources": [
+    {
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Nonprofit: Pedestrian-centered infrastructure investment key to improving quality of life",
+      "url": "https://www.wamc.org/news/2026-09-22/capital-streets-publictransportation-pedestrian",
+      "publishedAt": "2026-09-22T17:29:02Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    },
+    {
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Climate debate heats up as New York gubernatorial election looms",
+      "url": "https://www.wamc.org/news/2026-09-22/new-york-governor-election-climate-affordability-debate",
+      "publishedAt": "2026-09-22T20:56:26Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    },
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "GE Aerospace invests $225M into Niskayuna Research Center",
+      "url": "https://www.news10.com/news/schenectady-county/ge-aerospace-invests-225m-into-niskayuna-research-center/",
+      "publishedAt": "2026-09-22T20:59:47Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    },
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "New York challenges $1.4 billion in federal offshore wind buyouts",
+      "url": "https://www.news10.com/capitol/ny-hochul-james-wind-lawsuit/",
+      "publishedAt": "2026-09-22T22:20:42Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    },
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Report outlines 4 steps to fix New York's math scores",
+      "url": "https://www.news10.com/capitol/new-york-math-reform/",
+      "publishedAt": "2026-09-22T22:22:21Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    },
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Capital Region getting $4.6M for playground projects",
+      "url": "https://www.news10.com/news/ny-news/capital-region-getting-4-6m-for-playground-projects/",
+      "publishedAt": "2026-09-23T20:27:55Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    },
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "New York faces $12 billion safety net cliff with OBBBA slashing SNAP, Essential Plan",
+      "url": "https://www.news10.com/capitol/ny-obba-cuts-snap-essential-plan/",
+      "publishedAt": "2026-09-23T21:16:26Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    }
+  ],
+  "status": "new",
+  "version": 1,
+  "lastBriefHash": null,
+  "lastGeneratedAt": null
+}

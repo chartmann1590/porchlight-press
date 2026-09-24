@@ -77,12 +77,25 @@ def _json_post_fn(
     return _post
 
 
+# Throughput (MASTER_PLAN §11: ~50 briefs/25-min run, 45-min job cap):
+# live briefs run 30-70 words (~50-120 tokens + ~80 JSON wrapper), so 400
+# bounds runaway generations (~36 s worst decode at 11 tok/s) instead of 800
+# (~73 s). A truncated runaway fails JSON validation and takes the single
+# retry -- still validated, never published raw. Factcheck answers
+# {"unsupported": [...]} in a few dozen tokens. Both stay
+# grammar-constrained with thinking disabled (see _json_post_fn). One retry
+# max in try_brief_with_retry: a first-try accept costs one generation
+# (~25 s); only failures pay for the second.
+BRIEF_MAX_TOKENS = 400
+FACTCHECK_MAX_TOKENS = 128
+
+
 def _brief_post_fn(base_url: str, timeout_seconds: int) -> PostFn:
-    return _json_post_fn(base_url, timeout_seconds, _brief_json_schema(), "brief", 800)
+    return _json_post_fn(base_url, timeout_seconds, _brief_json_schema(), "brief", BRIEF_MAX_TOKENS)
 
 
 def _factcheck_post_fn(base_url: str, timeout_seconds: int) -> PostFn:
-    return _json_post_fn(base_url, timeout_seconds, _factcheck_json_schema(), "factcheck", 256)
+    return _json_post_fn(base_url, timeout_seconds, _factcheck_json_schema(), "factcheck", FACTCHECK_MAX_TOKENS)
 
 
 class LocalLlamaProvider:
@@ -105,6 +118,9 @@ class LocalLlamaProvider:
         )
         self.last_raw: str = ""
         self.last_error: str | None = None
+        # Token usage of the last successful call (llama-server reports
+        # {"prompt_tokens","completion_tokens"}; absent offline -> {}).
+        self.last_usage: dict[str, Any] = {}
 
     def generate(
         self, cluster: Mapping[str, Any]
@@ -112,10 +128,13 @@ class LocalLlamaProvider:
         return self.generate_with_messages(build_messages(cluster))
 
     def generate_with_messages(
-        self, messages: list[dict[str, str]]
+        self, messages: list[dict[str, str]], temperature: float | None = None
     ) -> tuple[dict[str, Any] | None, str, str | None]:
         try:
-            resp = self._post_fn({"messages": messages})
+            payload: dict[str, Any] = {"messages": messages}
+            if temperature is not None:
+                payload["temperature"] = temperature
+            resp = self._post_fn(payload)
         except Exception as exc:  # noqa: BLE001 - transport failure -> fallback
             self.last_raw = ""
             self.last_error = f"llm transport: {type(exc).__name__}: {str(exc)[:200]}"
@@ -129,6 +148,9 @@ class LocalLlamaProvider:
         if not isinstance(content, str):
             content = json.dumps(content)
         self.last_raw = content
+        if isinstance(resp, dict):
+            usage = resp.get("usage")
+            self.last_usage = dict(usage) if isinstance(usage, dict) else {}
         brief, err = parse_brief_json(content)
         if err:
             self.last_error = err
@@ -207,12 +229,15 @@ class CloudflareWorkersAIProvider:
         return self.generate_with_messages(build_messages(cluster))
 
     def generate_with_messages(
-        self, messages: list[dict[str, str]]
+        self, messages: list[dict[str, str]], temperature: float | None = None
     ) -> tuple[dict[str, Any] | None, str, str | None]:
         assert self.enabled
         try:
             if self._post_fn is not None:
-                resp = self._post_fn({"messages": messages})
+                payload: dict[str, Any] = {"messages": messages}
+                if temperature is not None:
+                    payload["temperature"] = temperature
+                resp = self._post_fn(payload)
                 # Test seam: fake post_fn returns an OpenAI-style envelope
                 # or raises. Reuse the same envelope parsing as local.
                 try:
@@ -447,6 +472,13 @@ def build_ai_story(
     }
 
 
+# Retry temperature: the first try runs cool (0.2, factual) while the single
+# retry runs warmer so it can escape the same failure basin (e.g. the same
+# filler sentence at temp 0.2). The retry is still fully validated, so extra
+# diversity never lowers quality -- a bad retry just falls back to a card.
+RETRY_TEMPERATURE = 0.6
+
+
 def try_brief_with_retry(
     provider: BriefProvider,
     cluster: Mapping[str, Any],
@@ -463,14 +495,30 @@ def try_brief_with_retry(
     result = validate_brief(brief, cluster)
     if result.ok:
         return brief, result, raw, None
-    # One regeneration with the failure reason appended.
+    # One regeneration with the failure reason + targeted hints appended,
+    # at a warmer temperature so it does not repeat the same failure.
     reason = "; ".join(result.reasons)[:1500]
     if hasattr(provider, "generate_with_messages"):
-        brief2, raw2, err2 = provider.generate_with_messages(  # type: ignore[attr-defined]
-            build_retry_messages(cluster, raw, reason)
-        )
+        try:
+            brief2, raw2, err2 = provider.generate_with_messages(  # type: ignore[attr-defined]
+                build_retry_messages(cluster, raw, reason),
+                temperature=RETRY_TEMPERATURE,
+            )
+        except TypeError:
+            # Providers without a temperature knob (older fakes in tests).
+            brief2, raw2, err2 = provider.generate_with_messages(  # type: ignore[attr-defined]
+                build_retry_messages(cluster, raw, reason)
+            )
         if brief2 is None:
-            return None, result, raw2, err2 or reason
+            retry_detail = err2 or "retry transport failed"
+            if not retry_detail.lower().startswith("retry failed"):
+                retry_msg = f"retry failed: {retry_detail}"
+            else:
+                retry_msg = retry_detail
+            combined_reasons = list(result.reasons) + [retry_msg]
+            combined_result = ValidationResult(ok=False, reasons=combined_reasons)
+            combined_error = f"{reason}; {retry_msg}" if reason else retry_msg
+            return None, combined_result, raw2, combined_error
         result2 = validate_brief(brief2, cluster)
         if result2.ok:
             return brief2, result2, raw2, None

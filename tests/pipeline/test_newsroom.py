@@ -204,6 +204,44 @@ def test_budget_cap_and_retry_next_run(tmp_path, monkeypatch):
     assert rec.get("lastBriefHash")
 
 
+def test_wall_clock_expiry_stops_new_briefs_but_keeps_cards(tmp_path, monkeypatch):
+    # Time-budgeted AI stage (news-refresh 45-min cap): when the wall clock
+    # is exhausted, no new briefs are STARTED; every cluster still ships as
+    # a deterministic source card, and queued clusters keep no brief hash so
+    # they stay queued for the next run.
+    from pipeline import newsroom as nr
+
+    c1 = _cluster("eid-1111-0001", score=0.9)
+    c2 = _cluster("eid-2222-0002", score=0.8)
+    in_path = tmp_path / "clusters.json"
+    out_path = tmp_path / "stories.json"
+    _write_clusters(in_path, [c1, c2])
+
+    calls: list[str] = []
+
+    def _fake_generate(self, cluster):
+        calls.append(str(cluster.get("eventId")))
+        brief = _good_brief_for(cluster)
+        return brief, json.dumps(brief), None
+
+    monkeypatch.setattr(nr.LocalLlamaProvider, "generate", _fake_generate)
+    # t0 reads 0.0; every budget check after that sees the clock exhausted.
+    ticks = iter([0.0, 9999.0, 9999.0, 9999.0, 9999.0])
+    monkeypatch.setattr(nr.time, "monotonic", lambda: next(ticks, 9999.0))
+
+    rc = nr.main(["--in", str(in_path), "--out", str(out_path),
+                  "--state", str(tmp_path / "state.json"),
+                  "--sources-dir", str(tmp_path / "no-sources"),
+                  "--max-articles", "10", "--wall-clock-minutes", "25"])
+    assert rc == 0
+    assert calls == []  # budget exhausted before the first attempt
+    stories = json.loads(out_path.read_text(encoding="utf-8"))["stories"]
+    assert len(stories) == 2
+    assert all(s["aiGenerated"] is False for s in stories)
+    assert all(s["sources"] and s["sources"][0]["url"].startswith("http")
+               for s in stories)
+
+
 def test_overflow_switches_to_fallback_model(tmp_path, monkeypatch):
     from pipeline import newsroom as nr
 

@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -50,7 +51,11 @@ COVERAGE_SKIP = STOPWORDS | frozenset({
 
 _MULTIWORD_RE = re.compile(r"\b([A-Z][a-z]{2,}(?:\s+[A-Z][a-z]{2,})+)\b")
 _NUMBER_RE = re.compile(r"\$?\d[\d,]*(?:\.\d+)?%?")
-_ISO_DATE_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
+# NOTE: trailing (?!\d) (not \b) so ISO datetimes with a time component
+# (2026-09-23T09:05:00Z from publishedAt/firstSeen) still parse: \b fails
+# between "3" and "T" (both word chars), which hid every source date and
+# rejected every brief containing its own publication date.
+_ISO_DATE_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})(?!\d)")
 _MONTHS = {
     "january": 1, "february": 2, "march": 3, "april": 4, "may": 5,
     "june": 6, "july": 7, "august": 8, "september": 9, "october": 10,
@@ -65,12 +70,35 @@ _MONTH_DAY_RE = re.compile(
 )
 _SLASH_DATE_RE = re.compile(r"\b(\d{1,2})/(\d{1,2})(?:/(\d{2,4}))?\b")
 
+def _was_reported_on_pattern() -> "re.Pattern[str]":
+    months = sorted(_MONTHS, key=len, reverse=True)
+    return re.compile(
+        r"\bwas\s+reported\s+on\s+(?:" + "|".join(months) + r"|\d)",
+        re.IGNORECASE,
+    )
+
+
+_WAS_REPORTED_ON_RE = _was_reported_on_pattern()
+
+
 _BANNED_BACKGROUND_PHRASES = (
     "casualties",
     "casualty",
     "still under investigation",
     "no casualties",
     "depth under investigation",
+    # Self-references to the newsgathering apparatus, never valid prose
+    # ("as reported in the headline", "as per the cluster locations"):
+    "as reported in the headline",
+    "as reported in the excerpt",
+    "as noted in the source material",
+    "as per the cluster locations",
+    "according to the same source",
+    # Raw location codes/slugs (US-NY, us-ny-capital-region): the locations
+    # FIELD carries codes, but body prose must use human-readable names
+    # (New York, Capital Region). Normalized "us ny" matches both forms,
+    # and no honest brief ever contains it (prose writes "New York").
+    "us-ny",
 )
 
 AFFECTED_KEYWORDS = frozenset({
@@ -95,10 +123,69 @@ def _content_words(text: str) -> list[str]:
     return [t for t in tokens if len(t) >= 3 and t not in STOPWORDS]
 
 
+def _stem(token: str) -> str:
+    """Light stemmer so faithful paraphrases match their sources.
+
+    Applied identically to source and brief text, so "arrested"/"arrest",
+    "named"/"name", "videos"/"video", and "preparing"/"prepare" count as the
+    same word, while genuinely different words ("menopause" vs
+    "perimenopause", "educate" vs "education") stay distinct. Stdlib only,
+    deterministic. The critical property is CONSISTENCY: every inflection of
+    one lemma must land on one stem (a past bug mapped "named"->"nam" but
+    "name"->"name", failing valid paraphrases).
+    """
+    # Sequential (no early return): plural strip, then trailing-e strip, so
+    # "places"->"place"->"plac" meets brief-side "place"->"plac".
+    t = token
+    if len(t) > 5 and t.endswith("ies"):
+        return t[:-3] + "y"
+    verb_stripped = False
+    if len(t) > 5 and t.endswith("ing"):
+        t = t[:-3]
+        verb_stripped = True
+    elif len(t) > 4 and t.endswith("ed"):
+        t = t[:-2]
+        verb_stripped = True
+    if not verb_stripped:
+        # Skipped after a verb strip: the -s in "clos" (from "closed")
+        # is stem, not a plural (brief-side "close"->"clos" must meet it).
+        if len(t) > 5 and t.endswith(("ses", "xes", "zes", "ches", "shes")):
+            t = t[:-2]  # classes->class, boxes->box
+        elif len(t) > 3 and t.endswith("s") and not t.endswith("ss"):
+            t = t[:-1]  # videos->video, places->place; press/class intact
+    if len(t) > 3 and t.endswith("e"):
+        t = t[:-1]  # place->plac, name->nam, prepare->prepar
+    return t
+
+
 def _coverage_words(text: str) -> list[str]:
-    """Content words for the background-coverage guard (boilerplate skipped)."""
+    """Stemmed content words for the background-coverage guard.
+
+    Boilerplate skipped; stopwords ignored. Stemming lets a faithful
+    paraphrase ("the arrest occurred") match its source ("police arrested")
+    instead of being flagged as invented background.
+    """
     tokens = _WORD_RE.findall(text.lower())
-    return [t for t in tokens if len(t) >= 3 and t not in COVERAGE_SKIP]
+    return [_stem(t) for t in tokens if len(t) >= 3 and t not in COVERAGE_SKIP]
+
+
+_WEEKDAYS = frozenset({
+    "monday", "tuesday", "wednesday", "thursday", "friday",
+    "saturday", "sunday", "mon", "tue", "tues", "wed", "thu",
+    "thur", "thurs", "fri", "sat", "sun",
+})
+
+_MONTH_BY_NUM = {
+    1: ("january", "jan"), 2: ("february", "feb"), 3: ("march", "mar"),
+    4: ("april", "apr"), 5: ("may",), 6: ("june", "jun"),
+    7: ("july", "jul"), 8: ("august", "aug"), 9: ("september", "sep", "sept"),
+    10: ("october", "oct"), 11: ("november", "nov"), 12: ("december", "dec"),
+}
+
+
+def _month_words(month: int) -> tuple[str, ...]:
+    """Full + abbreviated month names for a month number (coverage vocab)."""
+    return _MONTH_BY_NUM.get(month, ())
 
 
 def _words_for_verbatim(text: str) -> list[str]:
@@ -238,6 +325,144 @@ def _source_text_headline_excerpt(cluster: Mapping[str, Any]) -> str:
     return " ".join(p for p in parts if p)
 
 
+@lru_cache(maxsize=1)
+def _gazetteer_lookups() -> tuple[dict[str, list[str]], dict[str, list[str]], dict[str, list[str]]]:
+    """Cached gazetteer expansions: admin1 code -> names, metro slug -> names,
+    country code -> names. Missing file -> empty maps (exact location strings
+    still count; only alias expansion is lost)."""
+    admin1: dict[str, list[str]] = {}
+    metro: dict[str, list[str]] = {}
+    country: dict[str, list[str]] = {}
+    try:
+        payload = json.loads((ROOT / "pipeline" / "geo" / "places.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return admin1, metro, country
+    places = payload.get("places", []) if isinstance(payload, dict) else []
+    for p in places:
+        if not isinstance(p, dict):
+            continue
+        name = str(p.get("name") or "")
+        aliases = [str(a) for a in (p.get("aliases") or []) if a]
+        # Strict: admin1 expansions come ONLY from the admin1 entry itself
+        # (US-NY -> New York + NY/New York State/Empire State), never from
+        # admin2/city rows that merely share the code. Same for metros: only
+        # the metro row (Capital Region + Capital District), never every
+        # place inside that metro.
+        if p.get("type") == "admin1" and p.get("admin1"):
+            code = str(p["admin1"])
+            entry = [str(p.get("admin1Name") or name)] + aliases
+            if name and name not in entry:
+                entry.append(name)
+            admin1.setdefault(code, [])
+            for n in entry:
+                if n and n not in admin1[code]:
+                    admin1[code].append(n)
+        if p.get("type") == "metro" and p.get("metro"):
+            slug = str(p["metro"])
+            entry = ([name] + aliases) if name else aliases
+            metro.setdefault(slug, [])
+            for n in entry:
+                if n and n not in metro[slug]:
+                    metro[slug].append(n)
+        if p.get("country") and p.get("type") == "country":
+            code = str(p["country"]).upper()
+            entry = ([name] + aliases) if name else aliases
+            country.setdefault(code, [])
+            for n in entry:
+                if n and n not in country[code]:
+                    country[code].append(n)
+    return admin1, metro, country
+
+
+@lru_cache(maxsize=1)
+def _gazetteer_geo() -> tuple[dict[str, set[tuple[str, frozenset[str]]]], dict[str, str]]:
+    """City -> {(admin2, admin1-names)} and state-name -> admin1-key maps.
+
+    From gazetteer city rows (name + aliases): Troy -> {(Rensselaer County,
+    {New York, NY, ...})}. Same-named cities in other states each contribute
+    an entry, so Springfield -> {(Sangamon County, {Illinois,...}), (Hampden
+    County, {Massachusetts,...})}. State names from admin1 rows. Missing file ->
+    empty maps (containment claims then need source-stated pairings).
+    All keys/values normalized for match.
+    """
+    city_areas: dict[str, set[tuple[str, frozenset[str]]]] = {}
+    state_names: dict[str, str] = {}
+    try:
+        payload = json.loads((ROOT / "pipeline" / "geo" / "places.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return city_areas, state_names
+    places = payload.get("places", []) if isinstance(payload, dict) else []
+    for p in places:
+        if not isinstance(p, dict):
+            continue
+        if p.get("type") == "admin1" and p.get("admin1"):
+            code = str(p["admin1"])
+            names = [str(p.get("admin1Name") or ""), str(p.get("name") or "")]
+            names += [str(a) for a in (p.get("aliases") or []) if a]
+            for n in names:
+                norm = _normalize_for_match(n)
+                if norm:
+                    state_names.setdefault(norm, code)
+        if p.get("type") == "city":
+            admin2 = _normalize_for_match(str(p.get("admin2") or ""))
+            a1names = [_normalize_for_match(str(p.get("admin1Name") or ""))]
+            admin1_map, _, _ = _gazetteer_lookups()
+            code = str(p.get("admin1") or "")
+            if code in admin1_map:
+                a1names += [_normalize_for_match(a) for a in admin1_map[code]]
+            area = (admin2, frozenset(n for n in a1names if n))
+            names = [str(p.get("name") or "")]
+            if p.get("city"):
+                names.append(str(p["city"]))
+            names += [str(a) for a in (p.get("aliases") or []) if a]
+            for n in names:
+                norm = _normalize_for_match(n)
+                if norm:
+                    city_areas.setdefault(norm, set()).add(area)
+    return city_areas, state_names
+
+
+def _cluster_location_names(cluster: Mapping[str, Any]) -> set[str]:
+    """Normalized place names from the cluster's own resolved locations.
+
+    Covers city, county/admin2, state/admin1 full names and their common
+    forms (gazetteer aliases: NY / New York State / Empire State, Capital
+    Region / Capital District, United States, ...). Only names tied to THIS
+    cluster count -- an invented county/state still fails. Strict everywhere
+    else: people, orgs, numbers, quotes, and background filler are unchanged.
+    """
+    admin1_map, metro_map, country_map = _gazetteer_lookups()
+    allowed: set[str] = set()
+    locs = cluster.get("locations", []) or []
+    for loc in locs:
+        if not isinstance(loc, Mapping):
+            continue
+        for key in ("city", "admin2", "metro", "admin1"):
+            raw = str(loc.get(key) or "").strip()
+            if not raw:
+                continue
+            norm = _normalize_for_match(raw)
+            if norm:
+                allowed.add(norm)
+            if key == "admin1" and raw in admin1_map:
+                for alias in admin1_map[raw]:
+                    n = _normalize_for_match(alias)
+                    if n:
+                        allowed.add(n)
+            if key == "metro" and raw in metro_map:
+                for alias in metro_map[raw]:
+                    n = _normalize_for_match(alias)
+                    if n:
+                        allowed.add(n)
+        country_code = str(loc.get("country") or "").strip().upper()
+        if country_code in country_map:
+            for alias in country_map[country_code]:
+                n = _normalize_for_match(alias)
+                if n:
+                    allowed.add(n)
+    return allowed
+
+
 # ---------------------------------------------------------------------------
 # Individual checks
 # ---------------------------------------------------------------------------
@@ -290,10 +515,13 @@ def _check_source_ids(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> l
 
 def _check_entities(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:
     """Every multi-word capitalized span in body+dek and every people/org
-    entry must appear in the source text. Headline Title Case is skipped
-    (run on body + dek only) per the benchmark fix."""
+    entry must appear in the source text -- OR be a place name from the
+    cluster's own resolved locations (city/county/state full names and
+    common forms: New York for US-NY, Albany County, ...). Headline Title
+    Case is skipped (run on body + dek only) per the benchmark fix."""
     reasons: list[str] = []
     source_norm = _normalize_for_match(_source_text_headline_excerpt(cluster))
+    location_names = _cluster_location_names(cluster)
     body = str(brief.get("body") or "")
     dek = str(brief.get("dek") or "")
     text = f"{body} {dek}"
@@ -307,8 +535,24 @@ def _check_entities(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> lis
         norm = _normalize_for_match(core)
         if not norm:
             continue
-        if norm not in source_norm:
-            reasons.append(f"unsupported name/span not in sources: {span!r}")
+        if norm in source_norm:
+            continue
+        if norm in location_names:
+            continue
+        # Weekday-aware: the model often writes "<Place> on <Weekday>" as
+        # "<Place> <Weekday>" ("Central Avenue Tuesday"). Bare weekdays are
+        # dates, not names (the date check ignores them too), so a span
+        # whose non-weekday remainder is grounded is not a fake place.
+        # An invented place still fails ("Los Angeles Tuesday" -> "los
+        # angeles" is in neither sources nor locations).
+        words = norm.split()
+        remainder = " ".join(w for w in words if w not in _WEEKDAYS)
+        if remainder and remainder != norm:
+            if remainder in source_norm or remainder in location_names:
+                continue
+            if " " not in remainder:
+                continue  # only a weekday + one other word: not an entity
+        reasons.append(f"unsupported name/span not in sources: {span!r}")
     for field_name in ("people", "organizations"):
         entries = brief.get(field_name, []) or []
         if not isinstance(entries, list):
@@ -406,8 +650,16 @@ def _check_numbers_and_dates(
     brief: Mapping[str, Any], cluster: Mapping[str, Any]
 ) -> list[str]:
     reasons: list[str] = []
-    # Source text includes publishedAt values (benchmark fix).
+    # Source text includes publishedAt values (benchmark fix), normalized to
+    # (year, month, day) so any format counts (2026-09-23 == September 23,
+    # 2026 == 9/23/2026). Cluster firstSeen/lastSeen double as the run date:
+    # a brief dated the day it ran must not fail when every source carries
+    # that same timestamp.
     source_full = source_text_for_cluster(cluster, include_timestamps=True)
+    for key in ("firstSeen", "lastSeen"):
+        stamp = str(cluster.get(key) or "").strip()
+        if stamp:
+            source_full += " " + stamp
     source_dates, _ = _extract_dates(source_full)
     source_nodate = _strip_dates(source_full)
     source_nums = _extract_numbers(source_nodate)
@@ -453,11 +705,43 @@ def _check_background_coverage(
     reasons: list[str] = []
     source_text = _source_text_headline_excerpt(cluster)
     source_norm = _normalize_for_match(source_text)
+    brief_text = str(brief.get("body") or "") + " " + str(brief.get("dek") or "")
+    brief_norm = _normalize_for_match(brief_text)
+    # Meta-date filler ("The event was reported on September 23, 2026"):
+    # passive self-reference to the newsgathering act, never a fact from the
+    # sources. Active publisher attribution ("WNYT reported ... on ...") is
+    # unaffected -- only "was reported on <month|digit>" triggers.
+    if _WAS_REPORTED_ON_RE.search(brief_text):
+        reasons.append("unsupported background phrase not in sources: 'was reported on <date>'")
     for phrase in _BANNED_BACKGROUND_PHRASES:
-        if phrase in _normalize_for_match(str(brief.get("body") or "") + " " + str(brief.get("dek") or "")):
-            if phrase not in source_norm:
+        # Compare normalized to normalized: entries with punctuation
+        # ("us-ny") must match "us ny" in the brief text.
+        nphrase = _normalize_for_match(phrase)
+        if nphrase and nphrase in brief_norm:
+            if nphrase not in source_norm:
                 reasons.append(f"unsupported background phrase not in sources: {phrase!r}")
     source_vocab = set(_coverage_words(source_text))
+    # The cluster's resolved place names count as covered: a faithful
+    # paraphrase ("the arrest occurred in Rensselaer County, New York")
+    # reuses the settled geography even when one short excerpt never spells
+    # it out. Component words only (never whole inventable claims).
+    for name in _cluster_location_names(cluster):
+        for w in _WORD_RE.findall(name):
+            if len(w) >= 3 and w not in COVERAGE_SKIP:
+                source_vocab.add(_stem(w))
+    # Source dates count as covered in any format: "September 23, 2026" in
+    # the brief matches the 2026-09-23T publishedAt stamps. Month names for
+    # every sourced date join the vocab (years/days are already there when
+    # spelled numerically; weekday names stay uncovered by design).
+    dated_text = source_text_for_cluster(cluster, include_timestamps=True)
+    for key in ("firstSeen", "lastSeen"):
+        stamp = str(cluster.get(key) or "").strip()
+        if stamp:
+            dated_text += " " + stamp
+    for _y, mo, _d in _extract_dates(dated_text)[0]:
+        for cand in _month_words(mo):
+            if len(cand) >= 3 and cand not in COVERAGE_SKIP:
+                source_vocab.add(_stem(cand))
     body = str(brief.get("body") or "")
     sentences = _split_sentences(body)
     for sent in sentences:
@@ -613,7 +897,146 @@ def _check_locations(
     return reasons
 
 
-def _check_length(brief: Mapping[str, Any]) -> list[str]:
+# Explicit place-containment copulas: "X is located in Y", "X, which is in
+# Y", "X is in Y County". Bare locatives ("arrest occurred in Troy") are
+# normal prose and NOT checked here.
+_CONTAINMENT_RES = (
+    re.compile(r"\b(?:is|are|was|were)\s+(?:located|situated)\s+in\b", re.IGNORECASE),
+    re.compile(r"\b(?:which|that)\s+(?:is|are)\s+(?:located|situated\s+)?in\b", re.IGNORECASE),
+    re.compile(r"\b(?:is|are|was|were)\s+in\s+[A-Z][A-Za-z.'\s]*?County\b"),
+)
+_COUNTY_RE = re.compile(r"([A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.'-]*)*\s+County)")
+
+
+def _padded(text: str) -> str:
+    return f" {text} "
+
+
+def _check_place_containment(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    """Reject place-containment claims the sources never pair up.
+
+    Production failure: a Poestenkill story briefed "The area is located in
+    Albany County" because Albany County was the (mis-resolved) cluster
+    location. The location allowlist correctly permits mentioning Albany
+    County -- but asserting that X IS IN Y is a factual pairing that needs
+    its own proof: the exact pairing stated in the sources, or a
+    gazetteer-true pairing (Troy's admin2 really is Rensselaer County), or
+    the same city+area pairing present in the cluster's locations. An
+    unknown place (Poestenkill is not in the trimmed gazetteer) can never
+    pass on geography alone -- state what happened there, not what contains
+    it. Strict by design: true-but-unverifiable containment must be
+    rephrased, never asserted.
+    """
+    reasons: list[str] = []
+    city_areas, state_names = _gazetteer_geo()
+    source_norm = _normalize_for_match(_source_text_headline_excerpt(cluster))
+    # Cluster city -> its areas, for pairing rule (2).
+    cluster_pairs: dict[str, set[str]] = {}
+    admin1_map, _, _ = _gazetteer_lookups()
+    for loc in (cluster.get("locations", []) or []):
+        if not isinstance(loc, Mapping):
+            continue
+        city = _normalize_for_match(str(loc.get("city") or ""))
+        if not city:
+            continue
+        areas = set(cluster_pairs.get(city, set()))
+        for key in ("admin2", "metro"):
+            norm = _normalize_for_match(str(loc.get(key) or ""))
+            if norm:
+                areas.add(norm)
+        admin1 = str(loc.get("admin1") or "")
+        if _normalize_for_match(admin1):
+            areas.add(_normalize_for_match(admin1))
+        if admin1 in admin1_map:
+            areas.update(_normalize_for_match(a) for a in admin1_map[admin1])
+        cluster_pairs[city] = areas
+    text = f"{brief.get('body') or ''} {brief.get('dek') or ''}"
+    for sent in _split_sentences(text):
+        if not any(rx.search(sent) for rx in _CONTAINMENT_RES):
+            continue
+        norm = _padded(_normalize_for_match(sent))
+        counties = {_normalize_for_match(m.group(1)) for m in _COUNTY_RE.finditer(sent)}
+        counties.discard("")
+        states = {s for s in state_names if _padded(s) in norm}
+        mentions = [(m, "county") for m in counties] + [(m, "state") for m in states]
+        if not mentions:
+            continue
+        # City mentions, minus ones overlapping a county/state mention
+        # ("Albany" inside "Albany County" is not a standalone city cite).
+        taken: list[tuple[int, int]] = []
+        for m, _kind in mentions:
+            start = 0
+            while True:
+                i = norm.find(_padded(m).strip(), start)
+                if i < 0:
+                    break
+                taken.append((i, i + len(m)))
+                start = i + 1
+        cities: set[str] = set()
+        for city in list(city_areas) + list(cluster_pairs):
+            needle = f" {city} "
+            start = 0
+            found = False
+            while True:
+                i = norm.find(needle, start)
+                if i < 0:
+                    break
+                span = (i + 1, i + 1 + len(city))
+                if not any(s < span[1] and span[0] < e for s, e in taken):
+                    found = True
+                    break
+                start = i + 1
+            if not found:
+                continue
+            cities.add(city)
+        for m, kind in mentions:
+            ok = False
+            for city in cities:
+                if city in city_areas:
+                    for admin2, a1names in city_areas[city]:
+                        if kind == "county" and admin2 == m:
+                            ok = True
+                            break
+                        if kind == "state" and m in a1names:
+                            ok = True
+                            break
+                    if ok:
+                        break
+                if city in cluster_pairs and m in cluster_pairs[city]:
+                    ok = True
+                    break
+                # Exact pairing stated in the sources ("poestenkill in
+                # rensselaer county", "troy, new york").
+                for pat in (f"{city} in {m}", f"{city} is located in {m}", f"{city}, {m}"):
+                    if pat in source_norm:
+                        ok = True
+                        break
+                if ok:
+                    break
+            if not ok:
+                reasons.append(f"unsupported place containment not in sources: {m!r}")
+                break  # one flag per brief is enough
+        if reasons:
+            break
+    return reasons
+
+
+def _min_body_words(cluster: Mapping[str, Any]) -> int:
+    """Scaled length floor: thin RSS sources cannot honestly fill 60 words.
+
+    min = max(30, min(60, 0.4 * source words)). Sources under ~75 words need
+    only 30 honest words; the floor rises to 60 for rich multi-source
+    clusters. The factor stays well under 1.0 so honest compression passes:
+    a 33-word brief grounded in a 68-word excerpt is good writing, and the
+    coverage guard (not the floor) is what catches padding. Max stays 220.
+    """
+    source_words = len(_source_text_headline_excerpt(cluster).split())
+    return max(30, min(60, int(source_words * 0.4)))
+
+
+def _check_length(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:
     reasons: list[str] = []
     headline = str(brief.get("headline") or "")
     dek = str(brief.get("dek") or "")
@@ -623,8 +1046,9 @@ def _check_length(brief: Mapping[str, Any]) -> list[str]:
     if len(dek) > 200:
         reasons.append(f"dek too long: {len(dek)} chars (max 200)")
     words = len(body.split())
-    if not 60 <= words <= 220:
-        reasons.append(f"body must be 60-220 words, got {words}")
+    floor = _min_body_words(cluster)
+    if not floor <= words <= 220:
+        reasons.append(f"body must be {floor}-220 words, got {words}")
     return reasons
 
 
@@ -648,10 +1072,15 @@ def _check_verbatim(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> lis
             for field_text in brief_fields:
                 words = _words_for_verbatim(field_text)
                 for i in range(len(words) - 11):
-                    if tuple(words[i:i + 12]) in src_grams:
+                    gram = tuple(words[i:i + 12])
+                    if gram in src_grams:
+                        # Quote the copied run so the single retry can target
+                        # it ("rewrite this passage in your own words").
+                        # Still strict: any 12-word run fails, no exceptions.
                         reasons.append(
                             f"verbatim copy: 12+ consecutive words from non-{rights} source "
-                            f"{m.get('sourceId') or m.get('id')}"
+                            f"{m.get('sourceId') or m.get('id')}: "
+                            f"{' '.join(gram[:10])!r}..."
                         )
                         return reasons
     return reasons
@@ -701,7 +1130,8 @@ def validate_brief(
     reasons.extend(_check_background_coverage(brief, cluster))
     reasons.extend(_check_disagreement(brief, cluster))
     reasons.extend(_check_locations(brief, cluster))
-    reasons.extend(_check_length(brief))
+    reasons.extend(_check_place_containment(brief, cluster))
+    reasons.extend(_check_length(brief, cluster))
     reasons.extend(_check_verbatim(brief, cluster))
     reasons.extend(_check_quotes(brief, cluster))
     return ValidationResult(ok=not reasons, reasons=reasons)

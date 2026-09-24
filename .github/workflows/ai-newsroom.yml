@@ -10,6 +10,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      regression:
+        description: "Run the AI regression fixtures (tests/fixtures/ai_regression) on the live model"
+        required: false
+        default: "true"
   schedule:
     # Nightly live-model smoke only (not the 6-hourly news pipeline, which
     # lands in Phase 4 as news-refresh.yml). Off the hour, low load.
@@ -161,6 +166,23 @@ jobs:
           python -c "import json; s=json.load(open('${{ runner.temp }}/live-stories.json'))['stories']; assert s, 'no stories'; print(f'live OK: {len(s)} stories, ai={[x[\"aiGenerated\"] for x in s]}')"
       - name: Slow integration test (live server, skips without one)
         run: python -m pytest tests/pipeline/test_ai_slow.py -q -m slow
+      - name: Live regression (8 real clusters, per-fixture accept/reject + timing)
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+        run: |
+          set -o pipefail
+          PYTHONPATH="$GITHUB_WORKSPACE" python scripts/ai_regression.py \
+            --fixtures tests/fixtures/ai_regression \
+            --llama-url http://127.0.0.1:8080 \
+            --out /tmp/regression-briefs.json | tee /tmp/regression.log
+          echo "## AI regression (live model)" >> "$GITHUB_STEP_SUMMARY"
+          cat /tmp/regression.log >> "$GITHUB_STEP_SUMMARY"
+          if [ -f /tmp/regression-briefs.json ]; then
+            {
+              echo "## Accepted briefs"
+              echo ""
+              python3 -c "import json; [print(f\"### {fid}\n\n**headline:** {b.get('headline','')}\n\n**dek:** {b.get('dek','')}\n\n**body:** {b.get('body','')}\n\") for fid, b in json.load(open('/tmp/regression-briefs.json')).items()]"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Upload live output
         if: always()
         uses: actions/upload-artifact@v7
@@ -169,3 +191,5 @@ jobs:
           path: |
             ${{ runner.temp }}/live-stories.json
             /tmp/server.log
+            /tmp/regression.log
+            /tmp/regression-briefs.json
