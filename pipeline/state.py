@@ -6,18 +6,25 @@ Legacy list format {"clusters": [...]} is also read.
 
 Record: eventId, members (item dicts), memberIds, aliases, version, status,
 firstSeen, lastSeen, headline, locations, section, category, score, breaking,
-confidence, sources (provenance), lastBriefHash, lastGeneratedAt.
+confidence, sources (provenance), lastBriefHash, lastGeneratedAt,
+lastBrief, lastBriefFingerprint, lastBriefModel.
+
+Accepted AI briefs persist inside their cluster record (lastBrief +
+lastBriefFingerprint + lastBriefModel) so the next run can reuse them
+without a model call when the source content is unchanged. Briefs expire
+with their cluster via the pruneDays rule; no separate store exists.
 
 - new: eventId (or alias) unseen -> version 1.
 - updated: seen before AND a new independent/official source joined.
   Version increments at most once per run (one process call = one run).
-- unchanged: otherwise; version and brief hashes preserved.
+- unchanged: otherwise; version and brief fields preserved.
 - Every version keeps its source list (provenance stored on the record).
 - Prune clusters with lastSeen older than pruneDays (default 7).
 - Portable: plain JSON files, no CI env vars.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -95,6 +102,43 @@ def _official_keys(members: list[Mapping[str, Any]],
     return keys
 
 
+def cluster_content_fingerprint(cluster: Mapping[str, Any]) -> str:
+    """Fingerprint of a cluster's source content for brief reuse.
+
+    Covers member ids/urls + headlines/excerpts (+ publishedAt, which marks
+    an updated source). Sorted by id/url so member order never triggers a
+    false change. Returns a short hex digest; small enough to persist in the
+    cluster record alongside the accepted brief.
+    """
+    entries: list[dict[str, str]] = []
+    for m in (cluster.get("members", []) or []):
+        if not isinstance(m, Mapping):
+            continue
+        entries.append({
+            "id": str(m.get("id") or ""),
+            "sourceId": str(m.get("sourceId") or ""),
+            "url": str(m.get("url") or ""),
+            "headline": str(m.get("headline") or ""),
+            "excerpt": str(m.get("excerpt") or ""),
+            "publishedAt": str(m.get("publishedAt") or ""),
+        })
+    entries.sort(key=lambda e: (e["id"], e["url"], e["headline"], e["excerpt"]))
+    canonical = json.dumps(entries, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:32]
+
+
+def stored_brief_usable(cluster: Mapping[str, Any]) -> bool:
+    """True when the cluster carries a stored accepted brief whose stored
+    fingerprint matches its current source content."""
+    brief = cluster.get("lastBrief")
+    if not isinstance(brief, dict) or not brief.get("headline") or not brief.get("body"):
+        return False
+    stored = str(cluster.get("lastBriefFingerprint") or "")
+    if not stored:
+        return False
+    return stored == cluster_content_fingerprint(cluster)
+
+
 def update_state(
     prev: Mapping[str, Mapping[str, Any]],
     new_clusters: list[Mapping[str, Any]],
@@ -166,6 +210,9 @@ def update_state(
             rec.setdefault("aliases", [])
             rec.setdefault("lastBriefHash", None)
             rec.setdefault("lastGeneratedAt", None)
+            rec.setdefault("lastBrief", None)
+            rec.setdefault("lastBriefFingerprint", None)
+            rec.setdefault("lastBriefModel", None)
             updated[eid] = rec
             continue
 
@@ -200,9 +247,15 @@ def update_state(
         else:
             rec["status"] = "unchanged"
             rec["version"] = prev_rec.get("version", 1)
-        # Phase 3 owns brief hashes; Phase 2 never clears them.
+        # Phase 3 owns brief fields; Phase 2 never clears them. Stored
+        # briefs (with their fingerprints) carry forward so the newsroom can
+        # reuse them when the source content is unchanged; they expire with
+        # the cluster via pruning below.
         rec["lastBriefHash"] = prev_rec.get("lastBriefHash")
         rec["lastGeneratedAt"] = prev_rec.get("lastGeneratedAt")
+        rec["lastBrief"] = prev_rec.get("lastBrief")
+        rec["lastBriefFingerprint"] = prev_rec.get("lastBriefFingerprint")
+        rec["lastBriefModel"] = prev_rec.get("lastBriefModel")
         updated[survivor] = rec
 
     # Carry forward previous clusters absent from this batch (still active),

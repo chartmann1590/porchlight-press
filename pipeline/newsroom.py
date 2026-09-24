@@ -6,8 +6,10 @@
         [--summary-file PATH]
 
 Defaults: --in state/clusters.json, --out state/stories.json,
---state state/clusters.json (updated with lastBriefHash/lastGeneratedAt for
-successful briefs so budget-skipped clusters are retried next run).
+--state state/clusters.json (updated with lastBrief/lastBriefFingerprint/
+lastBriefModel/lastBriefHash/lastGeneratedAt for successful briefs so
+unchanged clusters reuse them next run without a model call; budget-skipped
+clusters are retried next run).
 
 --choose-model: print the queued-cluster count and the model for the run
 (and record them to --model-choice-file / --queue-file) WITHOUT contacting
@@ -21,7 +23,12 @@ order (score desc, local/breaking first via process.py ordering). The run
 always uses the 4B model for quality; throughput is not the goal (benchmark
 run 35983811629: 1.7B failed 29/30, 4B reached 5/8). Whatever isn't generated
 ships as a source card and is retried next run (4 runs/day carry over).
-Unchanged clusters without a brief hash re-enter the queue.
+Accepted briefs persist in state/clusters.json keyed by cluster id plus a
+fingerprint of member ids/urls + headlines/excerpts (+ publishedAt); an
+unchanged cluster whose fingerprint still matches reuses its stored brief
+with no model call (still through publish-time revalidation). Only new,
+changed, or never-briefed clusters enter the queue. Unchanged clusters
+without a usable stored brief re-enter the queue.
 
 Publish gate: an AI brief publishes only if deterministic validation passes
 AND the cluster confidence tier is MEDIUM or better. LOW/UNVERIFIED always
@@ -55,6 +62,7 @@ from .ai.prompts import build_factcheck_messages
 from .ai.validate import source_text_for_cluster
 from .config import load_config
 from .providers import load_sources
+from .state import cluster_content_fingerprint, stored_brief_usable
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -98,9 +106,33 @@ def _ai_usable(cluster: Mapping[str, Any]) -> bool:
     return False
 
 
+def _reusable_brief(cluster: Mapping[str, Any]) -> dict[str, Any] | None:
+    """Stored accepted brief reusable without a model call, or None.
+
+    Requires MEDIUM+ tier, AI-usable members, a stored lastBrief whose
+    fingerprint matches the current source content (member ids/urls +
+    headlines/excerpts). Legacy records with only lastBriefHash (no brief
+    content) are never reusable and re-enter the queue once.
+    """
+    if _tier_of(cluster) not in ("high", "medium"):
+        return None
+    if not _ai_usable(cluster):
+        return None
+    if not stored_brief_usable(cluster):
+        return None
+    brief = cluster.get("lastBrief")
+    return dict(brief) if isinstance(brief, dict) else None
+
+
 def queue_for_ai(clusters: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """New/updated MEDIUM+ AI-usable clusters, plus unchanged MEDIUM+ clusters
-    that still have no brief hash (budget-skipped last run -> retry)."""
+    """New/changed/never-briefed MEDIUM+ AI-usable clusters.
+
+    New/updated clusters always queue. Unchanged clusters queue only when
+    they have no reusable stored brief (never briefed, legacy hash-only
+    record, or fingerprint mismatch from new/edited members) so
+    budget-skipped clusters retry next run while accepted briefs are reused
+    without a model call.
+    """
     queue: list[dict[str, Any]] = []
     for c in clusters:
         tier = _tier_of(c)
@@ -111,7 +143,10 @@ def queue_for_ai(clusters: list[dict[str, Any]]) -> list[dict[str, Any]]:
         status = str(c.get("status") or "new")
         if status in ("new", "updated"):
             queue.append(c)
-        elif status == "unchanged" and not c.get("lastBriefHash"):
+        elif status == "unchanged" and _reusable_brief(c) is None:
+            queue.append(c)
+        elif status not in ("new", "updated", "unchanged") and _reusable_brief(c) is None:
+            # Unknown status: be conservative and queue unless reusable.
             queue.append(c)
     # Rank order: score desc, then firstSeen, then eventId (process.py order).
     queue.sort(
@@ -268,8 +303,12 @@ def main(argv: list[str] | None = None) -> int:
         stories: list[dict[str, Any]] = []
         brief_hashes: dict[str, str] = {}
         brief_times: dict[str, str] = {}
+        brief_contents: dict[str, dict[str, Any]] = {}
+        brief_fingerprints: dict[str, str] = {}
+        brief_models: dict[str, str] = {}
         n_attempted = 0
-        n_ai = 0
+        n_new = 0
+        n_reused = 0
         n_cards = 0
         n_rejected = 0
         rejection_log: list[str] = []
@@ -304,6 +343,23 @@ def main(argv: list[str] | None = None) -> int:
         for cluster in clusters:
             eid = str(cluster.get("eventId") or "")
             moment = _now_iso()
+            if eid not in queue_ids:
+                # Carry-over: unchanged cluster with an accepted brief whose
+                # source fingerprint still matches reuses it with no model
+                # call. It still passes publish-time revalidation downstream.
+                # No budget consumed; version/updatedAt come from the cluster
+                # record per the existing revision rules.
+                reusable = _reusable_brief(cluster)
+                if reusable is not None:
+                    reuse_model = str(cluster.get("lastBriefModel") or model_name)
+                    story = build_ai_story(
+                        reusable, cluster,
+                        model_name=reuse_model,
+                        now=datetime.now(timezone.utc),
+                    )
+                    stories.append(story)
+                    n_reused += 1
+                    continue
             if eid in queue_ids and _budget_left():
                 n_attempted += 1
                 brief, _result, _raw, err = try_brief_with_retry(local, cluster)
@@ -344,7 +400,10 @@ def main(argv: list[str] | None = None) -> int:
                     stories.append(story)
                     brief_hashes[eid] = _brief_hash(brief)
                     brief_times[eid] = moment
-                    n_ai += 1
+                    brief_contents[eid] = dict(brief)
+                    brief_fingerprints[eid] = cluster_content_fingerprint(cluster)
+                    brief_models[eid] = model_name
+                    n_new += 1
                 else:
                     n_rejected += 1
                     if err:
@@ -352,9 +411,9 @@ def main(argv: list[str] | None = None) -> int:
                     stories.append(cards.build_card(cluster, sources_by_id))
                     n_cards += 1
             else:
-                # Not queued (LOW/UNVERIFIED/LINK_ONLY-only), over budget, or
-                # out of time: deterministic source card, retried next run
-                # when it still lacks a brief hash.
+                # Not queued (reused above, LOW/UNVERIFIED/LINK_ONLY-only),
+                # over budget, or out of time: deterministic source card,
+                # retried next run when it still lacks a reusable brief.
                 if eid in queue_ids and not _budget_left():
                     rejection_log.append(f"{eid}: budget-exceeded (card now, retry next run)")
                 stories.append(cards.build_card(cluster, sources_by_id))
@@ -374,28 +433,36 @@ def main(argv: list[str] | None = None) -> int:
             if state_path.exists():
                 try:
                     raw_state = json.loads(state_path.read_text(encoding="utf-8"))
+
+                    def _store(rec: dict[str, Any], eid2: str) -> None:
+                        rec["lastBriefHash"] = brief_hashes[eid2]
+                        rec["lastGeneratedAt"] = brief_times[eid2]
+                        rec["lastBrief"] = brief_contents[eid2]
+                        rec["lastBriefFingerprint"] = brief_fingerprints[eid2]
+                        rec["lastBriefModel"] = brief_models[eid2]
+
                     if isinstance(raw_state.get("clusters"), list):
                         for rec in raw_state["clusters"]:
                             if isinstance(rec, dict) and str(rec.get("eventId") or "") in brief_hashes:
-                                eid2 = str(rec["eventId"])
-                                rec["lastBriefHash"] = brief_hashes[eid2]
-                                rec["lastGeneratedAt"] = brief_times[eid2]
+                                _store(rec, str(rec["eventId"]))
                         state_path.write_text(json.dumps(raw_state, indent=2), encoding="utf-8")
                     elif isinstance(raw_state.get("clusters"), dict):
                         for eid2 in brief_hashes:
                             if eid2 in raw_state["clusters"]:
-                                raw_state["clusters"][eid2]["lastBriefHash"] = brief_hashes[eid2]
-                                raw_state["clusters"][eid2]["lastGeneratedAt"] = brief_times[eid2]
+                                _store(raw_state["clusters"][eid2], eid2)
                         state_path.write_text(json.dumps(raw_state, indent=2), encoding="utf-8")
                 except (OSError, ValueError) as exc:
                     print(f"warning: state update skipped: {exc}", file=sys.stderr)
             void_shape = shape  # keep linters quiet about the preserved shape
             del void_shape
 
+        # ai= counts reused + new (total AI stories published this run);
+        # reused= is the carried-over subset that cost no model call.
+        n_ai = n_new + n_reused
         elapsed = time.monotonic() - t0
         print(
             f"clusters={len(clusters)} queued={len(queue)} attempted={n_attempted} "
-            f"ai={n_ai} cards={n_cards} rejected={n_rejected} "
+            f"ai={n_ai} reused={n_reused} cards={n_cards} rejected={n_rejected} "
             f"model={model_name} elapsed={elapsed:.1f}s"
         )
         for line in rejection_log[:20]:
@@ -406,7 +473,8 @@ def main(argv: list[str] | None = None) -> int:
             with open(args.summary_file, "a", encoding="utf-8") as fh:
                 fh.write("## AI newsroom\n\n")
                 fh.write(
-                    f"Clusters {len(clusters)}, queued {len(queue)}, AI briefs {n_ai}, "
+                    f"Clusters {len(clusters)}, queued {len(queue)}, AI briefs {n_ai} "
+                    f"(new {n_new}, reused {n_reused}), "
                     f"source cards {n_cards}, rejected {n_rejected}, model {model_name}.\n\n"
                 )
                 for line in rejection_log[:20]:
