@@ -35,7 +35,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "0.5.0"
+        versionName = "0.6.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -145,10 +145,17 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.splashscreen)
 
-    // Ads consent only in Phase 5 (UMP flow in onboarding, test mode).
-    // Ad views arrive in Phase 9.
+    // Ads + UMP (Phase 6: banner/native/interstitial with test IDs, consent-gated).
     implementation(libs.play.services.ads)
     implementation(libs.ump)
+    implementation(libs.androidx.browser)
+
+    // Image loading: Coil 2 with crossfade.
+    implementation(libs.coil.compose)
+
+    // Paging 3 for section lists (Room PagingSource).
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
 
     // On-device translation (ML Kit, free, no key).
     implementation(libs.mlkit.translate)
@@ -165,6 +172,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.espresso.intents)
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.junit)

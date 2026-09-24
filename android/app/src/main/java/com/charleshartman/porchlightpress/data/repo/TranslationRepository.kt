@@ -12,7 +12,13 @@ import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
 import java.io.Closeable
+import java.util.concurrent.ConcurrentHashMap
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
@@ -155,6 +161,65 @@ class TranslationRepository(
     private val engine: MlTranslatorEngine,
 ) : Closeable {
 
+    /**
+     * Shared in-flight translation work, deduped by key. Rapid prefs changes
+     * or several screens requesting the same story collapse onto one
+     * Deferred instead of launching duplicate ML Kit translations. Entries
+     * are removed when they finish, so the maps stay bounded; failures are
+     * never cached (neither in memory nor in Room), so they retry later.
+     */
+    private val repoScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val storyInFlight = ConcurrentHashMap<String, Deferred<StoryTranslation?>>()
+    private val uiInFlight = ConcurrentHashMap<String, Deferred<String>>()
+
+    /**
+     * Deduped [translateStory]: concurrent callers for the same
+     * (storyId, version, lang) share one translation. Throws on failure
+     * (callers clear their translating flag); nothing is cached on failure.
+     */
+    suspend fun translateStoryOnce(
+        storyId: String,
+        version: Int,
+        headline: String,
+        dek: String?,
+        body: String?,
+        targetLang: String,
+    ): StoryTranslation? {
+        if (targetLang == "en") return null
+        db.translationDao().storyTranslation(storyId, version, targetLang)?.let { return it }
+        val key = "$storyId/$version/$targetLang"
+        val job = storyInFlight.getOrPut(key) {
+            repoScope.async {
+                translateStory(storyId, version, headline, dek, body, targetLang)
+            }
+        }
+        try {
+            return job.await()
+        } finally {
+            storyInFlight.remove(key, job)
+        }
+    }
+
+    /**
+     * Deduped UI-string translation with placeholder protection. Returns the
+     * cached Room row when present, otherwise translates once per key even
+     * under concurrent callers. English (or failure) results are returned
+     * but never written, so failures retry on the next call.
+     */
+    suspend fun uiTextOnce(key: String, english: String, lang: String): String {
+        if (lang == "en") return english
+        db.translationDao().uiText(lang, key)?.let { return it }
+        val mapKey = "$lang/$key"
+        val job = uiInFlight.getOrPut(mapKey) {
+            repoScope.async { translateString(english, lang) }
+        }
+        try {
+            return job.await()
+        } finally {
+            uiInFlight.remove(mapKey, job)
+        }
+    }
+
     companion object {
         private val PLACEHOLDER = Regex("%(\\d+\\$)?[sd]")
         private const val TOKEN_FMT = "__PPPH%d__"
@@ -271,5 +336,8 @@ class TranslationRepository(
         return row
     }
 
-    override fun close() = engine.close()
+    override fun close() {
+        repoScope.cancel()
+        engine.close()
+    }
 }

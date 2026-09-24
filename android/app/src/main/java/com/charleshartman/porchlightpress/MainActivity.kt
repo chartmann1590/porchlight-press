@@ -4,19 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.charleshartman.porchlightpress.data.remote.NetworkModule
 import com.charleshartman.porchlightpress.data.remote.TaxonomyDto
-import com.charleshartman.porchlightpress.ui.home.HomeScreen
+import com.charleshartman.porchlightpress.ui.nav.PorchlightNavGraph
 import com.charleshartman.porchlightpress.ui.onboarding.OnboardingRoute
 import com.charleshartman.porchlightpress.ui.onboarding.OnboardingViewModel
+import com.charleshartman.porchlightpress.ui.theme.ClassicNewspaper
 import com.charleshartman.porchlightpress.ui.theme.PorchlightTheme
+import com.charleshartman.porchlightpress.ui.theme.currentLayout
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -48,16 +60,50 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
-            PorchlightTheme {
-                val prefs by container.prefs.prefs.collectAsState(initial = null)
-                val p = prefs
-                if (p != null && p.onboardingDone && p.readingStarted) {
-                    HomeScreen(container)
-                } else {
-                    // viewModels delegate is lazy; first touch must be after
-                    // onCreate — remember{} keeps one instance per composition.
-                    val vm = remember { onboardingVm }
-                    OnboardingRoute(vm = vm, activity = this)
+            val prefs by container.prefs.prefs.collectAsState(initial = null)
+            val p = prefs
+            val themePref = p?.theme ?: "classic"
+            val layout = currentLayout(themePref, p?.textScale ?: 1.0)
+            PorchlightTheme(themePref = themePref, layout = layout) {
+                when {
+                    p == null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(modifier = Modifier.testTag("main-loading"))
+                    }
+                    p.onboardingDone && p.readingStarted -> {
+                        // Consent gating: UMP must resolve before MobileAds.initialize (Phase 9 ads).
+                        // Initialize once when prefs show consent resolved or not required.
+                        // The onboarding ViewModel already called requestConsent; we check again
+                        // here to ensure ads initialize even on warm start.
+                        val scope = rememberCoroutineScope()
+                        val consent = remember { container.consentRepository.state }
+                        val consentValue by consent.collectAsState(initial = com.charleshartman.porchlightpress.data.repo.ConsentState.Unknown)
+                        androidx.compose.runtime.LaunchedEffect(consentValue, p.analyticsConsent, p.crashConsent) {
+                            if (consentValue is com.charleshartman.porchlightpress.data.repo.ConsentState.Obtained ||
+                                consentValue is com.charleshartman.porchlightpress.data.repo.ConsentState.NotRequired
+                            ) {
+                                container.adGate.initializeIfConsented(true)
+                            }
+                        }
+                        var showLocationSwitch by remember { mutableStateOf(false) }
+                        Box(Modifier.fillMaxSize()) {
+                            PorchlightNavGraph(
+                                container = container,
+                                gate = container.adGate,
+                                interstitial = container.interstitialController,
+                                onSwitchLocation = { showLocationSwitch = true },
+                            )
+                            if (showLocationSwitch) {
+                                LocationSwitchDialog(
+                                    container = container,
+                                    onDismiss = { showLocationSwitch = false },
+                                )
+                            }
+                        }
+                    }
+                    else -> {
+                        val vm = remember { onboardingVm }
+                        OnboardingRoute(vm = vm, activity = this)
+                    }
                 }
             }
         }
@@ -72,4 +118,50 @@ class MainActivity : ComponentActivity() {
             listOf("local" to "Local")
         }
     }
+}
+
+@androidx.compose.runtime.Composable
+private fun LocationSwitchDialog(container: AppContainer, onDismiss: () -> Unit) {
+    val locations by androidx.compose.runtime.produceState(initialValue = emptyList<com.charleshartman.porchlightpress.data.local.SavedLocation>(), container) {
+        value = container.db.savedLocationDao().all()
+    }
+    val scope = rememberCoroutineScope()
+    androidx.compose.material3.AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { androidx.compose.material3.Text("Switch location") },
+        text = {
+            androidx.compose.foundation.layout.Column {
+                if (locations.isEmpty()) {
+                    androidx.compose.material3.Text("No saved locations yet.")
+                }
+                locations.forEach { loc ->
+                    androidx.compose.material3.TextButton(
+                        onClick = {
+                            scope.launch {
+                                container.prefs.setActiveLocationId(loc.id)
+                                onDismiss()
+                            }
+                        },
+                        modifier = Modifier.testTag("switch-${loc.id}"),
+                    ) { androidx.compose.material3.Text(loc.label) }
+                }
+                androidx.compose.material3.TextButton(
+                    onClick = {
+                        scope.launch {
+                            container.prefs.setOnboardingDone(false)
+                            container.prefs.setReadingStarted(false)
+                            onDismiss()
+                        }
+                    },
+                    modifier = Modifier.testTag("switch-rerun-onboarding"),
+                ) { androidx.compose.material3.Text("Add or change place…") }
+                androidx.compose.material3.TextButton(
+                    onClick = onDismiss,
+                    modifier = Modifier.testTag("switch-cancel"),
+                ) { androidx.compose.material3.Text("Cancel") }
+            }
+        },
+        confirmButton = {},
+        modifier = Modifier.testTag("location-switch-dialog"),
+    )
 }

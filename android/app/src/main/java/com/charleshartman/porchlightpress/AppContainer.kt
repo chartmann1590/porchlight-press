@@ -3,6 +3,8 @@ package com.charleshartman.porchlightpress
 import android.content.Context
 import androidx.room.Room
 import androidx.work.WorkManager
+import com.charleshartman.porchlightpress.data.ads.AdMobGate
+import com.charleshartman.porchlightpress.data.ads.InterstitialController
 import com.charleshartman.porchlightpress.data.local.AppDatabase
 import com.charleshartman.porchlightpress.data.local.PreferencesStore
 import com.charleshartman.porchlightpress.data.remote.FeedApi
@@ -49,6 +51,9 @@ class AppContainer(val context: Context) {
     val translationRepository: TranslationRepository get() = translationOverride ?: realTranslation
     val consentRepository: ConsentRepository get() = consentOverride ?: realConsent
     val geoLookup: GeoLookup get() = geoOverride ?: realGeo
+
+    val adGate: AdMobGate by lazy { AdMobGate(context) }
+    val interstitialController: InterstitialController by lazy { InterstitialController() }
 
     val workManager: WorkManager by lazy { WorkManager.getInstance(context) }
 
