@@ -157,7 +157,6 @@ fun PorchlightTheme(
         darkTheme -> ClassicDarkScheme
         else -> ClassicLightScheme
     }
-    // Fix typo that would break compile — rewrite ModernDark onPrimary below if needed
     CompositionLocalProvider(
         LocalLayout provides layout,
         LocalIsClassic provides isClassic,
