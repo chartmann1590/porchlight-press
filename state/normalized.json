@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T20:00:04.590072Z",
+  "generatedAt": "2026-09-24T20:27:50.310677Z",
   "items": [
     {
       "id": "a3f330e85ac6ebf5b6f08afa629606c5",
@@ -873,6 +873,19 @@
       "rawLocations": []
     },
     {
+      "id": "146b0457d4a8d119a73878e69ae608d1",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Albany police officer pleads guilty to drug charge",
+      "excerpt": "An Albany police officer has pleaded guilty to a drug charge. The Rensselaer County District Attorney's Office announced the plea of 46-year-old Nathan Ensel, of Wynantskill, on Thursday.",
+      "url": "https://www.news10.com/news/crime/albany-police-officer-pleads-guilty-to-drug-charge/",
+      "publishedAt": "2026-09-24T20:04:31Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
       "id": "133f47f237d0a79fdcd973fa5814abb6",
       "sourceId": "wten-news10",
       "publisher": "WTEN News10 ABC",
@@ -915,7 +928,7 @@
       "id": "4af17565821d8fb070b4889fbb0f89bb",
       "sourceId": "wten-news10",
       "publisher": "WTEN News10 ABC",
-      "headline": "WATCH: County officials give update on Central Warehouse",
+      "headline": "County officials give update on Central Warehouse",
       "excerpt": "Albany County officials and the Advance Albany County Alliance are set to provide an update on Central Warehouse. You can watch them talk about the project in the player above once it starts at 3:30 p.m.",
       "url": "https://www.news10.com/news/albany-county/watch-county-officials-give-update-on-central-warehouse/",
       "publishedAt": "2026-09-24T19:25:52Z",
@@ -1504,19 +1517,6 @@
       "excerpt": "The U.S. Marshals Service has raised its reward offer for information leading to the arrest of a Lansingburgh homicide suspect. Also, the case against a teenager charged with killing her father in a fire, has been moved to family court. These stories, and more, are in your five things to know, spons",
       "url": "https://www.news10.com/5-things-to-know/5-things-to-know-this-wednesday-september-23/",
       "publishedAt": "2026-09-23T10:01:31Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "88311be05db018f055c25371d06d0792",
-      "sourceId": "wten-news10",
-      "publisher": "WTEN News10 ABC",
-      "headline": "Saints bring championship expectation into first season under Nevada Smith",
-      "excerpt": "The Siena men's basketball team took the floor on Tuesday afternoon for their first official practice of the season, kicking off the first year for the program under Nevada Smith.",
-      "url": "https://www.news10.com/sports/saints-and-danes/saints-bring-championship-expectation-into-first-season-under-nevada-smith/",
-      "publishedAt": "2026-09-23T05:59:14Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
