@@ -11,13 +11,14 @@ features:
   enableNwsAlerts: true
   aiMaxArticlesPerRun: 50
 # Phase 3: AI newsroom budget (MASTER_PLAN section 11). 25-min wall-clock
-# cap, ~50 briefs per run with 4B; more than 50 queued switches the run to
-# the 1.7B fallback. The queue is processed in rank order; whatever is left
-# ships as source cards and is retried next run.
+# cap, ~50 briefs per run with 4B. Always uses the 4B primary for quality
+# (benchmark 4B 5/8 vs 1.7B 1/30 at run 35983811629); throughput is not the
+# goal because the time-budgeted stage publishes top-ranked stories first
+# and carries the rest to the next run (4 runs/day).
 ai:
   primaryModel: "Qwen3-4B-Q4_K_M"
   fallbackModel: "Qwen3-1.7B-Q8_0"
-  overflowThreshold: 50
+  overflowThreshold: 9999
   wallClockMinutes: 25
   llamaUrl: "http://127.0.0.1:8080"
   # Optional second AI pass (same model). Off by default; enable only when

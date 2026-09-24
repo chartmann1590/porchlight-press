@@ -11,6 +11,9 @@ produced or stored.
 """
 from __future__ import annotations
 
+import json as _json
+from functools import lru_cache
+from pathlib import Path as _Path
 from typing import Any, Mapping
 
 from ..rights import may_feed_ai_text
@@ -32,14 +35,92 @@ CATEGORY_IDS = (
     "weather",
 )
 
+@lru_cache(maxsize=1)
+def _place_display_maps() -> tuple[dict[str, str], dict[str, str], dict[str, str]]:
+    """Gazzetteer display names for prompt: admin1 code -> name, metro slug -> name, country code -> name."""
+    admin1: dict[str, str] = {}
+    metro: dict[str, str] = {}
+    country: dict[str, str] = {}
+    try:
+        payload = _json.loads((_Path(__file__).resolve().parent.parent / "geo" / "places.json").read_text(encoding="utf-8"))
+    except Exception:
+        return admin1, metro, country
+    places = payload.get("places", []) if isinstance(payload, dict) else []
+    for p in places:
+        if not isinstance(p, dict):
+            continue
+        if p.get("type") == "admin1" and p.get("admin1"):
+            code = str(p["admin1"])
+            name = str(p.get("admin1Name") or p.get("name") or "")
+            if name and code not in admin1:
+                admin1[code] = name
+        if p.get("type") == "metro" and p.get("metro"):
+            slug = str(p["metro"])
+            name = str(p.get("name") or "")
+            if name and slug not in metro:
+                metro[slug] = name
+        if p.get("type") == "country" and p.get("country"):
+            code = str(p["country"]).upper()
+            name = str(p.get("name") or "")
+            if name and code not in country:
+                country[code] = name
+    country.setdefault("US", "United States")
+    return admin1, metro, country
+
+
+def _places_display_names(locations: list[Mapping[str, Any]]) -> list[str]:
+    """Human-readable place names only (no raw codes/slugs). Deduped, order-preserved."""
+    admin1_map, metro_map, country_map = _place_display_maps()
+    seen: set[str] = set()
+    out: list[str] = []
+    for loc in locations:
+        if not isinstance(loc, Mapping):
+            continue
+        for key in ("city", "admin2"):
+            raw = str(loc.get(key) or "").strip()
+            if raw and raw.lower() not in seen:
+                seen.add(raw.lower())
+                out.append(raw)
+        admin1 = str(loc.get("admin1") or "").strip()
+        if admin1:
+            display = admin1_map.get(admin1) or admin1_map.get(admin1.upper()) or ""
+            if not display:
+                if "-" in admin1:
+                    display = admin1.split("-", 1)[1].replace("-", " ").title()
+                else:
+                    display = admin1
+            if display and display.lower() not in seen:
+                seen.add(display.lower())
+                out.append(display)
+        metro = str(loc.get("metro") or "").strip()
+        if metro:
+            display = metro_map.get(metro, "")
+            if not display:
+                # humanize slug: us-ny-capital-region -> Capital Region
+                parts = [p for p in metro.split("-") if p.lower() not in ("us", "ny")]
+                display = " ".join(w.capitalize() for w in parts) if parts else metro
+                if display.lower() == "capital region":
+                    display = "Capital Region"
+            if display and display.lower() not in seen:
+                seen.add(display.lower())
+                out.append(display)
+        country = str(loc.get("country") or "").strip()
+        if country:
+            display = country_map.get(country.upper(), country)
+            if display.lower() not in seen:
+                seen.add(display.lower())
+                out.append(display)
+    return out
+
+
 SYSTEM_PROMPT = """You are an automated news editor.
-Write a SHORT news brief using ONLY facts stated in the supplied SOURCES and clusterLocations. Every sentence must be grounded in that material. Shorter beats filler: stop when the sources run out.
+Write a SHORT news brief using ONLY facts stated in the supplied SOURCES and Places. Every sentence must be grounded in that material. Shorter beats filler: stop when the sources run out.
 NEVER add background, context, speculation, or filler. BANNED filler (never write these or anything like them):
 - "Details ... are not yet available / are still developing / have not been released"
 - "part of a broader initiative / effort / campaign"
 - "The case is being handled by ..." / "The investigation is ongoing ..." unless a source says so
 - generic closers ("The report highlights the financial strain ...", "officials continue to monitor ...")
-- self-references to the source material ("as reported in the headline/excerpt", "as noted in the source material", "as per the cluster locations", "the report highlights ..."). Attribute facts to publishers ("according to WNYT"), never to "the headline", "the report", or "the cluster locations".
+- self-references to the source material ("as reported in the headline/excerpt", "as noted in the source material", "as reported in the Places", "the report highlights ..."). Attribute facts to publishers ("according to WNYT"), never to "the headline", "the report", or "the Places".
 If the sources say little, write a short brief and stop. If the sources give only one fact, write one or two sentences on that fact alone; never describe plans, details, or context not stated. Do not pad to fill space.
 DO NOT: invent facts, invent quotes, invent names, invent dates, infer motives, make unsupported conclusions, change numeric values, make political judgments.
 PARAPHRASE: never copy 12 or more consecutive words from any source. Rewrite in your own words. Keep agents and patients straight: if police searched for a suspect, do not write the suspect searching.
@@ -48,10 +129,10 @@ Clearly distinguish uncertainty. If sources disagree, say they disagree and attr
 Use neutral journalistic language. Do not endorse candidates, parties, or positions. Do not give voting advice. Do not rank parties or candidates. Attribute political claims to their sources.
 Rules:
 - Headline: at most 110 characters, plain text, no quotation marks unless quoting a source verbatim.
-- Dek: one sentence, at most 200 characters, no new facts beyond the body.
-- Body: 30 to 220 words, newspaper style. Match the sources: thin sources get a short brief (30-60 words); rich multi-source clusters get the fuller 60+ word treatment. Every name, number, date, and quote must come from the sources (headlines, excerpts, publishers, timestamps) or clusterLocations. Never pad with filler to hit a length.
+- Dek: one sentence, at most 200 characters (≤200), no new facts beyond the body.
+- Body: 30 to 220 words, newspaper style. Match the sources: thin sources get a short brief (30-60 words); rich multi-source clusters get the fuller 60+ word treatment. Every name, number, date, and quote must come from the sources (headlines, excerpts, publishers, timestamps) or Places. Never pad with filler to hit a length.
 - Category: exactly one of: local, public-safety, business, technology, science, sports, entertainment, politics, health, environment, travel, weather.
-- Locations: only places named in the sources or listed in clusterLocations (city/county/state/country). Use human-readable names (New York, Albany County, Troy). Never output raw codes or slugs like US-NY or us-ny-capital-region. Never invent coordinates.
+- Locations: only places named in the sources or listed in Places (city/county/state/country). Use the human-readable names exactly as shown in Places (for example New York, Albany County, Troy, Capital Region). Never output raw codes or slugs; never invent coordinates.
 - People/organizations: only names appearing in the sources, copied EXACTLY as written (if sources say "President Donald Trump", write that -- never shorten to "President Trump").
 - sourceIds: every ID you list must be one of the supplied source entry IDs. Cite all sources you used.
 - If a fact appears in only one source, attribute it ("according to ...").
@@ -98,9 +179,12 @@ def _permitted_source_view(member: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def build_user_message(cluster: Mapping[str, Any]) -> str:
-    """User message: only rights-permitted material, nothing else."""
-    import json
+    """User message: only rights-permitted material, nothing else.
 
+    Places are presented by display name only (e.g. "New York", "Capital
+    Region", "Albany County") -- never raw codes like US-NY or slugs like
+    us-ny-capital-region, which the model must never echo.
+    """
     members = list(cluster.get("members", []) or [])
     # Deterministic order: by publishedAt then id.
     members = sorted(
@@ -109,15 +193,16 @@ def build_user_message(cluster: Mapping[str, Any]) -> str:
     )
     sources = [_permitted_source_view(m) for m in members]
     category_hint = str(cluster.get("category") or "local")
-    locations = list(cluster.get("locations", []) or [])
+    raw_locs = list(cluster.get("locations", []) or [])
+    places = _places_display_names(raw_locs)
     payload = {
         "SOURCES": sources,
+        "PLACES": places,
         "categoryHint": category_hint,
-        "clusterLocations": locations,
     }
     return (
-        "SOURCES (use only this material):\n"
-        + json.dumps(payload, indent=1)
+        "SOURCES and PLACES (use only this material):\n"
+        + _json.dumps(payload, indent=1)
         + f"\n\nCategory hint: {category_hint}. "
         + "You must still pick the single best category from the allowed list."
     )
@@ -179,6 +264,31 @@ def build_retry_messages(
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": retry_user},
+    ]
+
+
+def build_verbatim_repair_messages(
+    cluster: Mapping[str, Any],
+    previous_brief_json: str,
+    failure_reason: str,
+) -> list[dict[str, str]]:
+    """Cheap deterministic repair for verbatim-only failures.
+
+    Asks the model once to reword just the flagged sentences (short targeted
+    call). This IS the single retry, so no extra retries are made after it.
+    """
+    base_user = build_user_message(cluster)
+    repair_user = (
+        base_user
+        + "\n\nYour previous output FAILED validation ONLY for verbatim copying (12+ consecutive words from a source):\n"
+        + failure_reason[:1500]
+        + "\nPrevious output:\n"
+        + previous_brief_json[:4000]
+        + "\nTask: reword ONLY the flagged sentences in your own words -- change sentence structure, not just a few words. Keep all facts grounded in SOURCES and Places, keep headline at most 110 chars, dek one sentence at most 200 chars, body 30-220 words, and return corrected JSON."
+    )
+    return [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": repair_user},
     ]
 
 

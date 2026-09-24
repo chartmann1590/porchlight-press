@@ -15,7 +15,8 @@ def test_fifty_queued_stays_on_primary():
 
 
 def test_fifty_one_queued_switches_to_fallback():
-    assert choose_model(51, _cfg()) == FALLBACK_MODEL
+    # Always primary for quality (4B 5/8 vs 1.7B 1/30); overflow disabled.
+    assert choose_model(51, _cfg()) == PRIMARY_MODEL
 
 
 def test_zero_queued_stays_on_primary():
@@ -28,8 +29,9 @@ def test_explicit_override_always_wins():
 
 
 def test_custom_threshold_respected():
+    # Threshold is kept for manifest only; model choice always uses primary.
     assert choose_model(10, _cfg(threshold=10)) == PRIMARY_MODEL
-    assert choose_model(11, _cfg(threshold=10)) == FALLBACK_MODEL
+    assert choose_model(11, _cfg(threshold=10)) == PRIMARY_MODEL
 
 
 def _member(i, sid):
@@ -79,7 +81,7 @@ def _write_clusters(path, clusters):
 
 
 def test_choose_model_cli_writes_files_without_server(tmp_path):
-    # 51 queued -> fallback; never touches the network (no providers built).
+    # 51 queued -> always primary (quality over throughput; 4 runs/day carry over).
     from pipeline import newsroom as nr
 
     clusters = [_cluster(f"eid-{i:04d}", score=1.0 - i * 0.001) for i in range(51)]
@@ -92,10 +94,10 @@ def test_choose_model_cli_writes_files_without_server(tmp_path):
                   "--queue-file", str(queue_file),
                   "--llama-url", "http://127.0.0.1:9"])
     assert rc == 0
-    assert choice.read_text(encoding="utf-8").strip() == FALLBACK_MODEL
+    assert choice.read_text(encoding="utf-8").strip() == PRIMARY_MODEL
     manifest = json.loads(queue_file.read_text(encoding="utf-8"))
-    assert manifest["model"] == FALLBACK_MODEL
-    assert manifest["threshold"] == 50
+    assert manifest["model"] == PRIMARY_MODEL
+    assert manifest["threshold"] == 9999
     assert len(manifest["queued"]) == 51
     # Rank order: best score first.
     assert manifest["queued"][0] == "eid-0000"
