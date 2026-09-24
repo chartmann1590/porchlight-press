@@ -198,6 +198,27 @@ def test_retry_messages_carry_targeted_hints():
     assert "US-NY" in SYSTEM_PROMPT and "EXACTLY as written" in SYSTEM_PROMPT
 
 
+def test_retry_runs_warmer_than_first_try():
+    from pipeline.ai.providers import RETRY_TEMPERATURE, try_brief_with_retry
+
+    seen: list = []
+
+    class _Fake:
+        def generate(self, cluster):
+            brief = _good_brief_payload()
+            brief["people"] = ["Invented Person XYZ"]
+            return dict(brief), json.dumps(brief), None
+
+        def generate_with_messages(self, messages, temperature=None):
+            seen.append(temperature)
+            brief = _good_brief_payload()
+            return brief, json.dumps(brief), None
+
+    brief, _result, _raw, _err = try_brief_with_retry(_Fake(), _cluster())
+    assert brief is not None  # retry with the valid payload passes
+    assert seen == [RETRY_TEMPERATURE] and RETRY_TEMPERATURE > 0.2
+
+
 def _factcheck_envelope(unsupported: list[str]) -> dict:
     return {"choices": [{"message": {"content": json.dumps({"unsupported": unsupported})}}]}
 

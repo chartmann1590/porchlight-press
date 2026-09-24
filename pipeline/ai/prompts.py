@@ -39,6 +39,7 @@ NEVER add background, context, speculation, or filler. BANNED filler (never writ
 - "part of a broader initiative / effort / campaign"
 - "The case is being handled by ..." / "The investigation is ongoing ..." unless a source says so
 - generic closers ("The report highlights the financial strain ...", "officials continue to monitor ...")
+- self-references to the source material ("as reported in the headline/excerpt", "as noted in the source material", "the report highlights ..."). Attribute facts to publishers ("according to WNYT"), never to "the headline" or "the report".
 If the sources say little, write a short brief and stop. Do not pad to fill space.
 DO NOT: invent facts, invent quotes, invent names, invent dates, infer motives, make unsupported conclusions, change numeric values, make political judgments.
 PARAPHRASE: never copy 12 or more consecutive words from any source. Rewrite in your own words.

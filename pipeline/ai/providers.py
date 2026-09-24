@@ -123,10 +123,13 @@ class LocalLlamaProvider:
         return self.generate_with_messages(build_messages(cluster))
 
     def generate_with_messages(
-        self, messages: list[dict[str, str]]
+        self, messages: list[dict[str, str]], temperature: float | None = None
     ) -> tuple[dict[str, Any] | None, str, str | None]:
         try:
-            resp = self._post_fn({"messages": messages})
+            payload: dict[str, Any] = {"messages": messages}
+            if temperature is not None:
+                payload["temperature"] = temperature
+            resp = self._post_fn(payload)
         except Exception as exc:  # noqa: BLE001 - transport failure -> fallback
             self.last_raw = ""
             self.last_error = f"llm transport: {type(exc).__name__}: {str(exc)[:200]}"
@@ -218,12 +221,15 @@ class CloudflareWorkersAIProvider:
         return self.generate_with_messages(build_messages(cluster))
 
     def generate_with_messages(
-        self, messages: list[dict[str, str]]
+        self, messages: list[dict[str, str]], temperature: float | None = None
     ) -> tuple[dict[str, Any] | None, str, str | None]:
         assert self.enabled
         try:
             if self._post_fn is not None:
-                resp = self._post_fn({"messages": messages})
+                payload: dict[str, Any] = {"messages": messages}
+                if temperature is not None:
+                    payload["temperature"] = temperature
+                resp = self._post_fn(payload)
                 # Test seam: fake post_fn returns an OpenAI-style envelope
                 # or raises. Reuse the same envelope parsing as local.
                 try:
@@ -458,6 +464,13 @@ def build_ai_story(
     }
 
 
+# Retry temperature: the first try runs cool (0.2, factual) while the single
+# retry runs warmer so it can escape the same failure basin (e.g. the same
+# filler sentence at temp 0.2). The retry is still fully validated, so extra
+# diversity never lowers quality -- a bad retry just falls back to a card.
+RETRY_TEMPERATURE = 0.6
+
+
 def try_brief_with_retry(
     provider: BriefProvider,
     cluster: Mapping[str, Any],
@@ -474,12 +487,20 @@ def try_brief_with_retry(
     result = validate_brief(brief, cluster)
     if result.ok:
         return brief, result, raw, None
-    # One regeneration with the failure reason appended.
+    # One regeneration with the failure reason + targeted hints appended,
+    # at a warmer temperature so it does not repeat the same failure.
     reason = "; ".join(result.reasons)[:1500]
     if hasattr(provider, "generate_with_messages"):
-        brief2, raw2, err2 = provider.generate_with_messages(  # type: ignore[attr-defined]
-            build_retry_messages(cluster, raw, reason)
-        )
+        try:
+            brief2, raw2, err2 = provider.generate_with_messages(  # type: ignore[attr-defined]
+                build_retry_messages(cluster, raw, reason),
+                temperature=RETRY_TEMPERATURE,
+            )
+        except TypeError:
+            # Providers without a temperature knob (older fakes in tests).
+            brief2, raw2, err2 = provider.generate_with_messages(  # type: ignore[attr-defined]
+                build_retry_messages(cluster, raw, reason)
+            )
         if brief2 is None:
             return None, result, raw2, err2 or reason
         result2 = validate_brief(brief2, cluster)
