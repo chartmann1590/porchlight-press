@@ -109,7 +109,7 @@ def _scrub_record(rec: dict[str, Any]) -> bool:
     brief = rec.get("lastBrief")
     if isinstance(brief, dict):
         had_fffd = any(
-            isinstance(brief.get(k), str) and _REPLACEMENT_CHAR in str(brief.get(k))
+            isinstance(brief.get(k), str) and _REPLACEMENT_CHAR in brief.get(k)
             for k in ("headline", "dek", "body")
         )
         if had_fffd:
@@ -117,7 +117,7 @@ def _scrub_record(rec: dict[str, Any]) -> bool:
             changed = True
         else:
             for key in ("headline", "dek", "body"):
-                if isinstance(brief.get(key), str) and _REPLACEMENT_CHAR in str(brief.get(key)):
+                if isinstance(brief.get(key), str) and _REPLACEMENT_CHAR in brief.get(key):
                     brief[key] = _scrub_str(brief.get(key))
                     changed = True
     return changed
