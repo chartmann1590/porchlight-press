@@ -64,41 +64,43 @@ class LocationRepository(
 
     // -- Cascading picker helpers (pure, unit-tested) -----------------------
 
-    fun countries(places: List<PlaceDto>): List<PlaceDto> =
-        places.filter { it.type == "country" }.sortedBy { it.name }
+    companion object {
+        fun countries(places: List<PlaceDto>): List<PlaceDto> =
+            places.filter { it.type == "country" }.sortedBy { it.name }
 
-    fun admin1s(places: List<PlaceDto>, country: String): List<PlaceDto> =
-        places.filter { it.type == "admin1" && it.country.equals(country, true) }
-            .sortedBy { it.name }
+        fun admin1s(places: List<PlaceDto>, country: String): List<PlaceDto> =
+            places.filter { it.type == "admin1" && it.country.equals(country, true) }
+                .sortedBy { it.name }
 
-    fun counties(places: List<PlaceDto>, admin1: String?): List<PlaceDto> =
-        places.filter { it.type == "admin2" && (admin1 == null || it.admin1 == admin1) }
-            .sortedBy { it.name }
+        fun counties(places: List<PlaceDto>, admin1: String?): List<PlaceDto> =
+            places.filter { it.type == "admin2" && (admin1 == null || it.admin1 == admin1) }
+                .sortedBy { it.name }
 
-    fun cities(places: List<PlaceDto>, admin2: String?, query: String = ""): List<PlaceDto> {
-        val q = query.trim().lowercase()
-        return places
-            .filter { it.type == "city" && (admin2 == null || it.admin2 == admin2) }
-            .filter { q.isEmpty() || it.name.lowercase().contains(q) || it.aliases.any { a -> a.lowercase().contains(q) } }
-            .sortedBy { it.name }
-    }
+        fun cities(places: List<PlaceDto>, admin2: String?, query: String = ""): List<PlaceDto> {
+            val q = query.trim().lowercase()
+            return places
+                .filter { it.type == "city" && (admin2 == null || it.admin2 == admin2) }
+                .filter { q.isEmpty() || it.name.lowercase().contains(q) || it.aliases.any { a -> a.lowercase().contains(q) } }
+                .sortedBy { it.name }
+        }
 
-    fun placeToFollowed(place: PlaceDto, label: String? = null): Place {
-        val id = "place:${place.country.lowercase()}:${(place.city ?: place.admin2 ?: place.admin1 ?: place.name).lowercase().replace(Regex("[^a-z0-9]+"), "-")}"
-        val auto = listOfNotNull(
-            place.city,
-            place.admin1?.substringAfter("-")?.takeIf { place.city != null },
-        ).joinToString(", ").ifBlank { place.name }
-        return Place(
-            id = id,
-            label = label ?: auto,
-            country = place.country.uppercase(),
-            admin1 = place.admin1,
-            admin2 = place.admin2,
-            city = place.city,
-            metro = place.metro,
-            tz = place.timezone,
-        )
+        fun placeToFollowed(place: PlaceDto, label: String? = null): Place {
+            val id = "place:${place.country.lowercase()}:${(place.city ?: place.admin2 ?: place.admin1 ?: place.name).lowercase().replace(Regex("[^a-z0-9]+"), "-")}"
+            val auto = listOfNotNull(
+                place.city,
+                place.admin1?.substringAfter("-")?.takeIf { place.city != null },
+            ).joinToString(", ").ifBlank { place.name }
+            return Place(
+                id = id,
+                label = label ?: auto,
+                country = place.country.uppercase(),
+                admin1 = place.admin1,
+                admin2 = place.admin2,
+                city = place.city,
+                metro = place.metro,
+                tz = place.timezone,
+            )
+        }
     }
 
     private inline fun <reified T> readCache(name: String): T? {

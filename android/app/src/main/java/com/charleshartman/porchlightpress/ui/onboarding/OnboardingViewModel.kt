@@ -338,10 +338,10 @@ class OnboardingViewModel(
         val s = _state.value
         _state.update {
             it.copy(
-                countries = locationRepo.countries(allPlaces).ifEmpty { defaultCountries() },
-                admin1s = locationRepo.admin1s(allPlaces, s.manualCountry),
-                counties = locationRepo.counties(allPlaces, s.manualAdmin1),
-                cities = locationRepo.cities(allPlaces, s.manualAdmin2, s.manualQuery),
+                countries = LocationRepository.countries(allPlaces).ifEmpty { defaultCountries() },
+                admin1s = LocationRepository.admin1s(allPlaces, s.manualCountry),
+                counties = LocationRepository.counties(allPlaces, s.manualAdmin1),
+                cities = LocationRepository.cities(allPlaces, s.manualAdmin2, s.manualQuery),
             )
         }
     }
@@ -379,7 +379,7 @@ class OnboardingViewModel(
 
     fun setManualCity(city: PlaceDto) {
         viewModelScope.launch {
-            _state.update { it.copy(place = enrich(locationRepo.placeToFollowed(city))) }
+            _state.update { it.copy(place = enrich(LocationRepository.placeToFollowed(city))) }
             enterConfirm()
             save()
         }

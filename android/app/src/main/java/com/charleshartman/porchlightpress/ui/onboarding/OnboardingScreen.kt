@@ -20,6 +20,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
@@ -61,7 +63,9 @@ fun OnboardingRoute(
 ) {
     val state by vm.state.collectAsState()
     BackHandler(enabled = state.step != OnboardingStep.WELCOME) { vm.onBack() }
-    Column(Modifier.fillMaxSize().padding(20.dp)) {
+    Column(
+        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
+    ) {
         ProgressDots(current = state.step.ordinal, total = ALL_STEPS.size)
         Spacer(Modifier.height(12.dp))
         when (state.step) {
@@ -132,8 +136,8 @@ private fun LanguageStep(vm: OnboardingViewModel) {
     Column(Modifier.fillMaxWidth().testTag("step-language"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text("Choose your language", style = MaterialTheme.typography.headlineSmall)
         Text("The whole app — news, weather, even the PDF — is translated on your phone.")
-        LazyColumn(Modifier.weight(1f, fill = false)) {
-            items(state.supportedLanguages) { tag ->
+        Column(Modifier.fillMaxWidth()) {
+            state.supportedLanguages.forEach { tag ->
                 val display = try {
                     java.util.Locale.forLanguageTag(tag).getDisplayName(java.util.Locale.ENGLISH)
                 } catch (e: Exception) {
