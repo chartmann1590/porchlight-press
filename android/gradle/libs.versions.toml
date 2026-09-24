@@ -24,9 +24,9 @@ mlkitLangId = "17.0.6"
 junit = "4.13.2"
 mockk = "1.13.12"
 turbine = "1.1.0"
-espresso = "3.6.1"
-testCore = "1.6.1"
-runner = "1.6.2"
+espresso = "3.7.0"
+testCore = "1.7.0"
+runner = "1.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

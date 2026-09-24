@@ -30,7 +30,7 @@ data class SectionWithStories(
     @Embedded val section: EditionSection,
     @Relation(
         parentColumn = "sectionId",
-        entityColumn = "storyId",
+        entityColumn = "sectionId",
         entity = EditionStory::class,
     )
     val links: List<EditionStory>,

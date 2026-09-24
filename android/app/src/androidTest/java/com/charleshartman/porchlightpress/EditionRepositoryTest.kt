@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.charleshartman.porchlightpress.data.local.AppDatabase
+import com.charleshartman.porchlightpress.data.local.SavedLocation
 import com.charleshartman.porchlightpress.data.repo.EditionRepository
 import com.charleshartman.porchlightpress.domain.FeedResult
 import com.charleshartman.porchlightpress.domain.Place
@@ -36,6 +37,17 @@ class EditionRepositoryTest {
             .build()
     }
 
+    /** Editions reference their followed place (FK); mirror production order. */
+    private suspend fun insertHomePlace() {
+        db.savedLocationDao().upsert(
+            SavedLocation(
+                id = schenectady.id, label = schenectady.label, country = schenectady.country,
+                admin1 = schenectady.admin1, admin2 = schenectady.admin2, city = schenectady.city,
+                metro = schenectady.metro, tz = schenectady.tz, isHome = true, sortOrder = 0,
+            ),
+        )
+    }
+
     @After
     fun tearDown() {
         db.close()
@@ -43,6 +55,7 @@ class EditionRepositoryTest {
 
     @Test
     fun syncCityExactPersistsAndExposesFlow() = runTest {
+        insertHomePlace()
         val api = FakeFeedApi()
         val repo = EditionRepository(db)
         val result = repo.sync(schenectady, "latest", api)
@@ -61,6 +74,7 @@ class EditionRepositoryTest {
 
     @Test
     fun syncFallsBackToMetro() = runTest {
+        insertHomePlace()
         val api = FakeFeedApi(
             index = testIndexDto(listOf("feeds/us/ny/regions/us-ny-capital-region/latest.json")),
             editions = mapOf(
@@ -96,6 +110,7 @@ class EditionRepositoryTest {
 
     @Test
     fun offlineWithCacheReturnsOfflineCached() = runTest {
+        insertHomePlace()
         val repo = EditionRepository(db)
         repo.sync(schenectady, "latest", FakeFeedApi())
         val result = repo.sync(schenectady, "latest", FakeFeedApi(offline = true))
