@@ -87,7 +87,13 @@ jobs:
             --places "${{ runner.temp }}/geo-full/geo-places.json" \
             --postal-places "${{ runner.temp }}/geo-full/geo-postal.json" \
             --summary-file "$GITHUB_STEP_SUMMARY"
-          echo "MODEL_CHOICE=$(cat state/model-choice.txt)" >> "$GITHUB_ENV"
+          if [ ! -s state/model-choice.txt ]; then
+            echo "ERROR: state/model-choice.txt is missing or empty after the process stage" >&2
+            exit 1
+          fi
+          MODEL_CHOICE="$(cat state/model-choice.txt)"
+          echo "MODEL_CHOICE=$MODEL_CHOICE" >> "$GITHUB_ENV"
+          echo "selected model: $MODEL_CHOICE"
 
       - name: Resolve models from models.lock
         id: lock
