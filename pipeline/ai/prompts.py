@@ -247,6 +247,19 @@ def build_retry_messages(
             "context) from the sources; never round, shorten, or reformat "
             "names around them."
         )
+    if "outcome" in low:
+        hints.append(
+            "For unsupported outcome claims: drop the flagged death, arrest, "
+            "charge, conviction, sentencing, custody, or injury claim unless "
+            "a source states that outcome -- never upgrade 'injured' to "
+            "'died' and never invent legal results."
+        )
+    if "event location" in low or "containment" in low:
+        hints.append(
+            "For unsupported places: state what happened without asserting "
+            "where the event occurred; drop any 'occurred in <place>' the "
+            "sources never name."
+        )
     if "body must be" in low:
         hints.append(
             "For length: add one more grounded sentence from the sources, or "

@@ -170,6 +170,168 @@ def test_invalid_story_aborts_deploy(tmp_path):
     assert not (out / "index.json").exists()
 
 
+def _heli_cluster_for_story(sid):
+    return {
+        "eventId": sid,
+        "score": 0.6,
+        "section": "regional",
+        "locations": [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}],
+        "members": [{
+            "id": "h1",
+            "sourceId": "wten-news10",
+            "publisher": "WTEN News10 ABC",
+            "headline": "NY Army National Guard crew chief injured in helicopter crash takes 'final flight'",
+            "excerpt": "The crew chief was injured when the helicopter went down during a training flight, according to Guard officials. He was taken to the hospital for treatment.",
+            "url": "https://example.com/heli",
+            "publishedAt": "2026-09-23T19:44:55Z",
+            "rightsMode": "RSS_EXCERPT_ALLOWED",
+        }],
+    }
+
+
+def test_stale_ai_brief_failing_validator_downgraded_to_card(tmp_path):
+    # Production story f50f7807554b049d: a "died" brief generated under the
+    # old validator must not be republished -- publish revalidates cached AI
+    # briefs against the current validator and falls back to the source card.
+    # An honest brief on the same sources still ships as AI.
+    bad = _story("f50f7807554b049d")
+    bad.update({
+        "headline": "Military veteran dies in helicopter crash",
+        "dek": "WTEN News10 reports a military veteran died in a helicopter crash.",
+        "body": ("According to Guard officials, a helicopter went down during a training "
+                 "flight and the crew chief was injured. He was taken to the hospital for "
+                 "treatment, WTEN News10 ABC reported. The crash occurred in the Capital "
+                 "Region, according to the source. A military veteran died in the helicopter "
+                 "crash on the training flight with the Guard crew chief."),
+        "category": "public-safety",
+        "locations": [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}],
+    })
+    good = _story("aa50f7807554b049d")
+    good.update({
+        "headline": "Guard crew chief injured in helicopter crash",
+        "dek": "WTEN News10 reports a Guard crew chief was injured in a helicopter crash.",
+        "body": ("According to Guard officials, a helicopter went down during a training "
+                 "flight and the crew chief was injured. He was taken to the hospital for "
+                 "treatment, WTEN News10 ABC reported. The Guard crew chief was injured in "
+                 "the helicopter crash on the training flight."),
+        "category": "public-safety",
+        "locations": [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}],
+    })
+    clusters = [_heli_cluster_for_story("f50f7807554b049d"),
+                _heli_cluster_for_story("aa50f7807554b049d")]
+    sp, cp = _write_inputs(tmp_path, [bad, good], clusters)
+    out = _run_publish(tmp_path, sp, cp, "2026-09-23T10:17:00Z")
+    stories = {s["id"]: s for s in
+               json.loads((out / "feeds/us/ny/regions/us-ny-capital-region/latest.json")
+                          .read_text(encoding="utf-8"))["stories"]}
+    assert stories["f50f7807554b049d"]["aiGenerated"] is False
+    assert "injured in helicopter crash" in stories["f50f7807554b049d"]["headline"]
+    assert stories["aa50f7807554b049d"]["aiGenerated"] is True
+
+
+def _load_fixture_cluster(fname):
+    from pathlib import Path as _Path
+
+    return json.loads((_Path("tests/fixtures/ai_regression") / fname).read_text(encoding="utf-8"))
+
+
+def _brief_for_fixture(headline, dek, body, cluster):
+    member_id = cluster["members"][0]["id"]
+    return {
+        "headline": headline,
+        "dek": dek,
+        "body": body,
+        "category": str(cluster.get("category") or "local"),
+        "locations": [dict(l) for l in (cluster.get("locations", []) or [])],
+        "people": [],
+        "organizations": [],
+        "sourceIds": [member_id],
+        "aiModel": "test",
+        "confidence": 0.7,
+    }
+
+
+def test_revalidate_keeps_accepted_fixture_briefs_downgrades_died_story():
+    """Review proof for revalidate_ai_stories on real fixture data.
+
+    Honest briefs on the PR #9 ACCEPT fixtures (02fd Troy arrest, 23cc
+    trade war, 6549 Poestenkill custody, 9242 perimenopause) pass the FULL
+    validator and -- built into published stories exactly the way
+    newsroom/publish carry them -- survive the publish-time re-check. The
+    f50f7807554b049d "died" story is downgraded in the same run.
+    """
+    from datetime import datetime, timezone
+
+    from pipeline.ai.providers import build_ai_story
+    from pipeline.ai.validate import validate_brief
+    from pipeline.publish import revalidate_ai_stories
+
+    now = datetime(2026, 9, 23, 12, 0, tzinfo=timezone.utc)
+    drafts = {
+        "02fdc27bec1619c6.json": (
+            "Troy woman arrested on neglect charge",
+            "Police acted Tuesday in Troy.",
+            "Police arrested a Troy woman on Tuesday, according to News10. "
+            "The arrest occurred in Rensselaer County, New York as a result of an animal abuse investigation. "
+            "Police in Troy arrested the woman on Tuesday. News10 reported the Troy arrest on Tuesday.",
+        ),
+        "23ccda726f7e68ab.json": (
+            "Northeast dealership unfazed by US Canada trade war",
+            "WAMC reports tariffs and bans in the ongoing trade war.",
+            "According to WAMC, President Donald Trump enacted tariffs on Canadian goods. The trade "
+            "war between Canada and the United States is ongoing. An outright ban on some Canadian "
+            "motorcycles has one brand, Can-Am, at the center of the bans. A Northeast motorcycle "
+            "dealership is not feeling the pressure of the trade war.",
+        ),
+        "65497cffb2af21d4.json": (
+            "Suspect taken into custody in Poestenkill",
+            "State Police took an armed suspect into custody in Poestenkill.",
+            "An armed man was taken into custody in Poestenkill, according to WTEN. Police issued "
+            "a Wednesday afternoon public safety alert while searching for the man. The 39-year-old "
+            "suspect was taken into custody Wednesday. State Police searched Poestenkill on Wednesday afternoon.",
+        ),
+        "92423aa1adf8fbab.json": (
+            "September marks perimenopause awareness month",
+            "NEWS10 notes the September health topic.",
+            "September brings Perimenopause Awareness Month, NEWS10 noted Wednesday. Perimenopause is "
+            "the stage of life for women before menopause. NEWS10 marked September as awareness month "
+            "for the change before menopause in Albany.",
+        ),
+    }
+    stories = []
+    clusters_by_id = {}
+    for fname, (headline, dek, body) in drafts.items():
+        cluster = _load_fixture_cluster(fname)
+        assert 30 <= len(body.split()) <= 220, fname
+        brief = _brief_for_fixture(headline, dek, body, cluster)
+        result = validate_brief(brief, cluster)
+        assert result.ok, (fname, result.reasons)
+        clusters_by_id[cluster["eventId"]] = cluster
+        stories.append(build_ai_story(brief, cluster, model_name="Qwen3-4B-Q4_K_M", now=now))
+    # The production failure, in published-story shape.
+    f50 = _load_fixture_cluster("f50f7807554b049d.json")
+    died = _brief_for_fixture(
+        "Military veteran dies in helicopter crash",
+        "WTEN News10 reports a military veteran died in a helicopter crash.",
+        "According to Guard officials, a helicopter went down during a training "
+        "flight and the crew chief was injured. He was taken to the hospital for "
+        "treatment, WTEN News10 ABC reported. The crash occurred in the Capital "
+        "Region, according to the source. A military veteran died in the helicopter "
+        "crash on the training flight with the Guard crew chief.",
+        f50,
+    )
+    assert not validate_brief(died, f50).ok
+    clusters_by_id[f50["eventId"]] = f50
+    stories.append(build_ai_story(died, f50, model_name="Qwen3-4B-Q4_K_M", now=now))
+
+    out, n_downgraded, _log = revalidate_ai_stories(stories, clusters_by_id)
+    assert n_downgraded == 1
+    by_id = {s["id"]: s for s in out}
+    for fname in drafts:
+        assert by_id[fname[:-5]]["aiGenerated"] is True, fname
+    assert by_id["f50f7807554b049d"]["aiGenerated"] is False
+
+
 def test_share_carry_forward_and_prune(tmp_path):
     from pipeline import publish as pub
 

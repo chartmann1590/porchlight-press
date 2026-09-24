@@ -677,6 +677,85 @@ def carry_forward_share(
 
 
 # ---------------------------------------------------------------------------
+# Stale-brief revalidation (publish-time safety net)
+# ---------------------------------------------------------------------------
+
+def _brief_from_ai_story(
+    story: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Rebuild a validator-shaped brief from a published AI story.
+
+    Stories carry no people/organizations/sourceIds, so those reconstruct
+    as empty/all-members (the entity-span, number, and outcome checks that
+    matter here only need headline/dek/body + cluster source text).
+    """
+    members = [m for m in (cluster.get("members", []) or []) if isinstance(m, Mapping)]
+    ids: list[str] = []
+    for m in members:
+        for key in ("id", "sourceId", "url"):
+            val = str(m.get(key) or "").strip()
+            if val:
+                ids.append(val)
+                break
+    return {
+        "headline": str(story.get("headline") or ""),
+        "dek": str(story.get("dek") or ""),
+        "body": str(story.get("body") or ""),
+        "category": str(story.get("category") or "local"),
+        "locations": list(story.get("locations", []) or []),
+        "people": [],
+        "organizations": [],
+        "sourceIds": ids,
+        "aiModel": str(story.get("aiModel") or "unknown"),
+        "confidence": 0.5,
+    }
+
+
+def revalidate_ai_stories(
+    stories: list[dict[str, Any]],
+    clusters_by_id: Mapping[str, Any],
+) -> tuple[list[dict[str, Any]], int, list[str]]:
+    """Downgrade stale AI briefs that fail the outcome/location re-check.
+
+    Safety net for briefs generated under an older/weaker validator (e.g.
+    the f50f7807554b049d "died" brief): an aiGenerated story whose cluster
+    still carries source members is re-checked with
+    publication_outcome_reasons and falls back to a deterministic source
+    card on failure. Deliberately narrow (not the full validate_brief):
+    rebuilt briefs lack people/organizations/sourceIds, so only checks
+    that depend solely on headline/dek/body + cluster source text run
+    here -- good briefs can never be downgraded by field drift. Stories
+    with no linked cluster members are left untouched (nothing to check
+    against). Returns (stories, n_downgraded, log_lines).
+    """
+    from .ai.providers import SourceCardProvider
+    from .ai.validate import publication_outcome_reasons
+
+    cards = SourceCardProvider()
+    out: list[dict[str, Any]] = []
+    downgraded = 0
+    log_lines: list[str] = []
+    for story in stories:
+        if not isinstance(story, dict) or not story.get("aiGenerated"):
+            out.append(story)
+            continue
+        sid = str(story.get("id") or "")
+        cluster = clusters_by_id.get(sid)
+        members = (cluster.get("members", []) or []) if isinstance(cluster, Mapping) else []
+        if not isinstance(cluster, Mapping) or not members:
+            out.append(story)
+            continue
+        reasons = publication_outcome_reasons(_brief_from_ai_story(story, cluster), cluster)
+        if not reasons:
+            out.append(story)
+            continue
+        out.append(cards.build_card(cluster, None))
+        downgraded += 1
+        log_lines.append(f"{sid}: {reasons[0][:220]}")
+    return out, downgraded, log_lines
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -745,6 +824,13 @@ def main(argv: list[str] | None = None) -> int:
             for cluster in raw_clusters or []:
                 if isinstance(cluster, Mapping) and cluster.get("eventId"):
                     clusters_by_id[str(cluster["eventId"])] = cluster
+
+        step = "revalidate"
+        n_ai_in = sum(1 for s in stories if isinstance(s, dict) and s.get("aiGenerated"))
+        stories, n_downgraded, downgrade_log = revalidate_ai_stories(stories, clusters_by_id)
+        print(f"revalidate: ai={n_ai_in} downgraded={n_downgraded}")
+        for line in downgrade_log:
+            print(f"  DOWNGRADE {line}")
 
         step = "geo"
         geo_default = ROOT / "pipeline" / "geo" / "places.json"
@@ -873,7 +959,8 @@ def main(argv: list[str] | None = None) -> int:
 
         print(f"published feeds={len(feeds)} files={len(edition_files)} "
               f"stories={len(stories)} share={len(current_ids) + len(carried)} "
-              f"locations={len(by_country)} postal={len(postal_by_country)}")
+              f"locations={len(by_country)} postal={len(postal_by_country)} "
+              f"revalidated_downgraded={n_downgraded}")
         return 0
     except Exception as exc:  # noqa: BLE001 - CLI boundary: one line + non-zero exit
         print(f"publish failed at step {step}: {exc}", file=__import__("sys").stderr)

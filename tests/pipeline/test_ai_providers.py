@@ -224,6 +224,35 @@ def test_retry_runs_warmer_than_first_try():
     assert seen == [RETRY_TEMPERATURE] and RETRY_TEMPERATURE > 0.2
 
 
+def test_retry_message_names_unsupported_outcome_claim():
+    """fix/ai-outcome-claims: the single retry must name the bad claim.
+
+    A "died" headline on death-free sources fails the outcome check; the
+    retry prompt must carry the offending term plus the targeted hint so
+    the model can fix exactly that claim.
+    """
+    from pipeline.ai.providers import try_brief_with_retry
+
+    seen: list = []
+    bad = _good_brief_payload()
+    bad["headline"] = "Three residents died in the Albany fire"
+
+    class _Fake:
+        def generate(self, cluster):
+            return dict(bad), json.dumps(bad), None
+
+        def generate_with_messages(self, messages, temperature=None):
+            seen.append(messages)
+            return _good_brief_payload(), json.dumps(_good_brief_payload()), None
+
+    brief, result, _raw, err = try_brief_with_retry(_Fake(), _cluster())
+    assert brief is not None and result is not None and result.ok, err
+    assert len(seen) == 1
+    retry_text = seen[0][1]["content"]
+    assert "died" in retry_text  # the unsupported claim, named
+    assert "never upgrade" in retry_text  # targeted outcome hint
+
+
 def _factcheck_envelope(unsupported: list[str]) -> dict:
     return {"choices": [{"message": {"content": json.dumps({"unsupported": unsupported})}}]}
 

@@ -18,6 +18,7 @@ from .validate import (
     ValidationResult,
     parse_brief_json,
     parse_factcheck_json,
+    publication_outcome_reasons,
     source_text_for_cluster,
     validate_brief,
 )
@@ -37,6 +38,7 @@ __all__ = [
     "ValidationResult",
     "parse_brief_json",
     "parse_factcheck_json",
+    "publication_outcome_reasons",
     "source_text_for_cluster",
     "validate_brief",
 ]
