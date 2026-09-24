@@ -107,11 +107,10 @@ fun Masthead(
             IconButton(onClick = { /* TODO: implement audio brief navigation */ }, modifier = Modifier.size(40.dp).testTag("masthead-audio")) {
                 Icon(Icons.Outlined.Headphones, contentDescription = "Audio brief")
             }
-            IconButton(
-                onClick = { onSwitchLocation?.invoke() },
-                modifier = Modifier.size(40.dp).testTag("masthead-profile"),
-            ) {
-                Icon(Icons.Outlined.Person, contentDescription = "Profile")
+            if (onSwitchLocation != null) {
+                IconButton(onClick = { onSwitchLocation() }, modifier = Modifier.size(40.dp).testTag("masthead-profile")) {
+                    Icon(Icons.Outlined.Person, contentDescription = "Profile")
+                }
             }
         }
         val context = LocalContext.current
