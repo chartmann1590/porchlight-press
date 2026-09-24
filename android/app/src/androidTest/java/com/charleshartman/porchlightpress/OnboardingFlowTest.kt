@@ -90,10 +90,19 @@ class OnboardingFlowTest {
         rule.onNodeWithTag(tag).performClick()
     }
 
-    private fun walkToLocation(gpsClickHandler: (() -> Unit)? = null) {
+    private fun walkToLocation(
+        gpsClickHandler: (() -> Unit)? = null,
+        // Never pop the real system notification dialog in tests; denial is fine.
+        notificationHandler: (() -> Unit)? = {},
+    ) {
         rule.setContent {
             PorchlightTheme {
-                OnboardingRoute(vm = vm, activity = rule.activity, gpsClickHandler = gpsClickHandler)
+                OnboardingRoute(
+                    vm = vm,
+                    activity = rule.activity,
+                    gpsClickHandler = gpsClickHandler,
+                    notificationHandler = notificationHandler,
+                )
             }
         }
         rule.onNodeWithTag("step-welcome").assertIsDisplayed()
