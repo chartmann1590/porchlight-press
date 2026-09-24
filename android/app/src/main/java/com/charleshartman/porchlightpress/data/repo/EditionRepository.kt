@@ -161,14 +161,24 @@ class EditionRepository(
 
     private suspend fun contentOf(edition: Edition): EditionContent {
         val withContent = db.editionDao().editionWithContent(edition.id)
-        val ids = withContent?.sections?.flatMap { s -> s.links.map { it.storyId } } ?: emptyList()
+        // The SectionWithStories relation joins on sectionId alone, so links
+        // from OTHER editions' same-named sections (e.g. every "top") are
+        // included. Scope strictly to this edition or locations leak stories
+        // into each other's papers.
+        val ownLinks = withContent?.sections?.flatMap { s -> s.links }
+            ?.filter { it.editionId == edition.id } ?: emptyList()
+        val ids = ownLinks.map { it.storyId }
         val byId = if (ids.isEmpty()) emptyMap() else db.storyDao().storiesByIds(ids).associateBy { it.id }
         val sections = (withContent?.sections ?: emptyList())
             .sortedBy { it.section.order }
             .map { s ->
-                val stories = s.links.sortedBy { it.rank }.mapNotNull { byId[it.storyId] }
+                val stories = s.links
+                    .filter { it.editionId == edition.id }
+                    .sortedBy { it.rank }
+                    .mapNotNull { byId[it.storyId] }
                 s.section to stories
             }
+            .filter { it.second.isNotEmpty() }
         return EditionContent(edition, sections)
     }
 

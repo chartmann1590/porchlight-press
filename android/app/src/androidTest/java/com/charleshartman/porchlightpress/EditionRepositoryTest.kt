@@ -73,6 +73,46 @@ class EditionRepositoryTest {
     }
 
     @Test
+    fun sameNamedSectionsStayInTheirOwnEdition() = runTest {
+        insertHomePlace()
+        val repo = EditionRepository(db)
+        val albany = schenectady.copy(id = "place:us:albany", label = "Albany, NY", city = "Albany")
+        db.savedLocationDao().upsert(
+            SavedLocation(
+                id = albany.id, label = albany.label, country = albany.country,
+                admin1 = albany.admin1, admin2 = "Albany County", city = albany.city,
+                metro = albany.metro, tz = albany.tz, isHome = false, sortOrder = 1,
+            ),
+        )
+        // Both editions use a "top" section; the sectionId-only Room relation
+        // must not leak stories across editions.
+        val schenectadyEdition = testEditionDto().copy(
+            stories = listOf(testStoryDto().copy(id = "schenectady-story-1")),
+            sections = listOf(
+                com.charleshartman.porchlightpress.data.remote.SectionDto(
+                    id = "top", title = "Top Stories", storyIds = listOf("schenectady-story-1"),
+                ),
+            ),
+        )
+        val albanyEdition = testEditionDto().copy(
+            stories = listOf(testStoryDto().copy(id = "albany-story-1")),
+            sections = listOf(
+                com.charleshartman.porchlightpress.data.remote.SectionDto(
+                    id = "top", title = "Top Stories", storyIds = listOf("albany-story-1"),
+                ),
+            ),
+        )
+        repo.persist(schenectady, "latest", "feeds/us/ny/schenectady/latest.json", schenectadyEdition)
+        repo.persist(albany, "latest", "feeds/us/ny/albany/latest.json", albanyEdition)
+        val schenectadyContent = repo.cachedContent(schenectady.id, "latest")
+        val albanyContent = repo.cachedContent(albany.id, "latest")
+        assertNotNull(schenectadyContent)
+        assertNotNull(albanyContent)
+        assertEquals(listOf("schenectady-story-1"), schenectadyContent!!.sections.flatMap { it.second }.map { it.id })
+        assertEquals(listOf("albany-story-1"), albanyContent!!.sections.flatMap { it.second }.map { it.id })
+    }
+
+    @Test
     fun syncFallsBackToMetro() = runTest {
         insertHomePlace()
         val api = FakeFeedApi(

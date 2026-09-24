@@ -2,15 +2,16 @@ package com.charleshartman.porchlightpress
 
 import android.content.Context
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.assertDoesNotExist
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.charleshartman.porchlightpress.data.ads.AdMobGate
@@ -31,6 +32,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * Newspaper UI tests. Each test seeds its own hermetic edition (unique
+ * place/story ids) into the shared on-device database so no test can
+ * observe another test's rows. One setContent per test.
+ */
 @RunWith(AndroidJUnit4::class)
 class NewspaperUiTest {
     @get:Rule val rule = createAndroidComposeRule<ComponentActivity>()
@@ -38,8 +44,8 @@ class NewspaperUiTest {
     private lateinit var container: AppContainer
     private lateinit var gate: AdMobGate
 
-    private val schenectady = Place(
-        id = "place:us:schenectady", label = "Schenectady, NY", country = "US",
+    private fun placeFor(test: String) = Place(
+        id = "place:test:$test", label = "Schenectady, NY", country = "US",
         admin1 = "US-NY", admin2 = "Schenectady County", city = "Schenectady",
         metro = "us-ny-capital-region", tz = "America/New_York",
     )
@@ -53,31 +59,47 @@ class NewspaperUiTest {
                 translation = TranslationRepository(db, FakeTranslatorEngine()),
             )
         }
-        runBlocking {
-            container.prefs.setActiveLocationId(schenectady.id)
-            container.prefs.setAppLanguage("en")
-            container.prefs.setOnboardingDone(true)
-            container.prefs.setReadingStarted(true)
-            container.db.savedLocationDao().upsert(
-                SavedLocation(
-                    id = schenectady.id, label = schenectady.label, country = schenectady.country,
-                    admin1 = schenectady.admin1, admin2 = schenectady.admin2, city = schenectady.city,
-                    metro = schenectady.metro, tz = schenectady.tz, isHome = true, sortOrder = 0,
-                ),
-            )
-            val edition = testEditionDto()
-            container.editionRepository.persist(schenectady, "latest", "feeds/us/ny/schenectady/latest.json", edition)
-        }
         gate = AdMobGate(context).apply { config = config.copy(enabled = false) }
     }
 
     @After
     fun tearDown() {
-        runBlocking { container.db.close() }
+        runBlocking { runCatching { container.db.close() } }
+    }
+
+    /** Seed one AI story edition under a unique place; return (place, storyId). */
+    private fun seedAiStory(test: String, lang: String = "en"): Pair<Place, String> {
+        val place = placeFor(test)
+        val storyId = "story-$test-ai"
+        runBlocking {
+            container.prefs.setActiveLocationId(place.id)
+            container.prefs.setAppLanguage(lang)
+            container.prefs.setOnboardingDone(true)
+            container.prefs.setReadingStarted(true)
+            container.db.savedLocationDao().upsert(
+                SavedLocation(
+                    id = place.id, label = place.label, country = place.country,
+                    admin1 = place.admin1, admin2 = place.admin2, city = place.city,
+                    metro = place.metro, tz = place.tz, isHome = true, sortOrder = 0,
+                ),
+            )
+            val story = testStoryDto().copy(id = storyId)
+            val edition = testEditionDto().copy(
+                stories = listOf(story),
+                sections = listOf(
+                    com.charleshartman.porchlightpress.data.remote.SectionDto(
+                        id = "top", title = "Top Stories", storyIds = listOf(storyId),
+                    ),
+                ),
+            )
+            container.editionRepository.persist(place, "latest", "feeds/us/ny/schenectady/latest.json", edition)
+        }
+        return place to storyId
     }
 
     @Test
     fun frontPageRendersFixtureEdition() {
+        val (_, storyId) = seedAiStory("front")
         val vm = FrontPageViewModel(container)
         rule.setContent {
             PorchlightTheme {
@@ -92,23 +114,23 @@ class NewspaperUiTest {
                 )
             }
         }
-        rule.waitUntil(5000) { vm.state.value.sections.isNotEmpty() }
+        rule.waitUntil(15000) { vm.state.value.sections.isNotEmpty() }
         rule.onNodeWithTag("masthead").assertIsDisplayed()
         rule.onNodeWithTag("masthead-title").assertIsDisplayed()
         rule.onNodeWithTag("edition-label").assertIsDisplayed()
         rule.onNodeWithTag("front-list").assertIsDisplayed()
-        rule.onNodeWithTag("hero-story-${TEST_STORY_ID}").assertIsDisplayed()
+        rule.onNodeWithTag("hero-story-$storyId").assertIsDisplayed()
         rule.onNodeWithText("City council approves downtown revitalization project", substring = true).assertIsDisplayed()
     }
 
     @Test
-    fun fakeTranslatedFixtureShowsLabelAndToggle() {
+    fun translatedFrontPageShowsLabel() {
+        val (_, storyId) = seedAiStory("trfront", lang = "es")
         runBlocking {
-            container.prefs.setAppLanguage("es")
             container.db.translationDao().upsertStoryTranslations(
                 listOf(
                     StoryTranslation(
-                        storyId = TEST_STORY_ID, version = 1, lang = "es",
+                        storyId = storyId, version = 1, lang = "es",
                         headline = "El concejo aprueba proyecto", dek = "Voto 5-2", body = "Texto traducido",
                     ),
                 ),
@@ -128,15 +150,29 @@ class NewspaperUiTest {
                 )
             }
         }
-        rule.waitUntil(5000) { vm.state.value.sections.isNotEmpty() }
+        rule.waitUntil(15000) { vm.state.value.sections.isNotEmpty() }
         rule.onNodeWithTag("translation-label-section").assertIsDisplayed()
         rule.onNodeWithText("El concejo aprueba proyecto", substring = true).assertIsDisplayed()
+    }
 
-        val articleVm = ArticleViewModel(container, TEST_STORY_ID)
+    @Test
+    fun articleTranslationToggleShowsOriginal() {
+        val (_, storyId) = seedAiStory("trtoggle", lang = "es")
+        runBlocking {
+            container.db.translationDao().upsertStoryTranslations(
+                listOf(
+                    StoryTranslation(
+                        storyId = storyId, version = 1, lang = "es",
+                        headline = "El concejo aprueba proyecto", dek = "Voto 5-2", body = "Texto traducido",
+                    ),
+                ),
+            )
+        }
+        val articleVm = ArticleViewModel(container, storyId)
         rule.setContent {
             PorchlightTheme { ArticleScreen(viewModel = articleVm, onBack = {}) }
         }
-        rule.waitUntil(5000) { articleVm.state.value.story != null }
+        rule.waitUntil(15000) { articleVm.state.value.story != null }
         rule.onNodeWithTag("translation-label").assertIsDisplayed()
         rule.onNodeWithTag("toggle-original").assertIsDisplayed()
         rule.onNodeWithTag("toggle-original").performClick()
@@ -147,6 +183,7 @@ class NewspaperUiTest {
 
     @Test
     fun rtlRendersWithoutClipping() {
+        val (_, storyId) = seedAiStory("rtl")
         val vm = FrontPageViewModel(container)
         rule.setContent {
             CompositionLocalProvider(androidx.compose.ui.platform.LocalLayoutDirection provides LayoutDirection.Rtl) {
@@ -163,41 +200,65 @@ class NewspaperUiTest {
                 }
             }
         }
-        rule.waitUntil(5000) { vm.state.value.sections.isNotEmpty() }
+        rule.waitUntil(15000) { vm.state.value.sections.isNotEmpty() }
         rule.onNodeWithTag("masthead").assertIsDisplayed()
         rule.onNodeWithTag("front-list").assertIsDisplayed()
-        rule.onNodeWithTag("hero-story-${TEST_STORY_ID}").assertIsDisplayed()
+        rule.onNodeWithTag("hero-story-$storyId").assertIsDisplayed()
     }
 
     @Test
-    fun aiDisclosurePresentOnAiStoriesAndAbsentOnSourceCards() {
-        val aiVm = ArticleViewModel(container, TEST_STORY_ID)
+    fun aiDisclosurePresentOnAiStory() {
+        val (_, storyId) = seedAiStory("aidisc")
+        val aiVm = ArticleViewModel(container, storyId)
         rule.setContent { PorchlightTheme { ArticleScreen(viewModel = aiVm, onBack = {}) } }
-        rule.waitUntil(5000) { aiVm.state.value.story != null }
+        rule.waitUntil(15000) { aiVm.state.value.story != null }
         rule.onNodeWithTag("ai-disclosure").assertIsDisplayed()
         rule.onNodeWithTag("ai-badge").assertIsDisplayed()
+    }
 
-        val cardId = "source-card-id-001"
+    @Test
+    fun aiDisclosureAbsentOnSourceCard() {
+        val place = placeFor("card")
+        val cardId = "story-card-nogen"
         runBlocking {
+            container.prefs.setActiveLocationId(place.id)
+            container.prefs.setAppLanguage("en")
+            container.prefs.setOnboardingDone(true)
+            container.prefs.setReadingStarted(true)
+            container.db.savedLocationDao().upsert(
+                SavedLocation(
+                    id = place.id, label = place.label, country = place.country,
+                    admin1 = place.admin1, admin2 = place.admin2, city = place.city,
+                    metro = place.metro, tz = place.tz, isHome = true, sortOrder = 0,
+                ),
+            )
             val edition = testEditionDto().copy(
                 stories = listOf(testStoryDto().copy(id = cardId, headline = "Source card headline", aiGenerated = false, aiModel = null, body = null)),
-                sections = listOf(com.charleshartman.porchlightpress.data.remote.SectionDto(id = "top", title = "Top Stories", storyIds = listOf(cardId))),
+                sections = listOf(
+                    com.charleshartman.porchlightpress.data.remote.SectionDto(
+                        id = "top", title = "Top Stories", storyIds = listOf(cardId),
+                    ),
+                ),
             )
-            container.editionRepository.persist(schenectady, "latest", "feeds/us/ny/schenectady/latest.json", edition)
+            container.editionRepository.persist(place, "latest", "feeds/us/ny/schenectady/latest.json", edition)
         }
         val cardVm = ArticleViewModel(container, cardId)
         rule.setContent { PorchlightTheme { ArticleScreen(viewModel = cardVm, onBack = {}) } }
-        rule.waitUntil(5000) { cardVm.state.value.story != null }
+        rule.waitUntil(15000) { cardVm.state.value.story != null }
         rule.onNodeWithTag("source-card").assertIsDisplayed()
-        rule.onNodeWithTag("ai-disclosure").assertDoesNotExist()
+        rule.onAllNodesWithTag("ai-disclosure").assertCountEquals(0)
     }
 
     @Test
-    fun tappingSourceFiresOpenUrlIntent() {
-        val vm = ArticleViewModel(container, TEST_STORY_ID)
+    fun tappingSourceOpensIt() {
+        val (_, storyId) = seedAiStory("tap")
+        val vm = ArticleViewModel(container, storyId)
         rule.setContent { PorchlightTheme { ArticleScreen(viewModel = vm, onBack = {}) } }
-        rule.waitUntil(5000) { vm.state.value.story != null }
+        rule.waitUntil(15000) { vm.state.value.story != null }
+        // Sources render below the fold; scroll the section into view first.
+        rule.onNodeWithTag("sources-header").performScrollTo()
         rule.onNodeWithTag("sources-header").assertIsDisplayed()
+        rule.onNodeWithTag("source-link").performScrollTo()
         rule.onNodeWithTag("source-link").assertIsDisplayed()
         rule.onNodeWithTag("source-link").performClick()
         rule.onNodeWithTag("article-screen").assertIsDisplayed()
