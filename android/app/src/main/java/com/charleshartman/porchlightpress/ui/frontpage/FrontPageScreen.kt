@@ -61,6 +61,7 @@ fun FrontPageScreen(
     val clock = prefs?.clockFormat ?: "system"
     val width = LocalConfiguration.current.screenWidthDp
     val isTwoColumn = width >= 600 && state.sections.isNotEmpty()
+    var selectedSectionId by remember { mutableStateOf("local") }
 
     Column(modifier.fillMaxSize().testTag("front-page")) {
         // Masthead stays sticky at top outside the scroll (newspaper feel).
@@ -92,7 +93,10 @@ fun FrontPageScreen(
             )
         }
         // Section chips (Local / Regional / State / National / World + categories)
-        ChipsRow(state, onSectionClick)
+        ChipsRow(state, selectedSectionId, { sectionId ->
+            selectedSectionId = sectionId
+            onSectionClick(sectionId)
+        })
 
         PullToRefreshBox(
             isRefreshing = state.isRefreshing,
@@ -121,6 +125,7 @@ fun FrontPageScreen(
 @Composable
 private fun ChipsRow(
     state: FrontPageUiState,
+    selectedSectionId: String,
     onSectionClick: (String) -> Unit,
 ) {
     val chipTitles = remember(state.place) {
@@ -140,7 +145,7 @@ private fun ChipsRow(
         items(chipTitles.size) { idx ->
             val title = chipTitles[idx]
             val sectionId = title.lowercase()
-            val selected = idx == 0
+            val selected = sectionId == selectedSectionId
             androidx.compose.material3.FilterChip(
                 selected = selected,
                 onClick = { onSectionClick(sectionId) },
