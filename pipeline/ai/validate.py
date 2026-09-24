@@ -807,13 +807,14 @@ def _check_locations(
 def _min_body_words(cluster: Mapping[str, Any]) -> int:
     """Scaled length floor: thin RSS sources cannot honestly fill 60 words.
 
-    min = max(30, min(60, 0.6 * source words)). A 22-word single excerpt
-    needs only 30 honest words; a rich multi-source cluster still needs 60.
-    Padding to hit a fixed 60 is what produced the invented-background
-    rejections, so the floor scales instead of the model. Max stays 220.
+    min = max(30, min(60, 0.4 * source words)). Sources under ~75 words need
+    only 30 honest words; the floor rises to 60 for rich multi-source
+    clusters. The factor stays well under 1.0 so honest compression passes:
+    a 33-word brief grounded in a 68-word excerpt is good writing, and the
+    coverage guard (not the floor) is what catches padding. Max stays 220.
     """
     source_words = len(_source_text_headline_excerpt(cluster).split())
-    return max(30, min(60, int(source_words * 0.6)))
+    return max(30, min(60, int(source_words * 0.4)))
 
 
 def _check_length(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:

@@ -472,12 +472,13 @@ def test_scaled_floor_allows_short_honest_brief():
     assert result.ok, result.reasons
 
 
-def test_scaled_floor_keeps_60_for_rich_sources():
+def test_scaled_floor_rises_with_source_depth_capped_at_60():
     from pipeline.ai.validate import _min_body_words
 
-    # Two-member cluster (~93 source words) keeps a high floor, and the cap
+    # 23 source words -> absolute floor 30; 94 words -> scaled 37; the cap
     # holds at 60 no matter how much source material piles up.
-    assert _min_body_words(_cluster()) >= 50
+    assert _min_body_words(_thin_troy_cluster()) == 30
+    assert _min_body_words(_cluster()) == 37
     big = _cluster()
     big["members"] = big["members"] * 10
     assert _min_body_words(big) == 60
