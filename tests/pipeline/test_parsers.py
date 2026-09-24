@@ -181,3 +181,90 @@ def test_usgs_parses_geojson():
     assert len(items) == 1
     assert items[0].title.startswith("M 5.1")
     assert items[0].published_at is not None
+
+
+# --- fix/cluster-overmerge-encoding: feed charset handling, no U+FFFD ---
+
+def _rss_bytes(title: bytes, *, declaration: bytes = b'<?xml version="1.0" encoding="UTF-8"?>') -> bytes:
+    return (declaration
+            + b'<rss version="2.0"><channel><title>t</title><link>https://example.com/</link>'
+            b'<item><title>' + title + b'</title><link>https://example.com/1</link>'
+            b'<description>summary here</description>'
+            b'<pubDate>Tue, 23 Sep 2026 09:05:00 GMT</pubDate>'
+            b'</item></channel></rss>')
+
+
+def _client_for_body(body: bytes, content_type: str | None = None) -> httpx.Client:
+    def handler(request: httpx.Request) -> httpx.Response:
+        headers = {"Content-Type": content_type} if content_type else {}
+        return httpx.Response(200, content=body, headers=headers)
+
+    return httpx.Client(transport=httpx.MockTransport(handler))
+
+
+def test_rss_windows1252_feed_decodes_em_dash():
+    # Declared windows-1252 with a raw 0x97 em dash: must arrive as U+2014,
+    # never U+FFFD.
+    body = _rss_bytes(b'A husband got cancer \x97 his friends stepped up',
+                      declaration=b'<?xml version="1.0" encoding="windows-1252"?>')
+    client = _client_for_body(body, "application/rss+xml")
+    items = RssAtomProvider(client, 2_097_152).fetch(_rss_source())
+    assert len(items) == 1
+    assert items[0].title == "A husband got cancer \u2014 his friends stepped up"
+    assert "\ufffd" not in items[0].title
+
+
+def test_rss_mislabeled_utf8_feed_rescued_not_replacement_char():
+    # Production WAMC case: feed declares UTF-8 but carries a cp1252 byte
+    # (the em dash). Must be rescued to U+2014, never published as U+FFFD.
+    body = _rss_bytes(b'A husband got cancer \x97 his friends stepped up')
+    client = _client_for_body(body, "application/rss+xml;charset=UTF-8")
+    items = RssAtomProvider(client, 2_097_152).fetch(_rss_source())
+    assert len(items) == 1
+    assert items[0].title == "A husband got cancer \u2014 his friends stepped up"
+    assert "\ufffd" not in items[0].title
+
+
+def test_rss_declared_utf8_but_http_charset_wins():
+    # Declaration lies (UTF-8) while the HTTP charset tells the truth
+    # (windows-1252): the working encoding must win, or feedparser trusts
+    # the wrong declaration and emits U+FFFD.
+    body = _rss_bytes(b'\x93quoted\x94 \x97 done')
+    client = _client_for_body(body, "text/xml; charset=windows-1252")
+    items = RssAtomProvider(client, 2_097_152).fetch(_rss_source())
+    assert len(items) == 1
+    assert items[0].title == "“quoted” \u2014 done"
+    assert "\ufffd" not in items[0].title
+
+
+def test_rss_http_charset_honored_without_declaration():
+    # No XML declaration: the HTTP Content-Type charset decides.
+    body = _rss_bytes(b'A husband got cancer \x97 his friends stepped up',
+                      declaration=b'')
+    client = _client_for_body(body, "text/xml; charset=windows-1252")
+    items = RssAtomProvider(client, 2_097_152).fetch(_rss_source())
+    assert len(items) == 1
+    assert items[0].title == "A husband got cancer \u2014 his friends stepped up"
+    assert "\ufffd" not in items[0].title
+
+
+def test_rss_clean_utf8_bytes_pass_through_unchanged():
+    # Well-formed feeds must reach feedparser byte-identical (no behavior
+    # change for the common case).
+    from pipeline.providers.rss_atom import decode_feed_bytes
+
+    body = _rss_bytes("A husband got cancer \u2014 his friends".encode("utf-8"))
+    assert decode_feed_bytes(body, "application/rss+xml;charset=UTF-8") == body
+
+
+def test_decode_rewrites_declaration_on_rescue():
+    # The rescue path re-emits strict UTF-8 with a corrected declaration.
+    from pipeline.providers.rss_atom import decode_feed_bytes
+
+    body = _rss_bytes(b'A husband got cancer \x97 his friends stepped up')
+    fixed = decode_feed_bytes(body, "application/rss+xml;charset=UTF-8")
+    assert fixed != body
+    assert b'encoding="UTF-8"' in fixed
+    text = fixed.decode("utf-8")  # strict: must not raise
+    assert "A husband got cancer \u2014 his friends stepped up" in text
+    assert "\ufffd" not in text

@@ -1145,6 +1145,35 @@ def _check_event_location(
     return reasons
 
 
+# Narrative-stitching meta phrasing: the model explicitly narrating that it
+# is combining multiple reports ("Another story from WAMC ..."). A brief
+# covers ONE event; stitching language proves unrelated items were merged
+# upstream (or the model invented a second source). Reject on sight.
+_STITCHING_PHRASES = (
+    "another story",
+    "another report from",
+    "a separate story",
+    "in other news",
+)
+
+
+def _check_narrative_stitching(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    reasons: list[str] = []
+    text = " ".join(
+        str(brief.get(k) or "") for k in ("headline", "dek", "body")
+    ).lower()
+    for phrase in _STITCHING_PHRASES:
+        if phrase in text:
+            reasons.append(
+                f"narrative stitching: brief merges reports ({phrase!r}); "
+                "one brief covers one event"
+            )
+            break  # one flag per brief is enough
+    return reasons
+
+
 def publication_outcome_reasons(
     brief: Mapping[str, Any], cluster: Mapping[str, Any]
 ) -> list[str]:
@@ -1273,4 +1302,5 @@ def validate_brief(
     reasons.extend(_check_length(brief, cluster))
     reasons.extend(_check_verbatim(brief, cluster))
     reasons.extend(_check_quotes(brief, cluster))
+    reasons.extend(_check_narrative_stitching(brief, cluster))
     return ValidationResult(ok=not reasons, reasons=reasons)

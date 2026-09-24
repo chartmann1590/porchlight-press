@@ -981,5 +981,25 @@ def test_event_location_county_still_passes_but_metro_fails():
               "body": "The arrest occurred in Rensselaer County, New York as a result of an investigation."}
     assert _check_event_location(county, cluster) == []
     metro = {"headline": "h", "dek": "d",
-             "body": "The arrest occurred in the Capital Region, according to the source."}
+              "body": "The arrest occurred in the Capital Region, according to the source."}
     assert any("Capital Region" in r for r in _check_event_location(metro, cluster))
+
+
+# --- fix/cluster-overmerge-encoding: stitching phrasing rejects the brief ---
+
+def test_narrative_stitching_phrases_rejected():
+    # Production story 0d0cf2f78345feea briefed two merged-but-unrelated
+    # items as "Another story from WAMC ...". One brief covers one event:
+    # stitching language is a hard reject.
+    for filler in (
+        " Another story from WAMC highlights a local family.",
+        " According to another report from WAMC, neighbors helped.",
+        " A separate story covers the fundraiser in detail.",
+        " In other news, the district announced honors.",
+    ):
+        bad = _valid_brief()
+        bad["body"] += filler
+        assert len(bad["body"].split()) <= 220, filler
+        result = validate_brief(bad, _cluster())
+        assert not result.ok, filler
+        assert any("stitching" in r for r in result.reasons), (filler, result.reasons)
