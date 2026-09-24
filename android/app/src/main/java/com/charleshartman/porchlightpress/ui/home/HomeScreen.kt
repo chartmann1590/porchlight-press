@@ -67,7 +67,7 @@ private fun EditionSummary(container: AppContainer, locationId: String) {
                 ?: return@runCatching "Fetching your paper…"
             val stories = c.sections.sumOf { it.second.size }
             buildString {
-                append("Latest edition · ${stories} stories")
+                append("Latest edition · $stories ${if (stories == 1) "story" else "stories"}")
                 if (c.sections.isNotEmpty()) {
                     append("\n")
                     append(c.sections.joinToString(" · ") { it.first.title })

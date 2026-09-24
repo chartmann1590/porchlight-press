@@ -27,8 +27,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Fail if a real AdMob publisher ID is committed
+        # Note: this step's own pattern is excluded so the guard doesn't match itself.
         run: |
-          if grep -r 'ca-app-pub-8382831211800454' . --exclude-dir=.git --exclude-dir=.gradle; then
+          if grep -r 'ca-app-pub-8382831211800454' . --exclude-dir=.git --exclude-dir=.gradle --exclude=android-ci.yml; then
             echo 'Real AdMob IDs must live only in GitHub secrets, never in the repo.'
             exit 1
           fi

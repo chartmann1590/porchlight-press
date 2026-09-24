@@ -492,11 +492,13 @@ private fun DoneStep(vm: OnboardingViewModel) {
                     CircularProgressIndicator(Modifier.testTag("done-loading"))
                     Text("Fetching your first edition…")
                 }
-            is com.charleshartman.porchlightpress.ui.onboarding.SyncUiState.Loaded ->
+            is com.charleshartman.porchlightpress.ui.onboarding.SyncUiState.Loaded -> {
+                val n = sync.summary.storyCount
                 Text(
-                    "Your paper is ready: ${sync.summary.storyCount} stories from ${sync.summary.locationLabel}.",
+                    "Your paper is ready: $n ${if (n == 1) "story" else "stories"} from ${sync.summary.locationLabel}.",
                     modifier = Modifier.testTag("done-loaded"),
                 )
+            }
             is com.charleshartman.porchlightpress.ui.onboarding.SyncUiState.Offline ->
                 Text("📵 ${sync.message}", modifier = Modifier.testTag("done-offline"))
             is com.charleshartman.porchlightpress.ui.onboarding.SyncUiState.Error ->
