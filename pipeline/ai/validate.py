@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -50,7 +51,11 @@ COVERAGE_SKIP = STOPWORDS | frozenset({
 
 _MULTIWORD_RE = re.compile(r"\b([A-Z][a-z]{2,}(?:\s+[A-Z][a-z]{2,})+)\b")
 _NUMBER_RE = re.compile(r"\$?\d[\d,]*(?:\.\d+)?%?")
-_ISO_DATE_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
+# NOTE: trailing (?!\d) (not \b) so ISO datetimes with a time component
+# (2026-09-23T09:05:00Z from publishedAt/firstSeen) still parse: \b fails
+# between "3" and "T" (both word chars), which hid every source date and
+# rejected every brief containing its own publication date.
+_ISO_DATE_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})(?!\d)")
 _MONTHS = {
     "january": 1, "february": 2, "march": 3, "april": 4, "may": 5,
     "june": 6, "july": 7, "august": 8, "september": 9, "october": 10,
@@ -238,6 +243,96 @@ def _source_text_headline_excerpt(cluster: Mapping[str, Any]) -> str:
     return " ".join(p for p in parts if p)
 
 
+@lru_cache(maxsize=1)
+def _gazetteer_lookups() -> tuple[dict[str, list[str]], dict[str, list[str]], dict[str, list[str]]]:
+    """Cached gazetteer expansions: admin1 code -> names, metro slug -> names,
+    country code -> names. Missing file -> empty maps (exact location strings
+    still count; only alias expansion is lost)."""
+    admin1: dict[str, list[str]] = {}
+    metro: dict[str, list[str]] = {}
+    country: dict[str, list[str]] = {}
+    try:
+        payload = json.loads((ROOT / "pipeline" / "geo" / "places.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return admin1, metro, country
+    places = payload.get("places", []) if isinstance(payload, dict) else []
+    for p in places:
+        if not isinstance(p, dict):
+            continue
+        name = str(p.get("name") or "")
+        aliases = [str(a) for a in (p.get("aliases") or []) if a]
+        # Strict: admin1 expansions come ONLY from the admin1 entry itself
+        # (US-NY -> New York + NY/New York State/Empire State), never from
+        # admin2/city rows that merely share the code. Same for metros: only
+        # the metro row (Capital Region + Capital District), never every
+        # place inside that metro.
+        if p.get("type") == "admin1" and p.get("admin1"):
+            code = str(p["admin1"])
+            entry = [str(p.get("admin1Name") or name)] + aliases
+            if name and name not in entry:
+                entry.append(name)
+            admin1.setdefault(code, [])
+            for n in entry:
+                if n and n not in admin1[code]:
+                    admin1[code].append(n)
+        if p.get("type") == "metro" and p.get("metro"):
+            slug = str(p["metro"])
+            entry = ([name] + aliases) if name else aliases
+            metro.setdefault(slug, [])
+            for n in entry:
+                if n and n not in metro[slug]:
+                    metro[slug].append(n)
+        if p.get("country") and p.get("type") == "country":
+            code = str(p["country"]).upper()
+            entry = ([name] + aliases) if name else aliases
+            country.setdefault(code, [])
+            for n in entry:
+                if n and n not in country[code]:
+                    country[code].append(n)
+    return admin1, metro, country
+
+
+def _cluster_location_names(cluster: Mapping[str, Any]) -> set[str]:
+    """Normalized place names from the cluster's own resolved locations.
+
+    Covers city, county/admin2, state/admin1 full names and their common
+    forms (gazetteer aliases: NY / New York State / Empire State, Capital
+    Region / Capital District, United States, ...). Only names tied to THIS
+    cluster count -- an invented county/state still fails. Strict everywhere
+    else: people, orgs, numbers, quotes, and background filler are unchanged.
+    """
+    admin1_map, metro_map, country_map = _gazetteer_lookups()
+    allowed: set[str] = set()
+    locs = cluster.get("locations", []) or []
+    for loc in locs:
+        if not isinstance(loc, Mapping):
+            continue
+        for key in ("city", "admin2", "metro", "admin1"):
+            raw = str(loc.get(key) or "").strip()
+            if not raw:
+                continue
+            norm = _normalize_for_match(raw)
+            if norm:
+                allowed.add(norm)
+            if key == "admin1" and raw in admin1_map:
+                for alias in admin1_map[raw]:
+                    n = _normalize_for_match(alias)
+                    if n:
+                        allowed.add(n)
+            if key == "metro" and raw in metro_map:
+                for alias in metro_map[raw]:
+                    n = _normalize_for_match(alias)
+                    if n:
+                        allowed.add(n)
+        country_code = str(loc.get("country") or "").strip().upper()
+        if country_code in country_map:
+            for alias in country_map[country_code]:
+                n = _normalize_for_match(alias)
+                if n:
+                    allowed.add(n)
+    return allowed
+
+
 # ---------------------------------------------------------------------------
 # Individual checks
 # ---------------------------------------------------------------------------
@@ -290,10 +385,13 @@ def _check_source_ids(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> l
 
 def _check_entities(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:
     """Every multi-word capitalized span in body+dek and every people/org
-    entry must appear in the source text. Headline Title Case is skipped
-    (run on body + dek only) per the benchmark fix."""
+    entry must appear in the source text -- OR be a place name from the
+    cluster's own resolved locations (city/county/state full names and
+    common forms: New York for US-NY, Albany County, ...). Headline Title
+    Case is skipped (run on body + dek only) per the benchmark fix."""
     reasons: list[str] = []
     source_norm = _normalize_for_match(_source_text_headline_excerpt(cluster))
+    location_names = _cluster_location_names(cluster)
     body = str(brief.get("body") or "")
     dek = str(brief.get("dek") or "")
     text = f"{body} {dek}"
@@ -307,8 +405,11 @@ def _check_entities(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> lis
         norm = _normalize_for_match(core)
         if not norm:
             continue
-        if norm not in source_norm:
-            reasons.append(f"unsupported name/span not in sources: {span!r}")
+        if norm in source_norm:
+            continue
+        if norm in location_names:
+            continue
+        reasons.append(f"unsupported name/span not in sources: {span!r}")
     for field_name in ("people", "organizations"):
         entries = brief.get(field_name, []) or []
         if not isinstance(entries, list):
@@ -406,8 +507,16 @@ def _check_numbers_and_dates(
     brief: Mapping[str, Any], cluster: Mapping[str, Any]
 ) -> list[str]:
     reasons: list[str] = []
-    # Source text includes publishedAt values (benchmark fix).
+    # Source text includes publishedAt values (benchmark fix), normalized to
+    # (year, month, day) so any format counts (2026-09-23 == September 23,
+    # 2026 == 9/23/2026). Cluster firstSeen/lastSeen double as the run date:
+    # a brief dated the day it ran must not fail when every source carries
+    # that same timestamp.
     source_full = source_text_for_cluster(cluster, include_timestamps=True)
+    for key in ("firstSeen", "lastSeen"):
+        stamp = str(cluster.get(key) or "").strip()
+        if stamp:
+            source_full += " " + stamp
     source_dates, _ = _extract_dates(source_full)
     source_nodate = _strip_dates(source_full)
     source_nums = _extract_numbers(source_nodate)

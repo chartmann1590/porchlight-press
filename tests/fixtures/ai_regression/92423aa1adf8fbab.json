@@ -1,0 +1,74 @@
+{
+  "eventId": "92423aa1adf8fbab",
+  "members": [
+    {
+      "id": "92423aa1adf8fbab82ee2745c22b3a7e",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Women's Health Wednesday: Perimenopause Awareness Month",
+      "excerpt": "ALBANY, N.Y. (NEWS10) - September is Perimenopause Awareness Month! Perimenopause is the stage of life for women before menopause. Menopause is the point in time when a woman has gone 12 consecutive months without a menstrual period, marking the permanent end of her reproductive years. During perime",
+      "url": "https://www.news10.com/news/womens-health-wednesday-september-is-perimenopause-awareness-month/",
+      "publishedAt": "2026-09-23T18:17:57Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    }
+  ],
+  "memberIds": [
+    "92423aa1adf8fbab82ee2745c22b3a7e"
+  ],
+  "aliases": [],
+  "firstSeen": "2026-09-23T18:17:57Z",
+  "lastSeen": "2026-09-23T18:17:57Z",
+  "locations": [
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": "Albany County",
+      "city": "Albany",
+      "metro": "us-ny-capital-region"
+    }
+  ],
+  "section": "local",
+  "category": "health",
+  "headline": "Women's Health Wednesday: Perimenopause Awareness Month",
+  "score": 0.597445996781443,
+  "scoreComponents": {
+    "freshness": 0.9097839871257716,
+    "locality": 1.0,
+    "corroboration": 0.0,
+    "sourcePriority": 0.8,
+    "breaking": 0.0,
+    "categoryBoost": 0.0,
+    "stalePenalty": 0.0,
+    "duplicatePenalty": 0.0
+  },
+  "breaking": false,
+  "confidence": "MEDIUM",
+  "confidenceTier": "medium",
+  "independentSources": 1,
+  "sources": [
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Women's Health Wednesday: Perimenopause Awareness Month",
+      "url": "https://www.news10.com/news/womens-health-wednesday-september-is-perimenopause-awareness-month/",
+      "publishedAt": "2026-09-23T18:17:57Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    }
+  ],
+  "status": "new",
+  "version": 1,
+  "lastBriefHash": null,
+  "lastGeneratedAt": null
+}

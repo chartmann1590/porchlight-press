@@ -1,0 +1,74 @@
+{
+  "eventId": "02fdc27bec1619c6",
+  "members": [
+    {
+      "id": "02fdc27bec1619c6996d1b3ea1ac1c13",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Troy woman arrested on animal neglect charge",
+      "excerpt": "Police arrested a Troy woman on Tuesday as a result of an animal abuse investigation.",
+      "url": "https://www.news10.com/news/crime/troy-woman-arrested-on-animal-neglect-charge/",
+      "publishedAt": "2026-09-23T19:42:56Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Rensselaer County",
+          "city": "Troy",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    }
+  ],
+  "memberIds": [
+    "02fdc27bec1619c6996d1b3ea1ac1c13"
+  ],
+  "aliases": [],
+  "firstSeen": "2026-09-23T19:42:56Z",
+  "lastSeen": "2026-09-23T19:42:56Z",
+  "locations": [
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": "Rensselaer County",
+      "city": "Troy",
+      "metro": "us-ny-capital-region"
+    }
+  ],
+  "section": "local",
+  "category": "public-safety",
+  "headline": "Troy woman arrested on animal neglect charge",
+  "score": 0.6523640137567516,
+  "scoreComponents": {
+    "freshness": 0.9294560550270061,
+    "locality": 1.0,
+    "corroboration": 0.0,
+    "sourcePriority": 0.8,
+    "breaking": 0.0,
+    "categoryBoost": 1.0,
+    "stalePenalty": 0.0,
+    "duplicatePenalty": 0.0
+  },
+  "breaking": false,
+  "confidence": "MEDIUM",
+  "confidenceTier": "medium",
+  "independentSources": 1,
+  "sources": [
+    {
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Troy woman arrested on animal neglect charge",
+      "url": "https://www.news10.com/news/crime/troy-woman-arrested-on-animal-neglect-charge/",
+      "publishedAt": "2026-09-23T19:42:56Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    }
+  ],
+  "status": "new",
+  "version": 1,
+  "lastBriefHash": null,
+  "lastGeneratedAt": null
+}

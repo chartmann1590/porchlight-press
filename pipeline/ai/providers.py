@@ -77,12 +77,21 @@ def _json_post_fn(
     return _post
 
 
+# Throughput (MASTER_PLAN §11: ~50 briefs/25-min run): brief bodies are
+# 60-220 words (~90-300 tokens + JSON overhead), so 512 caps the worst case
+# instead of 800 (~47 s vs ~73 s at 11 tok/s) without truncating valid
+# briefs. Factcheck answers {"unsupported": [...]} in a few dozen tokens.
+# Both stay grammar-constrained with thinking disabled (see _json_post_fn).
+BRIEF_MAX_TOKENS = 512
+FACTCHECK_MAX_TOKENS = 128
+
+
 def _brief_post_fn(base_url: str, timeout_seconds: int) -> PostFn:
-    return _json_post_fn(base_url, timeout_seconds, _brief_json_schema(), "brief", 800)
+    return _json_post_fn(base_url, timeout_seconds, _brief_json_schema(), "brief", BRIEF_MAX_TOKENS)
 
 
 def _factcheck_post_fn(base_url: str, timeout_seconds: int) -> PostFn:
-    return _json_post_fn(base_url, timeout_seconds, _factcheck_json_schema(), "factcheck", 256)
+    return _json_post_fn(base_url, timeout_seconds, _factcheck_json_schema(), "factcheck", FACTCHECK_MAX_TOKENS)
 
 
 class LocalLlamaProvider:

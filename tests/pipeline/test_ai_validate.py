@@ -272,3 +272,138 @@ def test_abbreviation_does_not_hide_unsupported_sentence():
     result = validate_brief(bad, _cluster())
     assert not result.ok
     assert any("background" in r.lower() or "covered" in r.lower() for r in result.reasons)
+
+
+# --- fix/ai-brief-acceptance: false-positive regression tests ---
+
+def test_resolved_state_name_accepted():
+    # "New York" is the cluster's resolved admin1 (US-NY); sources say only
+    # "Albany" but the brief must not fail the entity check for the state.
+    good = _valid_brief()
+    good["body"] += (
+        " Firefighters responded in Albany, New York on Central Avenue"
+        " with crews on scene in Albany."
+    )
+    assert 60 <= len(good["body"].split()) <= 220
+    result = validate_brief(good, _cluster())
+    assert not any("New York" in r for r in result.reasons), result.reasons
+    assert result.ok, result.reasons
+
+
+def test_resolved_county_name_accepted():
+    # "Albany County" is the cluster's resolved admin2; same allowance.
+    good = _valid_brief()
+    good["body"] += (
+        " Albany County crews responded on Central Avenue in Albany"
+        " with firefighters on scene."
+    )
+    assert 60 <= len(good["body"].split()) <= 220
+    result = validate_brief(good, _cluster())
+    assert not any("Albany County" in r for r in result.reasons), result.reasons
+    assert result.ok, result.reasons
+
+
+def test_state_alias_accepted():
+    # Common forms (NY) of the resolved state count as supported too.
+    good = _valid_brief()
+    good["body"] += (
+        " Firefighters responded in Albany, NY on Central Avenue"
+        " with crews on scene in Albany."
+    )
+    assert 60 <= len(good["body"].split()) <= 220
+    result = validate_brief(good, _cluster())
+    assert result.ok, result.reasons
+
+
+def test_outside_cluster_place_still_rejected():
+    # Strict everywhere else: a county/state NOT in this cluster still fails.
+    bad = _valid_brief()
+    bad["body"] += (
+        " Rensselaer County crews responded on Central Avenue in Albany"
+        " with firefighters on scene in Troy."
+    )
+    result = validate_brief(bad, _cluster())
+    assert not result.ok
+    assert any("Rensselaer County" in r for r in result.reasons)
+
+
+def test_invented_city_still_rejected():
+    bad = _valid_brief()
+    bad["body"] += (
+        " Los Angeles crews responded on Central Avenue in Albany"
+        " with firefighters on scene."
+    )
+    result = validate_brief(bad, _cluster())
+    assert not result.ok
+    assert any("Los Angeles" in r for r in result.reasons)
+
+
+def test_iso_datetime_with_time_parses():
+    # Root cause of "date not in sources: 2026-09-23": publishedAt carries a
+    # time (2026-09-23T09:05:00Z) and the old \b regex never matched it, so
+    # every source date was invisible.
+    from pipeline.ai.validate import _extract_dates
+
+    found, _ = _extract_dates("2026-09-23T09:05:00Z")
+    assert (2026, 9, 23) in found
+    found2, _ = _extract_dates("2026-09-23")
+    assert (2026, 9, 23) in found2
+
+
+def test_source_date_other_format_accepted():
+    # Same day in another format (September 23, 2026) must match the ISO
+    # publishedAt timestamps once dates are normalized before comparing.
+    good = _valid_brief()
+    good["body"] += (
+        " Firefighters responded on September 23, 2026 on Central Avenue"
+        " in Albany with crews on scene."
+    )
+    assert 60 <= len(good["body"].split()) <= 220
+    result = validate_brief(good, _cluster())
+    assert not any("date not in sources" in r for r in result.reasons), result.reasons
+    assert result.ok, result.reasons
+
+
+def test_run_date_from_cluster_timestamps_accepted():
+    # The run date (cluster firstSeen/lastSeen day) counts as supported even
+    # when no member excerpt spells it out.
+    cluster = _cluster()
+    cluster["firstSeen"] = "2026-09-24T01:00:00Z"
+    cluster["lastSeen"] = "2026-09-24T02:00:00Z"
+    good = _valid_brief()
+    good["body"] += (
+        " Firefighters responded on September 24, 2026 on Central Avenue"
+        " in Albany with crews on scene."
+    )
+    assert 60 <= len(good["body"].split()) <= 220
+    result = validate_brief(good, cluster)
+    assert not any("date not in sources" in r for r in result.reasons), result.reasons
+
+
+def test_wrong_date_still_rejected():
+    bad = _valid_brief()
+    bad["body"] += (
+        " Firefighters responded on September 25, 2026 on Central Avenue"
+        " in Albany with crews on scene."
+    )
+    result = validate_brief(bad, _cluster())
+    assert not result.ok
+    assert any("date not in sources" in r for r in result.reasons)
+
+
+def test_invented_background_padding_still_rejected():
+    # Production padding from run 35939969517 must keep failing (coverage).
+    for filler in (
+        " Details about the investigation and the suspect are not yet available"
+        " with firefighters on Central Avenue in Albany.",
+        " The project is part of a broader initiative to improve infrastructure"
+        " with firefighters on Central Avenue in Albany.",
+        " The case is being handled by the Vermont State Police"
+        " with firefighters on Central Avenue in Albany.",
+    ):
+        bad = _valid_brief()
+        bad["body"] += filler
+        assert 60 <= len(bad["body"].split()) <= 220, filler
+        result = validate_brief(bad, _cluster())
+        assert not result.ok, filler
+        assert any("background" in r.lower() for r in result.reasons), (filler, result.reasons)

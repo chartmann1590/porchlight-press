@@ -1,0 +1,74 @@
+{
+  "eventId": "3a57ff94cd04e4c2",
+  "members": [
+    {
+      "id": "3a57ff94cd04e4c233e7efbf0570ed95",
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Joint training brings together firefighters from across Clinton County",
+      "excerpt": "Clinton County firefighters train for mutual aid scenarios",
+      "url": "https://www.wamc.org/news/2026-09-23/joint-training-brings-together-firefighters-from-across-clinton-county",
+      "publishedAt": "2026-09-23T16:58:00Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": [],
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ]
+    }
+  ],
+  "memberIds": [
+    "3a57ff94cd04e4c233e7efbf0570ed95"
+  ],
+  "aliases": [],
+  "firstSeen": "2026-09-23T16:58:00Z",
+  "lastSeen": "2026-09-23T16:58:00Z",
+  "locations": [
+    {
+      "country": "US",
+      "admin1": "US-NY",
+      "admin2": "Albany County",
+      "city": "Albany",
+      "metro": "us-ny-capital-region"
+    }
+  ],
+  "section": "local",
+  "category": "public-safety",
+  "headline": "Joint training brings together firefighters from across Clinton County",
+  "score": 0.6578192606703318,
+  "scoreComponents": {
+    "freshness": 0.8912770426813271,
+    "locality": 1.0,
+    "corroboration": 0.0,
+    "sourcePriority": 0.9,
+    "breaking": 0.0,
+    "categoryBoost": 1.0,
+    "stalePenalty": 0.0,
+    "duplicatePenalty": 0.0
+  },
+  "breaking": false,
+  "confidence": "MEDIUM",
+  "confidenceTier": "medium",
+  "independentSources": 1,
+  "sources": [
+    {
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Joint training brings together firefighters from across Clinton County",
+      "url": "https://www.wamc.org/news/2026-09-23/joint-training-brings-together-firefighters-from-across-clinton-county",
+      "publishedAt": "2026-09-23T16:58:00Z",
+      "rightsMode": "RSS_EXCERPT_ALLOWED"
+    }
+  ],
+  "status": "new",
+  "version": 1,
+  "lastBriefHash": null,
+  "lastGeneratedAt": null
+}

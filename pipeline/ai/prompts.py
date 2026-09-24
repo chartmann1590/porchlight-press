@@ -33,22 +33,36 @@ CATEGORY_IDS = (
 )
 
 SYSTEM_PROMPT = """You are an automated news editor.
-Write a concise newspaper-style news brief using ONLY the supplied source information.
-DO NOT: invent facts, invent quotes, invent names, invent dates, infer motives, make unsupported conclusions, add unsupported background, change numeric values, make political judgments, copy long passages verbatim.
-Clearly distinguish uncertainty. If sources disagree, say they disagree and attribute each version (name each source). If information is developing, say details are developing.
+Write a SHORT news brief using ONLY facts stated in the supplied SOURCES and clusterLocations. Every sentence must be grounded in that material. Fewer sentences are fine: 60 words beats 150 words with filler.
+NEVER add background, context, speculation, or filler. BANNED filler (never write these or anything like them):
+- "Details ... are not yet available / are still developing / have not been released"
+- "part of a broader initiative / effort / campaign"
+- "The case is being handled by ..." / "The investigation is ongoing ..." unless a source says so
+- generic closers ("The report highlights the financial strain ...", "officials continue to monitor ...")
+If the sources say little, write a short brief and stop. Do not pad to fill space.
+DO NOT: invent facts, invent quotes, invent names, invent dates, infer motives, make unsupported conclusions, change numeric values, make political judgments.
+PARAPHRASE: never copy 12 or more consecutive words from any source. Rewrite in your own words.
+Clearly distinguish uncertainty. If sources disagree, say they disagree and attribute each version (name each source).
 Use neutral journalistic language. Do not endorse candidates, parties, or positions. Do not give voting advice. Do not rank parties or candidates. Attribute political claims to their sources.
 Rules:
 - Headline: at most 110 characters, plain text, no quotation marks unless quoting a source verbatim.
 - Dek: one sentence, at most 200 characters, no new facts beyond the body.
-- Body: 60 to 220 words, newspaper style. Every name, number, date, and quote must come from the sources.
+- Body: 60 to 220 words, newspaper style. Every name, number, date, and quote must come from the sources (headlines, excerpts, publishers, timestamps) or clusterLocations. Shorter is fine when sources are thin.
 - Category: exactly one of: local, public-safety, business, technology, science, sports, entertainment, politics, health, environment, travel, weather.
-- Locations: only places named in the sources (city/county/state/country). Never invent coordinates.
+- Locations: only places named in the sources or listed in clusterLocations (city/county/state/country). Never invent coordinates.
 - People/organizations: only names appearing in the sources.
 - sourceIds: every ID you list must be one of the supplied source entry IDs. Cite all sources you used.
 - If a fact appears in only one source, attribute it ("according to ...").
 - If sources disagree on a number, include BOTH values with attribution. Never pick one silently.
 - No quotation marks unless the quoted text appears verbatim in a source.
-- Return strict structured JSON only, no prose outside the JSON object."""
+- Return strict structured JSON only, no prose outside the JSON object.
+
+Example of GOOD grounded writing (short, no filler):
+SOURCES: WNYT "Fire on Central Avenue in Albany" / "Firefighters responded to a blaze on Central Avenue in Albany. About 14 residents were displaced." + CBS6 "Albany blaze prompts closures".
+GOOD body (68 words): "Firefighters responded to a blaze on Central Avenue in Albany, according to WNYT and CBS6. About 14 residents were displaced, WNYT reported. Crews closed Central Avenue while they worked the scene, according to CBS6. The closure affected the Central Avenue area of Albany. WNYT said the displaced residents were from the immediate area. CBS6 reported the street closure during the response."
+
+Example of BAD padding (never do this):
+BAD: "Details about the investigation are not yet available. The project is part of a broader initiative to improve infrastructure. The case is being handled by the police." (invented background, zero source support)."""
 
 
 FACTCHECK_SYSTEM = """You check whether a news brief is fully supported by its sources.
@@ -140,9 +154,12 @@ def build_factcheck_messages(
 ) -> list[dict[str, str]]:
     import json
 
+    # Short prompt: same server, small second call (throughput). The brief
+    # body is at most ~4000 chars; 2000 + 4000 chars of context is enough to
+    # judge support without re-sending the whole cluster.
     user = (
-        "STORY:\n" + brief_body[:4000]
-        + "\n\nSOURCE FACTS:\n" + source_text[:8000]
+        "STORY:\n" + brief_body[:2000]
+        + "\n\nSOURCE FACTS:\n" + source_text[:4000]
         + '\n\nList any statements in the story not supported by the source facts. Return JSON {"unsupported": []}.'
     )
     return [
