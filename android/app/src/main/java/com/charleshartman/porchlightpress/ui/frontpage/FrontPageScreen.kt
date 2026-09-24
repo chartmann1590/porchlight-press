@@ -1,12 +1,5 @@
 package com.charleshartman.porchlightpress.ui.frontpage
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -51,8 +44,6 @@ import com.charleshartman.porchlightpress.ui.theme.LocalLayout
 import com.charleshartman.porchlightpress.ui.theme.modernSurfaceBrush
 import com.charleshartman.porchlightpress.ui.theme.classicPaperBrush
 import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
-import com.charleshartman.porchlightpress.ui.motion.rememberReduceMotion
-import com.charleshartman.porchlightpress.ui.motion.PorchlightMotion
 import com.charleshartman.porchlightpress.ui.components.PorchlightShimmer
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 
@@ -159,25 +150,13 @@ private fun ChipsRow(
         items(chipTitles.size, key = { chipTitles[it] }) { idx ->
             val title = chipTitles[idx]
             val sectionId = title.lowercase()
-            val reduce = rememberReduceMotion()
-            AnimatedContent(
-                targetKey = title,
-                transitionSpec = {
-                    (fadeIn(tween(PorchlightMotion.fadeMs(reduce))) +
-                        slideInHorizontally(tween(PorchlightMotion.slideMs(reduce))) { it / 2 }) togetherWith
-                        (fadeOut(tween(PorchlightMotion.fadeMs(reduce))) +
-                            slideOutHorizontally(tween(PorchlightMotion.slideMs(reduce))) { -it / 2 })
-                },
-                label = "section-chips",
-            ) {
-                androidx.compose.material3.FilterChip(
-                    selected = false,
-                    onClick = { onSectionClick(sectionId) },
-                    label = { Text(title.uppercase()) },
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(50),
-                    modifier = Modifier.testTag("chip-$sectionId"),
-                )
-            }
+            androidx.compose.material3.FilterChip(
+                selected = false,
+                onClick = { onSectionClick(sectionId) },
+                label = { Text(title.uppercase()) },
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(50),
+                modifier = Modifier.testTag("chip-$sectionId"),
+            )
         }
     }
 }
