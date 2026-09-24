@@ -111,14 +111,6 @@ class FrontPageViewModel(
                     container.db.translationDao().storyTranslation(story.id, story.version, lang)
                 } else null
                 val isTranslating = lang != "en" && translation == null
-                // Kick off background translation if missing (non-blocking)
-                if (isTranslating) {
-                    viewModelScope.launch {
-                        container.translationRepository.translateStory(
-                            story.id, story.version, story.headline, story.dek, story.body, lang,
-                        )
-                    }
-                }
                 FrontStoryUi(story, translation, isTranslating, label)
             }
             // Build sections: respect feed sections if >1, else synthesize from categories/places.
@@ -133,6 +125,41 @@ class FrontPageViewModel(
                 allStories = uiStories,
                 offline = false,
             )
+            // Kick off background translation for stories that need it (non-blocking).
+            // Done after state is set so updates from the coroutines apply to the current state.
+            for (story in allStoriesRaw) {
+                val ui = uiStories.find { it.story.id == story.id } ?: continue
+                if (ui.isTranslating) {
+                    viewModelScope.launch {
+                        try {
+                            val result = container.translationRepository.translateStory(
+                                story.id, story.version, story.headline, story.dek, story.body, lang,
+                            )
+                            _state.value = _state.value.copy(
+                                allStories = _state.value.allStories.map { s ->
+                                    if (s.story.id == story.id) {
+                                        s.copy(translation = result, isTranslating = false)
+                                    } else {
+                                        s
+                                    }
+                                },
+                            )
+                        } catch (e: Exception) {
+                            // Translation failed; clear the translating flag so the UI
+                            // doesn't show a permanent "translating…" chip.
+                            _state.value = _state.value.copy(
+                                allStories = _state.value.allStories.map { s ->
+                                    if (s.story.id == story.id) {
+                                        s.copy(isTranslating = false)
+                                    } else {
+                                        s
+                                    }
+                                },
+                            )
+                        }
+                    }
+                }
+            }
         } catch (e: Exception) {
             _state.value = _state.value.copy(isLoading = false, error = e.message ?: "Couldn't load your paper.")
         }
