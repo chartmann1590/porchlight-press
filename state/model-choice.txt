@@ -1,1 +1,1 @@
-Qwen3-1.7B-Q8_0
+Qwen3-4B-Q4_K_M
