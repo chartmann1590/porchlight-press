@@ -70,6 +70,17 @@ _MONTH_DAY_RE = re.compile(
 )
 _SLASH_DATE_RE = re.compile(r"\b(\d{1,2})/(\d{1,2})(?:/(\d{2,4}))?\b")
 
+def _was_reported_on_pattern() -> "re.Pattern[str]":
+    months = sorted(_MONTHS, key=len, reverse=True)
+    return re.compile(
+        r"\bwas\s+reported\s+on\s+(?:" + "|".join(months) + r"|\d)",
+        re.IGNORECASE,
+    )
+
+
+_WAS_REPORTED_ON_RE = _was_reported_on_pattern()
+
+
 _BANNED_BACKGROUND_PHRASES = (
     "casualties",
     "casualty",
@@ -363,6 +374,52 @@ def _gazetteer_lookups() -> tuple[dict[str, list[str]], dict[str, list[str]], di
     return admin1, metro, country
 
 
+@lru_cache(maxsize=1)
+def _gazetteer_geo() -> tuple[dict[str, tuple[str, frozenset[str]]], dict[str, str]]:
+    """City -> (admin2, admin1-names) and state-name -> admin1-key maps.
+
+    From gazetteer city rows (name + aliases): Troy -> (Rensselaer County,
+    {New York, NY, ...}). State names from admin1 rows. Missing file ->
+    empty maps (containment claims then need source-stated pairings).
+    All keys/values normalized for match.
+    """
+    city_areas: dict[str, tuple[str, frozenset[str]]] = {}
+    state_names: dict[str, str] = {}
+    try:
+        payload = json.loads((ROOT / "pipeline" / "geo" / "places.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return city_areas, state_names
+    places = payload.get("places", []) if isinstance(payload, dict) else []
+    for p in places:
+        if not isinstance(p, dict):
+            continue
+        if p.get("type") == "admin1" and p.get("admin1"):
+            code = str(p["admin1"])
+            names = [str(p.get("admin1Name") or ""), str(p.get("name") or "")]
+            names += [str(a) for a in (p.get("aliases") or []) if a]
+            for n in names:
+                norm = _normalize_for_match(n)
+                if norm:
+                    state_names.setdefault(norm, code)
+        if p.get("type") == "city":
+            admin2 = _normalize_for_match(str(p.get("admin2") or ""))
+            a1names = [_normalize_for_match(str(p.get("admin1Name") or ""))]
+            admin1_map, _, _ = _gazetteer_lookups()
+            code = str(p.get("admin1") or "")
+            if code in admin1_map:
+                a1names += [_normalize_for_match(a) for a in admin1_map[code]]
+            area = (admin2, frozenset(n for n in a1names if n))
+            names = [str(p.get("name") or "")]
+            if p.get("city"):
+                names.append(str(p["city"]))
+            names += [str(a) for a in (p.get("aliases") or []) if a]
+            for n in names:
+                norm = _normalize_for_match(n)
+                if norm:
+                    city_areas.setdefault(norm, area)
+    return city_areas, state_names
+
+
 def _cluster_location_names(cluster: Mapping[str, Any]) -> set[str]:
     """Normalized place names from the cluster's own resolved locations.
 
@@ -646,7 +703,14 @@ def _check_background_coverage(
     reasons: list[str] = []
     source_text = _source_text_headline_excerpt(cluster)
     source_norm = _normalize_for_match(source_text)
-    brief_norm = _normalize_for_match(str(brief.get("body") or "") + " " + str(brief.get("dek") or ""))
+    brief_text = str(brief.get("body") or "") + " " + str(brief.get("dek") or "")
+    brief_norm = _normalize_for_match(brief_text)
+    # Meta-date filler ("The event was reported on September 23, 2026"):
+    # passive self-reference to the newsgathering act, never a fact from the
+    # sources. Active publisher attribution ("WNYT reported ... on ...") is
+    # unaffected -- only "was reported on <month|digit>" triggers.
+    if _WAS_REPORTED_ON_RE.search(brief_text):
+        reasons.append("unsupported background phrase not in sources: 'was reported on <date>'")
     for phrase in _BANNED_BACKGROUND_PHRASES:
         # Compare normalized to normalized: entries with punctuation
         # ("us-ny") must match "us ny" in the brief text.
@@ -831,6 +895,122 @@ def _check_locations(
     return reasons
 
 
+# Explicit place-containment copulas: "X is located in Y", "X, which is in
+# Y", "X is in Y County". Bare locatives ("arrest occurred in Troy") are
+# normal prose and NOT checked here.
+_CONTAINMENT_RES = (
+    re.compile(r"\b(?:is|are|was|were)\s+(?:located|situated)\s+in\b", re.IGNORECASE),
+    re.compile(r"\b(?:which|that)\s+(?:is|are)\s+(?:located|situated\s+)?in\b", re.IGNORECASE),
+    re.compile(r"\b(?:is|are|was|were)\s+in\s+[A-Z][A-Za-z.'\s]*?County\b"),
+)
+_COUNTY_RE = re.compile(r"([A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.'-]*)*\s+County)")
+
+
+def _padded(text: str) -> str:
+    return f" {text} "
+
+
+def _check_place_containment(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    """Reject place-containment claims the sources never pair up.
+
+    Production failure: a Poestenkill story briefed "The area is located in
+    Albany County" because Albany County was the (mis-resolved) cluster
+    location. The location allowlist correctly permits mentioning Albany
+    County -- but asserting that X IS IN Y is a factual pairing that needs
+    its own proof: the exact pairing stated in the sources, or a
+    gazetteer-true pairing (Troy's admin2 really is Rensselaer County), or
+    the same city+area pairing present in the cluster's locations. An
+    unknown place (Poestenkill is not in the trimmed gazetteer) can never
+    pass on geography alone -- state what happened there, not what contains
+    it. Strict by design: true-but-unverifiable containment must be
+    rephrased, never asserted.
+    """
+    reasons: list[str] = []
+    city_areas, state_names = _gazetteer_geo()
+    source_norm = _normalize_for_match(_source_text_headline_excerpt(cluster))
+    # Cluster city -> its areas, for pairing rule (2).
+    cluster_pairs: dict[str, set[str]] = {}
+    admin1_map, _, _ = _gazetteer_lookups()
+    for loc in (cluster.get("locations", []) or []):
+        if not isinstance(loc, Mapping):
+            continue
+        city = _normalize_for_match(str(loc.get("city") or ""))
+        if not city:
+            continue
+        areas = set(cluster_pairs.get(city, set()))
+        for key in ("admin2", "metro"):
+            norm = _normalize_for_match(str(loc.get(key) or ""))
+            if norm:
+                areas.add(norm)
+        admin1 = str(loc.get("admin1") or "")
+        if _normalize_for_match(admin1):
+            areas.add(_normalize_for_match(admin1))
+        if admin1 in admin1_map:
+            areas.update(_normalize_for_match(a) for a in admin1_map[admin1])
+        cluster_pairs[city] = areas
+    text = f"{brief.get('body') or ''} {brief.get('dek') or ''}"
+    for sent in _split_sentences(text):
+        if not any(rx.search(sent) for rx in _CONTAINMENT_RES):
+            continue
+        norm = _padded(_normalize_for_match(sent))
+        counties = {_normalize_for_match(m.group(1)) for m in _COUNTY_RE.finditer(sent)}
+        counties.discard("")
+        states = {s for s in state_names if _padded(s) in norm}
+        mentions = [(m, "county") for m in counties] + [(m, "state") for m in states]
+        if not mentions:
+            continue
+        # City mentions, minus ones overlapping a county/state mention
+        # ("Albany" inside "Albany County" is not a standalone city cite).
+        taken: list[tuple[int, int]] = []
+        for m, _kind in mentions:
+            start = 0
+            while True:
+                i = norm.find(_padded(m).strip(), start)
+                if i < 0:
+                    break
+                taken.append((i, i + len(m)))
+                start = i + 1
+        cities: set[str] = set()
+        for city in list(city_areas) + list(cluster_pairs):
+            i = norm.find(f" {city} ")
+            if i < 0:
+                continue
+            span = (i + 1, i + 1 + len(city))
+            if any(s < span[1] and span[0] < e for s, e in taken):
+                continue
+            cities.add(city)
+        for m, kind in mentions:
+            ok = False
+            for city in cities:
+                if city in city_areas:
+                    admin2, a1names = city_areas[city]
+                    if kind == "county" and admin2 == m:
+                        ok = True
+                        break
+                    if kind == "state" and m in a1names:
+                        ok = True
+                        break
+                if city in cluster_pairs and m in cluster_pairs[city]:
+                    ok = True
+                    break
+                # Exact pairing stated in the sources ("poestenkill in
+                # rensselaer county", "troy, new york").
+                for pat in (f"{city} in {m}", f"{city} is located in {m}", f"{city}, {m}"):
+                    if pat in source_norm:
+                        ok = True
+                        break
+                if ok:
+                    break
+            if not ok:
+                reasons.append(f"unsupported place containment not in sources: {m!r}")
+                break  # one flag per brief is enough
+        if reasons:
+            break
+    return reasons
+
+
 def _min_body_words(cluster: Mapping[str, Any]) -> int:
     """Scaled length floor: thin RSS sources cannot honestly fill 60 words.
 
@@ -938,6 +1118,7 @@ def validate_brief(
     reasons.extend(_check_background_coverage(brief, cluster))
     reasons.extend(_check_disagreement(brief, cluster))
     reasons.extend(_check_locations(brief, cluster))
+    reasons.extend(_check_place_containment(brief, cluster))
     reasons.extend(_check_length(brief, cluster))
     reasons.extend(_check_verbatim(brief, cluster))
     reasons.extend(_check_quotes(brief, cluster))

@@ -578,6 +578,95 @@ def test_raw_codes_and_self_references_rejected():
     assert validate_brief(good, _cluster()).ok
 
 
+def _poestenkill_cluster():
+    # Production failure 65497cffb2af21d4: a Poestenkill story whose cluster
+    # resolved to Albany. Poestenkill is NOT in the trimmed gazetteer, so no
+    # containment claim about it can pass on geography alone.
+    return {
+        "eventId": "poes" + "0" * 12,
+        "members": [
+            {
+                "id": "a1",
+                "sourceId": "s-a",
+                "publisher": "WTEN",
+                "headline": "State Police: Poestenkill suspect taken into custody",
+                "excerpt": "New York State Police searched for the armed man in Poestenkill.",
+                "url": "https://example.com/a1",
+                "publishedAt": "2026-09-23T19:44:55Z",
+                "rightsMode": "RSS_EXCERPT_ALLOWED",
+            },
+        ],
+        "locations": [{"country": "US", "admin1": "US-NY"},
+                      {"country": "US", "admin1": "US-NY", "admin2": "Albany County",
+                       "city": "Albany"}],
+        "confidenceTier": "medium",
+        "category": "public-safety",
+        "score": 0.6,
+        "status": "new",
+        "version": 1,
+        "firstSeen": "2026-09-23T19:44:55Z",
+        "lastSeen": "2026-09-23T19:44:55Z",
+    }
+
+
+def test_wrong_county_containment_rejected():
+    # The accepted-then-regretted sentence: Poestenkill is in RENSSELAER
+    # County, so "located in Albany County" is an invented wrong fact even
+    # though Albany County is a real cluster location.
+    from pipeline.ai.validate import _check_place_containment
+
+    cluster = _poestenkill_cluster()
+    bad = {"body": "State Police searched Poestenkill. The area is located in Albany County, New York.",
+           "dek": "Police act in Poestenkill."}
+    reasons = _check_place_containment(bad, cluster)
+    assert any("containment" in r for r in reasons), reasons
+    assert not validate_brief(
+        {**_thin_troy_brief("x"), "body": bad["body"], "dek": bad["dek"],
+         "headline": "Suspect sought in Poestenkill",
+         "locations": [{"country": "US", "admin1": "US-NY"}],
+         "category": "public-safety"},
+        cluster,
+    ).ok
+
+
+def test_gazetteer_true_pairing_allowed_wrong_pairing_not():
+    # Troy really is in Rensselaer County (gazetteer) -- allowed. Troy in
+    # Albany County is false -- rejected. Same sentence shape, opposite truth.
+    from pipeline.ai.validate import _check_place_containment
+
+    cluster = _thin_troy_cluster()
+    good = {"body": "The arrest occurred in Troy, which is located in Rensselaer County.",
+            "dek": "Police act in Troy."}
+    assert _check_place_containment(good, cluster) == []
+    bad = {"body": "The arrest occurred in Troy, which is located in Albany County.",
+           "dek": "Police act in Troy."}
+    assert any("containment" in r for r in _check_place_containment(bad, cluster))
+    # And the full Troy brief with a true containment sentence validates.
+    body = (
+        "Police arrested a Troy woman on Tuesday, according to News10. "
+        "The arrest occurred in Troy, which is located in Rensselaer County. "
+        "Police in Troy arrested the woman on Tuesday. News10 reported the Troy arrest on Tuesday."
+    )
+    assert validate_brief(_thin_troy_brief(body), cluster).ok
+
+
+def test_was_reported_on_date_rejected_active_voice_allowed():
+    # Meta-date filler ("The event was reported on September 23") is banned;
+    # publisher attribution ("WNYT reported ... on ...") and bare weekdays
+    # ("reported on Tuesday") are unaffected.
+    from pipeline.ai.validate import _WAS_REPORTED_ON_RE
+
+    assert _WAS_REPORTED_ON_RE.search("The event was reported on September 23, 2026.")
+    assert _WAS_REPORTED_ON_RE.search("The event was reported on 9/23.")
+    assert not _WAS_REPORTED_ON_RE.search("WNYT reported the training on September 23.")
+    assert not _WAS_REPORTED_ON_RE.search("The fire was reported on Tuesday.")
+    bad = _valid_brief()
+    bad["body"] += " The event was reported on September 23, 2026 with crews on scene."
+    result = validate_brief(bad, _cluster())
+    assert not result.ok
+    assert any("was reported on" in r for r in result.reasons)
+
+
 def test_stemmer_keeps_inflections_together_and_lemmas_apart():
     # The coverage guard matches on stems: every inflection of one lemma
     # must share a stem (past bug: "named"->"nam" vs "name"->"name"), while
