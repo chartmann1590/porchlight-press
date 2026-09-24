@@ -17,6 +17,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -70,7 +71,9 @@ fun SectionScreen(
                 ) {
                     item { SectionHeader(title = state.title, modifier = Modifier.padding(horizontal = 16.dp)) }
                     item {
-                        val desks = state.stories.map { it.story.category }.distinct().filter { it.isNotBlank() }.take(4)
+                        val desks = remember(state.stories) {
+                            state.stories.map { it.story.category }.distinct().filter { it.isNotBlank() }.take(4)
+                        }
                         if (desks.isNotEmpty()) {
                             Text(
                                 "Topical Desks",
