@@ -76,6 +76,18 @@ _BANNED_BACKGROUND_PHRASES = (
     "still under investigation",
     "no casualties",
     "depth under investigation",
+    # Self-references to the newsgathering apparatus, never valid prose
+    # ("as reported in the headline", "as per the cluster locations"):
+    "as reported in the headline",
+    "as reported in the excerpt",
+    "as noted in the source material",
+    "as per the cluster locations",
+    "according to the same source",
+    # Raw location codes/slugs (US-NY, us-ny-capital-region): the locations
+    # FIELD carries codes, but body prose must use human-readable names
+    # (New York, Capital Region). Normalized "us ny" matches both forms,
+    # and no honest brief ever contains it (prose writes "New York").
+    "us-ny",
 )
 
 AFFECTED_KEYWORDS = frozenset({
@@ -634,9 +646,13 @@ def _check_background_coverage(
     reasons: list[str] = []
     source_text = _source_text_headline_excerpt(cluster)
     source_norm = _normalize_for_match(source_text)
+    brief_norm = _normalize_for_match(str(brief.get("body") or "") + " " + str(brief.get("dek") or ""))
     for phrase in _BANNED_BACKGROUND_PHRASES:
-        if phrase in _normalize_for_match(str(brief.get("body") or "") + " " + str(brief.get("dek") or "")):
-            if phrase not in source_norm:
+        # Compare normalized to normalized: entries with punctuation
+        # ("us-ny") must match "us ny" in the brief text.
+        nphrase = _normalize_for_match(phrase)
+        if nphrase and nphrase in brief_norm:
+            if nphrase not in source_norm:
                 reasons.append(f"unsupported background phrase not in sources: {phrase!r}")
     source_vocab = set(_coverage_words(source_text))
     # The cluster's resolved place names count as covered: a faithful

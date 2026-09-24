@@ -556,6 +556,28 @@ def test_stemmed_paraphrase_covered_but_invention_not():
     assert any("background" in r.lower() for r in result.reasons)
 
 
+def test_raw_codes_and_self_references_rejected():
+    # Style warts from live runs: slugs/codes and "as reported in the
+    # headline" are never valid prose. Honest human-readable equivalents
+    # ("New York", "according to WNYT") are unaffected.
+    for filler in (
+        " Firefighters responded in us-ny-capital-region on Central Avenue.",
+        " Firefighters responded in US-NY on Central Avenue.",
+        " Firefighters responded on Central Avenue, as reported in the headline.",
+        " Firefighters responded on Central Avenue, as per the cluster locations.",
+    ):
+        bad = _valid_brief()
+        bad["body"] += filler
+        assert len(bad["body"].split()) <= 220, filler
+        result = validate_brief(bad, _cluster())
+        assert not result.ok, filler
+        assert any("background phrase" in r for r in result.reasons), (filler, result.reasons)
+    # The human-readable forms still pass.
+    good = _valid_brief()
+    good["body"] += " Firefighters responded in New York on Central Avenue with crews on scene."
+    assert validate_brief(good, _cluster()).ok
+
+
 def test_stemmer_keeps_inflections_together_and_lemmas_apart():
     # The coverage guard matches on stems: every inflection of one lemma
     # must share a stem (past bug: "named"->"nam" vs "name"->"name"), while
