@@ -104,6 +104,7 @@ jobs:
                 -p "Qwen3-4B-Q4_K_M-00002-of-00002.gguf" 2>/dev/null; then
                 echo "using Release shards"
               else
+                rm -f "Qwen3-4B-Q4_K_M-00001-of-00002.gguf"
                 curl -fL --retry 3 -o "${{ env.PRIMARY_FILE }}" "${{ env.PRIMARY_HF }}"
               fi
             else
