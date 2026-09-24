@@ -104,7 +104,7 @@ fun Masthead(
             IconButton(onClick = { /* TODO: implement search navigation */ }, modifier = Modifier.size(40.dp).testTag("masthead-search")) {
                 Icon(Icons.Outlined.Search, contentDescription = "Search")
             }
-            IconButton(onClick = { }, modifier = Modifier.size(40.dp).testTag("masthead-audio")) {
+            IconButton(onClick = { /* TODO: implement audio brief navigation */ }, modifier = Modifier.size(40.dp).testTag("masthead-audio")) {
                 Icon(Icons.Outlined.Headphones, contentDescription = "Audio brief")
             }
             IconButton(
