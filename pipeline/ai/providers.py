@@ -510,7 +510,15 @@ def try_brief_with_retry(
                 build_retry_messages(cluster, raw, reason)
             )
         if brief2 is None:
-            return None, result, raw2, err2 or reason
+            retry_detail = err2 or "retry transport failed"
+            if not retry_detail.lower().startswith("retry failed"):
+                retry_msg = f"retry failed: {retry_detail}"
+            else:
+                retry_msg = retry_detail
+            combined_reasons = list(result.reasons) + [retry_msg]
+            combined_result = ValidationResult(ok=False, reasons=combined_reasons)
+            combined_error = f"{reason}; {retry_msg}" if reason else retry_msg
+            return None, combined_result, raw2, combined_error
         result2 = validate_brief(brief2, cluster)
         if result2.ok:
             return brief2, result2, raw2, None

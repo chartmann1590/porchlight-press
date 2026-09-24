@@ -701,3 +701,98 @@ def test_place_weekday_span_accepted_invented_place_not():
     result = validate_brief(bad, cluster)
     assert not result.ok
     assert any("Los Angeles" in r for r in result.reasons)
+
+
+def test_place_containment_checks_every_city_occurrence():
+    """Kilo #4090372512: city detection must check every occurrence, not just the first.
+
+    Regression: ``norm.find(f\" {city} \")`` only saw the first ``albany`` in
+    a sentence where the first occurrence is inside ``albany county`` (taken)
+    and skipped. A later standalone ``albany`` is a valid city cite and must
+    make the gazetteer pairing ``albany -> albany county`` count as grounded.
+    """
+    from pipeline.ai.validate import _check_place_containment
+
+    cluster = _cluster()
+    # Single sentence triggers containment (\"is located in\") and contains
+    # ``albany`` twice: first inside the county mention (overlapping, must be
+    # ignored), second standalone before the containment copula.
+    # The sentence is still true (Albany is in Albany County) so the guard
+    # must pass when every occurrence is checked; the old first-only scan
+    # missed the second and falsely rejected.
+    body = (
+        "Albany County fair was great and Albany is located in Albany County, "
+        "with crews on scene in Albany on Central Avenue."
+    )
+    brief = {"body": body, "dek": "Police act in Albany."}
+    reasons = _check_place_containment(brief, cluster)
+    assert reasons == [], reasons
+    # Also via the full validator (length + coverage still pass because body
+    # words remain grounded).
+    full = _valid_brief()
+    full["body"] = (
+        "On Tuesday, firefighters responded to a blaze on Central Avenue in Albany, "
+        "according to WNYT NewsChannel and CBS6 Albany. "
+        "City officials said about 300 homes lost water service. "
+        "Albany County fair was great and Albany is located in Albany County, "
+        "according to WNYT. "
+        "A utility spokesperson said roughly 500 customers were affected in Troy, "
+        "so sources disagree on the number affected. "
+        "Council member Jane Ortiz voted no on the budget. "
+        "The city budget is $98.4 million. "
+        "The budget has a 1.9 percent tax levy increase. "
+        "Repairs are expected by Thursday with firefighters in Albany and Troy. "
+    )
+    assert 60 <= len(full["body"].split()) <= 220, len(full["body"].split())
+    result = validate_brief(full, cluster)
+    assert result.ok, result.reasons
+
+
+def test_gazetteer_duplicate_city_names_all_areas_accepted():
+    """Kilo #4090372520: ``city_areas.setdefault`` dropped same-named cities.
+
+    Springfield exists in multiple states; the gazetteer must keep every
+    area so a containment claim matching any one of them is accepted (still
+    gazetteer-backed), while a claim matching none is still rejected.
+    """
+    import json
+    import unittest.mock
+    from pipeline.ai.validate import _check_place_containment, _gazetteer_geo, _gazetteer_lookups
+
+    _gazetteer_geo.cache_clear()
+    _gazetteer_lookups.cache_clear()
+    fake_payload = {
+        "places": [
+            {"type": "admin1", "admin1": "US-IL", "admin1Name": "Illinois", "name": "Illinois", "aliases": ["IL"]},
+            {"type": "admin1", "admin1": "US-MA", "admin1Name": "Massachusetts", "name": "Massachusetts", "aliases": ["MA"]},
+            {"type": "city", "name": "Springfield", "city": "Springfield", "admin1": "US-IL", "admin1Name": "Illinois", "admin2": "Sangamon County"},
+            {"type": "city", "name": "Springfield", "city": "Springfield", "admin1": "US-MA", "admin1Name": "Massachusetts", "admin2": "Hampden County"},
+        ]
+    }
+    with unittest.mock.patch("pathlib.Path.read_text", return_value=json.dumps(fake_payload)):
+        city_areas, state_names = _gazetteer_geo()
+        assert "springfield" in city_areas
+        areas = city_areas["springfield"]
+        assert isinstance(areas, set), type(areas)
+        assert len(areas) == 2
+        counties = {a for a, _ in areas}
+        assert "sangamon county" in counties
+        assert "hampden county" in counties
+        # Containment: each true pairing must pass without source-stated text
+        cluster = {
+            "members": [
+                {"headline": "Springfield event", "excerpt": "event in Springfield", "publisher": "Test", "url": "https://example.com/a1", "publishedAt": "2026-09-23T00:00:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED"}
+            ],
+            "locations": [],
+        }
+        good_il = {"body": "Springfield is located in Sangamon County, with crews on scene.", "dek": ""}
+        good_ma = {"body": "Springfield is located in Hampden County, with crews on scene.", "dek": ""}
+        bad = {"body": "Springfield is located in Albany County, with crews on scene.", "dek": ""}
+        assert _check_place_containment(good_il, cluster) == []
+        assert _check_place_containment(good_ma, cluster) == []
+        assert any("containment" in r for r in _check_place_containment(bad, cluster))
+    _gazetteer_geo.cache_clear()
+    _gazetteer_lookups.cache_clear()
+    # Restore real gazetteer for subsequent tests
+    _gazetteer_geo()
+    _gazetteer_lookups()

@@ -375,15 +375,17 @@ def _gazetteer_lookups() -> tuple[dict[str, list[str]], dict[str, list[str]], di
 
 
 @lru_cache(maxsize=1)
-def _gazetteer_geo() -> tuple[dict[str, tuple[str, frozenset[str]]], dict[str, str]]:
-    """City -> (admin2, admin1-names) and state-name -> admin1-key maps.
+def _gazetteer_geo() -> tuple[dict[str, set[tuple[str, frozenset[str]]]], dict[str, str]]:
+    """City -> {(admin2, admin1-names)} and state-name -> admin1-key maps.
 
-    From gazetteer city rows (name + aliases): Troy -> (Rensselaer County,
-    {New York, NY, ...}). State names from admin1 rows. Missing file ->
+    From gazetteer city rows (name + aliases): Troy -> {(Rensselaer County,
+    {New York, NY, ...})}. Same-named cities in other states each contribute
+    an entry, so Springfield -> {(Sangamon County, {Illinois,...}), (Hampden
+    County, {Massachusetts,...})}. State names from admin1 rows. Missing file ->
     empty maps (containment claims then need source-stated pairings).
     All keys/values normalized for match.
     """
-    city_areas: dict[str, tuple[str, frozenset[str]]] = {}
+    city_areas: dict[str, set[tuple[str, frozenset[str]]]] = {}
     state_names: dict[str, str] = {}
     try:
         payload = json.loads((ROOT / "pipeline" / "geo" / "places.json").read_text(encoding="utf-8"))
@@ -416,7 +418,7 @@ def _gazetteer_geo() -> tuple[dict[str, tuple[str, frozenset[str]]], dict[str, s
             for n in names:
                 norm = _normalize_for_match(n)
                 if norm:
-                    city_areas.setdefault(norm, area)
+                    city_areas.setdefault(norm, set()).add(area)
     return city_areas, state_names
 
 
@@ -974,23 +976,33 @@ def _check_place_containment(
                 start = i + 1
         cities: set[str] = set()
         for city in list(city_areas) + list(cluster_pairs):
-            i = norm.find(f" {city} ")
-            if i < 0:
-                continue
-            span = (i + 1, i + 1 + len(city))
-            if any(s < span[1] and span[0] < e for s, e in taken):
+            needle = f" {city} "
+            start = 0
+            found = False
+            while True:
+                i = norm.find(needle, start)
+                if i < 0:
+                    break
+                span = (i + 1, i + 1 + len(city))
+                if not any(s < span[1] and span[0] < e for s, e in taken):
+                    found = True
+                    break
+                start = i + 1
+            if not found:
                 continue
             cities.add(city)
         for m, kind in mentions:
             ok = False
             for city in cities:
                 if city in city_areas:
-                    admin2, a1names = city_areas[city]
-                    if kind == "county" and admin2 == m:
-                        ok = True
-                        break
-                    if kind == "state" and m in a1names:
-                        ok = True
+                    for admin2, a1names in city_areas[city]:
+                        if kind == "county" and admin2 == m:
+                            ok = True
+                            break
+                        if kind == "state" and m in a1names:
+                            ok = True
+                            break
+                    if ok:
                         break
                 if city in cluster_pairs and m in cluster_pairs[city]:
                     ok = True

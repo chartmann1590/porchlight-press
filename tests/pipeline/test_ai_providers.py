@@ -279,3 +279,41 @@ def test_factcheck_provider_rejects_non_string_items():
         [{"role": "user", "content": "story body"}]
     )
     assert unsupported is None and err is not None
+
+
+def test_retry_transport_keeps_first_reasons_and_appends_retry_failed():
+    """Kilo #4090372534: retry transport failure must not mix contexts.
+
+    When the first attempt fails validation and the retry itself fails in
+    transport, the return must keep the first attempt's reasons and append a
+    clear ``retry failed: ...`` reason while preserving the 4-tuple shape.
+    """
+    import json
+    from pipeline.ai.providers import try_brief_with_retry
+    from pipeline.ai.validate import ValidationResult
+
+    # First attempt fails validation (invented person), retry fails in transport
+    bad = _good_brief_payload()
+    bad["people"] = ["Invented Person XYZ"]
+    bad_raw = json.dumps(bad)
+
+    class _Fake:
+        def generate(self, cluster):
+            return dict(bad), bad_raw, None
+
+        def generate_with_messages(self, messages, temperature=None):
+            return None, "", "llm transport: ConnectionError: server down"
+
+    brief, result, raw, err = try_brief_with_retry(_Fake(), _cluster())
+    assert brief is None
+    assert isinstance(result, ValidationResult)
+    assert not result.ok
+    # First attempt's reason still present
+    assert any("invented" in r.lower() or "unsupported" in r.lower() for r in result.reasons), result.reasons
+    # Retry failure is appended with clear prefix
+    assert any("retry failed" in r.lower() for r in result.reasons), result.reasons
+    assert "retry failed" in err.lower(), err
+    # 4-tuple shape preserved and raw is from the retry attempt
+    assert raw == ""
+    # Combined error still carries the original validation context
+    assert any(k in err.lower() for k in ("invented", "unsupported", "retry failed")), err
