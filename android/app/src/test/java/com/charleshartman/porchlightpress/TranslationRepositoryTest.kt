@@ -60,6 +60,9 @@ class TranslationRepositoryTest {
     fun protectUnprotectRoundTrip() {
         val (guarded, table) = TranslationRepository.protect("A %1\$s B %d C")
         assertEquals(listOf("%1\$s", "%d"), table)
-        assertEquals("A %1\$s B %d C", TranslationRepository.unprotect("[x]$guarded[y]", table))
+        assertEquals("A %1\$s B %d C", guarded.replace("__PPPH0__", "%1\$s").replace("__PPPH1__", "%d"))
+        assertEquals("[x]A %1\$s B %d C[y]", TranslationRepository.unprotect("[x]$guarded[y]", table))
+        // A mangled token fails closed (caller keeps English).
+        assertEquals(null, TranslationRepository.unprotect("[x]A B[y]", table))
     }
 }

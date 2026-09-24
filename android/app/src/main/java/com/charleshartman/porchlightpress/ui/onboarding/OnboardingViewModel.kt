@@ -10,13 +10,13 @@ import com.charleshartman.porchlightpress.data.remote.PlaceDto
 import com.charleshartman.porchlightpress.data.repo.ConsentRepository
 import com.charleshartman.porchlightpress.data.repo.ConsentState
 import com.charleshartman.porchlightpress.data.repo.EditionRepository
-import com.charleshartman.porchlightpress.data.repo.FeedResult
 import com.charleshartman.porchlightpress.data.repo.GeoLookup
 import com.charleshartman.porchlightpress.data.repo.LocationRepository
 import com.charleshartman.porchlightpress.data.repo.SyncSummary
 import com.charleshartman.porchlightpress.data.repo.TranslationRepository
 import com.charleshartman.porchlightpress.data.repo.ZipResolver
 import com.charleshartman.porchlightpress.domain.EditionResolution
+import com.charleshartman.porchlightpress.domain.FeedResult
 import com.charleshartman.porchlightpress.domain.Place
 import com.charleshartman.porchlightpress.domain.PlaceSerializable
 import java.util.UUID
@@ -102,9 +102,9 @@ class OnboardingViewModel(
 
     init {
         _state.update { it.copy(taxonomy = taxonomy, supportedLanguages = supported()) }
-        viewModelScope.launch {
-            val p = prefs.snapshot()
-            if (p.appLanguage != "en" || _state.value.language != "en") {
+        if (!savedStateHandle.contains("language")) {
+            viewModelScope.launch {
+                val p = prefs.snapshot()
                 _state.update { it.copy(language = p.appLanguage.ifBlank { "en" }) }
             }
         }

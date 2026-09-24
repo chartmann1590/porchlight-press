@@ -22,13 +22,12 @@ object ZipResolver {
     /** Normalize a raw US entry: trim, accept ZIP+4, require 5 digits. Null = invalid format. */
     fun normalizeUsZip(raw: String): String? {
         val t = raw.trim()
-        // ZIP+4 ("12345-6789", "12345 6789", "123456789"): keep the first 5.
-        val five = if (t.length >= 5 && t.substring(0, 5).all { it.isDigit() }) {
-            t.substring(0, 5)
-        } else {
-            t
+        if (t.matches(Regex("\\d{5}"))) return t
+        // ZIP+4 with separator ("12308-1234", "12308 1234") or bare 9 digits.
+        if (t.matches(Regex("\\d{5}[- ]\\d{4}")) || t.matches(Regex("\\d{9}"))) {
+            return t.substring(0, 5)
         }
-        return five.takeIf { it.matches(Regex("\\d{5}")) }
+        return null
     }
 
     /** Normalize a non-US code: trim/uppercase, collapse inner spaces. Null = blank. */

@@ -9,11 +9,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** DTO parsing against tests/fixtures/*.json, incl. unknown fields + newer apiVersion. */
+/** DTO parsing against the repo fixtures, incl. unknown fields + newer apiVersion. */
 class DtoParsingTest {
     private val json = NetworkModule.feedJson
     private val fixtures =
-        File(File(System.getProperty("user.dir")), "../../tests/fixtures").canonicalFile
+        File(File(System.getProperty("user.dir") ?: "."), "../../tests/fixtures").canonicalFile
 
     private fun fixture(name: String): String {
         val f = File(fixtures, name)

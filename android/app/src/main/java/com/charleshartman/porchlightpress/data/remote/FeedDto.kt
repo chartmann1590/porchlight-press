@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * DTOs mirroring schemas/*.json. Unknown fields are ignored so the app
+ * DTOs mirroring the JSON schemas. Unknown fields are ignored so the app
  * keeps parsing when the publisher adds fields; apiVersion newer than
  * BuildConfig.SUPPORTED_FEED_API_MAJOR is rejected by the repository
  * with an "update the app" state instead.

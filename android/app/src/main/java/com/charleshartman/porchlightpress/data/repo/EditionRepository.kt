@@ -136,7 +136,7 @@ class EditionRepository(
         return contentOf(edition)
     }
 
-    private suspend fun cachedSummary(place: Place, kind: String): SyncSummary? {
+    private suspend fun cachedSummary(place: Place, kind: String = "latest"): SyncSummary? {
         val content = cachedContent(place.id, kind) ?: return null
         val stories = content.sections.sumOf { it.second.size }
         return SyncSummary(

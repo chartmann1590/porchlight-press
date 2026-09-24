@@ -158,7 +158,7 @@ data class UiTranslation(
  * text. Populated by the repositories on story insert/translate (Phase 8
  * search reads it).
  */
-@Fts4(tableName = "story_fts")
+@Fts4
 @Entity(tableName = "story_fts")
 data class StoryFts(
     @ColumnInfo(name = "storyId") val storyId: String,

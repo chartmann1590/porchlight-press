@@ -10,12 +10,12 @@ import com.charleshartman.porchlightpress.data.repo.ConsentRepository
 import com.charleshartman.porchlightpress.data.repo.ConsentState
 import com.charleshartman.porchlightpress.data.repo.EditionRepository
 import com.charleshartman.porchlightpress.data.repo.FakeConsentGateway
-import com.charleshartman.porchlightpress.data.repo.FeedResult
 import com.charleshartman.porchlightpress.data.repo.GeoLookup
 import com.charleshartman.porchlightpress.data.repo.LocationRepository
 import com.charleshartman.porchlightpress.data.repo.SyncSummary
 import com.charleshartman.porchlightpress.data.repo.TranslationRepository
 import com.charleshartman.porchlightpress.domain.Place
+import com.charleshartman.porchlightpress.domain.FeedResult
 import com.charleshartman.porchlightpress.ui.onboarding.OnboardingStep
 import com.charleshartman.porchlightpress.ui.onboarding.OnboardingViewModel
 import com.charleshartman.porchlightpress.ui.onboarding.SyncUiState
@@ -24,6 +24,7 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -37,6 +38,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class OnboardingViewModelTest {
     private val dispatcher = StandardTestDispatcher()
 
