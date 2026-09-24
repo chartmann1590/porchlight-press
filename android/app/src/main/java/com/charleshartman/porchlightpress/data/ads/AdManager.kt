@@ -43,24 +43,25 @@ class InterstitialController(
     private val config: AdConfig = AdConfig(),
 ) {
     private var articleReturnCount = 0
-    private var lastShownMs: Long = 0
+    private var lastShownMs: Long? = null
 
     @Synchronized
     fun onArticleReturn(nowMs: Long = System.currentTimeMillis()): Boolean {
         articleReturnCount++
         if (articleReturnCount % config.interstitialEveryN != 0) return false
-        if (nowMs - lastShownMs < config.interstitialMinIntervalSec * 1000L) return false
+        val last = lastShownMs
+        if (last != null && nowMs - last < config.interstitialMinIntervalSec * 1000L) return false
         lastShownMs = nowMs
         return true
     }
 
     fun reset() {
         articleReturnCount = 0
-        lastShownMs = 0
+        lastShownMs = null
     }
 
     // For testing: inject counters.
-    fun setForTest(count: Int, lastMs: Long) {
+    fun setForTest(count: Int, lastMs: Long?) {
         articleReturnCount = count
         lastShownMs = lastMs
     }
