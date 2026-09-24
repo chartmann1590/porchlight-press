@@ -852,10 +852,15 @@ def _check_verbatim(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> lis
             for field_text in brief_fields:
                 words = _words_for_verbatim(field_text)
                 for i in range(len(words) - 11):
-                    if tuple(words[i:i + 12]) in src_grams:
+                    gram = tuple(words[i:i + 12])
+                    if gram in src_grams:
+                        # Quote the copied run so the single retry can target
+                        # it ("rewrite this passage in your own words").
+                        # Still strict: any 12-word run fails, no exceptions.
                         reasons.append(
                             f"verbatim copy: 12+ consecutive words from non-{rights} source "
-                            f"{m.get('sourceId') or m.get('id')}"
+                            f"{m.get('sourceId') or m.get('id')}: "
+                            f"{' '.join(gram[:10])!r}..."
                         )
                         return reasons
     return reasons
