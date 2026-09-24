@@ -129,7 +129,13 @@ class OnboardingFlowTest {
         rule.waitUntil(10000) { vm.state.value.sync is com.charleshartman.porchlightpress.ui.onboarding.SyncUiState.Loaded }
         rule.onNodeWithTag("done-loaded").assertIsDisplayed()
         tap("done-finish")
-        val snapshot = runBlocking { prefs.snapshot() }
+        // markReading() persists asynchronously; poll for the flag.
+        var snapshot = runBlocking { prefs.snapshot() }
+        val deadline = System.currentTimeMillis() + 5000
+        while (!snapshot.readingStarted && System.currentTimeMillis() < deadline) {
+            Thread.sleep(100)
+            snapshot = runBlocking { prefs.snapshot() }
+        }
         assertTrue(snapshot.onboardingDone)
         assertTrue(snapshot.readingStarted)
         assertEquals(setOf("sports"), snapshot.interests)
