@@ -414,20 +414,7 @@ fun StoryCard(
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 if (story.aiGenerated) AiBadge()
                 if (!sourceLabel.isNullOrBlank()) {
-                    Surface(
-                        color = PorchlightColors.SageContainer,
-                        shape = RoundedCornerShape(50),
-                        modifier = Modifier.testTag("verified-pill"),
-                    ) {
-                        Row(
-                            Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        ) {
-                            Icon(Icons.Filled.CheckCircle, null, tint = PorchlightColors.Sage, modifier = Modifier.size(12.dp))
-                            Text("Source linked", style = MaterialTheme.typography.labelSmall, color = PorchlightColors.Teal)
-                        }
-                    }
+                    VerifiedPill(label = "Source linked", modifier = Modifier.testTag("verified-pill"))
                 }
                 if (isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
             }
