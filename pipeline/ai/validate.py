@@ -1145,6 +1145,21 @@ def _check_event_location(
     return reasons
 
 
+def publication_outcome_reasons(
+    brief: Mapping[str, Any], cluster: Mapping[str, Any]
+) -> list[str]:
+    """Publish-time re-check: outcome + event-location claims only.
+
+    These two checks depend solely on the headline/dek/body and the
+    cluster's source text/locations -- never on people, organizations, or
+    sourceIds, which published stories don't carry. Full validation already
+    ran at generation time in the newsroom; this narrow gate only guards
+    against validator upgrades (stale briefs) with no false-downgrade risk
+    from rebuilt-brief field drift.
+    """
+    return _check_outcome_claims(brief, cluster) + _check_event_location(brief, cluster)
+
+
 def _min_body_words(cluster: Mapping[str, Any]) -> int:
     """Scaled length floor: thin RSS sources cannot honestly fill 60 words.
 
