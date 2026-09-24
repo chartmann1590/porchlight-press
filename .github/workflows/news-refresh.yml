@@ -181,7 +181,7 @@ jobs:
             fi
           fi
           ls -lh
-          if ls "${{ steps.model.outputs.shard_prefix }}"-*.gguf >/dev/null 2>&1; then
+          if [ "${{ steps.model.outputs.sharded }}" = "true" ] && ls "${{ steps.model.outputs.shard_prefix }}"-*.gguf >/dev/null 2>&1; then
             if python3 - "$GITHUB_WORKSPACE/pipeline/ai/models.lock" "${{ steps.model.outputs.choice }}" <<'EOF'
           import hashlib
           import json
