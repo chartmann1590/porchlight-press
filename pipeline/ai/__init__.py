@@ -12,6 +12,7 @@ from .prompts import (
     build_messages,
     build_retry_messages,
     build_user_message,
+    build_verbatim_repair_messages,
 )
 from .validate import (
     ValidationResult,
@@ -32,6 +33,7 @@ __all__ = [
     "build_messages",
     "build_retry_messages",
     "build_user_message",
+    "build_verbatim_repair_messages",
     "ValidationResult",
     "parse_brief_json",
     "parse_factcheck_json",

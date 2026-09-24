@@ -7,11 +7,15 @@ committed (`*.gguf` is gitignored).
 
 | Role | File | Size | SHA-256 (see `pipeline/ai/models.lock`) | License |
 |---|---|---|---|---|
-| Primary | `Qwen3-4B-Q4_K_M.gguf` | 2.50 GB | `7485fe6f…` | Apache-2.0 |
-| Fallback (whole run switches when >50 queued) | `Qwen3-1.7B-Q8_0.gguf` | 1.83 GB | `061b54da…` | Apache-2.0 |
+| Primary (always used) | `Qwen3-4B-Q4_K_M.gguf` | 2.50 GB | `7485fe6f…` | Apache-2.0 |
+| Fallback (kept for manual `--model` override only) | `Qwen3-1.7B-Q8_0.gguf` | 1.83 GB | `061b54da…` | Apache-2.0 |
 
 0.6B is rejected: it copies excerpts verbatim instead of rewriting
-(benchmark 2026-09-23, MASTER_PLAN §11).
+(benchmark 2026-09-23, MASTER_PLAN §11). Production always uses the 4B
+primary for quality (live regression 5/8 vs 1/30 on 1.7B at run
+35983811629); throughput is not the goal because the time-budgeted stage
+publishes top-ranked stories first and carries the rest to the next run
+(4 runs/day).
 
 ## Mirroring the models to our GitHub Release (automated)
 
@@ -57,10 +61,9 @@ after the first mirror run.
    `python -m pipeline.newsroom --in <clusters> --out <stories>`.
 5. Budget: `AI_MAX_ARTICLES_PER_RUN` (default 50) + 25-min wall-clock cap.
    Queue in rank order; overflow past the budget ships as source cards and
-   is retried next run. More than ~50 queued switches the run to 1.7B.
-   Note: the model choice is made on the full queue size *before* the
-   article cap is applied -- the cap limits attempts, the threshold picks
-   the model. So 55 queued with a cap of 50 still runs 1.7B.
+   is retried next run (4 runs/day carry over). Production always uses the
+   4B primary for quality; the old >50 overflow switch to 1.7B is disabled
+   (live regression 5/8 vs 1/30 at run 35983811629).
 
 ## Local run (any machine, no GitHub)
 

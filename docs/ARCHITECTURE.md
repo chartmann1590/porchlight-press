@@ -26,7 +26,7 @@ commits or PRs. `Plan/Plan.txt` is the requirements authority;
 | JSON compatibility | `apiVersion` field on every document; Android uses `ignoreUnknownKeys = true` | Spec: tolerate unknown fields |
 | Identity | Porchlight Press · `com.charleshartman.porchlightpress` · repo `chartmann1590/porchlight-press` (public) · contact `me@charleshartman.com` | See MASTER_PLAN §9 |
 | Pipeline cadence | Every 6 h (`17 4,10,16,22 * * *` UTC); AI wall-clock cap 25 min/run | GitHub terms compliance (MASTER_PLAN §12) |
-| AI model | Qwen3-4B Q4_K_M primary (benchmark 2026-09-23); 1.7B overflow; source cards on failure | AI feasibility run, MASTER_PLAN §11 |
+| AI model | Qwen3-4B Q4_K_M primary (benchmark 2026-09-23; always 4B for quality, 4B 5/8 vs 1.7B 1/30) | AI feasibility run, MASTER_PLAN §11 |
 
 ## Data flow
 

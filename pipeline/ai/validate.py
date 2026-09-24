@@ -88,12 +88,15 @@ _BANNED_BACKGROUND_PHRASES = (
     "no casualties",
     "depth under investigation",
     # Self-references to the newsgathering apparatus, never valid prose
-    # ("as reported in the headline", "as per the cluster locations"):
+    # ("as reported in the headline", "as per the cluster locations/Places"):
     "as reported in the headline",
     "as reported in the excerpt",
     "as noted in the source material",
     "as per the cluster locations",
+    "as per the places",
+    "as per places",
     "according to the same source",
+    "according to the places",
     # Raw location codes/slugs (US-NY, us-ny-capital-region): the locations
     # FIELD carries codes, but body prose must use human-readable names
     # (New York, Capital Region). Normalized "us ny" matches both forms,
@@ -877,6 +880,11 @@ def _check_locations(
     if not isinstance(brief_locs, list):
         return ["locations must be a list"]
     source_norm = _normalize_for_match(_source_text_headline_excerpt(cluster))
+    # Display names from the cluster's resolved locations (human-readable
+    # Places) also count: "New York" for US-NY, "Capital Region" for the
+    # metro slug, etc. The prompt shows only display names, so the model
+    # naturally outputs them.
+    location_names = _cluster_location_names(cluster)
     for loc in brief_locs:
         if not isinstance(loc, Mapping):
             reasons.append("location entry must be an object")
@@ -886,6 +894,8 @@ def _check_locations(
         # Gazetteer-name fallback: a city/admin2/metro named in the sources.
         names = [str(loc.get(k) or "") for k in ("city", "admin2", "metro", "admin1")]
         if any(n and _normalize_for_match(n) in source_norm for n in names if n):
+            continue
+        if any(n and _normalize_for_match(n) in location_names for n in names if n):
             continue
         # Country-only locations match any cluster with the same country.
         if set(loc.keys()) == {"country"} and any(

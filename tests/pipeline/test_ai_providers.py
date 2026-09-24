@@ -194,8 +194,13 @@ def test_retry_messages_carry_targeted_hints():
     assert "rewrite EVERY sentence from scratch" in verbatim
     bg = build_retry_messages(cluster, "{}", "unsupported background: sentence")[1]["content"]
     assert "shorter brief is fine" in bg
-    # Prompt bans raw location codes/slugs and shortened personal names.
-    assert "US-NY" in SYSTEM_PROMPT and "EXACTLY as written" in SYSTEM_PROMPT
+    # Prompt bans raw codes/slugs (without showing them) and shortened names.
+    # It must never leak raw codes/slugs or "cluster locations" phrasing.
+    assert "US-NY" not in SYSTEM_PROMPT and "us-ny" not in SYSTEM_PROMPT.lower()
+    assert "clusterlocations" not in SYSTEM_PROMPT.lower().replace(" ", "")
+    assert "cluster locations" not in SYSTEM_PROMPT.lower()
+    assert "EXACTLY as written" in SYSTEM_PROMPT
+    assert "at most 200 characters" in SYSTEM_PROMPT
 
 
 def test_retry_runs_warmer_than_first_try():

@@ -17,10 +17,11 @@ ever needed. Portable: plain file arguments only, no CI env vars.
 
 Budget (MASTER_PLAN section 11, phase-03): AI_MAX_ARTICLES_PER_RUN (default
 50) and a wall-clock cap (default 25 min). The queue is processed in rank
-order (score desc, local/breaking first via process.py ordering). When more
-than ~50 clusters are queued, the 1.7B fallback model is used for the run.
-Whatever isn't generated ships as a source card and is retried next run
-(unchanged clusters without a brief hash re-enter the queue).
+order (score desc, local/breaking first via process.py ordering). The run
+always uses the 4B model for quality; throughput is not the goal (benchmark
+run 35983811629: 1.7B failed 29/30, 4B reached 5/8). Whatever isn't generated
+ships as a source card and is retried next run (4 runs/day carry over).
+Unchanged clusters without a brief hash re-enter the queue.
 
 Publish gate: an AI brief publishes only if deterministic validation passes
 AND the cluster confidence tier is MEDIUM or better. LOW/UNVERIFIED always
@@ -124,10 +125,11 @@ def queue_for_ai(clusters: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _overflow_threshold(ai_cfg: Mapping[str, Any]) -> int:
+    """Kept for manifests/backwards compat; model choice no longer uses it."""
     try:
-        return int(ai_cfg.get("overflowThreshold", 50))
+        return int(ai_cfg.get("overflowThreshold", 9999))
     except (TypeError, ValueError):
-        return 50
+        return 9999
 
 
 def choose_model(
@@ -137,15 +139,15 @@ def choose_model(
 ) -> str:
     """Pick the model for a run (MASTER_PLAN section 11).
 
-    More than ``overflowThreshold`` (default 50) queued clusters switches the
-    whole run to the fallback model. The count is compared BEFORE any article
-    cap is applied: 55 queued with a cap of 50 still switches. An explicit
-    ``override`` (--model) always wins. Pure function: no I/O, no network.
+    Always uses the primary 4B model for quality; the old >50 overflow
+    switch to 1.7B is disabled (live run 35983811629: 1.7B accepted 1/30,
+    4B reached 5/8). Throughput is not the goal: the time-budgeted stage
+    publishes top-ranked stories first and carries the rest to the next run
+    (4 runs/day). An explicit ``override`` (--model) always wins. Pure
+    function: no I/O, no network.
     """
     if override:
         return str(override)
-    if n_queued > _overflow_threshold(ai_cfg):
-        return str(ai_cfg.get("fallbackModel", FALLBACK_MODEL))
     return str(ai_cfg.get("primaryModel", PRIMARY_MODEL))
 
 
@@ -222,13 +224,11 @@ def main(argv: list[str] | None = None) -> int:
         step = "queue"
         queue = queue_for_ai(clusters)
         queue_ids = {str(c.get("eventId")) for c in queue}
-        # Model choice is made on the FULL queue size, before the
-        # max_articles cap is applied. That is deliberate, not a bug:
-        # the cap limits how many clusters are *attempted*, while the
-        # threshold picks the *model* for the run. E.g. 55 queued with a
-        # cap of 50 still switches the whole run to 1.7B (MASTER_PLAN
-        # section 11: "more than ~50 clusters are queued"). Do not
-        # compare against max_articles here.
+        # Model choice always uses the 4B primary for quality (live
+        # regression: 4B 5/8, 1.7B 1/30). The old >50 overflow switch is
+        # disabled; throughput is not the goal because the time-budgeted
+        # stage publishes top-ranked stories first and carries the rest to
+        # the next run (4 runs/day).
         model_name = choose_model(len(queue), ai_cfg, args.model)
 
         if args.choose_model:

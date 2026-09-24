@@ -12,7 +12,7 @@ import urllib.request
 from datetime import datetime, timezone
 from typing import Any, Callable, Mapping, Protocol
 
-from .prompts import build_messages, build_retry_messages
+from .prompts import build_messages, build_retry_messages, build_verbatim_repair_messages
 from .validate import (
     ValidationResult,
     parse_brief_json,
@@ -78,15 +78,17 @@ def _json_post_fn(
 
 
 # Throughput (MASTER_PLAN §11: ~50 briefs/25-min run, 45-min job cap):
-# live briefs run 30-70 words (~50-120 tokens + ~80 JSON wrapper), so 400
-# bounds runaway generations (~36 s worst decode at 11 tok/s) instead of 800
-# (~73 s). A truncated runaway fails JSON validation and takes the single
-# retry -- still validated, never published raw. Factcheck answers
-# {"unsupported": [...]} in a few dozen tokens. Both stay
+# live honest briefs need ~500 tokens (220 words ~300 tok + headline 30 +
+# dek 50 + JSON wrapper 80 + Places).  BRIEF_MAX_TOKENS 700 bounds runaway
+# generations (~64 s worst decode at 11 tok/s) instead of 800 (~73 s) while
+# guaranteeing honest JSON cannot truncate (run 35983811629 truncated at 400
+# on a 7-member cluster). A truncated runaway still fails JSON validation
+# and takes the single retry -- still validated, never published raw.
+# Factcheck answers {"unsupported": [...]} in a few dozen tokens. Both stay
 # grammar-constrained with thinking disabled (see _json_post_fn). One retry
 # max in try_brief_with_retry: a first-try accept costs one generation
 # (~25 s); only failures pay for the second.
-BRIEF_MAX_TOKENS = 400
+BRIEF_MAX_TOKENS = 700
 FACTCHECK_MAX_TOKENS = 128
 
 
@@ -479,6 +481,11 @@ def build_ai_story(
 RETRY_TEMPERATURE = 0.6
 
 
+def _is_verbatim_only(result: ValidationResult) -> bool:
+    """True if every failure reason is a verbatim copy (no invented facts)."""
+    return bool(result.reasons) and all("verbatim" in r.lower() for r in result.reasons)
+
+
 def try_brief_with_retry(
     provider: BriefProvider,
     cluster: Mapping[str, Any],
@@ -487,6 +494,9 @@ def try_brief_with_retry(
 
     Returns (brief|None, validation|None, raw_json, error). Rejections are
     returned (not raised) so the caller can log the reason and fall back.
+
+    Verbatim-only failures get a cheap deterministic repair (reword just the
+    flagged sentences) as the single retry. No extra retries are made.
     """
     brief, raw, err = provider.generate(cluster)
     if brief is None:
@@ -497,17 +507,21 @@ def try_brief_with_retry(
         return brief, result, raw, None
     # One regeneration with the failure reason + targeted hints appended,
     # at a warmer temperature so it does not repeat the same failure.
+    # Verbatim-only failures use a short targeted reword prompt; that's the
+    # single retry, so no extra retries are made.
     reason = "; ".join(result.reasons)[:1500]
+    verbatim_only = _is_verbatim_only(result)
+    retry_builder = build_verbatim_repair_messages if verbatim_only else build_retry_messages
     if hasattr(provider, "generate_with_messages"):
         try:
             brief2, raw2, err2 = provider.generate_with_messages(  # type: ignore[attr-defined]
-                build_retry_messages(cluster, raw, reason),
+                retry_builder(cluster, raw, reason),
                 temperature=RETRY_TEMPERATURE,
             )
         except TypeError:
             # Providers without a temperature knob (older fakes in tests).
             brief2, raw2, err2 = provider.generate_with_messages(  # type: ignore[attr-defined]
-                build_retry_messages(cluster, raw, reason)
+                retry_builder(cluster, raw, reason)
             )
         if brief2 is None:
             retry_detail = err2 or "retry transport failed"

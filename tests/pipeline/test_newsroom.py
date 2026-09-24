@@ -243,6 +243,7 @@ def test_wall_clock_expiry_stops_new_briefs_but_keeps_cards(tmp_path, monkeypatc
 
 
 def test_overflow_switches_to_fallback_model(tmp_path, monkeypatch):
+    # Always primary for quality (overflow disabled); large queue stays on 4B.
     from pipeline import newsroom as nr
 
     clusters = [_cluster(f"eid-{i:04d}", score=1.0 - i * 0.001) for i in range(55)]
@@ -267,9 +268,9 @@ def test_overflow_switches_to_fallback_model(tmp_path, monkeypatch):
                   "--sources-dir", str(tmp_path / "no-sources"),
                   "--max-articles", "55"])
     assert rc == 0
-    assert seen.get("model") == "Qwen3-1.7B-Q8_0"
+    assert seen.get("model") == "Qwen3-4B-Q4_K_M"
     payload = json.loads(out_path.read_text(encoding="utf-8"))
-    assert payload["model"] == "Qwen3-1.7B-Q8_0"
+    assert payload["model"] == "Qwen3-4B-Q4_K_M"
 
 
 def test_stories_validate_against_schema(tmp_path, monkeypatch):
