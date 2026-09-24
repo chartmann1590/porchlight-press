@@ -1,6 +1,8 @@
 package com.charleshartman.porchlightpress.ui.section
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +26,11 @@ import com.charleshartman.porchlightpress.data.ads.AdMobGate
 import com.charleshartman.porchlightpress.ui.components.BannerAdSlot
 import com.charleshartman.porchlightpress.ui.components.SectionHeader
 import com.charleshartman.porchlightpress.ui.components.StoryCard
+import com.charleshartman.porchlightpress.ui.components.TopicTile
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.layout.height
+import com.charleshartman.porchlightpress.ui.theme.PorchlightColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,6 +69,33 @@ fun SectionScreen(
                     verticalArrangement = Arrangement.spacedBy(0.dp),
                 ) {
                     item { SectionHeader(title = state.title, modifier = Modifier.padding(horizontal = 16.dp)) }
+                    item {
+                        val desks = state.stories.map { it.story.category }.distinct().filter { it.isNotBlank() }.take(4)
+                        if (desks.isNotEmpty()) {
+                            Text(
+                                "Topical Desks",
+                                style = MaterialTheme.typography.titleLarge.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Serif),
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).testTag("topical-desks-header"),
+                            )
+                            desks.chunked(2).forEach { row ->
+                                Row(
+                                    Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                                ) {
+                                    row.forEach { cat ->
+                                        TopicTile(
+                                            title = cat,
+                                            subtitle = "Coverage from this edition",
+                                            badge = "${state.stories.count { it.story.category == cat }} stories",
+                                            onClick = { },
+                                            modifier = Modifier.weight(1f),
+                                        )
+                                    }
+                                    if (row.size == 1) Spacer(Modifier.weight(1f))
+                                }
+                            }
+                        }
+                    }
                     items(state.stories, key = { it.story.id }) { item ->
                         StoryCard(
                             story = item.story,

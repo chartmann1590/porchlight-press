@@ -46,10 +46,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.charleshartman.porchlightpress.data.remote.PlaceDto
 import com.charleshartman.porchlightpress.domain.Place
+import com.charleshartman.porchlightpress.ui.components.PorchlightMark
 
 private val ALL_STEPS = OnboardingStep.entries
 
@@ -120,9 +123,26 @@ private fun StepNav(
 
 @Composable
 private fun WelcomeStep(onContinue: () -> Unit) {
-    Column(Modifier.fillMaxWidth().testTag("step-welcome"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text("Welcome to Porchlight Press", style = MaterialTheme.typography.headlineSmall)
-        Text("Your personal newspaper: local news first, free, with ads.")
+    Column(
+        Modifier.fillMaxWidth().testTag("step-welcome"),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        PorchlightMark(size = 72.dp)
+        Text(
+            "WELCOME TO PORCHLIGHT PRESS",
+            style = MaterialTheme.typography.labelMedium.copy(
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp,
+                color = MaterialTheme.colorScheme.primary,
+            ),
+        )
+        Text(
+            "Real journalism for the street you live on.",
+            style = MaterialTheme.typography.headlineMedium.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Serif),
+            modifier = Modifier.testTag("welcome-headline"),
+        )
+        Text("Your personal newspaper: local news first, free, with ads. We never sell your data.")
         Text("Stories are AI-written briefs that always link the real reporting — and say so on every story.")
         Spacer(Modifier.height(8.dp))
         Button(onClick = onContinue, modifier = Modifier.testTag("ob-continue")) { Text("Continue") }

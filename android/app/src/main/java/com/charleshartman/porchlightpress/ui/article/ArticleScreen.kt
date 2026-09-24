@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.sp
 import com.charleshartman.porchlightpress.BuildConfig
 import com.charleshartman.porchlightpress.data.local.StorySource
 import com.charleshartman.porchlightpress.ui.components.AiBadge
+import com.charleshartman.porchlightpress.ui.components.ListenDispatchButton
+import com.charleshartman.porchlightpress.ui.components.VerifiedPill
 import com.charleshartman.porchlightpress.ui.components.AiDisclosureBox
 import com.charleshartman.porchlightpress.ui.components.ImageWithAttribution
 import com.charleshartman.porchlightpress.ui.components.TranslationLabel
@@ -110,7 +112,8 @@ fun ArticleScreen(
                     // Headline / dek
                     Text(
                         effectiveHeadline,
-                        style = MaterialTheme.typography.headlineMedium,
+                        style = MaterialTheme.typography.headlineLarge.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Serif),
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.semantics { heading() }.testTag("article-headline"),
                     )
                     if (!effectiveDek.isNullOrBlank()) {
@@ -118,8 +121,10 @@ fun ArticleScreen(
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                         if (story.aiGenerated) AiBadge()
+                        if (cur.sources.isNotEmpty()) VerifiedPill(label = "Press Verified")
                         if (cur.isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
                     }
+                    ListenDispatchButton(onClick = { /* stub: TTS playback later */ })
                     // Dateline + Updated
                     val updated = if (!story.updatedAt.isNullOrBlank() && story.updatedAt != story.publishedAt) story.updatedAt else null
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {

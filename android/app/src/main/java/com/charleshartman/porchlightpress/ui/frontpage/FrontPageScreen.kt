@@ -33,6 +33,7 @@ import com.charleshartman.porchlightpress.AppContainer
 import com.charleshartman.porchlightpress.data.ads.AdMobGate
 import com.charleshartman.porchlightpress.ui.components.BannerAdSlot
 import com.charleshartman.porchlightpress.ui.components.EditionLabel
+import com.charleshartman.porchlightpress.ui.components.AudioBriefCard
 import com.charleshartman.porchlightpress.ui.components.HeroStory
 import com.charleshartman.porchlightpress.ui.components.Masthead
 import com.charleshartman.porchlightpress.ui.components.NativeAdBox
@@ -139,10 +140,17 @@ private fun ChipsRow(
         items(chipTitles.size) { idx ->
             val title = chipTitles[idx]
             val sectionId = title.lowercase()
+            val selected = idx == 0
             androidx.compose.material3.FilterChip(
-                selected = false,
+                selected = selected,
                 onClick = { onSectionClick(sectionId) },
                 label = { Text(title.uppercase()) },
+                colors = androidx.compose.material3.FilterChipDefaults.filterChipColors(
+                    selectedContainerColor = MaterialTheme.colorScheme.primary,
+                    selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    labelColor = MaterialTheme.colorScheme.onSurface,
+                ),
                 modifier = Modifier.testTag("chip-$sectionId"),
             )
         }
@@ -164,6 +172,9 @@ private fun FrontPageList(
         verticalArrangement = Arrangement.spacedBy(0.dp),
         contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 8.dp),
     ) {
+        item(key = "audio-brief") {
+            AudioBriefCard(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+        }
         var sectionIndex = 0
         state.sections.forEach { sec ->
             val stories = sec.stories

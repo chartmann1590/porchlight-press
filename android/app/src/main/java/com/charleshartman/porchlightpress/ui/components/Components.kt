@@ -1,31 +1,52 @@
 package com.charleshartman.porchlightpress.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.outlined.Headphones
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.VolumeUp
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -36,6 +57,8 @@ import com.charleshartman.porchlightpress.data.local.Story
 import com.charleshartman.porchlightpress.data.remote.NetworkModule
 import com.charleshartman.porchlightpress.data.remote.StoryImageDto
 import com.charleshartman.porchlightpress.ui.theme.LocalLayout
+import com.charleshartman.porchlightpress.ui.theme.PorchlightColors
+import com.charleshartman.porchlightpress.ui.theme.stitchHeroScrim
 import com.charleshartman.porchlightpress.ui.util.TimeFormat
 import kotlinx.serialization.decodeFromString
 
@@ -54,39 +77,69 @@ fun Masthead(
             .fillMaxWidth()
             .semantics { heading() }
             .testTag("masthead"),
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            "PORCHLIGHT PRESS",
-            style = MaterialTheme.typography.displayLarge.copy(
-                fontSize = MaterialTheme.typography.displayLarge.fontSize * (LocalLayout.current.typeScaleFactor),
-            ),
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .testTag("masthead-title")
-                .semantics { heading() },
-        )
-        val context = LocalContext.current
-        val dateline = TimeFormat.formatDateline(context, placeLabel)
-        if (dateline.isNotBlank()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            PorchlightMark(size = 32.dp)
+            Spacer(Modifier.width(8.dp))
             Text(
-                dateline,
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 4.dp).testTag("masthead-dateline"),
-            )
-        }
-        if (onSwitchLocation != null && placeLabel != null) {
-            Text(
-                "Switch location",
-                style = MaterialTheme.typography.labelSmall,
+                "PORCHLIGHT PRESS",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize *
+                        LocalLayout.current.typeScaleFactor,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Serif,
+                    letterSpacing = 0.4.sp,
+                ),
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
-                    .padding(top = 4.dp)
-                    .clickable { onSwitchLocation() }
-                    .padding(8.dp)
-                    .testTag("masthead-switch"),
+                    .weight(1f)
+                    .testTag("masthead-title")
+                    .semantics { heading() },
             )
+            IconButton(onClick = { }, modifier = Modifier.size(40.dp).testTag("masthead-search")) {
+                Icon(Icons.Outlined.Search, contentDescription = "Search")
+            }
+            IconButton(onClick = { }, modifier = Modifier.size(40.dp).testTag("masthead-audio")) {
+                Icon(Icons.Outlined.Headphones, contentDescription = "Audio brief")
+            }
+            IconButton(
+                onClick = { onSwitchLocation?.invoke() },
+                modifier = Modifier.size(40.dp).testTag("masthead-profile"),
+            ) {
+                Icon(Icons.Outlined.Person, contentDescription = "Profile")
+            }
+        }
+        val context = LocalContext.current
+        val dateline = TimeFormat.formatDateline(context, placeLabel)
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (dateline.isNotBlank()) {
+                Text(
+                    dateline.uppercase(),
+                    style = MaterialTheme.typography.labelSmall.copy(letterSpacing = 0.6.sp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.testTag("masthead-dateline"),
+                )
+            }
+            if (onSwitchLocation != null && placeLabel != null) {
+                Text(
+                    "Switch location",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .clickable { onSwitchLocation() }
+                        .padding(6.dp)
+                        .testTag("masthead-switch"),
+                )
+            }
         }
         SectionRule(modifier = Modifier.padding(top = 8.dp))
     }
@@ -132,9 +185,9 @@ fun SectionRule(modifier: Modifier = Modifier) {
     HorizontalDivider(
         modifier = modifier
             .fillMaxWidth()
-            .height(1.dp)
             .testTag("section-rule"),
-        color = MaterialTheme.colorScheme.outline,
+        thickness = 2.dp,
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.55f),
     )
 }
 
@@ -161,16 +214,27 @@ fun SectionHeader(title: String, modifier: Modifier = Modifier) {
 @Composable
 fun AiBadge(modifier: Modifier = Modifier) {
     Surface(
-        color = MaterialTheme.colorScheme.primaryContainer,
-        shape = MaterialTheme.shapes.extraSmall,
+        color = PorchlightColors.Blush,
+        shape = RoundedCornerShape(50),
         modifier = modifier.testTag("ai-badge"),
     ) {
-        Text(
-            "AI NEWSROOM",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-        )
+        Row(
+            Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Icon(
+                Icons.Filled.AutoAwesome,
+                contentDescription = null,
+                tint = PorchlightColors.Rose,
+                modifier = Modifier.size(12.dp),
+            )
+            Text(
+                "AI NEWSROOM",
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                color = PorchlightColors.Rose,
+            )
+        }
     }
 }
 
@@ -216,7 +280,7 @@ fun ImageWithAttribution(
         val context = LocalContext.current
         // 16:9 fixed aspect, rounded, crossfade via Coil builder.
         Card(
-            shape = MaterialTheme.shapes.medium,
+            shape = RoundedCornerShape(LocalLayout.current.cardRadius),
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -286,8 +350,9 @@ fun HeroStory(
             .testTag("hero-story-${story.id}")
             .semantics(mergeDescendants = true) {}
             .clickable(onClick = onClick),
-        shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+        shape = RoundedCornerShape(LocalLayout.current.heroRadius),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
     ) {
         Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -296,8 +361,11 @@ fun HeroStory(
             }
             Text(
                 headline,
-                style = MaterialTheme.typography.headlineMedium.copy(fontSize = MaterialTheme.typography.headlineMedium.fontSize * LocalLayout.current.typeScaleFactor),
-                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.displaySmall.copy(
+                    fontSize = MaterialTheme.typography.displaySmall.fontSize * LocalLayout.current.typeScaleFactor,
+                    fontFamily = FontFamily.Serif,
+                ),
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.semantics { heading() }.testTag("hero-headline"),
             )
             if (LocalLayout.current.showDek && !dek.isNullOrBlank()) {
@@ -339,12 +407,29 @@ fun StoryCard(
             .testTag("story-card-${story.id}")
             .semantics(mergeDescendants = true) {}
             .clickable(onClick = onClick),
-        shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        shape = RoundedCornerShape(LocalLayout.current.cardRadius),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
     ) {
-        Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 if (story.aiGenerated) AiBadge()
+                if (!sourceLabel.isNullOrBlank()) {
+                    Surface(
+                        color = PorchlightColors.SageContainer,
+                        shape = RoundedCornerShape(50),
+                        modifier = Modifier.testTag("verified-pill"),
+                    ) {
+                        Row(
+                            Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        ) {
+                            Icon(Icons.Filled.CheckCircle, null, tint = PorchlightColors.Sage, modifier = Modifier.size(12.dp))
+                            Text("Source linked", style = MaterialTheme.typography.labelSmall, color = PorchlightColors.Teal)
+                        }
+                    }
+                }
                 if (isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
             }
             Text(
@@ -391,18 +476,35 @@ private fun Story.publisherLabel(): String? = null
 @Composable
 fun AiDisclosureBox(modifier: Modifier = Modifier) {
     Surface(
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        shape = MaterialTheme.shapes.small,
+        color = PorchlightColors.Blush,
+        shape = RoundedCornerShape(20.dp),
         modifier = modifier
             .fillMaxWidth()
+            .border(1.dp, PorchlightColors.BlushDeep, RoundedCornerShape(20.dp))
             .testTag("ai-disclosure"),
     ) {
-        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("AI NEWSROOM", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.semantics { heading() })
+        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Icon(
+                    Icons.Filled.AutoAwesome,
+                    contentDescription = null,
+                    tint = PorchlightColors.Rose,
+                    modifier = Modifier.size(18.dp),
+                )
+                Text(
+                    "PORCHLIGHT AI NEWSROOM",
+                    style = MaterialTheme.typography.titleSmall.copy(fontFamily = FontFamily.Serif),
+                    color = PorchlightColors.Crimson,
+                    modifier = Modifier.semantics { heading() },
+                )
+            }
             Text(
                 "This brief was written by the Porchlight Press AI newsroom and reviewed against the linked sources below. It may contain mistakes. The original reporting is always linked — open it for the full story.",
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = PorchlightColors.Ink,
             )
         }
     }
@@ -456,6 +558,124 @@ fun AlertBanner(
             if (!description.isNullOrBlank()) {
                 Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onErrorContainer, modifier = Modifier.padding(top = 4.dp))
             }
+        }
+    }
+}
+
+
+@Composable
+fun VerifiedPill(
+    label: String = "Press Verified",
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        color = PorchlightColors.SageContainer,
+        shape = RoundedCornerShape(50),
+        modifier = modifier.testTag("verified-pill"),
+    ) {
+        Row(
+            Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = PorchlightColors.Sage, modifier = Modifier.size(12.dp))
+            Text(label, style = MaterialTheme.typography.labelSmall, color = PorchlightColors.Teal)
+        }
+    }
+}
+
+@Composable
+fun ListenDispatchButton(
+    onClick: () -> Unit,
+    label: String = "Listen to Dispatch",
+    modifier: Modifier = Modifier,
+) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = PorchlightColors.Crimson,
+            contentColor = Color.White,
+        ),
+        shape = RoundedCornerShape(50),
+        modifier = modifier.testTag("listen-dispatch"),
+    ) {
+        Icon(Icons.Outlined.VolumeUp, contentDescription = null, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.width(8.dp))
+        Text(label)
+    }
+}
+
+@Composable
+fun AudioBriefCard(
+    title: String = "The Morning Dispatch",
+    subtitle: String = "A short AI-assisted catch-up from today's edition. Playback coming soon.",
+    onPlay: () -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        modifier = modifier.fillMaxWidth().testTag("audio-brief-card"),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(containerColor = PorchlightColors.Ivory),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+    ) {
+        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    "PORCHLIGHT AUDIO BRIEF",
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.8.sp),
+                    color = PorchlightColors.Crimson,
+                )
+                Text(title, style = MaterialTheme.typography.titleLarge.copy(fontFamily = FontFamily.Serif))
+                Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            }
+            Surface(
+                onClick = onPlay,
+                shape = CircleShape,
+                color = PorchlightColors.Amber,
+                modifier = Modifier.size(52.dp).testTag("audio-brief-play"),
+            ) {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Icon(Icons.Filled.PlayArrow, contentDescription = "Play brief", tint = PorchlightColors.Ink)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TopicTile(
+    title: String,
+    subtitle: String,
+    accent: Color = PorchlightColors.Crimson,
+    badge: String? = null,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .testTag("topic-tile-${title.lowercase().replace(Regex("[^a-z0-9]+"), "-")}"),
+        shape = RoundedCornerShape(22.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+    ) {
+        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                Box(
+                    Modifier.size(36.dp).clip(CircleShape).background(accent.copy(alpha = 0.15f)),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(title.take(1).uppercase(), style = MaterialTheme.typography.titleMedium, color = accent)
+                }
+                if (badge != null) {
+                    Surface(color = PorchlightColors.SageContainer, shape = RoundedCornerShape(50)) {
+                        Text(badge, style = MaterialTheme.typography.labelSmall, color = PorchlightColors.Teal, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp))
+                    }
+                }
+            }
+            Text(title.uppercase(), style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold), color = accent)
+            Text(subtitle, style = MaterialTheme.typography.titleMedium.copy(fontFamily = FontFamily.Serif), maxLines = 2, overflow = TextOverflow.Ellipsis)
         }
     }
 }
