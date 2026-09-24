@@ -271,7 +271,7 @@ def revalidate_persisted_clusters(
                 seed_url = str(sub.get("seedUrl") or (sub_members[0].get("url") if sub_members else "") or "")
                 if not seed_url and sub_members:
                     seed_url = str(sub_members[0].get("id") or "")
-                new_id = str(sub.get("eventId") or event_id_for_seed(seed_url or new_rec["eventId"]))
+                new_id = str(sub.get("eventId") or event_id_for_seed(seed_url or rec["eventId"]))
                 # Avoid collisions deterministically.
                 suffix = 1
                 base = new_id
