@@ -241,7 +241,7 @@ def revalidate_persisted_clusters(
                         mid_match = any(str(m.get("url") or "") == url for m in sub_members) if url else False
                         head = str(s.get("headline") or "")
                         head_match = any(str(m.get("headline") or "") == head for m in sub_members) if head else False
-                        if not keep or mid_match or head_match or len(sub_members) == len(members):
+                        if not keep or mid_match or head_match:
                             filtered.append(s)
                     # If filtering emptied but members remain, rebuild minimal provenance.
                     if not filtered and sub_members:
