@@ -186,6 +186,18 @@ def test_ai_story_carries_attribution_and_model_overwrite():
     assert len(story["sources"]) == 2
 
 
+def test_retry_messages_carry_targeted_hints():
+    from pipeline.ai.prompts import SYSTEM_PROMPT, build_retry_messages
+
+    cluster = _cluster()
+    verbatim = build_retry_messages(cluster, "{}", "verbatim copy: 12+ words")[1]["content"]
+    assert "rewrite EVERY sentence from scratch" in verbatim
+    bg = build_retry_messages(cluster, "{}", "unsupported background: sentence")[1]["content"]
+    assert "shorter brief is fine" in bg
+    # Prompt bans raw location codes/slugs and shortened personal names.
+    assert "US-NY" in SYSTEM_PROMPT and "EXACTLY as written" in SYSTEM_PROMPT
+
+
 def _factcheck_envelope(unsupported: list[str]) -> dict:
     return {"choices": [{"message": {"content": json.dumps({"unsupported": unsupported})}}]}
 

@@ -49,8 +49,8 @@ Rules:
 - Dek: one sentence, at most 200 characters, no new facts beyond the body.
 - Body: 30 to 220 words, newspaper style. Match the sources: thin sources get a short brief (30-60 words); rich multi-source clusters get the fuller 60+ word treatment. Every name, number, date, and quote must come from the sources (headlines, excerpts, publishers, timestamps) or clusterLocations. Never pad with filler to hit a length.
 - Category: exactly one of: local, public-safety, business, technology, science, sports, entertainment, politics, health, environment, travel, weather.
-- Locations: only places named in the sources or listed in clusterLocations (city/county/state/country). Never invent coordinates.
-- People/organizations: only names appearing in the sources.
+- Locations: only places named in the sources or listed in clusterLocations (city/county/state/country). Use human-readable names (New York, Albany County, Troy). Never output raw codes or slugs like US-NY or us-ny-capital-region. Never invent coordinates.
+- People/organizations: only names appearing in the sources, copied EXACTLY as written (if sources say "President Donald Trump", write that -- never shorten to "President Trump").
 - sourceIds: every ID you list must be one of the supplied source entry IDs. Cite all sources you used.
 - If a fact appears in only one source, attribute it ("according to ...").
 - If sources disagree on a number, include BOTH values with attribution. Never pick one silently.
@@ -133,8 +133,38 @@ def build_retry_messages(
     previous_brief_json: str,
     failure_reason: str,
 ) -> list[dict[str, str]]:
-    """One regeneration: previous output + failure reason appended."""
+    """One regeneration (the single retry): previous output + the specific
+    violation appended, with targeted fix instructions per violation type."""
     base_user = build_user_message(cluster)
+    hints = []
+    low = failure_reason.lower()
+    if "verbatim" in low:
+        hints.append(
+            "For verbatim copy: rewrite EVERY sentence from scratch in your own "
+            "words -- change the sentence structure, not just a few words."
+        )
+    if "name/span" in low or "people" in low or "organization" in low:
+        hints.append(
+            "For unsupported names: copy personal and place names EXACTLY as "
+            "written in the sources; drop any name you cannot find there."
+        )
+    if "background" in low:
+        hints.append(
+            "For unsupported background: delete the flagged sentence and "
+            "replace it (if needed) with a sentence built only from source "
+            "words, or drop it entirely -- a shorter brief is fine."
+        )
+    if "date" in low or "number" in low:
+        hints.append(
+            "For dates/numbers: copy the exact values (and their format "
+            "context) from the sources; never round, shorten, or reformat "
+            "names around them."
+        )
+    if "body must be" in low:
+        hints.append(
+            "For length: add one more grounded sentence from the sources, or "
+            "trim filler -- never pad with background."
+        )
     retry_user = (
         base_user
         + "\n\nYour previous output FAILED validation for this reason:\n"
@@ -142,6 +172,7 @@ def build_retry_messages(
         + "\nPrevious output:\n"
         + previous_brief_json[:4000]
         + "\nFix ONLY the flagged problems. Keep everything else grounded in the sources."
+        + (" " + " ".join(hints) if hints else "")
     )
     return [
         {"role": "system", "content": SYSTEM_PROMPT},
