@@ -101,7 +101,7 @@ fun Masthead(
                     .testTag("masthead-title")
                     .semantics { heading() },
             )
-            IconButton(onClick = { }, modifier = Modifier.size(40.dp).testTag("masthead-search")) {
+            IconButton(onClick = { /* TODO: implement search navigation */ }, modifier = Modifier.size(40.dp).testTag("masthead-search")) {
                 Icon(Icons.Outlined.Search, contentDescription = "Search")
             }
             IconButton(onClick = { }, modifier = Modifier.size(40.dp).testTag("masthead-audio")) {
