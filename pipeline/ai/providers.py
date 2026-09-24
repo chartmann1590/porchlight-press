@@ -78,10 +78,12 @@ def _json_post_fn(
 
 
 # Throughput (MASTER_PLAN §11: ~50 briefs/25-min run): brief bodies are
-# 60-220 words (~90-300 tokens + JSON overhead), so 512 caps the worst case
+# 30-220 words (~50-300 tokens + JSON overhead), so 512 caps the worst case
 # instead of 800 (~47 s vs ~73 s at 11 tok/s) without truncating valid
 # briefs. Factcheck answers {"unsupported": [...]} in a few dozen tokens.
 # Both stay grammar-constrained with thinking disabled (see _json_post_fn).
+# One retry max in try_brief_with_retry: a first-try accept costs one
+# generation (~30 s); only failures pay for the second.
 BRIEF_MAX_TOKENS = 512
 FACTCHECK_MAX_TOKENS = 128
 

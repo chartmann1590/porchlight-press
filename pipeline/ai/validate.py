@@ -100,10 +100,58 @@ def _content_words(text: str) -> list[str]:
     return [t for t in tokens if len(t) >= 3 and t not in STOPWORDS]
 
 
+def _stem(token: str) -> str:
+    """Light stemmer so faithful paraphrases match their sources.
+
+    Strips a single common suffix (ing/ed/es/s, ies->y, trailing e) with a
+    length guard. Applied identically to source and brief text, so
+    "arrested"/"arrest" and "videos"/"video" count as the same word while
+    genuinely different words ("menopause" vs "perimenopause",
+    "educate" vs "education") stay distinct. Stdlib only, deterministic.
+    """
+    t = token
+    if len(t) > 5 and t.endswith("ies"):
+        return t[:-3] + "y"
+    for suffix in ("ing", "ed", "es"):
+        if len(t) > len(suffix) + 3 and t.endswith(suffix):
+            # Keep "sing"/"used"-style roots intact: require a consonant
+            # before the suffix... simple length guard is enough here.
+            return t[: -len(suffix)]
+    if len(t) > 4 and t.endswith("s"):
+        return t[:-1]
+    if len(t) > 4 and t.endswith("e"):
+        return t[:-1]
+    return t
+
+
 def _coverage_words(text: str) -> list[str]:
-    """Content words for the background-coverage guard (boilerplate skipped)."""
+    """Stemmed content words for the background-coverage guard.
+
+    Boilerplate skipped; stopwords ignored. Stemming lets a faithful
+    paraphrase ("the arrest occurred") match its source ("police arrested")
+    instead of being flagged as invented background.
+    """
     tokens = _WORD_RE.findall(text.lower())
-    return [t for t in tokens if len(t) >= 3 and t not in COVERAGE_SKIP]
+    return [_stem(t) for t in tokens if len(t) >= 3 and t not in COVERAGE_SKIP]
+
+
+_WEEKDAYS = frozenset({
+    "monday", "tuesday", "wednesday", "thursday", "friday",
+    "saturday", "sunday", "mon", "tue", "tues", "wed", "thu",
+    "thur", "thurs", "fri", "sat", "sun",
+})
+
+_MONTH_BY_NUM = {
+    1: ("january", "jan"), 2: ("february", "feb"), 3: ("march", "mar"),
+    4: ("april", "apr"), 5: ("may",), 6: ("june", "jun"),
+    7: ("july", "jul"), 8: ("august", "aug"), 9: ("september", "sep", "sept"),
+    10: ("october", "oct"), 11: ("november", "nov"), 12: ("december", "dec"),
+}
+
+
+def _month_words(month: int) -> tuple[str, ...]:
+    """Full + abbreviated month names for a month number (coverage vocab)."""
+    return _MONTH_BY_NUM.get(month, ())
 
 
 def _words_for_verbatim(text: str) -> list[str]:
@@ -409,6 +457,19 @@ def _check_entities(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> lis
             continue
         if norm in location_names:
             continue
+        # Weekday-aware: the model often writes "<Place> on <Weekday>" as
+        # "<Place> <Weekday>" ("Central Avenue Tuesday"). Bare weekdays are
+        # dates, not names (the date check ignores them too), so a span
+        # whose non-weekday remainder is grounded is not a fake place.
+        # An invented place still fails ("Los Angeles Tuesday" -> "los
+        # angeles" is in neither sources nor locations).
+        words = norm.split()
+        remainder = " ".join(w for w in words if w not in _WEEKDAYS)
+        if remainder and remainder != norm:
+            if remainder in source_norm or remainder in location_names:
+                continue
+            if " " not in remainder:
+                continue  # only a weekday + one other word: not an entity
         reasons.append(f"unsupported name/span not in sources: {span!r}")
     for field_name in ("people", "organizations"):
         entries = brief.get(field_name, []) or []
@@ -567,6 +628,27 @@ def _check_background_coverage(
             if phrase not in source_norm:
                 reasons.append(f"unsupported background phrase not in sources: {phrase!r}")
     source_vocab = set(_coverage_words(source_text))
+    # The cluster's resolved place names count as covered: a faithful
+    # paraphrase ("the arrest occurred in Rensselaer County, New York")
+    # reuses the settled geography even when one short excerpt never spells
+    # it out. Component words only (never whole inventable claims).
+    for name in _cluster_location_names(cluster):
+        for w in _WORD_RE.findall(name):
+            if len(w) >= 3 and w not in COVERAGE_SKIP:
+                source_vocab.add(_stem(w))
+    # Source dates count as covered in any format: "September 23, 2026" in
+    # the brief matches the 2026-09-23T publishedAt stamps. Month names for
+    # every sourced date join the vocab (years/days are already there when
+    # spelled numerically; weekday names stay uncovered by design).
+    dated_text = source_text_for_cluster(cluster, include_timestamps=True)
+    for key in ("firstSeen", "lastSeen"):
+        stamp = str(cluster.get(key) or "").strip()
+        if stamp:
+            dated_text += " " + stamp
+    for _y, mo, _d in _extract_dates(dated_text)[0]:
+        for cand in _month_words(mo):
+            if len(cand) >= 3 and cand not in COVERAGE_SKIP:
+                source_vocab.add(_stem(cand))
     body = str(brief.get("body") or "")
     sentences = _split_sentences(body)
     for sent in sentences:
@@ -722,7 +804,19 @@ def _check_locations(
     return reasons
 
 
-def _check_length(brief: Mapping[str, Any]) -> list[str]:
+def _min_body_words(cluster: Mapping[str, Any]) -> int:
+    """Scaled length floor: thin RSS sources cannot honestly fill 60 words.
+
+    min = max(30, min(60, 0.6 * source words)). A 22-word single excerpt
+    needs only 30 honest words; a rich multi-source cluster still needs 60.
+    Padding to hit a fixed 60 is what produced the invented-background
+    rejections, so the floor scales instead of the model. Max stays 220.
+    """
+    source_words = len(_source_text_headline_excerpt(cluster).split())
+    return max(30, min(60, int(source_words * 0.6)))
+
+
+def _check_length(brief: Mapping[str, Any], cluster: Mapping[str, Any]) -> list[str]:
     reasons: list[str] = []
     headline = str(brief.get("headline") or "")
     dek = str(brief.get("dek") or "")
@@ -732,8 +826,9 @@ def _check_length(brief: Mapping[str, Any]) -> list[str]:
     if len(dek) > 200:
         reasons.append(f"dek too long: {len(dek)} chars (max 200)")
     words = len(body.split())
-    if not 60 <= words <= 220:
-        reasons.append(f"body must be 60-220 words, got {words}")
+    floor = _min_body_words(cluster)
+    if not floor <= words <= 220:
+        reasons.append(f"body must be {floor}-220 words, got {words}")
     return reasons
 
 
@@ -810,7 +905,7 @@ def validate_brief(
     reasons.extend(_check_background_coverage(brief, cluster))
     reasons.extend(_check_disagreement(brief, cluster))
     reasons.extend(_check_locations(brief, cluster))
-    reasons.extend(_check_length(brief))
+    reasons.extend(_check_length(brief, cluster))
     reasons.extend(_check_verbatim(brief, cluster))
     reasons.extend(_check_quotes(brief, cluster))
     return ValidationResult(ok=not reasons, reasons=reasons)

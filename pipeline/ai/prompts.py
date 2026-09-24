@@ -47,7 +47,7 @@ Use neutral journalistic language. Do not endorse candidates, parties, or positi
 Rules:
 - Headline: at most 110 characters, plain text, no quotation marks unless quoting a source verbatim.
 - Dek: one sentence, at most 200 characters, no new facts beyond the body.
-- Body: 60 to 220 words, newspaper style. Every name, number, date, and quote must come from the sources (headlines, excerpts, publishers, timestamps) or clusterLocations. Shorter is fine when sources are thin.
+- Body: 30 to 220 words, newspaper style. Match the sources: thin sources get a short brief (30-60 words); rich multi-source clusters get the fuller 60+ word treatment. Every name, number, date, and quote must come from the sources (headlines, excerpts, publishers, timestamps) or clusterLocations. Never pad with filler to hit a length.
 - Category: exactly one of: local, public-safety, business, technology, science, sports, entertainment, politics, health, environment, travel, weather.
 - Locations: only places named in the sources or listed in clusterLocations (city/county/state/country). Never invent coordinates.
 - People/organizations: only names appearing in the sources.
@@ -177,7 +177,7 @@ def output_fields_doc() -> dict[str, str]:
     return {
         "headline": "at most 110 chars",
         "dek": "at most 200 chars",
-        "body": "60-220 words",
+        "body": "30-220 words (short when sources are thin, never padded)",
         "category": "|".join(CATEGORY_IDS),
         "locations": "places named in sources only",
         "people": "names in sources only",

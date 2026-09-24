@@ -407,3 +407,167 @@ def test_invented_background_padding_still_rejected():
         result = validate_brief(bad, _cluster())
         assert not result.ok, filler
         assert any("background" in r.lower() for r in result.reasons), (filler, result.reasons)
+
+
+# --- fix/ai-brief-acceptance round 2: scaled floor + coverage ---
+
+def _thin_troy_cluster():
+    # Like fixture 02fdc27bec1619c6: one short RSS excerpt (~22 source words).
+    return {
+        "eventId": "troy" + "0" * 12,
+        "members": [
+            {
+                "id": "a1",
+                "sourceId": "s-a",
+                "publisher": "News10",
+                "headline": "Troy woman arrested on animal neglect charge",
+                "excerpt": "Police arrested a Troy woman on Tuesday as a result of an animal abuse investigation.",
+                "url": "https://example.com/a1",
+                "publishedAt": "2026-09-23T19:42:56Z",
+                "rightsMode": "RSS_EXCERPT_ALLOWED",
+            },
+        ],
+        "locations": [{"country": "US", "admin1": "US-NY", "admin2": "Rensselaer County",
+                       "city": "Troy", "metro": "us-ny-capital-region"}],
+        "confidenceTier": "medium",
+        "category": "local",
+        "score": 0.6,
+        "status": "new",
+        "version": 1,
+        "firstSeen": "2026-09-23T19:42:56Z",
+        "lastSeen": "2026-09-23T19:42:56Z",
+    }
+
+
+def _thin_troy_brief(body):
+    return {
+        "headline": "Troy woman arrested on neglect charge",
+        "dek": "Police acted Tuesday in Troy.",
+        "body": body,
+        "category": "local",
+        "locations": [{"country": "US", "admin1": "US-NY", "admin2": "Rensselaer County",
+                       "city": "Troy"}],
+        "people": [],
+        "organizations": [],
+        "sourceIds": ["a1"],
+        "aiModel": "test",
+        "confidence": 0.7,
+    }
+
+
+def test_scaled_floor_allows_short_honest_brief():
+    # A 41-word grounded brief on a 22-word source passes: the old fixed 60
+    # forced padding, which is what produced the invented background.
+    from pipeline.ai.validate import _min_body_words
+
+    cluster = _thin_troy_cluster()
+    assert _min_body_words(cluster) <= 41
+    body = (
+        "Police arrested a Troy woman on Tuesday, according to News10. "
+        "The arrest occurred in Rensselaer County, New York as a result of an animal abuse investigation. "
+        "Police in Troy arrested the woman on Tuesday. News10 reported the Troy arrest on Tuesday."
+    )
+    assert 30 <= len(body.split()) < 60
+    result = validate_brief(_thin_troy_brief(body), cluster)
+    assert result.ok, result.reasons
+
+
+def test_scaled_floor_keeps_60_for_rich_sources():
+    from pipeline.ai.validate import _min_body_words
+
+    # Two-member cluster (~93 source words) keeps a high floor, and the cap
+    # holds at 60 no matter how much source material piles up.
+    assert _min_body_words(_cluster()) >= 50
+    big = _cluster()
+    big["members"] = big["members"] * 10
+    assert _min_body_words(big) == 60
+
+
+def test_very_short_brief_still_rejected():
+    bad = _thin_troy_brief("Police arrested a Troy woman Tuesday.")
+    result = validate_brief(bad, _thin_troy_cluster())
+    assert not result.ok
+    assert any("body must be" in r for r in result.reasons)
+
+
+def test_stemmed_paraphrase_covered_but_invention_not():
+    # "the arrest occurred" matches "police arrested" via stemming, and the
+    # county/state via resolved locations -- but an invented education claim
+    # on a health cluster still fails even naming the city.
+    cluster = _thin_troy_cluster()
+    body = (
+        "Police arrested a Troy woman on Tuesday, according to News10. "
+        "The arrest occurred in Rensselaer County, New York as a result of an animal abuse investigation. "
+        "Police in Troy arrested the woman on Tuesday. News10 reported the Troy arrest on Tuesday."
+    )
+    assert validate_brief(_thin_troy_brief(body), cluster).ok
+
+    peri = {
+        "eventId": "peri" + "0" * 12,
+        "members": [
+            {
+                "id": "a1",
+                "sourceId": "s-a",
+                "publisher": "NEWS10",
+                "headline": "Women Health Wednesday: Perimenopause Awareness Month",
+                "excerpt": "September is Perimenopause Awareness Month! Perimenopause is the stage of life for women before menopause. During perimenopause, women may experience hormonal changes and symptoms.",
+                "url": "https://example.com/a1",
+                "publishedAt": "2026-09-23T18:17:57Z",
+                "rightsMode": "RSS_EXCERPT_ALLOWED",
+            },
+        ],
+        "locations": [{"country": "US", "admin1": "US-NY", "admin2": "Albany County",
+                       "city": "Albany"}],
+        "confidenceTier": "medium",
+        "category": "health",
+        "score": 0.6,
+        "status": "new",
+        "version": 1,
+        "firstSeen": "2026-09-23T18:17:57Z",
+        "lastSeen": "2026-09-23T18:17:57Z",
+    }
+    honest = (
+        "September brings Perimenopause Awareness Month, NEWS10 noted. "
+        "The stage of life before menopause can bring hormonal changes and symptoms for women during perimenopause. "
+        "NEWS10 marked September as awareness month for the change before menopause."
+    )
+    good = {
+        "headline": "September marks perimenopause awareness month",
+        "dek": "NEWS10 notes the September health topic.",
+        "body": honest,
+        "category": "health",
+        "locations": [{"country": "US", "admin1": "US-NY", "admin2": "Albany County",
+                       "city": "Albany"}],
+        "people": [],
+        "organizations": [],
+        "sourceIds": ["a1"],
+        "aiModel": "test",
+        "confidence": 0.7,
+    }
+    assert validate_brief(good, peri).ok
+    bad = dict(good)
+    bad["body"] = honest + (
+        " The awareness month aims to educate women on the transition"
+        " to menopause with community events in Albany."
+    )
+    result = validate_brief(bad, peri)
+    assert not result.ok
+    assert any("background" in r.lower() for r in result.reasons)
+
+
+def test_place_weekday_span_accepted_invented_place_not():
+    # "Central Avenue Tuesday" is place + weekday, not a fake name; an
+    # invented place with a weekday attached still fails.
+    cluster = _cluster()
+    good = _valid_brief()
+    good["body"] += " Crews kept Central Avenue Tuesday closure in Albany."
+    assert len(good["body"].split()) <= 220
+    result = validate_brief(good, cluster)
+    assert not any("Tuesday" in r for r in result.reasons), result.reasons
+    assert result.ok, result.reasons
+
+    bad = _valid_brief()
+    bad["body"] += " Los Angeles Tuesday crews flew in to watch."
+    result = validate_brief(bad, cluster)
+    assert not result.ok
+    assert any("Los Angeles" in r for r in result.reasons)
