@@ -125,7 +125,7 @@ fun ArticleScreen(
                         if (cur.sources.isNotEmpty()) VerifiedPill(label = "Press Verified")
                         if (cur.isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
                     }
-                    ListenDispatchButton(onClick = { /* stub: TTS playback later */ })
+                    ListenDispatchButton(onClick = { /* TODO: implement TTS playback */ })
                     // Dateline + Updated
                     val updated = if (!story.updatedAt.isNullOrBlank() && story.updatedAt != story.publishedAt) story.updatedAt else null
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
