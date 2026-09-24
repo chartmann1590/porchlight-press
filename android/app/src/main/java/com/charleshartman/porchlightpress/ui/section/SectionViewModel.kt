@@ -76,7 +76,7 @@ class SectionViewModel(
                 if (ui.find { it.story.id == story.id }?.isTranslating != true) continue
                 viewModelScope.launch {
                     try {
-                        val result = container.translationRepository.translateStory(
+                        val result = container.translationRepository.translateStoryOnce(
                             story.id, story.version, story.headline, story.dek, story.body, lang,
                         )
                         _state.value = _state.value.copy(

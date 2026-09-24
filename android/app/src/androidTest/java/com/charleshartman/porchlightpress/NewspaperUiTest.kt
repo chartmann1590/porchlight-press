@@ -41,6 +41,10 @@ import org.junit.runner.RunWith
 class NewspaperUiTest {
     @get:Rule val rule = createAndroidComposeRule<ComponentActivity>()
 
+    // Stubs external launches so taps that fire open-URL intents stay
+    // in-process and the fired intent becomes verifiable.
+    @get:Rule val intentsRule = androidx.test.espresso.intent.rule.IntentsRule()
+
     private lateinit var container: AppContainer
     private lateinit var gate: AdMobGate
 
@@ -255,12 +259,27 @@ class NewspaperUiTest {
         val vm = ArticleViewModel(container, storyId)
         rule.setContent { PorchlightTheme { ArticleScreen(viewModel = vm, onBack = {}) } }
         rule.waitUntil(15000) { vm.state.value.story != null }
+        val st = vm.state.value
+        org.junit.Assert.assertTrue(
+            "story=" + st.story?.id + " sources=" + st.sources.size,
+            st.sources.isNotEmpty(),
+        )
         // Sources render below the fold; scroll the section into view first.
+        // Note: SourceRow is clickable, and clickable merges descendants, so
+        // the inner link tag only exists in the unmerged tree.
         rule.onNodeWithTag("sources-header").performScrollTo()
         rule.onNodeWithTag("sources-header").assertIsDisplayed()
-        rule.onNodeWithTag("source-link").performScrollTo()
-        rule.onNodeWithTag("source-link").assertIsDisplayed()
-        rule.onNodeWithTag("source-link").performClick()
+        rule.onNodeWithTag("source-link", useUnmergedTree = true).performScrollTo()
+        rule.onNodeWithTag("source-link", useUnmergedTree = true).assertIsDisplayed()
+        // Tapping fires an open-URL intent (IntentsRule stubs the external
+        // launch, so the article stays put and the intent is verifiable).
+        rule.onNodeWithTag("source-link", useUnmergedTree = true).performClick()
+        androidx.test.espresso.intent.Intents.intended(
+            org.hamcrest.CoreMatchers.allOf(
+                androidx.test.espresso.intent.matcher.IntentMatchers.hasAction(android.content.Intent.ACTION_VIEW),
+                androidx.test.espresso.intent.matcher.IntentMatchers.hasData("https://example.com/council-downtown"),
+            ),
+        )
         rule.onNodeWithTag("article-screen").assertIsDisplayed()
     }
 }

@@ -49,7 +49,7 @@ class ArticleViewModel(
         if (isTranslating) {
             viewModelScope.launch {
                 try {
-                    val result = container.translationRepository.translateStory(
+                    val result = container.translationRepository.translateStoryOnce(
                         storyId, story.version, story.headline, story.dek, story.body, lang,
                     )
                     _state.value = _state.value.copy(translation = result, isTranslating = false)
