@@ -1,0 +1,18 @@
+{
+  "apiVersion": 1,
+  "description": "Single taxonomy reconciling the spec's news sections and user interests (MASTER_PLAN G7). Use these ids for story.category and onboarding interests.",
+  "categories": [
+    {"id": "local", "label": "Local", "description": "Town/city and county news for the user's edition"},
+    {"id": "public-safety", "label": "Public safety", "description": "Police, fire, EMS, alerts, road closures"},
+    {"id": "business", "label": "Business", "description": "Local and wider business and economy"},
+    {"id": "technology", "label": "Technology", "description": "Tech news and computing"},
+    {"id": "science", "label": "Science", "description": "Science and research"},
+    {"id": "sports", "label": "Sports", "description": "Local teams and wider sports"},
+    {"id": "entertainment", "label": "Entertainment", "description": "Arts, culture, events, film, music"},
+    {"id": "politics", "label": "Politics", "description": "Government, elections, policy (neutrally written)"},
+    {"id": "health", "label": "Health", "description": "Public health and healthcare"},
+    {"id": "environment", "label": "Environment", "description": "Climate, nature, energy"},
+    {"id": "travel", "label": "Travel", "description": "Travel and transportation"},
+    {"id": "weather", "label": "Weather", "description": "Forecasts and severe weather"}
+  ]
+}

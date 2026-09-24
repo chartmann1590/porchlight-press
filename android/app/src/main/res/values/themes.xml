@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash base theme; Compose takes over after installSplashScreen(). -->
+    <style name="Theme.PorchlightPress" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+    <style name="Theme.PorchlightPress.Splash" parent="Theme.PorchlightPress">
+        <item name="android:windowSplashScreenBackground">@android:color/white</item>
+    </style>
+</resources>
