@@ -4,6 +4,13 @@ Features: TF-IDF cosine over headline+excerpt, shared location, shared
 capitalized entities, time proximity. Deterministic: items are sorted first,
 so the same input order always yields the same output.
 
+Anti-overmerge invariant: a shared place name alone must never merge two
+items. Place-derived capitalized spans (city/county/metro/state names from
+either item's resolved locations) are excluded from entity evidence, and a
+join additionally requires genuine non-place evidence -- a non-place shared
+entity or TF-IDF cosine at/above MIN_TEXT_SIM. Location + recency can only
+confirm a textual match, never create one.
+
 Stable IDs: eventId = sha256(canonical URL of the seed item)[:16]. The seed
 is the earliest member (sorted input => first member). When clusters merge,
 the older ID survives and the other is recorded as an alias.
@@ -22,12 +29,25 @@ DEFAULT_WINDOW_HOURS = 72
 DEFAULT_THRESHOLD = 0.45
 DEFAULT_MERGE_THRESHOLD = 0.65
 DEFAULT_WEIGHTS = {"tfidf": 0.55, "location": 0.20, "entity": 0.15, "time": 0.10}
+# Minimum TF-IDF cosine required when a pair shares no non-place entity.
+# Calibrated: an unrelated same-city pair sharing only "Ballston Spa" scores
+# ~0.15 even in a 40-document corpus, while true same-event pairs (Albany
+# fire fixture) score >= 0.27. Location + recency (0.30 combined) can never
+# reach the 0.45 join threshold on their own.
+MIN_TEXT_SIM = 0.20
 
 _ENTITY_RE = re.compile(r"\b([A-Z][a-z]{2,}(?:\s+[A-Z][a-z]{2,})*)\b")
 _ENTITY_STOP = frozenset({
     "The", "This", "That", "These", "Those", "With", "From", "After",
     "Before", "Crews", "Fire", "Police",
 })
+# Trailing generics stripped to also match bare-name mentions ("Saratoga"
+# for resolved admin2 "Saratoga County").
+_PLACE_SUFFIX_RE = re.compile(
+    r"\s+(county|city|town|township|village|borough|parish|state|"
+    r"commonwealth|district|region|metro(?:politan area)?)$"
+)
+_PLACE_KEYS = ("city", "admin2", "metro", "admin1", "country")
 
 
 def event_id_for_seed(seed_url: str) -> str:
@@ -97,10 +117,12 @@ def location_similarity(
     return best
 
 
-def entity_similarity(a: set[str], b: set[str]) -> float:
+def entity_similarity(
+    a: set[str], b: set[str], *, ignore: frozenset[str] | set[str] = frozenset()
+) -> float:
     if not a or not b:
         return 0.0
-    inter = a & b
+    inter = (a & b) - set(ignore)
     if not inter:
         return 0.0
     # Any shared multi-word entity is strong; otherwise partial credit.
@@ -108,6 +130,62 @@ def entity_similarity(a: set[str], b: set[str]) -> float:
         if " " in ent:
             return 1.0
     return min(1.0, 0.5 + 0.25 * (len(inter) - 1))
+
+
+def _norm_place(value: str) -> str:
+    return re.sub(r"\s+", " ", value.replace("-", " ").replace("_", " ")).strip().lower()
+
+
+def place_names_for_item(item: Mapping[str, Any]) -> set[str]:
+    """Normalized place phrases from an item's resolved locations.
+
+    Covers display names (city, admin2), metro slugs (humanized tail, e.g.
+    "us-ny-capital-region" -> "capital region"), admin1/country codes, and
+    bare-name variants with trailing generics stripped ("Saratoga County"
+    -> "saratoga"). Shared entities matching these are place evidence, not
+    event evidence, and are excluded from entity similarity.
+    """
+    names: set[str] = set()
+    locs = item.get("locations")
+    if not isinstance(locs, list):
+        return names
+    for loc in locs:
+        if not isinstance(loc, Mapping):
+            continue
+        for key in _PLACE_KEYS:
+            raw = str(loc.get(key) or "").strip()
+            if not raw:
+                continue
+            if key == "metro" and "-" in raw:
+                # Slug form "cc-ss-<name>...": the humanized tail is what
+                # prose uses ("Capital Region").
+                parts = raw.split("-")
+                tail = parts[2:] if len(parts) > 2 else parts
+                human = _norm_place(" ".join(tail))
+                if human:
+                    names.add(human)
+            norm = _norm_place(raw)
+            if norm:
+                names.add(norm)
+                bare = _PLACE_SUFFIX_RE.sub("", norm).strip()
+                if bare:
+                    names.add(bare)
+    return names
+
+
+def has_genuine_overlap(tfidf_cos: float, ent: float) -> bool:
+    """Non-place evidence gate: a shared non-place entity, or enough raw
+    textual overlap. A shared place name with thin text never passes."""
+    return ent > 0.0 or tfidf_cos >= MIN_TEXT_SIM
+
+
+def place_names_for_members(members: list[Mapping[str, Any]]) -> set[str]:
+    """Union of place phrases over cluster members (for merge decisions)."""
+    names: set[str] = set()
+    for m in members:
+        if isinstance(m, Mapping):
+            names |= place_names_for_item(m)
+    return names
 
 
 def time_similarity(a: datetime | None, b: datetime | None, window_hours: float) -> float:
@@ -178,6 +256,7 @@ def cluster_items(
     cos = _tfidf_cosine(texts)
     times = [_parse_time(i.get("publishedAt")) for i in ordered]
     ent_sets = [extract_entities(f"{i.get('headline') or ''} {i.get('excerpt') or ''}") for i in ordered]
+    place_names: list[set[str]] = [place_names_for_item(i) for i in ordered]
     loc_lists: list[list[Mapping[str, Any]]] = [
         list(i.get("locations") or []) if isinstance(i.get("locations"), list) else []
         for i in ordered
@@ -203,9 +282,15 @@ def cluster_items(
             top = 0.0
             for m in members:
                 loc = location_similarity(loc_lists[idx], loc_lists[m])
-                ent = entity_similarity(ent_sets[idx], ent_sets[m])
+                ent = entity_similarity(
+                    ent_sets[idx], ent_sets[m],
+                    ignore=place_names[idx] | place_names[m],
+                )
                 t = time_similarity(times[idx], times[m], window_hours)
-                score = _combined_score(float(cos[idx][m]), loc, ent, t, w)
+                cos_im = float(cos[idx][m])
+                if not has_genuine_overlap(cos_im, ent):
+                    continue  # place + recency alone never joins
+                score = _combined_score(cos_im, loc, ent, t, w)
                 top = max(top, score)
             if top > best_score:
                 best_score = top
@@ -271,9 +356,16 @@ def maybe_merge_clusters(
             a_locs = [loc for m in a.get("members", []) for loc in (m.get("locations") or [])]
             b_locs = [loc for m in b.get("members", []) for loc in (m.get("locations") or [])]
             loc = location_similarity(a_locs, b_locs)
-            ent = entity_similarity(extract_entities(docs[i]), extract_entities(docs[j]))
+            ent = entity_similarity(
+                extract_entities(docs[i]), extract_entities(docs[j]),
+                ignore=place_names_for_members(a.get("members", []))
+                | place_names_for_members(b.get("members", [])),
+            )
             t = time_similarity(_parse_time(a.get("lastSeen")), _parse_time(b.get("lastSeen")), window_hours)
-            score = _combined_score(float(cos[i][j]), loc, ent, t, w)
+            cos_ij = float(cos[i][j])
+            if not has_genuine_overlap(cos_ij, ent):
+                continue  # place + recency alone never merges
+            score = _combined_score(cos_ij, loc, ent, t, w)
             if score >= merge_threshold:
                 # Survivor = older firstSeen (ordered => i is older).
                 a["members"] = list(a.get("members", [])) + list(b.get("members", []))

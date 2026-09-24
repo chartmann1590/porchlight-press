@@ -72,3 +72,63 @@ def test_deterministic_same_input_same_output():
     a = cluster_items(_located())
     b = cluster_items(list(reversed(_located())))
     assert [c["eventId"] for c in a] == [c["eventId"] for c in b]
+
+
+# --- fix/cluster-overmerge-encoding: shared place name alone never merges ---
+
+# Production story 0d0cf2f78345feea: WTEN's award nomination and WAMC's
+# cancer-support story were merged into one cluster. They share nothing but
+# the place name (Ballston Spa) -- same city, adjacent timestamps.
+_BALLSTON_LOC = [{"country": "US", "admin1": "US-NY", "admin2": "Saratoga County",
+                  "city": "Ballston Spa", "metro": "us-ny-capital-region"}]
+
+
+def _wten_award():
+    return {
+        "id": "wten-award-001", "sourceId": "wten", "publisher": "WTEN",
+        "headline": "Ballston Spa HS student nominated for Heart of a Giant Award",
+        "excerpt": ("A Ballston Spa High School student has been nominated for the "
+                    "Heart of a Giant Award honoring high school football players."),
+        "url": "https://wten.com/2026/09/23/ballston-spa-award/",
+        "publishedAt": "2026-09-23T09:05:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _BALLSTON_LOC,
+    }
+
+
+def _wamc_cancer():
+    return {
+        "id": "wamc-cancer-002", "sourceId": "wamc", "publisher": "WAMC",
+        "headline": "A husband and father from Ballston Spa got cancer \u2014 his friends stepped up",
+        "excerpt": ("After a Ballston Spa father was diagnosed with cancer, "
+                    "his friends rallied to support the family."),
+        "url": "https://wamc.org/2026/09/23/ballston-spa-cancer-support/",
+        "publishedAt": "2026-09-23T10:15:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _BALLSTON_LOC,
+    }
+
+
+def test_place_only_pair_does_not_cluster():
+    clusters = cluster_items([_wten_award(), _wamc_cancer()])
+    assert len(clusters) == 2
+    assert {len(c["members"]) for c in clusters} == {1}
+
+
+def test_place_only_pair_does_not_merge():
+    ca = cluster_items([_wten_award()])[0]
+    cb = cluster_items([_wamc_cancer()])[0]
+    assert len(maybe_merge_clusters([ca, cb])) == 2
+
+
+def test_same_event_pair_still_clusters():
+    # Two wordings of the same award story: shared non-place entities and
+    # real textual overlap must keep joining.
+    second = _wten_award()
+    second = dict(second, id="wten-award-002", sourceId="wten2", publisher="WTEN",
+                  headline="Ballston Spa linebacker up for Heart of a Giant honor",
+                  excerpt=("A Ballston Spa linebacker is among the nominees for "
+                           "the Heart of a Giant Award."),
+                  url="https://wten.com/2026/09/23/ballston-spa-award-2/",
+                  publishedAt="2026-09-23T09:40:00Z")
+    clusters = cluster_items([_wten_award(), second])
+    assert len(clusters) == 1
+    assert len(clusters[0]["members"]) == 2

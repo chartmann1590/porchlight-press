@@ -19,6 +19,18 @@ TRACKING_PARAMS = {
 _TAG_RE = re.compile(r"<(script|style)[^>]*>.*?</\1>", re.DOTALL | re.IGNORECASE)
 _HTML_TAG_RE = re.compile(r"<[^>]+>")
 _WS_RE = re.compile(r"\s+")
+# U+FFFD (replacement character): a source that mangled its own bytes
+# upstream can ship it literally. Never publish it: drop it here as a last
+# resort (the RSS provider already rescues mislabeled charsets so genuine
+# punctuation arrives intact).
+_REPLACEMENT_CHAR = "\ufffd"
+
+
+def strip_replacement_chars(value: str | None) -> str:
+    """Remove U+FFFD replacement characters; never publish mojibake."""
+    if not value:
+        return ""
+    return value.replace(_REPLACEMENT_CHAR, "")
 
 
 def canonicalize_url(url: str) -> str:
@@ -52,6 +64,7 @@ def html_to_text(value: str | None) -> str:
     text = _TAG_RE.sub(" ", value)
     text = _HTML_TAG_RE.sub(" ", text)
     text = html_lib.unescape(text)
+    text = strip_replacement_chars(text)
     return _WS_RE.sub(" ", text).strip()
 
 
@@ -95,7 +108,7 @@ def normalize_item(
     rights_mode = str(source.get("rightsMode", "METADATA_ONLY"))
 
     url_raw = (getattr(raw, "url", "") or "").strip()
-    headline = _WS_RE.sub(" ", (getattr(raw, "title", "") or "")).strip()
+    headline = _WS_RE.sub(" ", strip_replacement_chars(getattr(raw, "title", "") or "")).strip()
     if not url_raw or not headline:
         return None
     try:
