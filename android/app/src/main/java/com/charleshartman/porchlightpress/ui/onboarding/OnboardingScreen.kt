@@ -97,8 +97,8 @@ fun OnboardingRoute(
                 if (reduce) {
                     fadeIn(tween(0)) togetherWith fadeOut(tween(0))
                 } else {
-                    (slideInHorizontally(tween(PorchlightMotion.slideMs(false))) { it / 4 } + fadeIn(tween(PorchlightMotion.fadeMs(false)))) togetherWith
-                        (slideOutHorizontally(tween(PorchlightMotion.slideMs(false))) { -it / 4 } + fadeOut(tween(PorchlightMotion.fadeMs(false))))
+                    (slideInHorizontally(tween(PorchlightMotion.slideMs(reduce))) { it / 4 } + fadeIn(tween(PorchlightMotion.fadeMs(reduce)))) togetherWith
+                        (slideOutHorizontally(tween(PorchlightMotion.slideMs(reduce))) { -it / 4 } + fadeOut(tween(PorchlightMotion.fadeMs(reduce))))
                 }
             },
             label = "onboarding-step",
