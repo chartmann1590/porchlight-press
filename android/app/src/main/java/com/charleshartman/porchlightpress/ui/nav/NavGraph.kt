@@ -99,7 +99,7 @@ fun PorchlightNavGraph(
                     if (shouldShow && activity != null) {
                         val ad = gate.popInterstitial()
                         if (ad != null) {
-                            try { ad.show(activity) } catch (e: Exception) { /* collapse */ }
+                            try { ad.show(activity) } catch (e: Exception) { android.util.Log.w("Interstitial", "Failed to show ad", e) }
                         }
                     }
                     navController.popBackStack()
