@@ -29,6 +29,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--timeout-seconds", type=int, default=300)
     args = parser.parse_args(argv)
 
+    # Robust when run as `python scripts/ai_regression.py` (sys.path[0] is
+    # scripts/, not the repo root): ensure the root is importable.
+    from pathlib import Path as _Path
+
+    _root = _Path(__file__).resolve().parent.parent
+    if str(_root) not in sys.path:
+        sys.path.insert(0, str(_root))
+
     from pipeline.ai import LocalLlamaProvider, try_brief_with_retry
     from pipeline.ai.validate import validate_brief
 

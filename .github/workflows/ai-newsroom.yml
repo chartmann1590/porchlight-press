@@ -169,7 +169,8 @@ jobs:
       - name: Live regression (8 real clusters, per-fixture accept/reject + timing)
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
         run: |
-          python scripts/ai_regression.py \
+          set -o pipefail
+          PYTHONPATH="$GITHUB_WORKSPACE" python scripts/ai_regression.py \
             --fixtures tests/fixtures/ai_regression \
             --llama-url http://127.0.0.1:8080 | tee /tmp/regression.log
           echo "## AI regression (live model)" >> "$GITHUB_STEP_SUMMARY"
