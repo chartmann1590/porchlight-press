@@ -102,12 +102,35 @@ class OnboardingViewModel(
 
     init {
         _state.update { it.copy(taxonomy = taxonomy, supportedLanguages = supported()) }
-        if (!savedStateHandle.contains("language")) {
-            viewModelScope.launch {
-                val p = prefs.snapshot()
+        viewModelScope.launch {
+            val p = prefs.snapshot()
+            if (!savedStateHandle.contains("language")) {
                 _state.update { it.copy(language = p.appLanguage.ifBlank { "en" }) }
             }
+            if (!savedStateHandle.contains("step") && p.onboardingDone) {
+                resumeAtDone(p.activeLocationId)
+            }
         }
+    }
+
+    /** Fresh launch after reaching DONE (e.g. app was closed before Start
+     * reading): jump back to DONE with the saved place instead of restarting. */
+    private suspend fun resumeAtDone(activeLocationId: String?) {
+        val saved = activeLocationId?.let { locationDao?.byId(it) } ?: return
+        val place = Place(
+            id = saved.id, label = saved.label, country = saved.country,
+            admin1 = saved.admin1, admin2 = saved.admin2, city = saved.city,
+            metro = saved.metro, lat = saved.lat, lon = saved.lon, tz = saved.tz,
+        )
+        _state.update {
+            it.copy(
+                place = place,
+                step = OnboardingStep.DONE,
+                confirmSections = sectionsFor(place),
+            )
+        }
+        save()
+        startFirstSync()
     }
 
     private fun supported(): List<String> =

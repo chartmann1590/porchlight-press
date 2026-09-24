@@ -292,4 +292,22 @@ class OnboardingViewModelTest {
         assertEquals("es", second.state.value.language)
         assertEquals("12308", second.state.value.zipCode)
     }
+
+    @Test
+    fun freshLaunchAfterDoneResumesAtDone() = runTest {
+        coEvery { prefs.snapshot() } returns AppPrefs(onboardingDone = true, activeLocationId = "place:us:schenectady")
+        val dao = mockk<com.charleshartman.porchlightpress.data.local.SavedLocationDao>(relaxed = true)
+        coEvery { dao.byId("place:us:schenectady") } returns com.charleshartman.porchlightpress.data.local.SavedLocation(
+            id = "place:us:schenectady", label = "Schenectady, NY", country = "US",
+            admin1 = "US-NY", city = "Schenectady", tz = "America/New_York", isHome = true,
+        )
+        val v = OnboardingViewModel(
+            SavedStateHandle(), prefs, editionRepo, locationRepo, translationRepo,
+            consentRepo, geo, feedApi, emptyList(), dao,
+        )
+        advanceUntilIdle()
+        assertEquals(OnboardingStep.DONE, v.state.value.step)
+        assertEquals("Schenectady, NY", v.state.value.place?.label)
+        assertTrue(v.state.value.sync is SyncUiState.Loaded)
+    }
 }
