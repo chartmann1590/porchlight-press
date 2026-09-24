@@ -279,8 +279,8 @@ def revalidate_persisted_clusters(
                     # Deterministic fallback: hash base + index.
                     new_id = event_id_for_seed(f"{base}#{suffix}")
                     suffix += 1
-                    if suffix > 10:
-                        break
+                    if suffix > 100:
+                        raise RuntimeError("Failed to generate unique eventId after 100 attempts")
                 new_rec2: dict[str, Any] = {
                     "eventId": new_id,
                     "members": sub_members,
