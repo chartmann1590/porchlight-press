@@ -1,9 +1,12 @@
 package com.charleshartman.porchlightpress.ui.frontpage
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -153,14 +156,19 @@ private fun ChipsRow(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp).testTag("section-chips"),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(chipTitles.size) { idx ->
+        items(chipTitles.size, key = { chipTitles[it] }) { idx ->
             val title = chipTitles[idx]
             val sectionId = title.lowercase()
             val reduce = rememberReduceMotion()
-            AnimatedVisibility(
-                visible = true,
-                enter = fadeIn(tween(PorchlightMotion.fadeMs(reduce))) +
-                    slideInHorizontally(tween(PorchlightMotion.slideMs(reduce))) { it / 2 },
+            AnimatedContent(
+                targetKey = title,
+                transitionSpec = {
+                    (fadeIn(tween(PorchlightMotion.fadeMs(reduce))) +
+                        slideInHorizontally(tween(PorchlightMotion.slideMs(reduce))) { it / 2 }) togetherWith
+                        (fadeOut(tween(PorchlightMotion.fadeMs(reduce))) +
+                            slideOutHorizontally(tween(PorchlightMotion.slideMs(reduce))) { -it / 2 })
+                },
+                label = "section-chips",
             ) {
                 androidx.compose.material3.FilterChip(
                     selected = false,
