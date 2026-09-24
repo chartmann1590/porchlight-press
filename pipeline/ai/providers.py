@@ -77,14 +77,16 @@ def _json_post_fn(
     return _post
 
 
-# Throughput (MASTER_PLAN §11: ~50 briefs/25-min run): brief bodies are
-# 30-220 words (~50-300 tokens + JSON overhead), so 512 caps the worst case
-# instead of 800 (~47 s vs ~73 s at 11 tok/s) without truncating valid
-# briefs. Factcheck answers {"unsupported": [...]} in a few dozen tokens.
-# Both stay grammar-constrained with thinking disabled (see _json_post_fn).
-# One retry max in try_brief_with_retry: a first-try accept costs one
-# generation (~30 s); only failures pay for the second.
-BRIEF_MAX_TOKENS = 512
+# Throughput (MASTER_PLAN §11: ~50 briefs/25-min run, 45-min job cap):
+# live briefs run 30-70 words (~50-120 tokens + ~80 JSON wrapper), so 400
+# bounds runaway generations (~36 s worst decode at 11 tok/s) instead of 800
+# (~73 s). A truncated runaway fails JSON validation and takes the single
+# retry -- still validated, never published raw. Factcheck answers
+# {"unsupported": [...]} in a few dozen tokens. Both stay
+# grammar-constrained with thinking disabled (see _json_post_fn). One retry
+# max in try_brief_with_retry: a first-try accept costs one generation
+# (~25 s); only failures pay for the second.
+BRIEF_MAX_TOKENS = 400
 FACTCHECK_MAX_TOKENS = 128
 
 
@@ -116,6 +118,9 @@ class LocalLlamaProvider:
         )
         self.last_raw: str = ""
         self.last_error: str | None = None
+        # Token usage of the last successful call (llama-server reports
+        # {"prompt_tokens","completion_tokens"}; absent offline -> {}).
+        self.last_usage: dict[str, Any] = {}
 
     def generate(
         self, cluster: Mapping[str, Any]
@@ -143,6 +148,9 @@ class LocalLlamaProvider:
         if not isinstance(content, str):
             content = json.dumps(content)
         self.last_raw = content
+        if isinstance(resp, dict):
+            usage = resp.get("usage")
+            self.last_usage = dict(usage) if isinstance(usage, dict) else {}
         brief, err = parse_brief_json(content)
         if err:
             self.last_error = err
