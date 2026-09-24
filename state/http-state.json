@@ -1,0 +1,46 @@
+{
+  "http": {
+    "bbc-world": {
+      "etag": "",
+      "lastModified": "",
+      "finalUrl": "https://feeds.bbci.co.uk/news/world/rss.xml",
+      "permanentRedirect": false
+    },
+    "npr-news": {
+      "etag": "",
+      "lastModified": "",
+      "finalUrl": "https://feeds.npr.org/1001/rss.xml",
+      "permanentRedirect": false
+    },
+    "city-albany-news": {
+      "etag": "",
+      "lastModified": "",
+      "finalUrl": "https://www.albanyny.gov/RSSFeed.aspx?ModID=1&CID=All-newsflash.xml",
+      "permanentRedirect": false
+    },
+    "wamc-northeast-report": {
+      "etag": "",
+      "lastModified": "",
+      "finalUrl": "https://www.wamc.org/news.rss",
+      "permanentRedirect": true
+    },
+    "wten-news10": {
+      "etag": "W/\"ed85d75efcc4da5548e809e1e236875f\"",
+      "lastModified": "Thu, 24 Sep 2026 00:42:29 GMT",
+      "finalUrl": "https://www.news10.com/feed/",
+      "permanentRedirect": true
+    },
+    "city-schenectady-alerts": {
+      "etag": "",
+      "lastModified": "",
+      "finalUrl": "https://www.cityofschenectady.gov/RSSFeed.aspx?ModID=63&CID=All-0",
+      "permanentRedirect": true
+    },
+    "city-schenectady-news": {
+      "etag": "",
+      "lastModified": "",
+      "finalUrl": "https://www.cityofschenectady.gov/RSSFeed.aspx?ModID=1&CID=All-newsflash.xml",
+      "permanentRedirect": true
+    }
+  }
+}
