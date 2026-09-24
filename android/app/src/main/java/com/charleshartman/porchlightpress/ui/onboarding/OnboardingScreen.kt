@@ -18,8 +18,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -310,8 +308,10 @@ private fun ManualPickers(vm: OnboardingViewModel) {
             singleLine = true,
             modifier = Modifier.fillMaxWidth().testTag("manual-search"),
         )
-        LazyColumn(Modifier.fillMaxWidth().testTag("manual-cities")) {
-            items(state.cities.take(50)) { city ->
+        // Plain Column (bounded to 50): this screen already scrolls, and a
+        // LazyColumn inside a scrolling Column is a runtime crash.
+        Column(Modifier.fillMaxWidth().testTag("manual-cities")) {
+            state.cities.take(50).forEach { city ->
                 Text(
                     city.name,
                     modifier = Modifier.fillMaxWidth().clickable { vm.setManualCity(city) }

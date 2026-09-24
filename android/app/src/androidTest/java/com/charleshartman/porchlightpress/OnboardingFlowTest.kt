@@ -105,7 +105,8 @@ class OnboardingFlowTest {
 
     private fun finishFromConfirm() {
         rule.waitUntil(5000) { vm.state.value.confirmSections.isNotEmpty() }
-        rule.onNodeWithText("Schenectady, NY").assertIsDisplayed()
+        rule.onNodeWithTag("confirm-label").assertIsDisplayed()
+        rule.onNodeWithText("Schenectady, NY", substring = true).assertIsDisplayed()
         tap("ob-confirm")
         rule.onNodeWithTag("step-interests").assertIsDisplayed()
         tap("interest-sports")
