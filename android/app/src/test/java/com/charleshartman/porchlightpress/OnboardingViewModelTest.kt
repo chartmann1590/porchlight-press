@@ -49,6 +49,7 @@ class OnboardingViewModelTest {
     private lateinit var consentRepo: ConsentRepository
     private lateinit var geo: GeoLookup
     private lateinit var feedApi: FeedApi
+    private lateinit var locationDao: com.charleshartman.porchlightpress.data.local.SavedLocationDao
 
     private val schenectady = Place(
         id = "place:us:schenectady", label = "Schenectady, NY", country = "US",
@@ -84,6 +85,7 @@ class OnboardingViewModelTest {
             override suspend fun geocodePostal(countryIso2: String, code: String): List<Place> = emptyList()
         }
         feedApi = mockk(relaxed = true)
+        locationDao = mockk(relaxed = true)
     }
 
     @After
@@ -91,9 +93,12 @@ class OnboardingViewModelTest {
         Dispatchers.resetMain()
     }
 
-    private fun vm() = OnboardingViewModel(
-        SavedStateHandle(), prefs, editionRepo, locationRepo, translationRepo,
-        consentRepo, geo, feedApi, listOf("local" to "Local", "sports" to "Sports"),
+    private fun vm(
+        handle: SavedStateHandle = SavedStateHandle(),
+        dao: com.charleshartman.porchlightpress.data.local.SavedLocationDao = locationDao,
+    ) = OnboardingViewModel(
+        handle, prefs, editionRepo, locationRepo, translationRepo,
+        consentRepo, geo, feedApi, listOf("local" to "Local", "sports" to "Sports"), dao,
     )
 
     @Test
@@ -277,7 +282,7 @@ class OnboardingViewModelTest {
         val handle = SavedStateHandle()
         val first = OnboardingViewModel(
             handle, prefs, editionRepo, locationRepo, translationRepo,
-            consentRepo, geo, feedApi, emptyList(),
+            consentRepo, geo, feedApi, emptyList(), locationDao,
         )
         advanceUntilIdle()
         first.onContinue()
@@ -285,7 +290,7 @@ class OnboardingViewModelTest {
         first.onZipCode("12308")
         val second = OnboardingViewModel(
             handle, prefs, editionRepo, locationRepo, translationRepo,
-            consentRepo, geo, feedApi, emptyList(),
+            consentRepo, geo, feedApi, emptyList(), locationDao,
         )
         advanceUntilIdle()
         assertEquals(OnboardingStep.LANGUAGE, second.state.value.step)
@@ -309,5 +314,51 @@ class OnboardingViewModelTest {
         assertEquals(OnboardingStep.DONE, v.state.value.step)
         assertEquals("Schenectady, NY", v.state.value.place?.label)
         assertTrue(v.state.value.sync is SyncUiState.Loaded)
+    }
+
+    @Test
+    fun freshLaunchWithMissingSavedLocationStaysAtWelcome() = runTest {
+        coEvery { prefs.snapshot() } returns AppPrefs(onboardingDone = true, activeLocationId = "missing-id")
+        val dao = mockk<com.charleshartman.porchlightpress.data.local.SavedLocationDao>(relaxed = true)
+        coEvery { dao.byId("missing-id") } returns null
+        val v = OnboardingViewModel(
+            SavedStateHandle(), prefs, editionRepo, locationRepo, translationRepo,
+            consentRepo, geo, feedApi, emptyList(), dao,
+        )
+        advanceUntilIdle()
+        assertEquals(OnboardingStep.WELCOME, v.state.value.step)
+        assertNull(v.state.value.place)
+    }
+
+    @Test
+    fun freshLaunchWithNullActiveLocationStaysAtWelcome() = runTest {
+        coEvery { prefs.snapshot() } returns AppPrefs(onboardingDone = true, activeLocationId = null)
+        val dao = mockk<com.charleshartman.porchlightpress.data.local.SavedLocationDao>(relaxed = true)
+        val v = OnboardingViewModel(
+            SavedStateHandle(), prefs, editionRepo, locationRepo, translationRepo,
+            consentRepo, geo, feedApi, emptyList(), dao,
+        )
+        advanceUntilIdle()
+        assertEquals(OnboardingStep.WELCOME, v.state.value.step)
+        assertNull(v.state.value.place)
+    }
+
+    @Test
+    fun locationDaoIsRequiredNonOptional() = runTest {
+        // Verify the production wiring (AppContainer passes a real DAO) still works:
+        // a VM constructed with a real (mocked) dao resumes correctly, without a nullable fallback.
+        coEvery { prefs.snapshot() } returns AppPrefs(onboardingDone = true, activeLocationId = "place:us:schenectady")
+        val dao = mockk<com.charleshartman.porchlightpress.data.local.SavedLocationDao>(relaxed = true)
+        coEvery { dao.byId(any()) } returns com.charleshartman.porchlightpress.data.local.SavedLocation(
+            id = "place:us:schenectady", label = "Schenectady, NY", country = "US",
+            admin1 = "US-NY", city = "Schenectady", tz = "America/New_York", isHome = true,
+        )
+        val v = OnboardingViewModel(
+            SavedStateHandle(), prefs, editionRepo, locationRepo, translationRepo,
+            consentRepo, geo, feedApi, emptyList(), dao,
+        )
+        advanceUntilIdle()
+        assertEquals(OnboardingStep.DONE, v.state.value.step)
+        coVerify { dao.byId("place:us:schenectady") }
     }
 }

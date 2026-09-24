@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.charleshartman.porchlightpress.data.local.PreferencesStore
 import com.charleshartman.porchlightpress.data.local.SavedLocation
+import com.charleshartman.porchlightpress.data.local.SavedLocationDao
 import com.charleshartman.porchlightpress.data.remote.FeedApi
 import com.charleshartman.porchlightpress.data.remote.PlaceDto
 import com.charleshartman.porchlightpress.data.repo.ConsentRepository
@@ -94,7 +95,7 @@ class OnboardingViewModel(
     private val geo: GeoLookup,
     private val feedApi: FeedApi,
     private val taxonomy: List<Pair<String, String>>,
-    private val locationDao: com.charleshartman.porchlightpress.data.local.SavedLocationDao? = null,
+    private val locationDao: SavedLocationDao,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(restore())
@@ -116,7 +117,7 @@ class OnboardingViewModel(
     /** Fresh launch after reaching DONE (e.g. app was closed before Start
      * reading): jump back to DONE with the saved place instead of restarting. */
     private suspend fun resumeAtDone(activeLocationId: String?) {
-        val saved = activeLocationId?.let { locationDao?.byId(it) } ?: return
+        val saved = activeLocationId?.let { locationDao.byId(it) } ?: return
         val place = Place(
             id = saved.id, label = saved.label, country = saved.country,
             admin1 = saved.admin1, admin2 = saved.admin2, city = saved.city,
@@ -516,7 +517,7 @@ class OnboardingViewModel(
         if (place == null) return
         val id = place.id.ifBlank { "place-${UUID.randomUUID()}" }
         val fresh = place.copy(id = id)
-        locationDao?.upsert(
+        locationDao.upsert(
             SavedLocation(
                 id = fresh.id,
                 label = fresh.label,

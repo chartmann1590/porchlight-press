@@ -4,6 +4,8 @@ import com.charleshartman.porchlightpress.data.local.AppDatabase
 import com.charleshartman.porchlightpress.data.local.StoryFts
 import com.charleshartman.porchlightpress.data.local.StoryTranslation
 import com.charleshartman.porchlightpress.data.local.UiTranslation
+import com.charleshartman.porchlightpress.data.remote.NetworkModule
+import com.charleshartman.porchlightpress.data.remote.StoryLocationDto
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
@@ -242,6 +244,17 @@ class TranslationRepository(
         )
         db.translationDao().upsertStoryTranslations(listOf(row))
         db.storyDao().deleteFtsFor(storyId, targetLang)
+        val sources = db.storyDao().sourcesFor(storyId)
+        val publisher = sources.joinToString(" ") { it.publisher }
+        val story = db.storyDao().storyById(storyId)
+        val locations = story?.locationsJson?.let { json ->
+            runCatching {
+                NetworkModule.feedJson.decodeFromString<List<StoryLocationDto>>(json)
+            }.getOrNull()?.joinToString(" ") {
+                listOfNotNull(it.city, it.admin2, it.metro, it.admin1, it.country)
+                    .joinToString(" ")
+            }
+        } ?: ""
         db.storyDao().upsertFts(
             listOf(
                 StoryFts(
@@ -249,8 +262,8 @@ class TranslationRepository(
                     headline = row.headline,
                     dek = row.dek ?: "",
                     body = row.body ?: "",
-                    publisher = "",
-                    locations = "",
+                    publisher = publisher,
+                    locations = locations,
                     lang = targetLang,
                 ),
             ),

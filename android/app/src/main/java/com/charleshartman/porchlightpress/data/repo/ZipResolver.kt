@@ -23,10 +23,10 @@ object ZipResolver {
     fun normalizeUsZip(raw: String): String? {
         val t = raw.trim()
         if (t.matches(Regex("\\d{5}"))) return t
-        // ZIP+4 with separator ("12308-1234", "12308 1234") or bare 9 digits.
-        if (t.matches(Regex("\\d{5}[- ]\\d{4}")) || t.matches(Regex("\\d{9}"))) {
-            return t.substring(0, 5)
-        }
+        if (t.matches(Regex("\\d{5}[- ]\\d{4}"))) return t.substring(0, 5)
+        // ZIP+4 without separator – only when the entire trimmed input is exactly 9 digits.
+        // Do not match 9-digit substrings inside longer text (e.g. phone fragments).
+        if (t.matches(Regex("\\d{9}"))) return t.substring(0, 5)
         return null
     }
 

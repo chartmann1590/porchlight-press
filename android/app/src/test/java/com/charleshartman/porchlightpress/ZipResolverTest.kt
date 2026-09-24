@@ -70,4 +70,36 @@ class ZipResolverTest {
         val out = ZipResolver.resolveGeneric("sw1a 1aa", listOf(entry))
         assertTrue(out is ZipResolver.Outcome.Resolved)
     }
+
+    @Test
+    fun bareNineDigitsIsAcceptedOnlyWhenWholeInputIsExactlyNineDigits() {
+        // ZIP+4 without dash – exactly 9 digits after trim should return first 5.
+        assertEquals("12308", ZipResolver.normalizeUsZip("123081234"))
+        assertEquals("12308", ZipResolver.normalizeUsZip("  123081234  "))
+        // Not bare 9: 10 digits, 8 digits, or 9 digits embedded in longer text must be rejected.
+        assertNull(ZipResolver.normalizeUsZip("1234567890"))
+        assertNull(ZipResolver.normalizeUsZip("12345678"))
+        assertNull(ZipResolver.normalizeUsZip("123456789 extra"))
+        assertNull(ZipResolver.normalizeUsZip("prefix 123456789"))
+        assertNull(ZipResolver.normalizeUsZip("12345-67890"))
+        assertNull(ZipResolver.normalizeUsZip("a123456789"))
+        assertNull(ZipResolver.normalizeUsZip("123456789b"))
+    }
+
+    @Test
+    fun nineDigitSubstringInsideLongerTextIsNotMatched() {
+        // Ensure the \d{9} does not match a 9-digit substring inside a phone-like string.
+        assertNull(ZipResolver.normalizeUsZip("Call 123456789"))
+        assertNull(ZipResolver.normalizeUsZip("SSN 123-45-6789"))
+        assertNull(ZipResolver.normalizeUsZip("123456789-1234"))
+    }
+
+    @Test
+    fun zipPlus4EdgeCases() {
+        assertNull(ZipResolver.normalizeUsZip("12308-"))
+        assertNull(ZipResolver.normalizeUsZip("12308-123"))
+        assertNull(ZipResolver.normalizeUsZip("12308 123"))
+        assertNull(ZipResolver.normalizeUsZip("1230-1234"))
+        assertEquals("12308", ZipResolver.normalizeUsZip("12308-0000"))
+    }
 }
