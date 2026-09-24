@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T20:27:50.310677Z",
+  "generatedAt": "2026-09-24T20:56:48.900834Z",
   "items": [
     {
       "id": "a3f330e85ac6ebf5b6f08afa629606c5",
@@ -535,19 +535,6 @@
       "rawLocations": []
     },
     {
-      "id": "59da3a9aed3113a8fc214b499c937be7",
-      "sourceId": "npr-news",
-      "publisher": "NPR News",
-      "headline": "The Education Dept. hasn't been dismantled. It's become more inefficient, staff say",
-      "excerpt": "Education staff are being scattered across several other federal agencies. Despite the Trump administration's claims, employees say it's adding bureaucracy and making it harder to serve students.",
-      "url": "https://www.npr.org/2026/09/24/nx-s1-5968605/education-department-dismantling-how-its-going",
-      "publishedAt": "2026-09-24T09:00:00Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
       "id": "bc7c9f1ae519bc2c1bcd127ac8429ce7",
       "sourceId": "npr-news",
       "publisher": "NPR News",
@@ -567,6 +554,19 @@
       "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
       "excerpt": "Democratic Sen. Elizabeth Warren asked Trump officials to explain why the Census Bureau's parent agency cut a ban on political interference from its scientific integrity policy, as NPR first reported.",
       "url": "https://www.npr.org/2026/09/24/nx-s1-5979070/department-commerce-census-bureau-elizabeth-warren",
+      "publishedAt": "2026-09-24T09:00:00Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
+      "id": "8324c24fac73c14352e0afc6696c02b2",
+      "sourceId": "npr-news",
+      "publisher": "NPR News",
+      "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
+      "excerpt": "Stories of science funding being cut, labs shutting down and scientists losing jobs have flooded the media under Trump's administration. These six graphics show how those changes have affected U.S. biomedical research.",
+      "url": "https://www.npr.org/2026/09/24/nx-s1-5931971/trump-nih-science-funding-disruptions-charts",
       "publishedAt": "2026-09-24T09:00:00Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
@@ -717,6 +717,32 @@
       "rawLocations": []
     },
     {
+      "id": "33d07c4a411bf672d0d209924008e148",
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "Agrivoltaics emerging as an opportunity for farmers",
+      "excerpt": "Farmers are growing crops and grazing animals on solar sites",
+      "url": "https://www.wamc.org/news/2026-09-24/agrivoltaics-emerging-as-an-opportunity-for-farmers",
+      "publishedAt": "2026-09-24T20:45:00Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
+      "id": "1d8009ac1dc97f6fc5e4ddd3f562fe0f",
+      "sourceId": "wamc-northeast-report",
+      "publisher": "WAMC Northeast Public Radio",
+      "headline": "NY-18 campaign attacks are \"beyond the pale\" both candidates say",
+      "excerpt": "Both candidates for New York's 18th Congressional district said the other's campaign attacks on their children and old social media accounts are \"beyond the pale.\"",
+      "url": "https://www.wamc.org/news/2026-09-24/ny-18-campaign-attacks-are-beyond-the-pale-both-candidates-say",
+      "publishedAt": "2026-09-24T20:38:17Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
       "id": "ad28e11f8dd97806a1f541533d3d85f7",
       "sourceId": "wamc-northeast-report",
       "publisher": "WAMC Northeast Public Radio",
@@ -847,26 +873,13 @@
       "rawLocations": []
     },
     {
-      "id": "1f5ec44b26d3e00a27be489be42d0ad1",
-      "sourceId": "wamc-northeast-report",
-      "publisher": "WAMC Northeast Public Radio",
-      "headline": "Sullivan County residents say high energy prices need to come down",
-      "excerpt": "WAMC spoke with Sullivan County residents at Stewart's about how they're feeling about the cost of energy as the war in Iran continues.",
-      "url": "https://www.wamc.org/news/2026-09-22/sullivan-county-residents-say-high-energy-prices-need-to-come-down",
-      "publishedAt": "2026-09-22T22:41:00Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "2a640475bae5360ecb80c27d7059bf67",
-      "sourceId": "wamc-northeast-report",
-      "publisher": "WAMC Northeast Public Radio",
-      "headline": "Protesters call for end to Rensselaer County's ICE agreement",
-      "excerpt": "A few dozen people gathered outside the Rensselaer County Sheriff's Office in Troy Monday to call for the end of the sheriff's 287(g) agreement with ICE.",
-      "url": "https://www.wamc.org/news/2026-09-22/rensselaer-county-sheriff-ice-287g-agreement-protest-troy",
-      "publishedAt": "2026-09-22T21:35:23Z",
+      "id": "48dc678097cdb360f444d43d0b06f4f9",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Wilton responds to resident criticism following tornado",
+      "excerpt": "The town of Wilton is responding to criticism of communication and cleanup after an EF-1 tornado ripped through the town in August. Wilton Town Supervisor Toni Sturm said the incident was a sharp lesson in the improvements needed with the town.",
+      "url": "https://www.news10.com/news/saratoga-county/wilton-responds-to-resident-criticism-following-tornado/",
+      "publishedAt": "2026-09-24T20:54:45Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -1504,19 +1517,6 @@
       "excerpt": "On Tuesday, a Bennington mother and son duo were arrested in connection to a sexual assault investigation. Vermont State Police said Tyler Twiss committed the act but his mother Chastity Twiss, knew about it.",
       "url": "https://www.news10.com/news/crime/mother-son-charged-in-sexual-assault-investigation-in-bennington/",
       "publishedAt": "2026-09-23T10:39:14Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "868074dbcbf25174042c4f9cda5e3501",
-      "sourceId": "wten-news10",
-      "publisher": "WTEN News10 ABC",
-      "headline": "5 things to know this Wednesday, September 23",
-      "excerpt": "The U.S. Marshals Service has raised its reward offer for information leading to the arrest of a Lansingburgh homicide suspect. Also, the case against a teenager charged with killing her father in a fire, has been moved to family court. These stories, and more, are in your five things to know, spons",
-      "url": "https://www.news10.com/5-things-to-know/5-things-to-know-this-wednesday-september-23/",
-      "publishedAt": "2026-09-23T10:01:31Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,

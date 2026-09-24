@@ -1,21 +1,24 @@
 {
-  "generatedAt": "2026-09-24T20:54:15.518602Z",
+  "generatedAt": "2026-09-24T21:22:39.968686Z",
   "model": "Qwen3-4B-Q4_K_M",
   "stories": [
     {
       "apiVersion": 1,
       "id": "0d0cf2f78345feea",
-      "headline": "A husband and father from Ballston Spa got cancer \u2014 his friends stepped up",
+      "headline": "Ballston Spa Student Nominated for Heart of a Giant Award",
+      "dek": "A student from Ballston Spa has been nominated for the Heart of a Giant Award, as reported by WTEN News10.",
+      "body": "WTEN News10 reported that a student from Ballston Spa has been nominated for the Heart of a Giant Award, which is presented by Hospital for Special Surgery and the New York Giants. The award is now active, according to the source. Another story from WAMC Northeast Public Radio highlights a 39-year-old man from Ballston Spa who was diagnosed with cancer, with friends forming an organization to support his family and others.",
       "category": "health",
       "publishedAt": "2026-09-23T22:00:35Z",
       "updatedAt": "2026-09-24T15:38:41Z",
-      "generatedAt": "2026-09-24T20:29:34.381713Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T20:58:48.165380Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 2,
       "revisions": [
         {
           "version": 2,
-          "updatedAt": "2026-09-24T20:29:34.381713Z"
+          "updatedAt": "2026-09-24T20:58:48.165380Z"
         }
       ],
       "confidenceTier": "high",
@@ -49,7 +52,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "After 39-year-old Nick Henry got diagnosed with a rare and aggressive cancer, his friends created an organization to support his family and other",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -66,13 +68,13 @@
       "category": "health",
       "publishedAt": "2026-09-23T21:49:18Z",
       "updatedAt": "2026-09-24T15:29:09Z",
-      "generatedAt": "2026-09-24T20:30:08.178006Z",
+      "generatedAt": "2026-09-24T20:59:21.832225Z",
       "aiGenerated": false,
       "version": 2,
       "revisions": [
         {
           "version": 2,
-          "updatedAt": "2026-09-24T20:30:08.178006Z"
+          "updatedAt": "2026-09-24T20:59:21.832225Z"
         }
       ],
       "confidenceTier": "high",
@@ -117,14 +119,14 @@
       "category": "weather",
       "publishedAt": "2026-09-24T08:49:00Z",
       "updatedAt": "2026-09-24T08:49:00Z",
-      "generatedAt": "2026-09-24T20:30:27.508984Z",
+      "generatedAt": "2026-09-24T20:59:21.832287Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:30:27.508984Z"
+          "updatedAt": "2026-09-24T20:59:21.832287Z"
         }
       ],
       "confidenceTier": "medium",
@@ -170,18 +172,66 @@
     },
     {
       "apiVersion": 1,
+      "id": "48dc678097cdb360",
+      "headline": "Wilton Addresses Tornado Response Criticism",
+      "dek": "Wilton addresses criticism following tornado incident",
+      "body": "Wilton Town Supervisor Toni Sturm said the EF-1 tornado that hit the town in August was a sharp lesson in needed improvements, according to WTEN News10. The town is responding to resident criticism regarding communication and cleanup efforts after the storm.",
+      "category": "weather",
+      "publishedAt": "2026-09-24T20:54:45Z",
+      "updatedAt": "2026-09-24T20:54:45Z",
+      "generatedAt": "2026-09-24T20:59:37.346631Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T20:59:37.346631Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Wilton responds to resident criticism following tornado",
+          "url": "https://www.news10.com/news/saratoga-county/wilton-responds-to-resident-criticism-following-tornado/",
+          "publishedAt": "2026-09-24T20:54:45Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
       "id": "133f47f237d0a79f",
       "headline": "NY man charged in VT for disclosing explicit images on social media",
       "category": "public-safety",
       "publishedAt": "2026-09-24T19:59:41Z",
       "updatedAt": "2026-09-24T19:59:41Z",
-      "generatedAt": "2026-09-24T20:31:03.797412Z",
+      "generatedAt": "2026-09-24T21:00:12.108514Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:31:03.797412Z"
+          "updatedAt": "2026-09-24T21:00:12.108514Z"
         }
       ],
       "confidenceTier": "medium",
@@ -221,14 +271,14 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T19:45:41Z",
       "updatedAt": "2026-09-24T19:45:41Z",
-      "generatedAt": "2026-09-24T20:31:18.796917Z",
+      "generatedAt": "2026-09-24T21:00:12.108568Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:31:18.796917Z"
+          "updatedAt": "2026-09-24T21:00:12.108568Z"
         }
       ],
       "confidenceTier": "medium",
@@ -269,14 +319,14 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T19:29:24Z",
       "updatedAt": "2026-09-24T19:29:24Z",
-      "generatedAt": "2026-09-24T20:31:50.835049Z",
+      "generatedAt": "2026-09-24T21:00:12.108583Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:31:50.835049Z"
+          "updatedAt": "2026-09-24T21:00:12.108583Z"
         }
       ],
       "confidenceTier": "medium",
@@ -300,12 +350,12 @@
         }
       ],
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -315,13 +365,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T19:21:20Z",
       "updatedAt": "2026-09-24T19:21:20Z",
-      "generatedAt": "2026-09-24T20:32:26.589864Z",
+      "generatedAt": "2026-09-24T21:00:47.237139Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:32:26.589864Z"
+          "updatedAt": "2026-09-24T21:00:47.237139Z"
         }
       ],
       "confidenceTier": "medium",
@@ -346,12 +396,12 @@
       ],
       "excerpt": "An Albany woman has been charged after police said she abandoned a dog on Christmas Day 2025.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -363,14 +413,14 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T16:45:28Z",
       "updatedAt": "2026-09-24T16:45:28Z",
-      "generatedAt": "2026-09-24T20:33:00.032558Z",
+      "generatedAt": "2026-09-24T21:00:47.237199Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:33:00.032558Z"
+          "updatedAt": "2026-09-24T21:00:47.237199Z"
         }
       ],
       "confidenceTier": "medium",
@@ -409,13 +459,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T16:34:47Z",
       "updatedAt": "2026-09-24T16:34:47Z",
-      "generatedAt": "2026-09-24T20:33:32.056311Z",
+      "generatedAt": "2026-09-24T21:01:18.843616Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:33:32.056311Z"
+          "updatedAt": "2026-09-24T21:01:18.843616Z"
         }
       ],
       "confidenceTier": "medium",
@@ -455,13 +505,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T15:11:12Z",
       "updatedAt": "2026-09-24T15:11:12Z",
-      "generatedAt": "2026-09-24T20:34:11.111926Z",
+      "generatedAt": "2026-09-24T21:01:56.576784Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:34:11.111926Z"
+          "updatedAt": "2026-09-24T21:01:56.576784Z"
         }
       ],
       "confidenceTier": "medium",
@@ -496,6 +546,94 @@
     },
     {
       "apiVersion": 1,
+      "id": "33d07c4a411bf672",
+      "headline": "Agrivoltaics emerging as an opportunity for farmers",
+      "category": "environment",
+      "publishedAt": "2026-09-24T20:45:00Z",
+      "updatedAt": "2026-09-24T20:45:00Z",
+      "generatedAt": "2026-09-24T21:02:28.688689Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:02:28.688689Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WAMC Northeast Public Radio",
+          "headline": "Agrivoltaics emerging as an opportunity for farmers",
+          "url": "https://www.wamc.org/news/2026-09-24/agrivoltaics-emerging-as-an-opportunity-for-farmers",
+          "publishedAt": "2026-09-24T20:45:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Farmers are growing crops and grazing animals on solar sites",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "1d8009ac1dc97f6f",
+      "headline": "NY-18 campaign attacks are \"beyond the pale\" both candidates say",
+      "category": "local",
+      "publishedAt": "2026-09-24T20:38:17Z",
+      "updatedAt": "2026-09-24T20:38:17Z",
+      "generatedAt": "2026-09-24T21:03:07.271261Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:03:07.271261Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WAMC Northeast Public Radio",
+          "headline": "NY-18 campaign attacks are \"beyond the pale\" both candidates say",
+          "url": "https://www.wamc.org/news/2026-09-24/ny-18-campaign-attacks-are-beyond-the-pale-both-candidates-say",
+          "publishedAt": "2026-09-24T20:38:17Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Both candidates for New York's 18th Congressional district said the other's campaign attacks on their children and old social media accounts are \"beyond the pale.\""
+    },
+    {
+      "apiVersion": 1,
       "id": "ad28e11f8dd97806",
       "headline": "Massachusetts Governor Race Features Incumbent and Republican Challenger",
       "dek": "Massachusetts voters will choose between incumbent Democratic Governor Maura Healey and Republican candidate Mike Minogue in November.",
@@ -503,14 +641,14 @@
       "category": "politics",
       "publishedAt": "2026-09-24T19:24:35Z",
       "updatedAt": "2026-09-24T19:24:35Z",
-      "generatedAt": "2026-09-24T20:34:47.599152Z",
+      "generatedAt": "2026-09-24T21:03:07.271310Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:34:47.599152Z"
+          "updatedAt": "2026-09-24T21:03:07.271310Z"
         }
       ],
       "confidenceTier": "medium",
@@ -534,12 +672,12 @@
         }
       ],
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -549,13 +687,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T17:29:04Z",
       "updatedAt": "2026-09-24T19:02:19Z",
-      "generatedAt": "2026-09-24T20:34:47.599253Z",
+      "generatedAt": "2026-09-24T21:03:07.271322Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:34:47.599253Z"
+          "updatedAt": "2026-09-24T21:03:07.271322Z"
         }
       ],
       "confidenceTier": "low",
@@ -602,13 +740,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T17:16:47Z",
       "updatedAt": "2026-09-24T20:04:31Z",
-      "generatedAt": "2026-09-24T20:34:47.599279Z",
+      "generatedAt": "2026-09-24T21:03:07.271340Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:34:47.599279Z"
+          "updatedAt": "2026-09-24T21:03:07.271340Z"
         }
       ],
       "confidenceTier": "low",
@@ -663,14 +801,14 @@
       "category": "local",
       "publishedAt": "2026-09-24T19:25:52Z",
       "updatedAt": "2026-09-24T19:25:52Z",
-      "generatedAt": "2026-09-24T20:35:21.530678Z",
+      "generatedAt": "2026-09-24T21:03:07.271369Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:35:21.530678Z"
+          "updatedAt": "2026-09-24T21:03:07.271369Z"
         }
       ],
       "confidenceTier": "medium",
@@ -717,14 +855,14 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T02:52:16Z",
       "updatedAt": "2026-09-24T02:52:16Z",
-      "generatedAt": "2026-09-24T20:35:55.964130Z",
+      "generatedAt": "2026-09-24T21:03:07.271380Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:35:55.964130Z"
+          "updatedAt": "2026-09-24T21:03:07.271380Z"
         }
       ],
       "confidenceTier": "medium",
@@ -748,12 +886,12 @@
         }
       ],
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
       }
     },
     {
@@ -763,13 +901,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T11:37:06Z",
       "updatedAt": "2026-09-24T11:37:06Z",
-      "generatedAt": "2026-09-24T20:36:36.671661Z",
+      "generatedAt": "2026-09-24T21:03:47.318606Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:36:36.671661Z"
+          "updatedAt": "2026-09-24T21:03:47.318606Z"
         }
       ],
       "confidenceTier": "medium",
@@ -809,18 +947,25 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T19:44:55Z",
       "updatedAt": "2026-09-24T15:15:12Z",
-      "generatedAt": "2026-09-24T20:36:36.671715Z",
+      "generatedAt": "2026-09-24T21:03:47.318647Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:36:36.671715Z"
+          "updatedAt": "2026-09-24T21:03:47.318647Z"
         }
       ],
       "confidenceTier": "low",
       "breaking": false,
       "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        },
         {
           "country": "US",
           "admin1": "US-NY"
@@ -829,7 +974,6 @@
           "country": "US",
           "admin1": "US-NY",
           "admin2": "Albany County",
-          "city": "Albany",
           "metro": "us-ny-capital-region"
         }
       ],
@@ -843,13 +987,28 @@
         },
         {
           "publisher": "WTEN News10 ABC",
+          "headline": "5 things to know this Thursday, September 24",
+          "url": "https://www.news10.com/5-things-to-know/5-things-to-know-this-thursday-september-24/",
+          "publishedAt": "2026-09-24T10:01:41Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        },
+        {
+          "publisher": "WTEN News10 ABC",
           "headline": "Hartford woman accused of killing husband",
           "url": "https://www.news10.com/news/crime/hartford-woman-accused-of-killing-husband/",
           "publishedAt": "2026-09-24T15:15:12Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "A Hartford woman has been arrested in connection to a homicide investigation. According to New York State Police, 43-year-old Christine Clark is accused of killing her husband."
+      "excerpt": "A Hartford woman has been arrested in connection to a homicide investigation. According to New York State Police, 43-year-old Christine Clark is accused of killing her husband.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+      }
     },
     {
       "apiVersion": 1,
@@ -860,14 +1019,14 @@
       "category": "entertainment",
       "publishedAt": "2026-09-24T15:06:22Z",
       "updatedAt": "2026-09-24T15:06:22Z",
-      "generatedAt": "2026-09-24T20:36:54.701138Z",
+      "generatedAt": "2026-09-24T21:03:47.318675Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:36:54.701138Z"
+          "updatedAt": "2026-09-24T21:03:47.318675Z"
         }
       ],
       "confidenceTier": "medium",
@@ -911,13 +1070,13 @@
       "category": "sports",
       "publishedAt": "2026-09-24T14:30:53Z",
       "updatedAt": "2026-09-24T14:30:53Z",
-      "generatedAt": "2026-09-24T20:37:31.780329Z",
+      "generatedAt": "2026-09-24T21:04:22.208974Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:37:31.780329Z"
+          "updatedAt": "2026-09-24T21:04:22.208974Z"
         }
       ],
       "confidenceTier": "medium",
@@ -963,14 +1122,14 @@
       "category": "weather",
       "publishedAt": "2026-09-23T22:02:25Z",
       "updatedAt": "2026-09-23T22:02:25Z",
-      "generatedAt": "2026-09-24T20:37:48.900811Z",
+      "generatedAt": "2026-09-24T21:04:22.209034Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:37:48.900811Z"
+          "updatedAt": "2026-09-24T21:04:22.209034Z"
         }
       ],
       "confidenceTier": "medium",
@@ -994,12 +1153,12 @@
         }
       ],
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1009,13 +1168,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T11:59:35Z",
       "updatedAt": "2026-09-24T11:59:35Z",
-      "generatedAt": "2026-09-24T20:38:22.508327Z",
+      "generatedAt": "2026-09-24T21:04:54.723979Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:38:22.508327Z"
+          "updatedAt": "2026-09-24T21:04:54.723979Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1055,13 +1214,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T11:07:20Z",
       "updatedAt": "2026-09-24T11:07:20Z",
-      "generatedAt": "2026-09-24T20:38:59.762666Z",
+      "generatedAt": "2026-09-24T21:05:30.882140Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:38:59.762666Z"
+          "updatedAt": "2026-09-24T21:05:30.882140Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1101,13 +1260,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T20:36:22Z",
       "updatedAt": "2026-09-23T20:36:22Z",
-      "generatedAt": "2026-09-24T20:39:31.668347Z",
+      "generatedAt": "2026-09-24T21:06:01.204576Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:39:31.668347Z"
+          "updatedAt": "2026-09-24T21:06:01.204576Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1132,12 +1291,12 @@
       ],
       "excerpt": "Another local police department has joined the Blue Envelope Program. The Glenville Police Department announced Wednesday that it will begin participating in the initiative.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1147,13 +1306,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T19:42:56Z",
       "updatedAt": "2026-09-23T19:42:56Z",
-      "generatedAt": "2026-09-24T20:40:09.670820Z",
+      "generatedAt": "2026-09-24T21:06:36.568104Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:40:09.670820Z"
+          "updatedAt": "2026-09-24T21:06:36.568104Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1193,13 +1352,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T16:58:00Z",
       "updatedAt": "2026-09-23T16:58:00Z",
-      "generatedAt": "2026-09-24T20:40:39.999077Z",
+      "generatedAt": "2026-09-24T21:07:05.244761Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:40:39.999077Z"
+          "updatedAt": "2026-09-24T21:07:05.244761Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1224,12 +1383,12 @@
       ],
       "excerpt": "Clinton County firefighters train for mutual aid scenarios",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1241,14 +1400,14 @@
       "category": "sports",
       "publishedAt": "2026-09-24T07:30:22Z",
       "updatedAt": "2026-09-24T07:30:22Z",
-      "generatedAt": "2026-09-24T20:41:17.011193Z",
+      "generatedAt": "2026-09-24T21:07:05.244819Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:41:17.011193Z"
+          "updatedAt": "2026-09-24T21:07:05.244819Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1287,13 +1446,13 @@
       "category": "sports",
       "publishedAt": "2026-09-24T07:04:54Z",
       "updatedAt": "2026-09-24T07:04:54Z",
-      "generatedAt": "2026-09-24T20:41:55.155688Z",
+      "generatedAt": "2026-09-24T21:07:41.571716Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:41:55.155688Z"
+          "updatedAt": "2026-09-24T21:07:41.571716Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1318,12 +1477,12 @@
       ],
       "excerpt": "UAlbany is trying to bounce back from another close-knit defeat. The Danes lost, 28-20, to Monmouth Saturday after being stopped just outside the goal line with 2:25 to play in the fourth quarter.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1333,13 +1492,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T17:59:31Z",
       "updatedAt": "2026-09-23T17:59:31Z",
-      "generatedAt": "2026-09-24T20:42:30.667980Z",
+      "generatedAt": "2026-09-24T21:08:16.313522Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:42:30.667980Z"
+          "updatedAt": "2026-09-24T21:08:16.313522Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1379,13 +1538,13 @@
       "category": "politics",
       "publishedAt": "2026-09-24T02:21:40Z",
       "updatedAt": "2026-09-24T02:21:40Z",
-      "generatedAt": "2026-09-24T20:43:10.563242Z",
+      "generatedAt": "2026-09-24T21:08:54.561905Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:43:10.563242Z"
+          "updatedAt": "2026-09-24T21:08:54.561905Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1437,13 +1596,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T02:00:51Z",
       "updatedAt": "2026-09-24T02:00:51Z",
-      "generatedAt": "2026-09-24T20:43:45.557642Z",
+      "generatedAt": "2026-09-24T21:09:28.558246Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:43:45.557642Z"
+          "updatedAt": "2026-09-24T21:09:28.558246Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1483,13 +1642,13 @@
       "category": "business",
       "publishedAt": "2026-09-24T02:39:57Z",
       "updatedAt": "2026-09-24T15:42:05Z",
-      "generatedAt": "2026-09-24T20:43:45.557689Z",
+      "generatedAt": "2026-09-24T21:09:28.558294Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:43:45.557689Z"
+          "updatedAt": "2026-09-24T21:09:28.558294Z"
         }
       ],
       "confidenceTier": "low",
@@ -1521,12 +1680,12 @@
       ],
       "excerpt": "Police arrested a Kingston man last week following a sex crime investigation.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
       }
     },
     {
@@ -1538,14 +1697,14 @@
       "category": "local",
       "publishedAt": "2026-09-23T20:38:14Z",
       "updatedAt": "2026-09-23T20:38:14Z",
-      "generatedAt": "2026-09-24T20:44:01.856996Z",
+      "generatedAt": "2026-09-24T21:09:28.558326Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:44:01.856996Z"
+          "updatedAt": "2026-09-24T21:09:28.558326Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1585,14 +1744,14 @@
       "category": "politics",
       "publishedAt": "2026-09-23T20:25:45Z",
       "updatedAt": "2026-09-23T20:25:45Z",
-      "generatedAt": "2026-09-24T20:44:18.523368Z",
+      "generatedAt": "2026-09-24T21:09:28.558344Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:44:18.523368Z"
+          "updatedAt": "2026-09-24T21:09:28.558344Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1633,14 +1792,14 @@
       "category": "local",
       "publishedAt": "2026-09-24T00:11:50Z",
       "updatedAt": "2026-09-24T00:11:50Z",
-      "generatedAt": "2026-09-24T20:44:51.314856Z",
+      "generatedAt": "2026-09-24T21:09:28.558357Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:44:51.314856Z"
+          "updatedAt": "2026-09-24T21:09:28.558357Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1679,13 +1838,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:49:15Z",
       "updatedAt": "2026-09-22T17:49:15Z",
-      "generatedAt": "2026-09-24T20:45:28.599203Z",
+      "generatedAt": "2026-09-24T21:10:01.265248Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:45:28.599203Z"
+          "updatedAt": "2026-09-24T21:10:01.265248Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1727,14 +1886,14 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:41:13Z",
       "updatedAt": "2026-09-22T17:41:13Z",
-      "generatedAt": "2026-09-24T20:46:02.251356Z",
+      "generatedAt": "2026-09-24T21:10:01.265298Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:46:02.251356Z"
+          "updatedAt": "2026-09-24T21:10:01.265298Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1777,13 +1936,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T20:27:55Z",
       "updatedAt": "2026-09-24T12:39:06Z",
-      "generatedAt": "2026-09-24T20:46:02.251455Z",
+      "generatedAt": "2026-09-24T21:10:01.265309Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:46:02.251455Z"
+          "updatedAt": "2026-09-24T21:10:01.265309Z"
         }
       ],
       "confidenceTier": "low",
@@ -1839,13 +1998,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T16:27:46Z",
       "updatedAt": "2026-09-22T16:27:46Z",
-      "generatedAt": "2026-09-24T20:46:37.394061Z",
+      "generatedAt": "2026-09-24T21:10:34.873332Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:46:37.394061Z"
+          "updatedAt": "2026-09-24T21:10:34.873332Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1870,12 +2029,12 @@
       ],
       "excerpt": "A Columbia County Court judge ruled on Monday that the case against a teenage girl accused of starting a fire that killed her father will be moved to family court.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -1887,14 +2046,14 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:28:23Z",
       "updatedAt": "2026-09-23T21:28:23Z",
-      "generatedAt": "2026-09-24T20:46:56.446018Z",
+      "generatedAt": "2026-09-24T21:10:34.873380Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:46:56.446018Z"
+          "updatedAt": "2026-09-24T21:10:34.873380Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1935,17 +2094,20 @@
     {
       "apiVersion": 1,
       "id": "88ead7d88b066dae",
-      "headline": "New York faces $12 billion safety net cliff with OBBBA slashing SNAP, Essential Plan",
+      "headline": "New York's safety net at risk as OBBBA cuts SNAP and Essential Plan funding",
+      "dek": "New York's safety net faces financial strain as federal funding for SNAP and the Essential Plan is threatened by the One Big Beautiful Bill Act of 2025.",
+      "body": "New York's safety net is under threat as federal funding for SNAP and the Essential Plan is at risk due to the One Big Beautiful Bill Act of 2025, according to WTEN News10. The act is causing local counties to bear higher costs for SNAP and jeopardizing the long-term sustainability of the Essential Plan.",
       "category": "politics",
       "publishedAt": "2026-09-23T21:16:26Z",
       "updatedAt": "2026-09-23T21:16:26Z",
-      "generatedAt": "2026-09-24T20:47:39.642971Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T21:11:16.265569Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:47:39.642971Z"
+          "updatedAt": "2026-09-24T21:11:16.265569Z"
         }
       ],
       "confidenceTier": "medium",
@@ -1972,7 +2134,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "New York faces significant losses in federal health and nutrition funding due to the One Big Beautiful Bill Act of 2025, forcing local counties to shoulder increased costs for SNAP and threatening the long-term viability of the Essential Plan.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Long_Island_City_New_York_May_2015_panorama_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Long Island City New York May 2015 panorama 3 \u2014 King of Hearts / Wikimedia Commons (CC BY-SA 3.0)",
@@ -1989,13 +2150,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T13:37:30Z",
       "updatedAt": "2026-09-23T21:02:48Z",
-      "generatedAt": "2026-09-24T20:47:39.643011Z",
+      "generatedAt": "2026-09-24T21:11:16.265655Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:47:39.643011Z"
+          "updatedAt": "2026-09-24T21:11:16.265655Z"
         }
       ],
       "confidenceTier": "low",
@@ -2055,13 +2216,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:01:39Z",
       "updatedAt": "2026-09-23T21:01:39Z",
-      "generatedAt": "2026-09-24T20:48:14.311885Z",
+      "generatedAt": "2026-09-24T21:11:51.114485Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:48:14.311885Z"
+          "updatedAt": "2026-09-24T21:11:51.114485Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2103,17 +2264,20 @@
     {
       "apiVersion": 1,
       "id": "997c8116ebfd57de",
-      "headline": "Sullivan County Care Center to remain open temporarily, says Ulster County Judge",
+      "headline": "Sullivan County Care Center to remain open temporarily",
+      "dek": "Ulster County Judge extends injunction to keep care center open temporarily",
+      "body": "Ulster County Judge Kevin Bryant extended an injunction requiring the County to keep the Senior Care Center at Sunset Lake open temporarily, according to WAMC Northeast Public Radio. The ruling was issued on Monday, September 23, 2026.",
       "category": "local",
       "publishedAt": "2026-09-23T17:06:00Z",
       "updatedAt": "2026-09-23T17:06:00Z",
-      "generatedAt": "2026-09-24T20:48:49.536731Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T21:12:24.845444Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:48:49.536731Z"
+          "updatedAt": "2026-09-24T21:12:24.845444Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2136,7 +2300,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "On Monday, Ulster County Judge Kevin Bryant ruled to extend an injunction that says the County must keep the Senior Care Center at Sunset Lake open temporarily.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -2155,14 +2318,14 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T10:39:14Z",
       "updatedAt": "2026-09-23T10:39:14Z",
-      "generatedAt": "2026-09-24T20:49:24.007820Z",
+      "generatedAt": "2026-09-24T21:12:24.845556Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:49:24.007820Z"
+          "updatedAt": "2026-09-24T21:12:24.845556Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2203,14 +2366,14 @@
       "category": "health",
       "publishedAt": "2026-09-23T18:17:57Z",
       "updatedAt": "2026-09-23T18:17:57Z",
-      "generatedAt": "2026-09-24T20:50:03.091301Z",
+      "generatedAt": "2026-09-24T21:12:24.845574Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:50:03.091301Z"
+          "updatedAt": "2026-09-24T21:12:24.845574Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2251,14 +2414,14 @@
       "category": "weather",
       "publishedAt": "2026-09-22T21:22:41Z",
       "updatedAt": "2026-09-22T21:22:41Z",
-      "generatedAt": "2026-09-24T20:50:20.493771Z",
+      "generatedAt": "2026-09-24T21:12:24.845600Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:50:20.493771Z"
+          "updatedAt": "2026-09-24T21:12:24.845600Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2293,17 +2456,20 @@
     {
       "apiVersion": 1,
       "id": "e723ede8f06aa436",
-      "headline": "Pedestrian airlifted after crash in Fort Edward",
+      "headline": "Pedestrian rescued after crash in Fort Edward",
+      "dek": "Local law enforcement investigates crash in Fort Edward",
+      "body": "The Washington County Sheriff's Office attended to an incident involving a pedestrian in Fort Edward on Tuesday, as reported by WTEN News10 ABC. The event took place in Fort Edward, Washington, United States.",
       "category": "public-safety",
       "publishedAt": "2026-09-22T21:00:17Z",
       "updatedAt": "2026-09-22T21:00:17Z",
-      "generatedAt": "2026-09-24T20:50:53.597534Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T21:12:55.756779Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:50:53.597534Z"
+          "updatedAt": "2026-09-24T21:12:55.756779Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2324,7 +2490,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "The Washington County Sheriff's Office responded to a crash involving a pedestrian in Fort Edward on Tuesday morning.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Washington%2C_Nebraska_Dorchester_from_Greene_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Washington, Nebraska Dorchester from Greene 2 \u2014 Ammodramus / Wikimedia Commons (CC0)",
@@ -2341,13 +2506,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:50:54Z",
       "updatedAt": "2026-09-23T15:50:54Z",
-      "generatedAt": "2026-09-24T20:51:28.756670Z",
+      "generatedAt": "2026-09-24T21:13:27.615326Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:51:28.756670Z"
+          "updatedAt": "2026-09-24T21:13:27.615326Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2387,13 +2552,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:31:50Z",
       "updatedAt": "2026-09-23T15:31:50Z",
-      "generatedAt": "2026-09-24T20:52:03.136824Z",
+      "generatedAt": "2026-09-24T21:14:00.051051Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:52:03.136824Z"
+          "updatedAt": "2026-09-24T21:14:00.051051Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2428,64 +2593,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "30305973e4bfcf1e",
-      "headline": "Ally the Piper bringing holiday tour to Albany",
-      "category": "local",
-      "publishedAt": "2026-09-23T15:03:13Z",
-      "updatedAt": "2026-09-23T15:03:13Z",
-      "generatedAt": "2026-09-24T20:52:37.552497Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:52:37.552497Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "Ally the Piper bringing holiday tour to Albany",
-          "url": "https://www.news10.com/community/concerts-performances/ally-the-piper-bringing-holiday-tour-to-albany/",
-          "publishedAt": "2026-09-23T15:03:13Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The Egg will be ending the year with a performance by bagpipe artist and songwriter Ally the Piper.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "74fafcfaf50af8de",
       "headline": "18-year-old convicted in 2025 Albany murder case",
       "category": "public-safety",
       "publishedAt": "2026-09-22T17:25:38Z",
       "updatedAt": "2026-09-22T18:59:25Z",
-      "generatedAt": "2026-09-24T20:52:37.552554Z",
+      "generatedAt": "2026-09-24T21:14:00.051105Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:52:37.552554Z"
+          "updatedAt": "2026-09-24T21:14:00.051105Z"
         }
       ],
       "confidenceTier": "low",
@@ -2533,18 +2652,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "2898cc93a3890534",
-      "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-      "category": "business",
-      "publishedAt": "2026-09-23T14:36:24Z",
-      "updatedAt": "2026-09-23T14:36:24Z",
-      "generatedAt": "2026-09-24T20:53:14.936411Z",
+      "id": "30305973e4bfcf1e",
+      "headline": "Ally the Piper bringing holiday tour to Albany",
+      "category": "local",
+      "publishedAt": "2026-09-23T15:03:13Z",
+      "updatedAt": "2026-09-23T15:03:13Z",
+      "generatedAt": "2026-09-24T21:14:35.925751Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:53:14.936411Z"
+          "updatedAt": "2026-09-24T21:14:35.925751Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2553,28 +2672,28 @@
         {
           "country": "US",
           "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "city": "Saratoga Springs",
+          "admin2": "Albany County",
+          "city": "Albany",
           "metro": "us-ny-capital-region"
         }
       ],
       "sources": [
         {
           "publisher": "WTEN News10 ABC",
-          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
-          "publishedAt": "2026-09-23T14:36:24Z",
+          "headline": "Ally the Piper bringing holiday tour to Albany",
+          "url": "https://www.news10.com/community/concerts-performances/ally-the-piper-bringing-holiday-tour-to-albany/",
+          "publishedAt": "2026-09-23T15:03:13Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
+      "excerpt": "The Egg will be ending the year with a performance by bagpipe artist and songwriter Ally the Piper.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Design_Motel_in_Saratoga_Springs%2C_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Design Motel in Saratoga Springs, New York \u2014 Tyler A. McNeil / Wikimedia Commons (CC BY-SA 4.0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
-        "license": "CC BY-SA 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Design_Motel_in_Saratoga_Springs,_New_York.jpg"
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
       }
     },
     {
@@ -2586,14 +2705,14 @@
       "category": "local",
       "publishedAt": "2026-09-22T18:49:58Z",
       "updatedAt": "2026-09-22T18:49:58Z",
-      "generatedAt": "2026-09-24T20:53:34.491769Z",
+      "generatedAt": "2026-09-24T21:14:35.925810Z",
       "aiGenerated": true,
       "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:53:34.491769Z"
+          "updatedAt": "2026-09-24T21:14:35.925810Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2617,12 +2736,12 @@
         }
       ],
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -2632,13 +2751,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-22T16:02:00Z",
       "updatedAt": "2026-09-22T16:02:00Z",
-      "generatedAt": "2026-09-24T20:54:15.517464Z",
+      "generatedAt": "2026-09-24T21:15:13.869092Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517464Z"
+          "updatedAt": "2026-09-24T21:15:13.869092Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2679,18 +2798,69 @@
     },
     {
       "apiVersion": 1,
-      "id": "1cd073f538017acd",
-      "headline": "Cardona's unveils sandwich for Breast Cancer Awareness Month",
+      "id": "2898cc93a3890534",
+      "headline": "Saratoga Springs Restaurant Closes After 38 Years",
+      "dek": "A Saratoga Springs dining establishment is ending its 38-year tenure.",
+      "body": "The Wheatfields Restaurant & Bar, situated at 440 Broadway in downtown Saratoga Springs, will shut its doors. Tim and Colleen Holmes revealed the decision through a Facebook post on Wednesday.",
       "category": "business",
-      "publishedAt": "2026-09-23T13:08:32Z",
-      "updatedAt": "2026-09-23T13:08:32Z",
-      "generatedAt": "2026-09-24T20:54:15.517514Z",
-      "aiGenerated": false,
+      "publishedAt": "2026-09-23T14:36:24Z",
+      "updatedAt": "2026-09-23T14:36:24Z",
+      "generatedAt": "2026-09-24T21:15:47.589384Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517514Z"
+          "updatedAt": "2026-09-24T21:15:47.589384Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
+          "city": "Saratoga Springs",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
+          "publishedAt": "2026-09-23T14:36:24Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Design_Motel_in_Saratoga_Springs%2C_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Design Motel in Saratoga Springs, New York \u2014 Tyler A. McNeil / Wikimedia Commons (CC BY-SA 4.0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Design_Motel_in_Saratoga_Springs,_New_York.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "1cd073f538017acd",
+      "headline": "Cardona's Market Launches Breast Cancer Awareness Sandwich",
+      "dek": "Cardona's Market introduces a special sandwich for Breast Cancer Awareness Month",
+      "body": "Cardona's Market has launched a \"Chicken Cordon Pink\" sandwich in support of Breast Cancer Awareness Month, according to WTEN News10. The sandwich will be available at Cardona's locations through October 31.",
+      "category": "business",
+      "publishedAt": "2026-09-23T13:08:32Z",
+      "updatedAt": "2026-09-23T13:08:32Z",
+      "generatedAt": "2026-09-24T21:16:03.272553Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:16:03.272553Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2713,7 +2883,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "Cardona's Market has launched a sandwich in support of Breast Cancer Awareness Month. The \"Chicken Cordon Pink\" will be available at Cardona's locations through October 31.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -2726,17 +2895,20 @@
     {
       "apiVersion": 1,
       "id": "2208d0348022818a",
-      "headline": "New animal shelter opens at the Albany County Jail",
+      "headline": "Animal shelter opens at Albany County Jail",
+      "dek": "New animal shelter established at Albany County Jail",
+      "body": "A new animal shelter was established at the Albany County Jail in Colonie, as reported by WTEN News10. The facility will help increase the capacity of the Mohawk Hudson Humane Society and offer job opportunities for individuals facing homelessness, according to Albany County Sheriff Craig Apple.",
       "category": "local",
       "publishedAt": "2026-09-23T12:48:09Z",
       "updatedAt": "2026-09-23T12:48:09Z",
-      "generatedAt": "2026-09-24T20:54:15.517528Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T21:16:36.478745Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517528Z"
+          "updatedAt": "2026-09-24T21:16:36.478745Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2765,53 +2937,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "A new animal shelter has opened at the Albany County Jail in Colonie. According to Albany County Sheriff Craig Apple, the shelter will expand capacity for the Mohawk Hudson Humane Society and give employment opportunities to people experiencing homelessness.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
-        "creator": "Tyler A. McNeil",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
-      "id": "987fa59d5009e7b0",
-      "headline": "Thai chicken restaurant chain opens in Clifton Park",
-      "category": "environment",
-      "publishedAt": "2026-09-23T12:18:51Z",
-      "updatedAt": "2026-09-23T12:18:51Z",
-      "generatedAt": "2026-09-24T20:54:15.517554Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517554Z"
-        }
-      ],
-      "confidenceTier": "medium",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "WTEN News10 ABC",
-          "headline": "Thai chicken restaurant chain opens in Clifton Park",
-          "url": "https://www.news10.com/community/restaurant-rundown/thai-chicken-restaurant-chain-opens-in-clifton-park/",
-          "publishedAt": "2026-09-23T12:18:51Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Gai Chicken & Rice has opened a new location in Clifton Park. The restaurant is located in the Clifton Park Center food court.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -2824,17 +2949,20 @@
     {
       "apiVersion": 1,
       "id": "948a4ce765d00448",
-      "headline": "Roadway to remain closed in Bennington County due to crash, hazardous material spill",
+      "headline": "Road closed in Bennington County due to crash and hazardous material spill",
+      "dek": "A tractor-trailer crash in Bennington County has led to a road closure.",
+      "body": "A tractor-trailer crash on Vermont Route 9 has resulted in a road closure in Bennington County, according to WTEN News10. The roadway will remain fully closed through at least Thursday morning. The incident involved a hazardous material spill.",
       "category": "public-safety",
       "publishedAt": "2026-09-22T21:40:31Z",
       "updatedAt": "2026-09-22T21:40:31Z",
-      "generatedAt": "2026-09-24T20:54:15.517567Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T21:16:52.939705Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517567Z"
+          "updatedAt": "2026-09-24T21:16:52.939705Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2857,14 +2985,13 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "After a tractor-trailer crash on Vermont Route 9, the road will remain fully closed through at least Thursday morning.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
       }
     },
     {
@@ -2874,13 +3001,13 @@
       "category": "business",
       "publishedAt": "2026-09-22T16:12:56Z",
       "updatedAt": "2026-09-22T16:12:56Z",
-      "generatedAt": "2026-09-24T20:54:15.517578Z",
+      "generatedAt": "2026-09-24T21:17:28.900228Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517578Z"
+          "updatedAt": "2026-09-24T21:17:28.900228Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2915,18 +3042,69 @@
     },
     {
       "apiVersion": 1,
-      "id": "7b312f75f9182700",
-      "headline": "09/23/2026: Early Autumn at its Best",
-      "category": "local",
-      "publishedAt": "2026-09-23T10:59:33Z",
-      "updatedAt": "2026-09-23T10:59:33Z",
-      "generatedAt": "2026-09-24T20:54:15.517608Z",
-      "aiGenerated": false,
+      "id": "987fa59d5009e7b0",
+      "headline": "Thai chicken restaurant opens in Clifton Park",
+      "dek": "A new Thai chicken restaurant has opened in Clifton Park.",
+      "body": "Gai Chicken & Rice has opened a new location in Clifton Park, according to WTEN News10 ABC. The restaurant is located in the Clifton Park Center food court. The restaurant is part of a chain that operates in the Capital Region, according to WTEN News10 ABC.",
+      "category": "environment",
+      "publishedAt": "2026-09-23T12:18:51Z",
+      "updatedAt": "2026-09-23T12:18:51Z",
+      "generatedAt": "2026-09-24T21:18:00.224524Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517608Z"
+          "updatedAt": "2026-09-24T21:18:00.224524Z"
+        }
+      ],
+      "confidenceTier": "medium",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "WTEN News10 ABC",
+          "headline": "Thai chicken restaurant chain opens in Clifton Park",
+          "url": "https://www.news10.com/community/restaurant-rundown/thai-chicken-restaurant-chain-opens-in-clifton-park/",
+          "publishedAt": "2026-09-23T12:18:51Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "creator": "Tyler A. McNeil",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "7b312f75f9182700",
+      "headline": "High Pressure Provides More Sunshine in Capital Region",
+      "dek": "WTEN News10 reports high pressure bringing more sunshine to the Capital Region.",
+      "body": "WTEN News10 reported that high pressure to the north will provide more sunshine and slightly milder temperatures in the Capital Region on September 23, 2026. The forecast also mentions a coastal low for the weekend.",
+      "category": "local",
+      "publishedAt": "2026-09-23T10:59:33Z",
+      "updatedAt": "2026-09-23T10:59:33Z",
+      "generatedAt": "2026-09-24T21:18:35.155456Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:18:35.155456Z"
         }
       ],
       "confidenceTier": "medium",
@@ -2949,14 +3127,13 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "Overall we have a similar atmospheric setup for today as recent days, but this time high pressure to the north will flex its muscles a bit more, providing us with more sunshine and slightly milder temperatures. All eyes are on a coastal low for the weekend, though the worst impacts felt from that po",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -2966,13 +3143,13 @@
       "category": "technology",
       "publishedAt": "2026-09-22T22:04:31Z",
       "updatedAt": "2026-09-22T22:04:31Z",
-      "generatedAt": "2026-09-24T20:54:15.517621Z",
+      "generatedAt": "2026-09-24T21:18:35.155541Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517621Z"
+          "updatedAt": "2026-09-24T21:18:35.155541Z"
         }
       ],
       "confidenceTier": "low",
@@ -3006,17 +3183,20 @@
     {
       "apiVersion": 1,
       "id": "77bd539fe2be9bfd",
-      "headline": "UAlbany bringing fighter's mentality into new season",
+      "headline": "UAlbany Begins New Basketball Season Practice",
+      "dek": "UAlbany men's basketball team starts new season with practice",
+      "body": "UAlbany men's basketball team held its first official practice of the new season on Monday, according to WTEN News10 ABC. The Great Danes are preparing for the upcoming campaign, as reported by the source.",
       "category": "sports",
       "publishedAt": "2026-09-23T05:14:31Z",
       "updatedAt": "2026-09-23T05:14:31Z",
-      "generatedAt": "2026-09-24T20:54:15.517633Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T21:18:50.017152Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517633Z"
+          "updatedAt": "2026-09-24T21:18:50.017152Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3039,7 +3219,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "The UAlbany men's basketball team is back to work, preparing for the upcoming season. The Great Danes held their first official practice of the campaign on Monday.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -3056,13 +3235,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T20:52:03Z",
       "updatedAt": "2026-09-22T20:52:03Z",
-      "generatedAt": "2026-09-24T20:54:15.517643Z",
+      "generatedAt": "2026-09-24T21:19:23.854544Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517643Z"
+          "updatedAt": "2026-09-24T21:19:23.854544Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3087,12 +3266,12 @@
       ],
       "excerpt": "A new women-focused gym studio has opened its doors in Slingerlands.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -3102,13 +3281,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T03:15:34Z",
       "updatedAt": "2026-09-23T03:15:34Z",
-      "generatedAt": "2026-09-24T20:54:15.517653Z",
+      "generatedAt": "2026-09-24T21:19:54.278660Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517653Z"
+          "updatedAt": "2026-09-24T21:19:54.278660Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3144,17 +3323,20 @@
     {
       "apiVersion": 1,
       "id": "88311be05db018f0",
-      "headline": "Saints bring championship expectation into first season under Nevada Smith",
+      "headline": "Saints Begin Season Under New Coach",
+      "dek": "Siena men's basketball team starts season under new coach Nevada Smith",
+      "body": "Siena men's basketball team began their season under new coach Nevada Smith during their first official practice of the year, according to WTEN News10 ABC. The practice marked the start of the program's first season under Smith.",
       "category": "sports",
       "publishedAt": "2026-09-23T05:59:14Z",
       "updatedAt": "2026-09-23T05:59:14Z",
-      "generatedAt": "2026-09-24T20:54:15.517663Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T21:20:09.378390Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517663Z"
+          "updatedAt": "2026-09-24T21:20:09.378390Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3177,14 +3359,13 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "The Siena men's basketball team took the floor on Tuesday afternoon for their first official practice of the season, kicking off the first year for the program under Nevada Smith.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -3194,13 +3375,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T17:51:40Z",
       "updatedAt": "2026-09-24T17:51:40Z",
-      "generatedAt": "2026-09-24T20:54:15.517676Z",
+      "generatedAt": "2026-09-24T21:20:09.378487Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517676Z"
+          "updatedAt": "2026-09-24T21:20:09.378487Z"
         }
       ],
       "confidenceTier": "low",
@@ -3228,13 +3409,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T01:14:37Z",
       "updatedAt": "2026-09-23T01:14:37Z",
-      "generatedAt": "2026-09-24T20:54:15.517687Z",
+      "generatedAt": "2026-09-24T21:20:41.095971Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517687Z"
+          "updatedAt": "2026-09-24T21:20:41.095971Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3259,12 +3440,12 @@
       ],
       "excerpt": "A North Adams man was arrested on Sunday after an investigation into a series of motor vehicle break-ins. Brian Dillard Sr. was identified as the suspect and has since been charged and arraigned.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -3274,13 +3455,13 @@
       "category": "weather",
       "publishedAt": "2026-09-24T03:19:45Z",
       "updatedAt": "2026-09-24T03:19:45Z",
-      "generatedAt": "2026-09-24T20:54:15.517697Z",
+      "generatedAt": "2026-09-24T21:20:41.096011Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517697Z"
+          "updatedAt": "2026-09-24T21:20:41.096011Z"
         }
       ],
       "confidenceTier": "low",
@@ -3308,13 +3489,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T22:01:40Z",
       "updatedAt": "2026-09-22T22:01:40Z",
-      "generatedAt": "2026-09-24T20:54:15.517708Z",
+      "generatedAt": "2026-09-24T21:21:17.953291Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517708Z"
+          "updatedAt": "2026-09-24T21:21:17.953291Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3354,13 +3535,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T21:59:13Z",
       "updatedAt": "2026-09-22T21:59:13Z",
-      "generatedAt": "2026-09-24T20:54:15.517718Z",
+      "generatedAt": "2026-09-24T21:21:50.148009Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517718Z"
+          "updatedAt": "2026-09-24T21:21:50.148009Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3385,28 +3566,31 @@
       ],
       "excerpt": "Verizon is seeking approval from the Federal Communications Commission (FCC) to retire traditional copper-wire landlines. But the change is raising questions, especially for customers who rely on those phones during power outages.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
       "apiVersion": 1,
       "id": "1843a96c8157175f",
-      "headline": "Catskill construction sees long-awaited progress",
+      "headline": "Catskill construction nears completion",
+      "dek": "Catskill construction project completes after years of work",
+      "body": "The Village Of Catskill is nearing the end of a long construction project, according to WTEN News10 ABC. The project involves improvements to rebuild the villages' sidewalks and streets. The project has been described as endless by some residents.",
       "category": "entertainment",
       "publishedAt": "2026-09-22T21:51:07Z",
       "updatedAt": "2026-09-22T21:51:07Z",
-      "generatedAt": "2026-09-24T20:54:15.517731Z",
-      "aiGenerated": false,
+      "generatedAt": "2026-09-24T21:22:05.255715Z",
+      "aiGenerated": true,
+      "aiModel": "Qwen3-4B-Q4_K_M",
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517731Z"
+          "updatedAt": "2026-09-24T21:22:05.255715Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3429,7 +3613,6 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "excerpt": "The Village Of Catskill is nearing an end to what some people call endless construction projects. It's all part of improvements to rebuild the villages' sidewalks and streets.",
       "image": {
         "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
         "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
@@ -3446,13 +3629,13 @@
       "category": "politics",
       "publishedAt": "2026-09-22T20:59:50Z",
       "updatedAt": "2026-09-22T20:59:50Z",
-      "generatedAt": "2026-09-24T20:54:15.517741Z",
+      "generatedAt": "2026-09-24T21:22:39.967698Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517741Z"
+          "updatedAt": "2026-09-24T21:22:39.967698Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3487,97 +3670,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "ad5c6e8e136fb52a",
-      "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
-      "category": "politics",
-      "publishedAt": "2026-09-24T10:11:15Z",
-      "updatedAt": "2026-09-24T10:11:15Z",
-      "generatedAt": "2026-09-24T20:54:15.517752Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517752Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
-          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T10:11:15Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York."
-    },
-    {
-      "apiVersion": 1,
-      "id": "9f7a3f95e23ee2b0",
-      "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
-      "category": "local",
-      "publishedAt": "2026-09-23T11:00:09Z",
-      "updatedAt": "2026-09-23T11:00:09Z",
-      "generatedAt": "2026-09-24T20:54:15.517761Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517761Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-DC",
-          "city": "Washington"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
-          "url": "https://www.bbc.co.uk/news/videos/c38xk275jd21o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-23T11:00:09Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The BBC\u2019s China correspondent and US editor explain everything you need to know ahead of the Trump-Xi meeting in Washington DC.",
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Washington%2C_Nebraska_Dorchester_from_Greene_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Washington, Nebraska Dorchester from Greene 2 \u2014 Ammodramus / Wikimedia Commons (CC0)",
-        "creator": "Ammodramus",
-        "license": "CC0",
-        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Washington,_Nebraska_Dorchester_from_Greene_2.JPG"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "c3e39297624a5ed8",
       "headline": "What could replace former National Lead site in Colonie",
       "category": "business",
       "publishedAt": "2026-09-22T23:29:46Z",
       "updatedAt": "2026-09-22T23:29:46Z",
-      "generatedAt": "2026-09-24T20:54:15.517770Z",
+      "generatedAt": "2026-09-24T21:22:39.967739Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517770Z"
+          "updatedAt": "2026-09-24T21:22:39.967739Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3612,18 +3716,97 @@
     },
     {
       "apiVersion": 1,
-      "id": "241d7d6dec17f391",
-      "headline": "In one of their last votes before November, Senate GOP blocks effort to end Iran war",
+      "id": "ad5c6e8e136fb52a",
+      "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
       "category": "politics",
-      "publishedAt": "2026-09-24T19:46:53Z",
-      "updatedAt": "2026-09-24T19:46:53Z",
-      "generatedAt": "2026-09-24T20:54:15.517778Z",
+      "publishedAt": "2026-09-24T10:11:15Z",
+      "updatedAt": "2026-09-24T10:11:15Z",
+      "generatedAt": "2026-09-24T21:22:39.967753Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517778Z"
+          "updatedAt": "2026-09-24T21:22:39.967753Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
+          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T10:11:15Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York."
+    },
+    {
+      "apiVersion": 1,
+      "id": "9f7a3f95e23ee2b0",
+      "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
+      "category": "local",
+      "publishedAt": "2026-09-23T11:00:09Z",
+      "updatedAt": "2026-09-23T11:00:09Z",
+      "generatedAt": "2026-09-24T21:22:39.967769Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.967769Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-DC",
+          "city": "Washington"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
+          "url": "https://www.bbc.co.uk/news/videos/c38xk275jd21o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-23T11:00:09Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The BBC\u2019s China correspondent and US editor explain everything you need to know ahead of the Trump-Xi meeting in Washington DC.",
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Washington%2C_Nebraska_Dorchester_from_Greene_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Washington, Nebraska Dorchester from Greene 2 \u2014 Ammodramus / Wikimedia Commons (CC0)",
+        "creator": "Ammodramus",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Washington,_Nebraska_Dorchester_from_Greene_2.JPG"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "241d7d6dec17f391",
+      "headline": "In one of their last votes before November, Senate GOP blocks effort to end Iran war",
+      "category": "politics",
+      "publishedAt": "2026-09-24T19:46:53Z",
+      "updatedAt": "2026-09-24T19:46:53Z",
+      "generatedAt": "2026-09-24T21:22:39.967780Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.967780Z"
         }
       ],
       "confidenceTier": "low",
@@ -3651,13 +3834,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T22:40:39Z",
       "updatedAt": "2026-09-23T22:40:39Z",
-      "generatedAt": "2026-09-24T20:54:15.517789Z",
+      "generatedAt": "2026-09-24T21:22:39.967791Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517789Z"
+          "updatedAt": "2026-09-24T21:22:39.967791Z"
         }
       ],
       "confidenceTier": "low",
@@ -3693,13 +3876,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T17:25:31Z",
       "updatedAt": "2026-09-22T17:25:31Z",
-      "generatedAt": "2026-09-24T20:54:15.517799Z",
+      "generatedAt": "2026-09-24T21:22:39.967801Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517799Z"
+          "updatedAt": "2026-09-24T21:22:39.967801Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3724,12 +3907,12 @@
       ],
       "excerpt": "The Massachusetts state auditor's office says a new report examines mismanagement and violations of state law within the Department of Unemployment Assistance from 2022 to 2024.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -3739,13 +3922,13 @@
       "category": "local",
       "publishedAt": "2026-09-22T22:41:00Z",
       "updatedAt": "2026-09-22T22:41:00Z",
-      "generatedAt": "2026-09-24T20:54:15.517808Z",
+      "generatedAt": "2026-09-24T21:22:39.967810Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517808Z"
+          "updatedAt": "2026-09-24T21:22:39.967810Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3770,12 +3953,12 @@
       ],
       "excerpt": "WAMC spoke with Sullivan County residents at Stewart's about how they're feeling about the cost of energy as the war in Iran continues.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -3785,13 +3968,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T10:01:31Z",
       "updatedAt": "2026-09-23T10:01:31Z",
-      "generatedAt": "2026-09-24T20:54:15.517818Z",
+      "generatedAt": "2026-09-24T21:22:39.967820Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517818Z"
+          "updatedAt": "2026-09-24T21:22:39.967820Z"
         }
       ],
       "confidenceTier": "medium",
@@ -3816,12 +3999,12 @@
       ],
       "excerpt": "The U.S. Marshals Service has raised its reward offer for information leading to the arrest of a Lansingburgh homicide suspect. Also, the case against a teenager charged with killing her father in a fire, has been moved to family court. These stories, and more, are in your five things to know, spons",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Albany%2C_New_York_bodega.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Albany, New York bodega \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Albany%2C_New_York_bodega_at_night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Albany, New York bodega at night \u2014 Tyler A. McNeil / Wikimedia Commons (CC0)",
         "creator": "Tyler A. McNeil",
         "license": "CC0",
         "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega.jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Albany,_New_York_bodega_at_night.jpg"
       }
     },
     {
@@ -3831,13 +4014,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T12:43:15Z",
       "updatedAt": "2026-09-24T12:43:15Z",
-      "generatedAt": "2026-09-24T20:54:15.517827Z",
+      "generatedAt": "2026-09-24T21:22:39.967829Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517827Z"
+          "updatedAt": "2026-09-24T21:22:39.967829Z"
         }
       ],
       "confidenceTier": "low",
@@ -3865,13 +4048,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T06:21:06Z",
       "updatedAt": "2026-09-24T06:21:06Z",
-      "generatedAt": "2026-09-24T20:54:15.517837Z",
+      "generatedAt": "2026-09-24T21:22:39.967838Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517837Z"
+          "updatedAt": "2026-09-24T21:22:39.967838Z"
         }
       ],
       "confidenceTier": "low",
@@ -3907,13 +4090,13 @@
       "category": "politics",
       "publishedAt": "2026-09-24T05:40:49Z",
       "updatedAt": "2026-09-24T05:40:49Z",
-      "generatedAt": "2026-09-24T20:54:15.517846Z",
+      "generatedAt": "2026-09-24T21:22:39.967847Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517846Z"
+          "updatedAt": "2026-09-24T21:22:39.967847Z"
         }
       ],
       "confidenceTier": "low",
@@ -3936,52 +4119,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "60966cf1c9074d60",
-      "headline": "Mortgage rates have just surpassed 7% for the first time in well over a year",
-      "category": "local",
-      "publishedAt": "2026-09-24T16:01:44Z",
-      "updatedAt": "2026-09-24T16:01:44Z",
-      "generatedAt": "2026-09-24T20:54:15.517855Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517855Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "Mortgage rates have just surpassed 7% for the first time in well over a year",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5977796/mortgage-rates-freddie-mac-homebuying",
-          "publishedAt": "2026-09-24T16:01:44Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Rates have climbed more than a full percentage point since the U.S. war against Iran started."
-    },
-    {
-      "apiVersion": 1,
       "id": "2a640475bae5360e",
       "headline": "Protesters call for end to Rensselaer County's ICE agreement",
       "category": "local",
       "publishedAt": "2026-09-22T21:35:23Z",
       "updatedAt": "2026-09-22T21:35:23Z",
-      "generatedAt": "2026-09-24T20:54:15.517865Z",
+      "generatedAt": "2026-09-24T21:22:39.967856Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517865Z"
+          "updatedAt": "2026-09-24T21:22:39.967856Z"
         }
       ],
       "confidenceTier": "medium",
@@ -4027,13 +4176,13 @@
       "category": "business",
       "publishedAt": "2026-09-24T05:14:11Z",
       "updatedAt": "2026-09-24T05:14:11Z",
-      "generatedAt": "2026-09-24T20:54:15.517875Z",
+      "generatedAt": "2026-09-24T21:22:39.967866Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517875Z"
+          "updatedAt": "2026-09-24T21:22:39.967866Z"
         }
       ],
       "confidenceTier": "low",
@@ -4056,18 +4205,52 @@
     },
     {
       "apiVersion": 1,
-      "id": "02b27a416743b0ef",
-      "headline": "With loaners already flying, fleet of F-35As to land in western Mass.",
-      "category": "entertainment",
-      "publishedAt": "2026-09-22T17:38:08Z",
-      "updatedAt": "2026-09-22T17:38:08Z",
-      "generatedAt": "2026-09-24T20:54:15.517884Z",
+      "id": "60966cf1c9074d60",
+      "headline": "Mortgage rates have just surpassed 7% for the first time in well over a year",
+      "category": "local",
+      "publishedAt": "2026-09-24T16:01:44Z",
+      "updatedAt": "2026-09-24T16:01:44Z",
+      "generatedAt": "2026-09-24T21:22:39.967875Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517884Z"
+          "updatedAt": "2026-09-24T21:22:39.967875Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "Mortgage rates have just surpassed 7% for the first time in well over a year",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5977796/mortgage-rates-freddie-mac-homebuying",
+          "publishedAt": "2026-09-24T16:01:44Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Rates have climbed more than a full percentage point since the U.S. war against Iran started."
+    },
+    {
+      "apiVersion": 1,
+      "id": "02b27a416743b0ef",
+      "headline": "With loaners already flying, fleet of F-35As to land in western Mass.",
+      "category": "entertainment",
+      "publishedAt": "2026-09-22T17:38:08Z",
+      "updatedAt": "2026-09-22T17:38:08Z",
+      "generatedAt": "2026-09-24T21:22:39.967885Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.967885Z"
         }
       ],
       "confidenceTier": "medium",
@@ -4102,52 +4285,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "c946d865f984675b",
-      "headline": "The economic squeeze is pushing up poverty rates for older adults",
-      "category": "local",
-      "publishedAt": "2026-09-24T15:00:00Z",
-      "updatedAt": "2026-09-24T15:00:00Z",
-      "generatedAt": "2026-09-24T20:54:15.517894Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517894Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "The economic squeeze is pushing up poverty rates for older adults",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5979857/senior-adult-poverty-affordability",
-          "publishedAt": "2026-09-24T15:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Despite lower poverty overall, the rate for seniors has been steadily rising in recent years. A new AARP survey sheds light on how those over 50 are struggling in the crucial time before retirement."
-    },
-    {
-      "apiVersion": 1,
       "id": "533d0d5ac8d58465",
       "headline": "Fears of return to war grow in Ethiopia's Tigray region",
       "category": "local",
       "publishedAt": "2026-09-24T04:23:38Z",
       "updatedAt": "2026-09-24T04:23:38Z",
-      "generatedAt": "2026-09-24T20:54:15.517903Z",
+      "generatedAt": "2026-09-24T21:22:39.967895Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517903Z"
+          "updatedAt": "2026-09-24T21:22:39.967895Z"
         }
       ],
       "confidenceTier": "low",
@@ -4170,18 +4319,52 @@
     },
     {
       "apiVersion": 1,
-      "id": "1071aea227086389",
-      "headline": "Trump and Xi meet at moment of global consequence",
+      "id": "c946d865f984675b",
+      "headline": "The economic squeeze is pushing up poverty rates for older adults",
       "category": "local",
-      "publishedAt": "2026-09-23T18:23:19Z",
-      "updatedAt": "2026-09-23T18:23:19Z",
-      "generatedAt": "2026-09-24T20:54:15.517913Z",
+      "publishedAt": "2026-09-24T15:00:00Z",
+      "updatedAt": "2026-09-24T15:00:00Z",
+      "generatedAt": "2026-09-24T21:22:39.967905Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517913Z"
+          "updatedAt": "2026-09-24T21:22:39.967905Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "The economic squeeze is pushing up poverty rates for older adults",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5979857/senior-adult-poverty-affordability",
+          "publishedAt": "2026-09-24T15:00:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Despite lower poverty overall, the rate for seniors has been steadily rising in recent years. A new AARP survey sheds light on how those over 50 are struggling in the crucial time before retirement."
+    },
+    {
+      "apiVersion": 1,
+      "id": "1071aea227086389",
+      "headline": "Trump and Xi meet at moment of global consequence",
+      "category": "local",
+      "publishedAt": "2026-09-23T18:23:19Z",
+      "updatedAt": "2026-09-23T18:23:19Z",
+      "generatedAt": "2026-09-24T21:22:39.967913Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.967913Z"
         }
       ],
       "confidenceTier": "low",
@@ -4209,13 +4392,13 @@
       "category": "politics",
       "publishedAt": "2026-09-23T18:14:40Z",
       "updatedAt": "2026-09-23T18:14:40Z",
-      "generatedAt": "2026-09-24T20:54:15.517922Z",
+      "generatedAt": "2026-09-24T21:22:39.967923Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517922Z"
+          "updatedAt": "2026-09-24T21:22:39.967923Z"
         }
       ],
       "confidenceTier": "low",
@@ -4243,13 +4426,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T18:09:31Z",
       "updatedAt": "2026-09-23T18:09:31Z",
-      "generatedAt": "2026-09-24T20:54:15.517931Z",
+      "generatedAt": "2026-09-24T21:22:39.967931Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517931Z"
+          "updatedAt": "2026-09-24T21:22:39.967931Z"
         }
       ],
       "confidenceTier": "low",
@@ -4277,13 +4460,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T08:44:54Z",
       "updatedAt": "2026-09-24T08:44:54Z",
-      "generatedAt": "2026-09-24T20:54:15.517940Z",
+      "generatedAt": "2026-09-24T21:22:39.967940Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517940Z"
+          "updatedAt": "2026-09-24T21:22:39.967940Z"
         }
       ],
       "confidenceTier": "low",
@@ -4314,86 +4497,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "1170bd08f9453a79",
-      "headline": "Trump and Xi strike cordial tone at summit amid underlying tensions",
-      "category": "local",
-      "publishedAt": "2026-09-24T12:43:15Z",
-      "updatedAt": "2026-09-24T12:43:15Z",
-      "generatedAt": "2026-09-24T20:54:15.517950Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517950Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "Trump and Xi strike cordial tone at summit amid underlying tensions",
-          "url": "https://www.npr.org/2026/09/24/g-s1-144806/trump-xi-summit",
-          "publishedAt": "2026-09-24T12:43:15Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "On Thursday, the two leaders will hold meetings where Trump and Xi are expected to talk about artificial intelligence, rare earths, trade and geopolitics such as Iran and Taiwan."
-    },
-    {
-      "apiVersion": 1,
-      "id": "8324c24fac73c143",
-      "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
-      "category": "business",
-      "publishedAt": "2026-09-24T09:00:00Z",
-      "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T20:54:15.517958Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517958Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "NPR News",
-          "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5931971/trump-nih-science-funding-disruptions-charts",
-          "publishedAt": "2026-09-24T09:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "Stories of science funding being cut, labs shutting down and scientists losing jobs have flooded the media under Trump's administration. These six graphics show how those changes have affected U.S. biomedical research."
-    },
-    {
-      "apiVersion": 1,
       "id": "dbcbb8441bf762f4",
       "headline": "States threaten action against company profiting off disabled vets after NPR report",
       "category": "business",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T20:54:15.517967Z",
+      "generatedAt": "2026-09-24T21:22:39.967949Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517967Z"
+          "updatedAt": "2026-09-24T21:22:39.967949Z"
         }
       ],
       "confidenceTier": "low",
@@ -4416,18 +4531,52 @@
     },
     {
       "apiVersion": 1,
-      "id": "b0aa512009c321d7",
-      "headline": "From cybersecurity to AI to Taiwan, what's at stake in Trump's summit with Xi",
-      "category": "politics",
-      "publishedAt": "2026-09-23T16:13:52Z",
-      "updatedAt": "2026-09-23T16:13:52Z",
-      "generatedAt": "2026-09-24T20:54:15.517978Z",
+      "id": "1170bd08f9453a79",
+      "headline": "Trump and Xi strike cordial tone at summit amid underlying tensions",
+      "category": "local",
+      "publishedAt": "2026-09-24T12:43:15Z",
+      "updatedAt": "2026-09-24T12:43:15Z",
+      "generatedAt": "2026-09-24T21:22:39.967959Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517978Z"
+          "updatedAt": "2026-09-24T21:22:39.967959Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "Trump and Xi strike cordial tone at summit amid underlying tensions",
+          "url": "https://www.npr.org/2026/09/24/g-s1-144806/trump-xi-summit",
+          "publishedAt": "2026-09-24T12:43:15Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "On Thursday, the two leaders will hold meetings where Trump and Xi are expected to talk about artificial intelligence, rare earths, trade and geopolitics such as Iran and Taiwan."
+    },
+    {
+      "apiVersion": 1,
+      "id": "b0aa512009c321d7",
+      "headline": "From cybersecurity to AI to Taiwan, what's at stake in Trump's summit with Xi",
+      "category": "politics",
+      "publishedAt": "2026-09-23T16:13:52Z",
+      "updatedAt": "2026-09-23T16:13:52Z",
+      "generatedAt": "2026-09-24T21:22:39.967967Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.967967Z"
         }
       ],
       "confidenceTier": "low",
@@ -4455,13 +4604,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T11:10:14Z",
       "updatedAt": "2026-09-24T11:10:14Z",
-      "generatedAt": "2026-09-24T20:54:15.517987Z",
+      "generatedAt": "2026-09-24T21:22:39.967977Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517987Z"
+          "updatedAt": "2026-09-24T21:22:39.967977Z"
         }
       ],
       "confidenceTier": "low",
@@ -4497,13 +4646,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T10:43:25Z",
       "updatedAt": "2026-09-24T10:43:25Z",
-      "generatedAt": "2026-09-24T20:54:15.517995Z",
+      "generatedAt": "2026-09-24T21:22:39.967986Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.517995Z"
+          "updatedAt": "2026-09-24T21:22:39.967986Z"
         }
       ],
       "confidenceTier": "low",
@@ -4531,13 +4680,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T14:09:10Z",
       "updatedAt": "2026-09-23T14:09:10Z",
-      "generatedAt": "2026-09-24T20:54:15.518003Z",
+      "generatedAt": "2026-09-24T21:22:39.967997Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518003Z"
+          "updatedAt": "2026-09-24T21:22:39.967997Z"
         }
       ],
       "confidenceTier": "low",
@@ -4565,13 +4714,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-23T13:31:47Z",
       "updatedAt": "2026-09-23T13:31:47Z",
-      "generatedAt": "2026-09-24T20:54:15.518012Z",
+      "generatedAt": "2026-09-24T21:22:39.968006Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518012Z"
+          "updatedAt": "2026-09-24T21:22:39.968006Z"
         }
       ],
       "confidenceTier": "low",
@@ -4599,13 +4748,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T20:54:15.518020Z",
+      "generatedAt": "2026-09-24T21:22:39.968015Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518020Z"
+          "updatedAt": "2026-09-24T21:22:39.968015Z"
         }
       ],
       "confidenceTier": "low",
@@ -4628,18 +4777,52 @@
     },
     {
       "apiVersion": 1,
-      "id": "bc7c9f1ae519bc2c",
-      "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
+      "id": "8324c24fac73c143",
+      "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
       "category": "business",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T20:54:15.518028Z",
+      "generatedAt": "2026-09-24T21:22:39.968024Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518028Z"
+          "updatedAt": "2026-09-24T21:22:39.968024Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "NPR News",
+          "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5931971/trump-nih-science-funding-disruptions-charts",
+          "publishedAt": "2026-09-24T09:00:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "Stories of science funding being cut, labs shutting down and scientists losing jobs have flooded the media under Trump's administration. These six graphics show how those changes have affected U.S. biomedical research."
+    },
+    {
+      "apiVersion": 1,
+      "id": "bc7c9f1ae519bc2c",
+      "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
+      "category": "business",
+      "publishedAt": "2026-09-24T09:00:00Z",
+      "updatedAt": "2026-09-24T09:00:00Z",
+      "generatedAt": "2026-09-24T21:22:39.968033Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.968033Z"
         }
       ],
       "confidenceTier": "low",
@@ -4667,13 +4850,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T09:00:00Z",
       "updatedAt": "2026-09-24T09:00:00Z",
-      "generatedAt": "2026-09-24T20:54:15.518036Z",
+      "generatedAt": "2026-09-24T21:22:39.968041Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518036Z"
+          "updatedAt": "2026-09-24T21:22:39.968041Z"
         }
       ],
       "confidenceTier": "low",
@@ -4701,13 +4884,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T16:46:31.662000Z",
       "updatedAt": "2026-09-24T16:46:31.662000Z",
-      "generatedAt": "2026-09-24T20:54:15.518043Z",
+      "generatedAt": "2026-09-24T21:22:39.968050Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518043Z"
+          "updatedAt": "2026-09-24T21:22:39.968050Z"
         }
       ],
       "confidenceTier": "low",
@@ -4729,52 +4912,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "aa5cb5eafffadc8b",
-      "headline": "Priest killed and four injured in knife attack at Polish abbey",
-      "category": "public-safety",
-      "publishedAt": "2026-09-24T19:18:12Z",
-      "updatedAt": "2026-09-24T19:18:12Z",
-      "generatedAt": "2026-09-24T20:54:15.518052Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518052Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "Priest killed and four injured in knife attack at Polish abbey",
-          "url": "https://www.bbc.co.uk/news/articles/c607lrvm41l3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T19:18:12Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "A male suspect from Ukraine was arrested after the stabbings in the town of Jaros\u0142aw, police say."
-    },
-    {
-      "apiVersion": 1,
       "id": "566caf6a70cf8e80",
       "headline": "Is Nepal's flood a harbinger of what's to come in the Himalayas?",
       "category": "local",
       "publishedAt": "2026-09-23T11:48:00Z",
       "updatedAt": "2026-09-23T11:48:00Z",
-      "generatedAt": "2026-09-24T20:54:15.518062Z",
+      "generatedAt": "2026-09-24T21:22:39.968070Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518062Z"
+          "updatedAt": "2026-09-24T21:22:39.968070Z"
         }
       ],
       "confidenceTier": "low",
@@ -4805,18 +4954,52 @@
     },
     {
       "apiVersion": 1,
-      "id": "cef9860b75be37c3",
-      "headline": "Dems have an edge over GOP, poll finds. And, ICE looks into 'mobile detention centers'",
-      "category": "local",
-      "publishedAt": "2026-09-23T11:13:32Z",
-      "updatedAt": "2026-09-23T11:13:32Z",
-      "generatedAt": "2026-09-24T20:54:15.518070Z",
+      "id": "aa5cb5eafffadc8b",
+      "headline": "Priest killed and four injured in knife attack at Polish abbey",
+      "category": "public-safety",
+      "publishedAt": "2026-09-24T19:18:12Z",
+      "updatedAt": "2026-09-24T19:18:12Z",
+      "generatedAt": "2026-09-24T21:22:39.968080Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518070Z"
+          "updatedAt": "2026-09-24T21:22:39.968080Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "Priest killed and four injured in knife attack at Polish abbey",
+          "url": "https://www.bbc.co.uk/news/articles/c607lrvm41l3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T19:18:12Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "A male suspect from Ukraine was arrested after the stabbings in the town of Jaros\u0142aw, police say."
+    },
+    {
+      "apiVersion": 1,
+      "id": "cef9860b75be37c3",
+      "headline": "Dems have an edge over GOP, poll finds. And, ICE looks into 'mobile detention centers'",
+      "category": "local",
+      "publishedAt": "2026-09-23T11:13:32Z",
+      "updatedAt": "2026-09-23T11:13:32Z",
+      "generatedAt": "2026-09-24T21:22:39.968089Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.968089Z"
         }
       ],
       "confidenceTier": "low",
@@ -4844,13 +5027,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T10:48:47Z",
       "updatedAt": "2026-09-23T10:48:47Z",
-      "generatedAt": "2026-09-24T20:54:15.518079Z",
+      "generatedAt": "2026-09-24T21:22:39.968097Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518079Z"
+          "updatedAt": "2026-09-24T21:22:39.968097Z"
         }
       ],
       "confidenceTier": "low",
@@ -4886,13 +5069,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T14:02:42.293000Z",
       "updatedAt": "2026-09-24T14:02:42.293000Z",
-      "generatedAt": "2026-09-24T20:54:15.518088Z",
+      "generatedAt": "2026-09-24T21:22:39.968106Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518088Z"
+          "updatedAt": "2026-09-24T21:22:39.968106Z"
         }
       ],
       "confidenceTier": "low",
@@ -4927,13 +5110,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-24T16:00:29Z",
       "updatedAt": "2026-09-24T16:00:29Z",
-      "generatedAt": "2026-09-24T20:54:15.518096Z",
+      "generatedAt": "2026-09-24T21:22:39.968116Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518096Z"
+          "updatedAt": "2026-09-24T21:22:39.968116Z"
         }
       ],
       "confidenceTier": "low",
@@ -4961,13 +5144,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T11:08:24.838000Z",
       "updatedAt": "2026-09-24T11:08:24.838000Z",
-      "generatedAt": "2026-09-24T20:54:15.518105Z",
+      "generatedAt": "2026-09-24T21:22:39.968126Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518105Z"
+          "updatedAt": "2026-09-24T21:22:39.968126Z"
         }
       ],
       "confidenceTier": "low",
@@ -5002,13 +5185,13 @@
       "category": "travel",
       "publishedAt": "2026-09-24T09:28:33Z",
       "updatedAt": "2026-09-24T09:28:33Z",
-      "generatedAt": "2026-09-24T20:54:15.518113Z",
+      "generatedAt": "2026-09-24T21:22:39.968134Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518113Z"
+          "updatedAt": "2026-09-24T21:22:39.968134Z"
         }
       ],
       "confidenceTier": "low",
@@ -5036,13 +5219,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T19:32:59Z",
       "updatedAt": "2026-09-24T19:32:59Z",
-      "generatedAt": "2026-09-24T20:54:15.518121Z",
+      "generatedAt": "2026-09-24T21:22:39.968143Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518121Z"
+          "updatedAt": "2026-09-24T21:22:39.968143Z"
         }
       ],
       "confidenceTier": "low",
@@ -5070,13 +5253,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T19:02:36Z",
       "updatedAt": "2026-09-24T19:02:36Z",
-      "generatedAt": "2026-09-24T20:54:15.518128Z",
+      "generatedAt": "2026-09-24T21:22:39.968153Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518128Z"
+          "updatedAt": "2026-09-24T21:22:39.968153Z"
         }
       ],
       "confidenceTier": "low",
@@ -5104,13 +5287,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T18:29:29Z",
       "updatedAt": "2026-09-24T18:29:29Z",
-      "generatedAt": "2026-09-24T20:54:15.518136Z",
+      "generatedAt": "2026-09-24T21:22:39.968162Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518136Z"
+          "updatedAt": "2026-09-24T21:22:39.968162Z"
         }
       ],
       "confidenceTier": "low",
@@ -5138,13 +5321,13 @@
       "category": "technology",
       "publishedAt": "2026-09-24T18:06:40Z",
       "updatedAt": "2026-09-24T18:06:40Z",
-      "generatedAt": "2026-09-24T20:54:15.518146Z",
+      "generatedAt": "2026-09-24T21:22:39.968171Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518146Z"
+          "updatedAt": "2026-09-24T21:22:39.968171Z"
         }
       ],
       "confidenceTier": "low",
@@ -5172,13 +5355,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T17:55:44Z",
       "updatedAt": "2026-09-24T17:55:44Z",
-      "generatedAt": "2026-09-24T20:54:15.518155Z",
+      "generatedAt": "2026-09-24T21:22:39.968180Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518155Z"
+          "updatedAt": "2026-09-24T21:22:39.968180Z"
         }
       ],
       "confidenceTier": "low",
@@ -5214,13 +5397,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T17:49:20Z",
       "updatedAt": "2026-09-24T17:49:20Z",
-      "generatedAt": "2026-09-24T20:54:15.518163Z",
+      "generatedAt": "2026-09-24T21:22:39.968188Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518163Z"
+          "updatedAt": "2026-09-24T21:22:39.968188Z"
         }
       ],
       "confidenceTier": "low",
@@ -5256,13 +5439,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T07:40:58.138000Z",
       "updatedAt": "2026-09-24T07:40:58.138000Z",
-      "generatedAt": "2026-09-24T20:54:15.518172Z",
+      "generatedAt": "2026-09-24T21:22:39.968196Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518172Z"
+          "updatedAt": "2026-09-24T21:22:39.968196Z"
         }
       ],
       "confidenceTier": "low",
@@ -5289,13 +5472,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T16:36:33Z",
       "updatedAt": "2026-09-24T16:36:33Z",
-      "generatedAt": "2026-09-24T20:54:15.518179Z",
+      "generatedAt": "2026-09-24T21:22:39.968205Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518179Z"
+          "updatedAt": "2026-09-24T21:22:39.968205Z"
         }
       ],
       "confidenceTier": "low",
@@ -5331,13 +5514,13 @@
       "category": "technology",
       "publishedAt": "2026-09-24T15:42:07Z",
       "updatedAt": "2026-09-24T15:42:07Z",
-      "generatedAt": "2026-09-24T20:54:15.518186Z",
+      "generatedAt": "2026-09-24T21:22:39.968213Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518186Z"
+          "updatedAt": "2026-09-24T21:22:39.968213Z"
         }
       ],
       "confidenceTier": "low",
@@ -5365,13 +5548,13 @@
       "category": "local",
       "publishedAt": "2026-09-24T15:37:45Z",
       "updatedAt": "2026-09-24T15:37:45Z",
-      "generatedAt": "2026-09-24T20:54:15.518194Z",
+      "generatedAt": "2026-09-24T21:22:39.968222Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518194Z"
+          "updatedAt": "2026-09-24T21:22:39.968222Z"
         }
       ],
       "confidenceTier": "low",
@@ -5394,52 +5577,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "4fc67ff619f0e551",
-      "headline": "105-year-old investigated for crimes at Nazi PoW camp in Germany",
-      "category": "local",
-      "publishedAt": "2026-09-24T14:37:34Z",
-      "updatedAt": "2026-09-24T14:37:34Z",
-      "generatedAt": "2026-09-24T20:54:15.518201Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518201Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "BBC World",
-          "headline": "105-year-old investigated for crimes at Nazi PoW camp in Germany",
-          "url": "https://www.bbc.co.uk/news/articles/cwzrzjy3pynvo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T14:37:34Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "excerpt": "The suspect is alleged to have been an accessory to murder at the Stalag 326 camp, where tens of thousands of Soviet PoWs died."
-    },
-    {
-      "apiVersion": 1,
       "id": "fa5549143a001776",
       "headline": "Trump offers warm welcome as China's Xi arrives for US visit",
       "category": "local",
       "publishedAt": "2026-09-24T03:52:21Z",
       "updatedAt": "2026-09-24T03:52:21Z",
-      "generatedAt": "2026-09-24T20:54:15.518209Z",
+      "generatedAt": "2026-09-24T21:22:39.968229Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518209Z"
+          "updatedAt": "2026-09-24T21:22:39.968229Z"
         }
       ],
       "confidenceTier": "low",
@@ -5467,13 +5616,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T08:41:58.018000Z",
       "updatedAt": "2026-09-23T08:41:58.018000Z",
-      "generatedAt": "2026-09-24T20:54:15.518216Z",
+      "generatedAt": "2026-09-24T21:22:39.968239Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518216Z"
+          "updatedAt": "2026-09-24T21:22:39.968239Z"
         }
       ],
       "confidenceTier": "low",
@@ -5503,18 +5652,52 @@
     },
     {
       "apiVersion": 1,
-      "id": "cde4475b23a13734",
-      "headline": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
-      "category": "health",
-      "publishedAt": "2026-09-24T14:08:38Z",
-      "updatedAt": "2026-09-24T14:08:38Z",
-      "generatedAt": "2026-09-24T20:54:15.518225Z",
+      "id": "4fc67ff619f0e551",
+      "headline": "105-year-old investigated for crimes at Nazi PoW camp in Germany",
+      "category": "local",
+      "publishedAt": "2026-09-24T14:37:34Z",
+      "updatedAt": "2026-09-24T14:37:34Z",
+      "generatedAt": "2026-09-24T21:22:39.968248Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518225Z"
+          "updatedAt": "2026-09-24T21:22:39.968248Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "BBC World",
+          "headline": "105-year-old investigated for crimes at Nazi PoW camp in Germany",
+          "url": "https://www.bbc.co.uk/news/articles/cwzrzjy3pynvo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T14:37:34Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "excerpt": "The suspect is alleged to have been an accessory to murder at the Stalag 326 camp, where tens of thousands of Soviet PoWs died."
+    },
+    {
+      "apiVersion": 1,
+      "id": "cde4475b23a13734",
+      "headline": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
+      "category": "health",
+      "publishedAt": "2026-09-24T14:08:38Z",
+      "updatedAt": "2026-09-24T14:08:38Z",
+      "generatedAt": "2026-09-24T21:22:39.968256Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.968256Z"
         }
       ],
       "confidenceTier": "low",
@@ -5542,13 +5725,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T03:30:26.013000Z",
       "updatedAt": "2026-09-24T03:30:26.013000Z",
-      "generatedAt": "2026-09-24T20:54:15.518233Z",
+      "generatedAt": "2026-09-24T21:22:39.968265Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518233Z"
+          "updatedAt": "2026-09-24T21:22:39.968265Z"
         }
       ],
       "confidenceTier": "low",
@@ -5575,13 +5758,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T05:46:11.056000Z",
       "updatedAt": "2026-09-23T05:46:11.056000Z",
-      "generatedAt": "2026-09-24T20:54:15.518242Z",
+      "generatedAt": "2026-09-24T21:22:39.968273Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518242Z"
+          "updatedAt": "2026-09-24T21:22:39.968273Z"
         }
       ],
       "confidenceTier": "low",
@@ -5608,13 +5791,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T14:45:35.743000Z",
       "updatedAt": "2026-09-23T14:45:35.743000Z",
-      "generatedAt": "2026-09-24T20:54:15.518249Z",
+      "generatedAt": "2026-09-24T21:22:39.968281Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518249Z"
+          "updatedAt": "2026-09-24T21:22:39.968281Z"
         }
       ],
       "confidenceTier": "low",
@@ -5641,13 +5824,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T14:41:02.650000Z",
       "updatedAt": "2026-09-23T14:41:02.650000Z",
-      "generatedAt": "2026-09-24T20:54:15.518256Z",
+      "generatedAt": "2026-09-24T21:22:39.968289Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518256Z"
+          "updatedAt": "2026-09-24T21:22:39.968289Z"
         }
       ],
       "confidenceTier": "low",
@@ -5674,13 +5857,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T13:01:51.614000Z",
       "updatedAt": "2026-09-23T13:01:51.614000Z",
-      "generatedAt": "2026-09-24T20:54:15.518265Z",
+      "generatedAt": "2026-09-24T21:22:39.968297Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518265Z"
+          "updatedAt": "2026-09-24T21:22:39.968297Z"
         }
       ],
       "confidenceTier": "low",
@@ -5715,13 +5898,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T12:23:20.274000Z",
       "updatedAt": "2026-09-23T12:23:20.274000Z",
-      "generatedAt": "2026-09-24T20:54:15.518273Z",
+      "generatedAt": "2026-09-24T21:22:39.968305Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518273Z"
+          "updatedAt": "2026-09-24T21:22:39.968305Z"
         }
       ],
       "confidenceTier": "low",
@@ -5748,13 +5931,13 @@
       "category": "politics",
       "publishedAt": "2026-09-24T08:26:19Z",
       "updatedAt": "2026-09-24T08:26:19Z",
-      "generatedAt": "2026-09-24T20:54:15.518282Z",
+      "generatedAt": "2026-09-24T21:22:39.968312Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518282Z"
+          "updatedAt": "2026-09-24T21:22:39.968312Z"
         }
       ],
       "confidenceTier": "low",
@@ -5775,12 +5958,12 @@
       ],
       "excerpt": "India's polling monitor is facing yet another crisis of credibility with fresh allegations against its chief.",
       "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Bangladesh_Election_Commission%2C_night_before_2026_General_Election_2026-02-11_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Bangladesh Election Commission, night before 2026 General Election 2026-02-11 (5) \u2014 Tausheef Hassan Auntu / Wikimedia Commons (CC BY-SA 4.0)",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Bangladesh_Election_Commission%2C_night_before_2026_General_Election_2026-02-11_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Bangladesh Election Commission, night before 2026 General Election 2026-02-11 (1) \u2014 Tausheef Hassan Auntu / Wikimedia Commons (CC BY-SA 4.0)",
         "creator": "Tausheef Hassan Auntu",
         "license": "CC BY-SA 4.0",
         "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bangladesh_Election_Commission,_night_before_2026_General_Election_2026-02-11_(5).jpg"
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bangladesh_Election_Commission,_night_before_2026_General_Election_2026-02-11_(1).jpg"
       }
     },
     {
@@ -5790,13 +5973,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T14:02:55Z",
       "updatedAt": "2026-09-23T14:02:55Z",
-      "generatedAt": "2026-09-24T20:54:15.518290Z",
+      "generatedAt": "2026-09-24T21:22:39.968322Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518290Z"
+          "updatedAt": "2026-09-24T21:22:39.968322Z"
         }
       ],
       "confidenceTier": "low",
@@ -5832,13 +6015,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T02:02:43.755000Z",
       "updatedAt": "2026-09-23T02:02:43.755000Z",
-      "generatedAt": "2026-09-24T20:54:15.518299Z",
+      "generatedAt": "2026-09-24T21:22:39.968330Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518299Z"
+          "updatedAt": "2026-09-24T21:22:39.968330Z"
         }
       ],
       "confidenceTier": "low",
@@ -5865,13 +6048,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T16:48:37.858000Z",
       "updatedAt": "2026-09-23T16:48:37.858000Z",
-      "generatedAt": "2026-09-24T20:54:15.518307Z",
+      "generatedAt": "2026-09-24T21:22:39.968340Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518307Z"
+          "updatedAt": "2026-09-24T21:22:39.968340Z"
         }
       ],
       "confidenceTier": "low",
@@ -5906,13 +6089,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T17:46:06.489000Z",
       "updatedAt": "2026-09-23T17:46:06.489000Z",
-      "generatedAt": "2026-09-24T20:54:15.518315Z",
+      "generatedAt": "2026-09-24T21:22:39.968348Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518315Z"
+          "updatedAt": "2026-09-24T21:22:39.968348Z"
         }
       ],
       "confidenceTier": "low",
@@ -5939,13 +6122,13 @@
       "category": "science",
       "publishedAt": "2026-09-23T17:20:32.721000Z",
       "updatedAt": "2026-09-23T17:20:32.721000Z",
-      "generatedAt": "2026-09-24T20:54:15.518326Z",
+      "generatedAt": "2026-09-24T21:22:39.968359Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518326Z"
+          "updatedAt": "2026-09-24T21:22:39.968359Z"
         }
       ],
       "confidenceTier": "low",
@@ -5967,18 +6150,51 @@
     },
     {
       "apiVersion": 1,
-      "id": "14a05c15f5ffa929",
-      "headline": "Teen rocker Nene Royal becomes first Thai to win America's Got Talent",
-      "category": "technology",
-      "publishedAt": "2026-09-24T06:47:12Z",
-      "updatedAt": "2026-09-24T06:47:12Z",
-      "generatedAt": "2026-09-24T20:54:15.518334Z",
+      "id": "189b76d8ea8a7215",
+      "headline": "M 5.3 - 51 km WSW of Arauco, Argentina",
+      "category": "science",
+      "publishedAt": "2026-09-23T09:21:14.600000Z",
+      "updatedAt": "2026-09-23T09:21:14.600000Z",
+      "generatedAt": "2026-09-24T21:22:39.968370Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518334Z"
+          "updatedAt": "2026-09-24T21:22:39.968370Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.3 - 51 km WSW of Arauco, Argentina",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx29",
+          "publishedAt": "2026-09-23T09:21:14.600000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ]
+    },
+    {
+      "apiVersion": 1,
+      "id": "14a05c15f5ffa929",
+      "headline": "Teen rocker Nene Royal becomes first Thai to win America's Got Talent",
+      "category": "technology",
+      "publishedAt": "2026-09-24T06:47:12Z",
+      "updatedAt": "2026-09-24T06:47:12Z",
+      "generatedAt": "2026-09-24T21:22:39.968378Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.968378Z"
         }
       ],
       "confidenceTier": "low",
@@ -6009,51 +6225,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "189b76d8ea8a7215",
-      "headline": "M 5.3 - 51 km WSW of Arauco, Argentina",
-      "category": "science",
-      "publishedAt": "2026-09-23T09:21:14.600000Z",
-      "updatedAt": "2026-09-23T09:21:14.600000Z",
-      "generatedAt": "2026-09-24T20:54:15.518342Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518342Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.3 - 51 km WSW of Arauco, Argentina",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx29",
-          "publishedAt": "2026-09-23T09:21:14.600000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ]
-    },
-    {
-      "apiVersion": 1,
       "id": "ebd8cd761c0d29b3",
       "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
       "category": "entertainment",
       "publishedAt": "2026-09-24T00:50:24Z",
       "updatedAt": "2026-09-24T00:50:24Z",
-      "generatedAt": "2026-09-24T20:54:15.518352Z",
+      "generatedAt": "2026-09-24T21:22:39.968386Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518352Z"
+          "updatedAt": "2026-09-24T21:22:39.968386Z"
         }
       ],
       "confidenceTier": "low",
@@ -6081,13 +6264,13 @@
       "category": "health",
       "publishedAt": "2026-09-24T00:15:46Z",
       "updatedAt": "2026-09-24T00:15:46Z",
-      "generatedAt": "2026-09-24T20:54:15.518360Z",
+      "generatedAt": "2026-09-24T21:22:39.968394Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518360Z"
+          "updatedAt": "2026-09-24T21:22:39.968394Z"
         }
       ],
       "confidenceTier": "low",
@@ -6123,13 +6306,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T23:58:50Z",
       "updatedAt": "2026-09-23T23:58:50Z",
-      "generatedAt": "2026-09-24T20:54:15.518368Z",
+      "generatedAt": "2026-09-24T21:22:39.968403Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518368Z"
+          "updatedAt": "2026-09-24T21:22:39.968403Z"
         }
       ],
       "confidenceTier": "low",
@@ -6157,13 +6340,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T23:42:38Z",
       "updatedAt": "2026-09-23T23:42:38Z",
-      "generatedAt": "2026-09-24T20:54:15.518376Z",
+      "generatedAt": "2026-09-24T21:22:39.968413Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518376Z"
+          "updatedAt": "2026-09-24T21:22:39.968413Z"
         }
       ],
       "confidenceTier": "low",
@@ -6191,13 +6374,13 @@
       "category": "sports",
       "publishedAt": "2026-09-23T23:14:10Z",
       "updatedAt": "2026-09-23T23:14:10Z",
-      "generatedAt": "2026-09-24T20:54:15.518384Z",
+      "generatedAt": "2026-09-24T21:22:39.968420Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518384Z"
+          "updatedAt": "2026-09-24T21:22:39.968420Z"
         }
       ],
       "confidenceTier": "low",
@@ -6225,13 +6408,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-23T23:03:56Z",
       "updatedAt": "2026-09-23T23:03:56Z",
-      "generatedAt": "2026-09-24T20:54:15.518393Z",
+      "generatedAt": "2026-09-24T21:22:39.968428Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518393Z"
+          "updatedAt": "2026-09-24T21:22:39.968428Z"
         }
       ],
       "confidenceTier": "low",
@@ -6267,13 +6450,13 @@
       "category": "technology",
       "publishedAt": "2026-09-23T22:01:17Z",
       "updatedAt": "2026-09-23T22:01:17Z",
-      "generatedAt": "2026-09-24T20:54:15.518402Z",
+      "generatedAt": "2026-09-24T21:22:39.968436Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518402Z"
+          "updatedAt": "2026-09-24T21:22:39.968436Z"
         }
       ],
       "confidenceTier": "low",
@@ -6301,13 +6484,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:29:04Z",
       "updatedAt": "2026-09-23T21:29:04Z",
-      "generatedAt": "2026-09-24T20:54:15.518410Z",
+      "generatedAt": "2026-09-24T21:22:39.968444Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518410Z"
+          "updatedAt": "2026-09-24T21:22:39.968444Z"
         }
       ],
       "confidenceTier": "low",
@@ -6335,13 +6518,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T21:16:00Z",
       "updatedAt": "2026-09-23T21:16:00Z",
-      "generatedAt": "2026-09-24T20:54:15.518419Z",
+      "generatedAt": "2026-09-24T21:22:39.968454Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518419Z"
+          "updatedAt": "2026-09-24T21:22:39.968454Z"
         }
       ],
       "confidenceTier": "low",
@@ -6369,13 +6552,13 @@
       "category": "public-safety",
       "publishedAt": "2026-09-23T15:46:28Z",
       "updatedAt": "2026-09-23T15:46:28Z",
-      "generatedAt": "2026-09-24T20:54:15.518429Z",
+      "generatedAt": "2026-09-24T21:22:39.968461Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518429Z"
+          "updatedAt": "2026-09-24T21:22:39.968461Z"
         }
       ],
       "confidenceTier": "low",
@@ -6403,13 +6586,13 @@
       "category": "entertainment",
       "publishedAt": "2026-09-23T00:05:34Z",
       "updatedAt": "2026-09-23T00:05:34Z",
-      "generatedAt": "2026-09-24T20:54:15.518437Z",
+      "generatedAt": "2026-09-24T21:22:39.968469Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518437Z"
+          "updatedAt": "2026-09-24T21:22:39.968469Z"
         }
       ],
       "confidenceTier": "low",
@@ -6432,18 +6615,59 @@
     },
     {
       "apiVersion": 1,
-      "id": "25fe006e21afaeeb",
-      "headline": "Harvey Weinstein sentenced to 15 years in prison for sexual assault",
-      "category": "local",
-      "publishedAt": "2026-09-23T18:51:12Z",
-      "updatedAt": "2026-09-23T18:51:12Z",
-      "generatedAt": "2026-09-24T20:54:15.518444Z",
+      "id": "333f6111e10de0b1",
+      "headline": "M 5.2 - 139 km SW of Kokopo, Papua New Guinea",
+      "category": "science",
+      "publishedAt": "2026-09-24T12:29:58.824000Z",
+      "updatedAt": "2026-09-24T12:29:58.824000Z",
+      "generatedAt": "2026-09-24T21:22:39.968476Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518444Z"
+          "updatedAt": "2026-09-24T21:22:39.968476Z"
+        }
+      ],
+      "confidenceTier": "low",
+      "breaking": false,
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "sources": [
+        {
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 5.2 - 139 km SW of Kokopo, Papua New Guinea",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txbm",
+          "publishedAt": "2026-09-24T12:29:58.824000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ],
+      "image": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Aegires_gardineri_Papua_New_Guinea_by_Nick_Hobgood-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "attribution": "File photo: Aegires gardineri Papua New Guinea by Nick Hobgood-001 \u2014 Nhobgood / Wikimedia Commons (CC BY-SA 3.0)",
+        "creator": "Nhobgood",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aegires_gardineri_Papua_New_Guinea_by_Nick_Hobgood-001.jpg"
+      }
+    },
+    {
+      "apiVersion": 1,
+      "id": "25fe006e21afaeeb",
+      "headline": "Harvey Weinstein sentenced to 15 years in prison for sexual assault",
+      "category": "local",
+      "publishedAt": "2026-09-23T18:51:12Z",
+      "updatedAt": "2026-09-23T18:51:12Z",
+      "generatedAt": "2026-09-24T21:22:39.968484Z",
+      "aiGenerated": false,
+      "version": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "updatedAt": "2026-09-24T21:22:39.968484Z"
         }
       ],
       "confidenceTier": "low",
@@ -6474,59 +6698,18 @@
     },
     {
       "apiVersion": 1,
-      "id": "333f6111e10de0b1",
-      "headline": "M 5.2 - 139 km SW of Kokopo, Papua New Guinea",
-      "category": "science",
-      "publishedAt": "2026-09-24T12:29:58.824000Z",
-      "updatedAt": "2026-09-24T12:29:58.824000Z",
-      "generatedAt": "2026-09-24T20:54:15.518451Z",
-      "aiGenerated": false,
-      "version": 1,
-      "revisions": [
-        {
-          "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518451Z"
-        }
-      ],
-      "confidenceTier": "low",
-      "breaking": false,
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "sources": [
-        {
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 5.2 - 139 km SW of Kokopo, Papua New Guinea",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txbm",
-          "publishedAt": "2026-09-24T12:29:58.824000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ],
-      "image": {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Aegires_gardineri_Papua_New_Guinea_by_Nick_Hobgood-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-        "attribution": "File photo: Aegires gardineri Papua New Guinea by Nick Hobgood-001 \u2014 Nhobgood / Wikimedia Commons (CC BY-SA 3.0)",
-        "creator": "Nhobgood",
-        "license": "CC BY-SA 3.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aegires_gardineri_Papua_New_Guinea_by_Nick_Hobgood-001.jpg"
-      }
-    },
-    {
-      "apiVersion": 1,
       "id": "b932498f8d35efc2",
       "headline": "Iran's president tells Trump it will never 'bend the knee'",
       "category": "local",
       "publishedAt": "2026-09-23T18:15:31Z",
       "updatedAt": "2026-09-23T18:15:31Z",
-      "generatedAt": "2026-09-24T20:54:15.518459Z",
+      "generatedAt": "2026-09-24T21:22:39.968495Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518459Z"
+          "updatedAt": "2026-09-24T21:22:39.968495Z"
         }
       ],
       "confidenceTier": "low",
@@ -6554,13 +6737,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T15:37:20Z",
       "updatedAt": "2026-09-23T15:37:20Z",
-      "generatedAt": "2026-09-24T20:54:15.518466Z",
+      "generatedAt": "2026-09-24T21:22:39.968577Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518466Z"
+          "updatedAt": "2026-09-24T21:22:39.968577Z"
         }
       ],
       "confidenceTier": "low",
@@ -6588,13 +6771,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T12:31:31Z",
       "updatedAt": "2026-09-23T12:31:31Z",
-      "generatedAt": "2026-09-24T20:54:15.518476Z",
+      "generatedAt": "2026-09-24T21:22:39.968586Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518476Z"
+          "updatedAt": "2026-09-24T21:22:39.968586Z"
         }
       ],
       "confidenceTier": "low",
@@ -6622,13 +6805,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T12:22:53Z",
       "updatedAt": "2026-09-23T12:22:53Z",
-      "generatedAt": "2026-09-24T20:54:15.518483Z",
+      "generatedAt": "2026-09-24T21:22:39.968595Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518483Z"
+          "updatedAt": "2026-09-24T21:22:39.968595Z"
         }
       ],
       "confidenceTier": "low",
@@ -6664,13 +6847,13 @@
       "category": "science",
       "publishedAt": "2026-09-24T00:26:38.374000Z",
       "updatedAt": "2026-09-24T00:26:38.374000Z",
-      "generatedAt": "2026-09-24T20:54:15.518490Z",
+      "generatedAt": "2026-09-24T21:22:39.968603Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518490Z"
+          "updatedAt": "2026-09-24T21:22:39.968603Z"
         }
       ],
       "confidenceTier": "low",
@@ -6697,13 +6880,13 @@
       "category": "local",
       "publishedAt": "2026-09-23T05:02:26Z",
       "updatedAt": "2026-09-23T05:02:26Z",
-      "generatedAt": "2026-09-24T20:54:15.518498Z",
+      "generatedAt": "2026-09-24T21:22:39.968611Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518498Z"
+          "updatedAt": "2026-09-24T21:22:39.968611Z"
         }
       ],
       "confidenceTier": "low",
@@ -6731,13 +6914,13 @@
       "category": "politics",
       "publishedAt": "2026-09-22T20:59:00Z",
       "updatedAt": "2026-09-22T20:59:00Z",
-      "generatedAt": "2026-09-24T20:54:15.518507Z",
+      "generatedAt": "2026-09-24T21:22:39.968619Z",
       "aiGenerated": false,
       "version": 1,
       "revisions": [
         {
           "version": 1,
-          "updatedAt": "2026-09-24T20:54:15.518507Z"
+          "updatedAt": "2026-09-24T21:22:39.968619Z"
         }
       ],
       "confidenceTier": "low",
