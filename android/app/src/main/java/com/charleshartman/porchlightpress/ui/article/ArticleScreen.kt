@@ -166,6 +166,7 @@ fun ArticleScreen(
                             Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                 Text("Source card — AI brief withheld or not yet generated.", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold))
                                 Text(story.headline, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("source-card-headline"))
+                                // Excerpt not stored separately; body shown below when present
                                 if (!story.body.isNullOrBlank()) {
                                     Text(story.body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
