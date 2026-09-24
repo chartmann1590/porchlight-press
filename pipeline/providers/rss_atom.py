@@ -54,19 +54,22 @@ def _http_charset(content_type: str | None) -> str | None:
 def decode_feed_bytes(content: bytes, content_type: str | None = None) -> bytes:
     """Return feedparser-ready bytes honoring declaration then HTTP charset.
 
-    Fast path: bytes that decode strictly under the declared encoding (or
-    the HTTP charset, or UTF-8 when neither is present) are returned
-    unchanged. Fallback: a feed whose bytes are invalid in its declared
-    encoding is re-decoded as windows-1252 -- a superset of ISO-8859-1 that
-    maps stray 0x80-0x9F bytes to their intended punctuation (em dash, smart
-    quotes) -- and re-emitted as UTF-8 with a corrected XML declaration, so
-    feedparser never sees undecodable bytes (its internal errors='replace'
-    is what surfaces U+FFFD downstream).
+    Fast path: bytes that decode strictly under the XML-declared encoding
+    (or under any charset when there is no declaration to contradict) are
+    returned unchanged. Otherwise -- the declared charset is wrong (e.g.
+    declaration says UTF-8 but only the HTTP charset windows-1252 decodes
+    the bytes) or nothing known decodes them -- transcode with the working
+    encoding (windows-1252 as the last resort: a superset of ISO-8859-1
+    that maps stray 0x80-0x9F bytes to their intended punctuation) and
+    re-emit clean UTF-8 with a corrected declaration, so feedparser never
+    decodes with the wrong codec (its internal errors='replace' is what
+    surfaces U+FFFD downstream).
     """
     if not content:
         return content
     declared = _declared_encoding(content)
     candidates = [e for e in (declared, _http_charset(content_type), "utf-8") if e]
+    working: str | None = None
     seen: set[str] = set()
     for enc in candidates:
         key = enc.lower().replace("_", "-")
@@ -77,12 +80,14 @@ def decode_feed_bytes(content: bytes, content_type: str | None = None) -> bytes:
             content.decode(enc)
         except (UnicodeDecodeError, LookupError):
             continue
-        return content  # clean under a known charset: leave bytes untouched
-    # Declared/HTTP/UTF-8 all fail: rescue via windows-1252 (total on bytes,
-    # never raises) and re-emit clean UTF-8 with only the declaration's
-    # encoding value corrected, so feedparser never sees undecodable bytes
-    # (its internal errors='replace' is what surfaces U+FFFD downstream).
-    text = content.decode("windows-1252")
+        working = enc
+        break
+    if working is not None and (
+        not declared
+        or working.lower().replace("_", "-") == declared.lower().replace("_", "-")
+    ):
+        return content  # declared encoding verified (or none to contradict)
+    text = content.decode(working) if working else content.decode("windows-1252")
     raw = text.encode("utf-8")
     if declared and declared != "utf-8-sig":
         patched, n = _XML_ENCODING_VALUE_RE.subn(rb"\g<head>UTF-8\g<quote>", raw, count=1)

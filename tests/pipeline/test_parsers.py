@@ -225,6 +225,18 @@ def test_rss_mislabeled_utf8_feed_rescued_not_replacement_char():
     assert "\ufffd" not in items[0].title
 
 
+def test_rss_declared_utf8_but_http_charset_wins():
+    # Declaration lies (UTF-8) while the HTTP charset tells the truth
+    # (windows-1252): the working encoding must win, or feedparser trusts
+    # the wrong declaration and emits U+FFFD.
+    body = _rss_bytes(b'\x93quoted\x94 \x97 done')
+    client = _client_for_body(body, "text/xml; charset=windows-1252")
+    items = RssAtomProvider(client, 2_097_152).fetch(_rss_source())
+    assert len(items) == 1
+    assert items[0].title == "“quoted” \u2014 done"
+    assert "\ufffd" not in items[0].title
+
+
 def test_rss_http_charset_honored_without_declaration():
     # No XML declaration: the HTTP Content-Type charset decides.
     body = _rss_bytes(b'A husband got cancer \x97 his friends stepped up',
