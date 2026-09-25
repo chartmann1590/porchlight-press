@@ -61,6 +61,8 @@ class NewspaperUiTest {
             overrideForTests(
                 edition = com.charleshartman.porchlightpress.data.repo.EditionRepository(db),
                 translation = TranslationRepository(db, FakeTranslatorEngine()),
+                // Hermetic: weather never touches the network in UI tests.
+                weather = unavailableWeatherRepo(),
             )
         }
         gate = AdMobGate(context).apply { config = config.copy(enabled = false) }
