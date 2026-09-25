@@ -353,3 +353,120 @@ def test_share_carry_forward_and_prune(tmp_path):
     assert (out / "s/carried-abc12345.html").exists()  # <30d kept
     assert not (out / "s/stale-abc12345.html").exists()  # >30d pruned
     assert (out / "s/a1b2c3d4e5f60001.html").exists()
+
+
+def _backfill_story(sid, headline, locations, score_section="local"):
+    s = _story(sid, headline=headline, city="Schenectady", admin1="US-NY")
+    s["locations"] = locations
+    return s
+
+
+def test_city_backfills_metro_state_national_in_tier_order(tmp_path):
+    city = _backfill_story(
+        "city00001", "Schenectady council approves downtown project in Schenectady",
+        [{"country": "US", "admin1": "US-NY", "city": "Schenectady",
+          "metro": "us-ny-capital-region"}])
+    metros = [
+        _backfill_story(
+            f"metro0000{i}", f"Capital Region transit expansion milestone number {i} in Albany",
+            [{"country": "US", "admin1": "US-NY", "metro": "us-ny-capital-region"}])
+        for i in range(1, 6)
+    ]
+    states = [
+        _backfill_story(
+            f"state0000{i}", f"New York state budget update number {i} for upstate counties",
+            [{"country": "US", "admin1": "US-NY"}])
+        for i in range(1, 6)
+    ]
+    nationals = [
+        _backfill_story(
+            f"natl00000{i}", f"National infrastructure bill update number {i} across the states",
+            [{"country": "US"}])
+        for i in range(1, 6)
+    ]
+    stories = [city] + metros + states + nationals
+    clusters = []
+    clusters.append({"eventId": city["id"], "score": 1.0, "section": "local", "members": []})
+    for i, s in enumerate(metros):
+        clusters.append({"eventId": s["id"], "score": 0.9 - i * 0.01,
+                         "section": "regional", "members": []})
+    for i, s in enumerate(states):
+        clusters.append({"eventId": s["id"], "score": 0.8 - i * 0.01,
+                         "section": "state", "members": []})
+    for i, s in enumerate(nationals):
+        clusters.append({"eventId": s["id"], "score": 0.7 - i * 0.01,
+                         "section": "national", "members": []})
+    sp, cp = _write_inputs(tmp_path, stories, clusters)
+    out = _run_publish(tmp_path, sp, cp, "2026-09-23T10:17:00Z", "pub-backfill")
+    edition = json.loads((out / "feeds/us/ny/schenectady/latest.json").read_text(encoding="utf-8"))
+    ids = [s["id"] for s in edition["stories"]]
+    assert len(ids) == 16
+    assert len(set(ids)) == 16  # deduped
+    assert ids[0] == "city00001"
+    assert ids[1:6] == [f"metro0000{i}" for i in range(1, 6)]
+    assert ids[6:11] == [f"state0000{i}" for i in range(1, 6)]
+    assert ids[11:16] == [f"natl00000{i}" for i in range(1, 6)]
+    assert len(ids) <= 30  # edition cap
+    # Stories keep their own locations so the app can tell local from wider.
+    by_id = {s["id"]: s for s in edition["stories"]}
+    assert by_id["city00001"]["locations"][0].get("city") == "Schenectady"
+    assert "city" not in by_id["metro00001"]["locations"][0]
+    assert by_id["metro00001"]["locations"][0].get("metro") == "us-ny-capital-region"
+    assert by_id["state00001"]["locations"][0].get("admin1") == "US-NY"
+    # Identical across editions: metro story in city == metro story in metro feed.
+    metro_ed = json.loads((out / "feeds/us/ny/regions/us-ny-capital-region/latest.json")
+                          .read_text(encoding="utf-8"))
+    metro_by_id = {s["id"]: s for s in metro_ed["stories"]}
+    assert metro_by_id["metro00001"] == by_id["metro00001"]
+    assert metro_by_id["city00001"] == by_id["city00001"]
+    # Metro backfills from state then national; state backfills from national.
+    metro_ids = [s["id"] for s in metro_ed["stories"]]
+    assert metro_ids[:6] == ["city00001"] + [f"metro0000{i}" for i in range(1, 6)]
+    assert metro_ids[6:11] == [f"state0000{i}" for i in range(1, 6)]
+    assert metro_ids[11:16] == [f"natl00000{i}" for i in range(1, 6)]
+    state_ed = json.loads((out / "feeds/us/ny/state/latest.json").read_text(encoding="utf-8"))
+    state_ids = [s["id"] for s in state_ed["stories"]]
+    assert len(state_ids) == 16 and len(set(state_ids)) == 16
+    assert state_ids[-5:] == [f"natl00000{i}" for i in range(1, 6)]
+    national_ed = json.loads((out / "feeds/us/national/latest.json").read_text(encoding="utf-8"))
+    assert len(national_ed["stories"]) == 16
+    # Sections stay schema-compatible: single top section lists every story.
+    assert edition["sections"] and edition["sections"][0]["id"] == "top"
+    assert edition["sections"][0]["storyIds"] == ids
+    # Same rule for the evening snapshot.
+    out_eve = _run_publish(tmp_path, sp, cp, "2026-09-23T22:17:00Z", "pub-backfill-eve")
+    eve = json.loads((out_eve / "feeds/us/ny/schenectady/evening.json").read_text(encoding="utf-8"))
+    assert [s["id"] for s in eve["stories"]] == ids
+
+
+def test_city_with_full_quota_is_unchanged(tmp_path):
+    city_stories = []
+    clusters = []
+    sections = (["local"] * 10 + ["regional"] * 10 + ["state"] * 5 + ["national"] * 5)
+    for i in range(30):
+        sid = f"fullcity{i:04d}"
+        s = _backfill_story(
+            sid, f"Schenectady neighborhood project update number {i} in Schenectady",
+            [{"country": "US", "admin1": "US-NY", "city": "Schenectady",
+              "metro": "us-ny-capital-region"}])
+        city_stories.append(s)
+        clusters.append({"eventId": sid, "score": 1.0 - i * 0.001,
+                         "section": sections[i], "members": []})
+    extra_state = _backfill_story(
+        "extrastt01", "New York state extra budget story for upstate counties",
+        [{"country": "US", "admin1": "US-NY"}])
+    extra_nat = _backfill_story(
+        "extranat01", "National extra infrastructure story across the states",
+        [{"country": "US"}])
+    stories = city_stories + [extra_state, extra_nat]
+    clusters += [
+        {"eventId": "extrastt01", "score": 0.01, "section": "state", "members": []},
+        {"eventId": "extranat01", "score": 0.01, "section": "national", "members": []},
+    ]
+    sp, cp = _write_inputs(tmp_path, stories, clusters)
+    out = _run_publish(tmp_path, sp, cp, "2026-09-23T10:17:00Z", "pub-full")
+    edition = json.loads((out / "feeds/us/ny/schenectady/latest.json").read_text(encoding="utf-8"))
+    ids = [s["id"] for s in edition["stories"]]
+    assert len(ids) == 30
+    assert set(ids) == {f"fullcity{i:04d}" for i in range(30)}
+    assert "extrastt01" not in ids and "extranat01" not in ids
