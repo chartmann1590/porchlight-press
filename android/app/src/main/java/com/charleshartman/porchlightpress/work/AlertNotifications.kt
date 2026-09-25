@@ -23,6 +23,17 @@ import com.charleshartman.porchlightpress.data.weather.WeatherAlert
 object AlertNotifications {
     const val CHANNEL_SEVERE = "severe_weather"
 
+    /**
+     * Per-alert request/notification code. A raw [String.hashCode] is a 32-bit
+     * signed int and can collide (birthday paradox), which would let one
+     * alert's PendingIntent overwrite another's. Masking off the sign bit
+     * keeps the full 31-bit range and XORing with a per-app salt further
+     * separates alert codes from any hash computed elsewhere in the app.
+     */
+    private const val SALT = 0x50726F63 // "Proc" — arbitrary, fixed per build
+    fun requestCode(alertId: String): Int =
+        (alertId.hashCode() and 0x7FFFFFFF) xor SALT
+
     fun ensureChannels(context: Context) {
         if (Build.VERSION.SDK_INT < 26) return
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -69,7 +80,7 @@ object AlertNotifications {
         }
         val pending = PendingIntent.getActivity(
             context,
-            alert.id.hashCode(),
+            requestCode(alert.id),
             openApp,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
@@ -84,7 +95,7 @@ object AlertNotifications {
             .setContentIntent(pending)
             .build()
         runCatching {
-            NotificationManagerCompat.from(context).notify(alert.id.hashCode(), notification)
+            NotificationManagerCompat.from(context).notify(requestCode(alert.id), notification)
         }
     }
 }
