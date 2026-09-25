@@ -28,6 +28,19 @@ python scripts/build_gazetteer.py --mode trimmed
   NY state, US, plus a world sample (London, Toronto, Paris, …). <100KB.
 - `pipeline/geo/postal.json` — 7 Capital Region ZIPs (12207/12208/12210 Albany,
   12307/12308 Schenectady, 12180 Troy, 12866 Saratoga Springs). <50KB.
+- `pipeline/geo/municipalities.json` — ~1.3k NY municipality names (cities,
+  towns, villages, CDPs, lowercase, names only). <30KB. This is the
+  clustering place-entity gate (`pipeline/cluster.py`): a shared entity
+  naming one of these is place evidence, never event evidence, even when the
+  item's resolved locations omit the town (live Ballston Spa case).
+
+```bash
+python scripts/build_gazetteer.py --mode municipalities
+```
+
+Regenerates `pipeline/geo/municipalities.json` from the Census Gazetteer
+places file (public domain) filtered to `--include-admin1` (default US-NY).
+Needs the network; offline checkouts keep the committed file.
 
 These cover the test market and offline tests. They are the only geo files in
 the repo by policy: never commit large raw dumps.
