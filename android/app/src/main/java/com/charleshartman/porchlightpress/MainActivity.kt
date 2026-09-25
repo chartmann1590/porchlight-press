@@ -20,17 +20,27 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.charleshartman.porchlightpress.data.remote.NetworkModule
 import com.charleshartman.porchlightpress.data.remote.TaxonomyDto
 import com.charleshartman.porchlightpress.ui.nav.PorchlightNavGraph
+import com.charleshartman.porchlightpress.ui.nav.Routes
 import com.charleshartman.porchlightpress.ui.onboarding.OnboardingRoute
 import com.charleshartman.porchlightpress.ui.onboarding.OnboardingViewModel
 import com.charleshartman.porchlightpress.ui.theme.ClassicNewspaper
 import com.charleshartman.porchlightpress.ui.theme.PorchlightTheme
 import com.charleshartman.porchlightpress.ui.theme.currentLayout
+import com.charleshartman.porchlightpress.work.AlertScheduler
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        /** Notification deep link: open the Weather screen on launch. */
+        const val EXTRA_OPEN_WEATHER = "porchlight.open_weather"
+        /** Notification deep link: then open this alert's detail. */
+        const val EXTRA_ALERT_ID = "porchlight.alert_id"
+    }
 
     private val container: AppContainer
         get() = (application as PorchlightApp).container
@@ -59,6 +69,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        // Severe-weather worker follows the notifySevere toggle (Phase 7).
+        // Driven from the lifecycle (not composition) so it can't be skipped:
+        // every emission reconciles the schedule with the persisted toggle.
+        // POST_NOTIFICATIONS was requested at the moment the toggle was enabled.
+        lifecycleScope.launch {
+            container.prefs.prefs.collect { p ->
+                android.util.Log.i(
+                    "Porchlight",
+                    "prefs severe=${p.notifySevere} breaking=${p.notifyBreaking} " +
+                        "editions=${p.notifyEditions} lang=${p.appLanguage}",
+                )
+                AlertScheduler.ensure(this@MainActivity, p.notifySevere)
+            }
+        }
         setContent {
             val prefs by container.prefs.prefs.collectAsState(initial = null)
             val p = prefs
@@ -84,13 +108,19 @@ class MainActivity : ComponentActivity() {
                                 container.adGate.initializeIfConsented(true)
                             }
                         }
+                        // Severe-weather scheduling is lifecycle-driven in
+                        // onCreate (see above); no Compose effect needed here.
                         var showLocationSwitch by remember { mutableStateOf(false) }
+                        val openWeather = intent.getBooleanExtra(EXTRA_OPEN_WEATHER, false)
+                        val startAlertId = intent.getStringExtra(EXTRA_ALERT_ID)
                         Box(Modifier.fillMaxSize()) {
                             PorchlightNavGraph(
                                 container = container,
                                 gate = container.adGate,
                                 interstitial = container.interstitialController,
                                 onSwitchLocation = { showLocationSwitch = true },
+                                startDestination = if (openWeather) Routes.WEATHER else Routes.FRONT,
+                                startAlertId = startAlertId,
                             )
                             if (showLocationSwitch) {
                                 LocationSwitchDialog(

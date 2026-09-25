@@ -31,6 +31,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.charleshartman.porchlightpress.AppContainer
 import com.charleshartman.porchlightpress.data.ads.AdMobGate
+import com.charleshartman.porchlightpress.data.weather.WeatherRepository
 import com.charleshartman.porchlightpress.ui.components.BannerAdSlot
 import com.charleshartman.porchlightpress.ui.components.EditionLabel
 import com.charleshartman.porchlightpress.ui.components.HeroStory
@@ -40,6 +41,8 @@ import com.charleshartman.porchlightpress.ui.components.SectionHeader
 import com.charleshartman.porchlightpress.ui.components.StoryCard
 import com.charleshartman.porchlightpress.ui.components.TranslationLabel
 import com.charleshartman.porchlightpress.ui.theme.LocalLayout
+import com.charleshartman.porchlightpress.ui.weather.FrontAlertBanners
+import com.charleshartman.porchlightpress.ui.weather.FrontWeatherSlot
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -52,6 +55,8 @@ fun FrontPageScreen(
     onSectionClick: (String) -> Unit,
     onSwitchLocation: () -> Unit,
     onOpenInfo: (String) -> Unit,
+    onOpenWeather: () -> Unit = {},
+    onAlertClick: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
@@ -67,20 +72,13 @@ fun FrontPageScreen(
             placeLabel = state.place?.label,
             onSwitchLocation = onSwitchLocation,
         )
-        // Edition label + weather teaser row
+        // Edition label row (sticky header).
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             EditionLabel(generatedAt = state.generatedAt, kind = state.editionKind, clockOverride = clock)
-            // Compact weather slot (Phase 7 fills this; stub keeps layout honest without blocking).
-            Text(
-                "— Weather —",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.testTag("weather-teaser"),
-            )
         }
         if (state.offline) {
             Text(
@@ -108,9 +106,13 @@ fun FrontPageScreen(
                 else -> FrontPageList(
                     state = state,
                     lang = lang,
+                    clockOverride = clock,
+                    container = container,
                     isTwoColumn = isTwoColumn,
                     gate = gate,
                     onStoryClick = onStoryClick,
+                    onOpenWeather = onOpenWeather,
+                    onAlertClick = onAlertClick,
                 )
             }
         }
@@ -153,9 +155,13 @@ private fun ChipsRow(
 private fun FrontPageList(
     state: FrontPageUiState,
     lang: String,
+    clockOverride: String,
+    container: AppContainer,
     isTwoColumn: Boolean,
     gate: AdMobGate,
     onStoryClick: (String) -> Unit,
+    onOpenWeather: () -> Unit,
+    onAlertClick: (String) -> Unit,
 ) {
     // Flatten sections → interleaved with ad slots every N sections.
     val adsEveryN = gate.config.adsEveryNSections.coerceAtLeast(1)
@@ -164,6 +170,44 @@ private fun FrontPageList(
         verticalArrangement = Arrangement.spacedBy(0.dp),
         contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 8.dp),
     ) {
+        // Severe alerts + weather slot ride at the top of the scroll (Phase
+        // 7) so they stay reachable on small screens instead of being cut
+        // off in a fixed header.
+        val weatherData = (state.weather as? WeatherRepository.Snapshot.Ready)?.data
+        val weatherStale = (state.weather as? WeatherRepository.Snapshot.Ready)?.stale ?: false
+        val weatherGone = state.weather is WeatherRepository.Snapshot.Unavailable
+        if (weatherData != null && weatherData.alerts.isNotEmpty()) {
+            item(key = "front-alerts") {
+                FrontAlertBanners(
+                    alerts = weatherData.alerts,
+                    clockOverride = clockOverride,
+                    onAlertClick = onAlertClick,
+                )
+            }
+        }
+        if (state.weather != null) {
+            item(key = "front-weather") {
+                FrontWeatherSlot(
+                    container = container,
+                    data = weatherData,
+                    stale = weatherStale,
+                    unavailable = weatherGone,
+                    country = state.place?.country ?: "US",
+                    lang = lang,
+                    clockOverride = clockOverride,
+                    onOpenWeather = onOpenWeather,
+                )
+            }
+        } else {
+            item(key = "front-weather-stub") {
+                Text(
+                    "— Weather —",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.testTag("weather-teaser"),
+                )
+            }
+        }
         var sectionIndex = 0
         state.sections.forEach { sec ->
             val stories = sec.stories
