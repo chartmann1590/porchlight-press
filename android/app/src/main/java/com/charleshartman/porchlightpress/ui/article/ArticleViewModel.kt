@@ -17,7 +17,8 @@ data class ArticleUiState(
     val translation: StoryTranslation? = null,
     val showOriginal: Boolean = false,
     val isTranslating: Boolean = false,
-    val error: String? = null,
+ val error: String? = null,
+ val readAloudSpeed: Float = 1f,
 )
 
 class ArticleViewModel(
@@ -30,12 +31,12 @@ class ArticleViewModel(
     init {
         viewModelScope.launch {
             container.prefs.prefs.collect { prefs ->
-                load(storyId, prefs.appLanguage)
+ load(storyId, prefs.appLanguage, prefs.readAloudSpeed.toFloat())
             }
         }
     }
 
-    private suspend fun load(storyId: String, lang: String) {
+ private suspend fun load(storyId: String, lang: String, speed: Float) {
         _state.value = ArticleUiState(isLoading = true)
         val story = container.db.storyDao().storyById(storyId)
         if (story == null) {
@@ -45,7 +46,7 @@ class ArticleViewModel(
         val sources = container.db.storyDao().sourcesFor(storyId)
         val translation = if (lang != "en") container.db.translationDao().storyTranslation(storyId, story.version, lang) else null
         val isTranslating = lang != "en" && translation == null
-        _state.value = ArticleUiState(isLoading = false, story = story, sources = sources, translation = translation, isTranslating = isTranslating)
+ _state.value = ArticleUiState(isLoading = false, story = story, sources = sources, translation = translation, isTranslating = isTranslating, readAloudSpeed = speed)
         if (isTranslating) {
             viewModelScope.launch {
                 try {

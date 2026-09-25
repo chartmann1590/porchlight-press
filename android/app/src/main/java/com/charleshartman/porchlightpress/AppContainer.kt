@@ -30,6 +30,7 @@ import com.charleshartman.porchlightpress.data.weather.WeatherRepository
  * UI tests swap repositories via [overrideForTests].
  */
 class AppContainer(val context: Context) {
+    val optionalServices by lazy { com.charleshartman.porchlightpress.data.OptionalServices(context) }
     val db: AppDatabase by lazy {
         Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.NAME)
             .addMigrations(AppDatabase.MIGRATION_1_2)

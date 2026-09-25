@@ -28,14 +28,14 @@ val feedBaseUrl = prop("feedBaseUrl", "https://chartmann1590.github.io/porchligh
 
 android {
     namespace = "com.charleshartman.porchlightpress"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.charleshartman.porchlightpress"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "0.7.0"
+        targetSdk = 36
+        versionCode = prop("versionCode", "1").toInt()
+        versionName = prop("versionName", "0.8.0")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -46,6 +46,17 @@ android {
         buildConfigField("String", "ADMOB_BANNER_ID", "\"$admobBannerId\"")
         buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"$admobInterstitialId\"")
         buildConfigField("String", "ADMOB_NATIVE_ID", "\"$admobNativeId\"")
+    }
+
+    signingConfigs {
+        if (findProperty("releaseStoreFile") != null) {
+            create("release") {
+                storeFile = file(prop("releaseStoreFile", ""))
+                storePassword = prop("releaseStorePassword", "")
+                keyAlias = prop("releaseKeyAlias", "")
+                keyPassword = prop("releaseKeyPassword", "")
+            }
+        }
     }
 
     buildTypes {
@@ -75,6 +86,7 @@ android {
             )
         }
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -113,6 +125,12 @@ ksp {
 }
 
 dependencies {
+    implementation("androidx.media:media:1.7.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-perf")
+    implementation("com.google.firebase:firebase-config")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)

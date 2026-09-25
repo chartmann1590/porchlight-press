@@ -3,6 +3,7 @@
     <!-- Location lives only on this device; exclude prefs carrying it from
         cloud backup (MASTER_PLAN privacy). Databases excluded for the same
         reason; saved stories re-sync from feeds. -->
-    <exclude domain="sharedpref" path="porchlight_prefs.preferences_pb" />
-    <exclude domain="database" path="porchlight.db" />
+    <exclude domain="file" path="datastore/" />
+    <exclude domain="sharedpref" path="." />
+    <exclude domain="database" path="." />
 </full-backup-content>

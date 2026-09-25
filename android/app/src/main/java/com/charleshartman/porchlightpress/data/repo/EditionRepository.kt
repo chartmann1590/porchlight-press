@@ -1,5 +1,6 @@
 package com.charleshartman.porchlightpress.data.repo
 
+import androidx.room.withTransaction
 import com.charleshartman.porchlightpress.BuildConfig
 import com.charleshartman.porchlightpress.data.local.AppDatabase
 import com.charleshartman.porchlightpress.data.local.Edition
@@ -53,7 +54,11 @@ class EditionRepository(
         place: Place,
         kind: String = "latest",
         api: FeedApi,
+        resolutionPlace: Place? = null,
+        storageKind: String? = null,
     ): FeedResult<SyncSummary> {
+        val targetPlace = resolutionPlace ?: place
+        val targetKind = storageKind ?: kind
         val index = try {
             val resp = api.index()
             if (!resp.isSuccessful || resp.body() == null) {
@@ -61,7 +66,7 @@ class EditionRepository(
             }
             resp.body()!!
         } catch (e: IOException) {
-            return FeedResult.Offline(cachedSummary(place, kind))
+            return FeedResult.Offline(cachedSummary(place, targetKind))
         } catch (e: Exception) {
             return FeedResult.Error("Couldn't load the feed index: ${e.message}")
         }
@@ -78,9 +83,9 @@ class EditionRepository(
                 metro = it.location.metro,
             )
         }
-        val path = EditionResolution.resolve(place, entries, kind)
+        val path = EditionResolution.resolve(targetPlace, entries, kind)
             ?: return cachedOrError(place, "No feed covers ${place.label} yet")
-        val firstChoice = EditionResolution.candidateFeedPaths(place, kind).firstOrNull()
+        val firstChoice = EditionResolution.candidateFeedPaths(targetPlace, kind).firstOrNull()
 
         val edition = try {
             val resp = api.edition(path)
@@ -89,13 +94,13 @@ class EditionRepository(
             }
             resp.body()!!
         } catch (e: IOException) {
-            return FeedResult.Offline(cachedSummary(place, kind))
+            return FeedResult.Offline(cachedSummary(place, targetKind))
         } catch (e: Exception) {
             return FeedResult.Error("Couldn't load the edition: ${e.message}")
         }
 
         if (edition.apiVersion > supportedMajor) return FeedResult.UpdateRequired(UPDATE_MESSAGE)
-        persist(place, kind, path, edition)
+        persist(place, targetKind, path, edition)
         return FeedResult.Ok(
             SyncSummary(
                 editionId = edition.editionId,
@@ -120,14 +125,8 @@ class EditionRepository(
     }
 
     fun observeEdition(locationId: String, kind: String = "latest"): Flow<EditionContent?> {
-        // Poll-free: callers re-collect after sync; Room is the source of truth.
-        return kotlinx.coroutines.flow.flow {
-            val edition = db.editionDao().editionFor(locationId, kind)
-            if (edition == null) {
-                emit(null)
-                return@flow
-            }
-            emit(contentOf(edition))
+        return db.editionDao().observeEditionFor(locationId, kind).map { edition ->
+            edition?.let { contentOf(it) }
         }
     }
 
@@ -212,12 +211,21 @@ class EditionRepository(
             }
         }
         val fts = edition.stories.map { it.toFts("en") }
-        db.editionDao().upsertEdition(editionRow)
-        db.editionDao().upsertSections(sections)
-        db.editionDao().upsertLinks(links)
-        db.storyDao().upsertStories(stories)
-        db.storyDao().upsertSources(sources)
-        db.storyDao().upsertFts(fts)
+        db.withTransaction {
+            db.editionDao().upsertEdition(editionRow)
+            db.editionDao().deleteLinksForEdition(editionRow.id)
+            db.editionDao().deleteSectionsForEdition(editionRow.id)
+            db.editionDao().upsertSections(sections)
+            db.editionDao().upsertLinks(links)
+            db.storyDao().upsertStories(stories)
+            if (stories.isNotEmpty()) {
+                val ids = stories.map { it.id }
+                db.storyDao().deleteSourcesForStories(ids)
+                db.storyDao().deleteFtsForStories(ids, "en")
+            }
+            db.storyDao().upsertSources(sources)
+            db.storyDao().upsertFts(fts)
+        }
     }
 
     private fun StoryDto.toRow(): Story {
@@ -261,3 +269,6 @@ class EditionRepository(
         EditionResolution.IndexEntry(it.path, it.location.country, it.location.admin1, it.location.admin2, it.location.city, it.location.metro)
     }
 }
+
+
+

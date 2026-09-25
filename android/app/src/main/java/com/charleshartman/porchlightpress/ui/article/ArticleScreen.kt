@@ -28,6 +28,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.charleshartman.porchlightpress.BuildConfig
@@ -37,6 +40,8 @@ import com.charleshartman.porchlightpress.ui.components.AiDisclosureBox
 import com.charleshartman.porchlightpress.ui.components.ImageWithAttribution
 import com.charleshartman.porchlightpress.ui.components.TranslationLabel
 import com.charleshartman.porchlightpress.ui.util.TimeFormat
+import com.charleshartman.porchlightpress.ui.speech.SpeechController
+import com.charleshartman.porchlightpress.ui.speech.SpeechService
 
 @Composable
 fun ArticleScreen(
@@ -47,8 +52,10 @@ fun ArticleScreen(
     val stateVal by viewModel.state.collectAsState()
     val cur = stateVal
     val context = LocalContext.current
+    val speech by SpeechController.state.collectAsState()
 
     Column(modifier.fillMaxSize().testTag("article-screen")) {
+        speech.error?.let { Text(it, Modifier.fillMaxWidth().padding(8.dp), color = MaterialTheme.colorScheme.error) }
         // Top bar with Back + Share
         Row(
             Modifier.fillMaxWidth().padding(8.dp),
@@ -58,13 +65,25 @@ fun ArticleScreen(
             TextButton(onClick = onBack, modifier = Modifier.testTag("article-back")) { Text("‹ Back") }
             val story = cur.story
             if (story != null) {
+                TextButton(onClick = {
+                    val headline = if (!cur.showOriginal) cur.translation?.headline ?: story.headline else story.headline
+                    val dek = if (!cur.showOriginal) cur.translation?.dek ?: story.dek else story.dek
+                    val body = if (!cur.showOriginal) cur.translation?.body ?: story.body else story.body
+                    SpeechController.play(context, headline, listOfNotNull(headline, dek, body).joinToString(". "),
+                        if (!cur.showOriginal) cur.translation?.lang ?: "en" else "en", cur.readAloudSpeed)
+                }, modifier = Modifier.testTag("article-listen")) { Text("Listen") }
                 TextButton(
                     onClick = {
                         val shareText = buildString {
-                            append(story.headline)
-                            if (!story.dek.isNullOrBlank()) append("\n\n${story.dek}")
-                            append("\n\n${sharePageUrl(story.id)}")
-                            append("\n\nvia Porchlight Press \u00b7 AI-written brief, sources linked")
+                            append(if (!cur.showOriginal) cur.translation?.headline ?: story.headline else story.headline)
+                            val dek = if (!cur.showOriginal) cur.translation?.dek ?: story.dek else story.dek
+                            if (!dek.isNullOrBlank()) append("\n\n$dek")
+                            if (story.aiGenerated) {
+                                append("\n\n${sharePageUrl(story.id)}")
+                                append("\n\nvia Porchlight Press \u00b7 AI-written brief, sources linked")
+                            } else {
+                                cur.sources.firstOrNull()?.let { append("\n\n${it.publisher}: ${it.url}") }
+                            }
                         }
                         val intent = Intent(Intent.ACTION_SEND).apply {
                             type = "text/plain"
@@ -159,7 +178,16 @@ fun ArticleScreen(
 
                     // Body vs source-card variant
                     if (story.aiGenerated && !effectiveBody.isNullOrBlank()) {
-                        Text(effectiveBody, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("article-body"))
+                        val active = speech.sentence.takeIf { speech.playing && speech.title == effectiveHeadline && it.isNotBlank() }
+                        val match = active?.let { effectiveBody.indexOf(it, ignoreCase = true) } ?: -1
+                        val displayedBody = if (match >= 0 && active != null) buildAnnotatedString {
+                            append(effectiveBody.substring(0, match))
+                            withStyle(SpanStyle(background = MaterialTheme.colorScheme.primaryContainer)) {
+                                append(effectiveBody.substring(match, match + active.length))
+                            }
+                            append(effectiveBody.substring(match + active.length))
+                        } else buildAnnotatedString { append(effectiveBody) }
+                        Text(displayedBody, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("article-body"))
                     } else {
                         // Source-card: original headline + publisher + permitted excerpt, no generated text
                         Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().testTag("source-card")) {
@@ -190,17 +218,31 @@ fun ArticleScreen(
                     if (cur.sources.isEmpty()) {
                         Text("Sources unavailable.", style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("sources-empty"))
                     }
-                    // Share footer overflow (spec: share button in article top bar + overflow)
+                    // Source URL remains the original publisher's link.
                     TextButton(
                         onClick = {
                             val firstUrl = cur.sources.firstOrNull()?.url
                             if (firstUrl != null) {
-                                val intent = CustomTabsIntent.Builder().build()
-                                intent.launchUrl(context, android.net.Uri.parse(firstUrl))
+                                val intent = Intent(Intent.ACTION_SEND).apply {
+                                    type = "text/plain"
+                                    putExtra(Intent.EXTRA_TEXT, "${cur.sources.first().publisher}: ${story.headline}\n$firstUrl")
+                                }
+                                context.startActivity(Intent.createChooser(intent, "Share original article"))
                             }
                         },
                         modifier = Modifier.testTag("share-original"),
                     ) { Text("Share original article") }
+                    if (speech.title == effectiveHeadline && speech.count > 0) {
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                            TextButton(onClick = { SpeechController.command(context, SpeechService.PREVIOUS) }) { Text("Previous") }
+                            TextButton(onClick = { SpeechController.command(context, if (speech.playing) SpeechService.PAUSE else SpeechService.RESUME) }) {
+                                Text(if (speech.playing) "Pause" else "Play")
+                            }
+                            TextButton(onClick = { SpeechController.command(context, SpeechService.NEXT) }) { Text("Next") }
+                            TextButton(onClick = { SpeechController.command(context, SpeechService.STOP) }) { Text("Stop") }
+                        }
+                        Text("Sentence ${speech.index + 1} of ${speech.count}", style = MaterialTheme.typography.labelSmall)
+                    }
                 }
             }
         }
@@ -236,4 +278,3 @@ private fun SourceRow(src: StorySource, modifier: Modifier = Modifier) {
         Text("Read original →", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("source-link"))
     }
 }
-

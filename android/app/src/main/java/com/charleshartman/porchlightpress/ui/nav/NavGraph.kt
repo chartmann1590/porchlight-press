@@ -37,10 +37,15 @@ object Routes {
     const val ABOUT = "about"
     const val WEATHER = "weather"
     const val ALERT_DETAIL = "alert/{alertId}"
+    const val SAVED = "saved"
+    const val SEARCH = "search"
+    const val SETTINGS = "settings"
+    const val PDF = "pdf/{fileName}"
 
-    fun section(id: String) = "section/$id"
-    fun article(id: String) = "article/$id"
-    fun alertDetail(id: String) = "alert/$id"
+    fun section(id: String) = "section/${android.net.Uri.encode(id)}"
+    fun article(id: String) = "article/${android.net.Uri.encode(id)}"
+    fun alertDetail(id: String) = "alert/${android.net.Uri.encode(id)}"
+    fun pdf(name: String) = "pdf/${android.net.Uri.encode(name)}"
 }
 
 @Composable
@@ -58,6 +63,9 @@ fun PorchlightNavGraph(
     /** Notification deep link, consumed once (graph-level so popping back
      * from the detail to Weather can't re-fire it into a Back trap). */
     var pendingAlert by remember { mutableStateOf(startAlertId) }
+    LaunchedEffect(navController) {
+        navController.currentBackStackEntryFlow.collect { container.optionalServices.screen(it.destination.route.orEmpty()) }
+    }
     NavHost(navController = navController, startDestination = startDestination) {        composable(Routes.FRONT) {
             val factory = remember(container) {
                 object : ViewModelProvider.Factory {
@@ -77,6 +85,10 @@ fun PorchlightNavGraph(
                 onOpenInfo = { navController.navigate(Routes.ABOUT) },
                 onOpenWeather = { navController.navigate(Routes.WEATHER) },
                 onAlertClick = { aid -> navController.navigate(Routes.alertDetail(aid)) },
+                onOpenSaved = { navController.navigate(Routes.SAVED) },
+                onOpenSearch = { navController.navigate(Routes.SEARCH) },
+                onOpenSettings = { navController.navigate(Routes.SETTINGS) },
+                onViewPdf = { navController.navigate(Routes.pdf(it)) },
             )
         }
         composable(Routes.WEATHER) {
@@ -161,6 +173,34 @@ fun PorchlightNavGraph(
         }
         composable(Routes.ABOUT) {
             AboutScreen(container = container, onBack = { navController.popBackStack() })
+        }
+        composable(Routes.SAVED) {
+            com.charleshartman.porchlightpress.ui.daily.SavedScreen(container,
+                onBack = { navController.popBackStack() },
+                onStoryClick = { navController.navigate(Routes.article(it)) },
+                downloadedPapers = {
+                    com.charleshartman.porchlightpress.ui.export.DownloadedPapersScreen(
+                        onViewPdf = { navController.navigate(Routes.pdf(it)) })
+                })
+        }
+        composable(Routes.SEARCH) {
+            com.charleshartman.porchlightpress.ui.daily.SearchScreen(container,
+                onBack = { navController.popBackStack() },
+                onStoryClick = { navController.navigate(Routes.article(it)) })
+        }
+        composable(Routes.SETTINGS) {
+            val activity = LocalContext.current as? android.app.Activity
+            com.charleshartman.porchlightpress.ui.daily.SettingsScreen(container,
+                onBack = { navController.popBackStack() },
+                onAddLocation = onRequestLocationSwitchUi,
+                onSources = { navController.navigate(Routes.SOURCE_INFO) },
+                onAbout = { navController.navigate(Routes.ABOUT) },
+                onPrivacyOptions = { activity?.let { container.consentRepository.showPrivacyOptions(it) } })
+        }
+        composable(Routes.PDF) { entry ->
+            com.charleshartman.porchlightpress.ui.export.PdfReaderScreen(
+                fileName = entry.arguments?.getString("fileName").orEmpty(),
+                onBack = { navController.popBackStack() })
         }
     }
 }
