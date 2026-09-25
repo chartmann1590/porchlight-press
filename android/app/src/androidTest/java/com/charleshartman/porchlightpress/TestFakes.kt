@@ -13,6 +13,16 @@ import com.charleshartman.porchlightpress.data.remote.SectionDto
 import com.charleshartman.porchlightpress.data.remote.StoryDto
 import com.charleshartman.porchlightpress.data.remote.StoryLocationDto
 import com.charleshartman.porchlightpress.data.remote.StorySourceDto
+import com.charleshartman.porchlightpress.data.weather.CurrentWeather
+import com.charleshartman.porchlightpress.data.weather.DailyPoint
+import com.charleshartman.porchlightpress.data.weather.FakeCoordsResolver
+import com.charleshartman.porchlightpress.data.weather.FakeWeatherProvider
+import com.charleshartman.porchlightpress.data.weather.FailingWeatherProvider
+import com.charleshartman.porchlightpress.data.weather.HourlyPoint
+import com.charleshartman.porchlightpress.data.weather.InMemoryWeatherCacheStore
+import com.charleshartman.porchlightpress.data.weather.WeatherAlert
+import com.charleshartman.porchlightpress.data.weather.WeatherCondition
+import com.charleshartman.porchlightpress.data.weather.WeatherRepository
 import java.io.IOException
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -125,3 +135,83 @@ class FakeFeedApi(
         return Response.success(postal)
     }
 }
+
+// ---------------------------------------------------------------------------
+// Weather fakes (Phase 7): canned NWS/MET providers behind WeatherRepository.
+// ---------------------------------------------------------------------------
+
+fun testFloodAlert() = WeatherAlert(
+    id = "urn:test:flood-warning-1",
+    event = "Flood Warning",
+    headline = "Flood Warning issued for Schenectady County",
+    description = "The Mohawk River at Schenectady is expected to rise above flood stage this evening.",
+    instruction = "Turn around, don't drown.",
+    severity = "Severe",
+    urgency = "Expected",
+    sender = "NWS Albany",
+    effective = "2026-09-24T14:15:00-04:00",
+    expires = "2026-09-24T23:00:00-04:00",
+    areaDesc = "Schenectady County",
+    link = "https://www.weather.gov/",
+)
+
+/** No coordinates → snapshot Unavailable, no network (keeps tests hermetic). */
+fun unavailableWeatherRepo() = WeatherRepository(
+    InMemoryWeatherCacheStore(),
+    FailingWeatherProvider("nws"),
+    FakeWeatherProvider("met"),
+    FakeCoordsResolver(null),
+)
+
+/** Canned NWS snapshot for a US place (Schenectady bucket). */
+fun cannedNwsWeatherRepo(alerts: List<WeatherAlert> = listOf(testFloodAlert())) = WeatherRepository(
+    InMemoryWeatherCacheStore(),
+    FakeWeatherProvider(
+        id = "nws",
+        current = CurrentWeather(
+            tempC = 21.1, feelsLikeC = 21.1, humidityPct = 65,
+            windKph = 14.5, windDir = "NW",
+            condition = WeatherCondition.PARTLY_CLOUDY, shortText = "Partly Cloudy",
+            precipPct = 5,
+        ),
+        hourly = (14..19).map { h ->
+            HourlyPoint(
+                "2026-09-24T${h}:00:00-04:00", tempC = 20.0 + (h - 14),
+                precipPct = 5, condition = WeatherCondition.PARTLY_CLOUDY,
+                shortText = "Partly Cloudy",
+            )
+        },
+        forecast = listOf(
+            DailyPoint("2026-09-24", hiC = 23.3, loC = 14.4, precipPct = 20, condition = WeatherCondition.PARTLY_CLOUDY, shortText = "Partly Cloudy"),
+            DailyPoint("2026-09-25", hiC = 24.0, loC = 13.0, precipPct = 80, condition = WeatherCondition.THUNDERSTORM, shortText = "Thunderstorms"),
+        ),
+        alerts = alerts,
+    ),
+    FakeWeatherProvider("met"),
+    FakeCoordsResolver(42.81 to -73.93),
+)
+
+/** Canned MET snapshot for a non-US place (Oslo bucket, no alerts). */
+fun cannedMetWeatherRepo() = WeatherRepository(
+    InMemoryWeatherCacheStore(),
+    FailingWeatherProvider("nws"),
+    FakeWeatherProvider(
+        id = "met",
+        current = CurrentWeather(
+            tempC = 14.2, feelsLikeC = 14.2, humidityPct = 71,
+            windKph = 11.2, windDir = "SW",
+            condition = WeatherCondition.RAIN, shortText = "Rain",
+            precipPct = 70,
+        ),
+        hourly = (12..17).map { h ->
+            HourlyPoint(
+                "2026-09-24T${h}:00:00Z", tempC = 14.0,
+                precipPct = 60, condition = WeatherCondition.RAIN, shortText = "Rain",
+            )
+        },
+        forecast = listOf(
+            DailyPoint("2026-09-24", hiC = 15.1, loC = 11.8, precipPct = 85, condition = WeatherCondition.RAIN, shortText = "Rain"),
+        ),
+    ),
+    FakeCoordsResolver(59.91 to 10.75),
+)

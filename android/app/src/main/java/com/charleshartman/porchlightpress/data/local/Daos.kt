@@ -139,3 +139,15 @@ interface SourceDao {
     @Query("SELECT * FROM source_info")
     suspend fun all(): List<SourceInfo>
 }
+
+@Dao
+interface NotifiedAlertDao {
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(rows: List<NotifiedAlert>)
+
+    @Query("SELECT alertId FROM notified_alerts WHERE alertId IN (:ids)")
+    suspend fun knownIds(ids: List<String>): List<String>
+
+    @Query("DELETE FROM notified_alerts WHERE notifiedAt < :olderThan")
+    suspend fun pruneOlderThan(olderThan: Long): Int
+}

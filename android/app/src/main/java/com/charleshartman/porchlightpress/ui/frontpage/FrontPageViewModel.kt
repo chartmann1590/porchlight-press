@@ -7,6 +7,7 @@ import com.charleshartman.porchlightpress.data.local.Story
 import com.charleshartman.porchlightpress.data.local.StoryTranslation
 import com.charleshartman.porchlightpress.data.repo.EditionRepository
 import com.charleshartman.porchlightpress.data.repo.TranslationRepository
+import com.charleshartman.porchlightpress.data.weather.WeatherRepository
 import com.charleshartman.porchlightpress.domain.Place
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,6 +38,8 @@ data class FrontPageUiState(
     val sections: List<SectionUi> = emptyList(),
     val allStories: List<FrontStoryUi> = emptyList(),
     val offline: Boolean = false,
+    /** Null until the first weather load finishes; never blocks the news. */
+    val weather: WeatherRepository.Snapshot? = null,
 )
 
 class FrontPageViewModel(
@@ -124,7 +127,16 @@ class FrontPageViewModel(
                 sections = sections,
                 allStories = uiStories,
                 offline = false,
+                weather = _state.value.weather,
             )
+            // Weather loads alongside (never blocking the news); cached "as
+            // of" data shows when the provider is down.
+            place?.let { p ->
+                viewModelScope.launch {
+                    val snap = runCatching { container.weatherRepository.snapshot(p) }.getOrNull()
+                    if (snap != null) _state.value = _state.value.copy(weather = snap)
+                }
+            }
             // Kick off background translation for stories that need it, after
             // state is set. Success swaps the translation in place; failure
             // clears the flag so no permanent "translating…" chip lingers.

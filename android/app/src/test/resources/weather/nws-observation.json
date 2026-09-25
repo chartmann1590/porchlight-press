@@ -1,0 +1,11 @@
+{
+  "properties": {
+    "temperature": {"value": 21.1, "unitCode": "wmoUnit:degC"},
+    "relativeHumidity": {"value": 65.0, "unitCode": "wmoUnit:percent"},
+    "heatIndex": {"value": null, "unitCode": "wmoUnit:degC"},
+    "windChill": {"value": null, "unitCode": "wmoUnit:degC"},
+    "windSpeed": {"value": 14.5, "unitCode": "wmoUnit:km_h-1"},
+    "windDirection": {"value": 300.0, "unitCode": "wmoUnit:degree_(angle)"},
+    "textDescription": "Partly Cloudy"
+  }
+}
