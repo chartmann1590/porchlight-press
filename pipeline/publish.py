@@ -563,9 +563,119 @@ def build_feeds(
         capped = order_and_cap(bucket_stories, clusters_by_id, caps)
         bucket["stories"] = capped
         feeds.append(bucket)
+    _backfill_editions(feeds, buckets, caps)
     # Deterministic order by directory.
     feeds.sort(key=lambda f: f["dir"])
     return feeds, feeds
+
+
+def _backfill_editions(
+    feeds: list[dict[str, Any]],
+    buckets: dict[str, dict[str, Any]],
+    caps: Mapping[str, int],
+) -> None:
+    """Backfill thin editions from wider tiers (in place).
+
+    City -> metro/region -> state -> national, metro -> state -> national,
+    state -> national, deduped by story id, capped at maxStoriesPerEdition
+    (default 30). Each tier keeps its existing ranking order (the tier's
+    already-capped edition order). Stories keep their own ``locations`` and
+    are the identical objects in every edition, so the feed schema is
+    unchanged and evening snapshots (built from the same feeds) inherit the
+    rule automatically.
+    """
+    try:
+        max_total = int(caps.get("maxStoriesPerEdition", DEFAULT_CAPS["maxStoriesPerEdition"]))  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        max_total = int(DEFAULT_CAPS["maxStoriesPerEdition"])
+    if max_total <= 0:
+        max_total = int(DEFAULT_CAPS["maxStoriesPerEdition"])
+
+    by_dir: dict[str, dict[str, Any]] = {str(f.get("dir")): f for f in feeds}
+    # Snapshot of each edition's ranked stories; donors use the pre-backfill
+    # order so tiers stay clean (city-own, then metro-own, then state-own,
+    # then national-own) instead of transitively mixing.
+    orig: dict[str, list[dict[str, Any]]] = {
+        d: list(f.get("stories", []) or []) for d, f in by_dir.items()
+    }
+    raw_ids: dict[str, list[str]] = {
+        d: [str(sid) for sid in (b.get("story_ids", []) or [])]
+        for d, b in buckets.items()
+    }
+
+    def _donors_for(feed: dict[str, Any]) -> list[str]:
+        dirpath = str(feed.get("dir") or "")
+        if dirpath == "feeds/world/" or dirpath.endswith("/national/"):
+            return []
+        loc = feed.get("location", {}) if isinstance(feed.get("location"), Mapping) else {}
+        country = str(loc.get("country") or "US").upper()
+        country_l = country.lower()
+        admin1 = str(loc.get("admin1") or "")
+        admin1_s = admin1_slug(admin1) if admin1 else ""
+        state_dir = f"feeds/{country_l}/{admin1_s}/state/" if admin1_s else ""
+        national_dir = f"feeds/{country_l}/national/"
+        if dirpath.endswith("/state/"):
+            return [d for d in (national_dir,) if d and d != dirpath and d in by_dir]
+        if "/regions/" in dirpath:
+            return [d for d in (state_dir, national_dir) if d and d != dirpath and d in by_dir]
+        # City edition (or any other leaf feed).
+        donors: list[str] = []
+        metro = str(loc.get("metro") or "").lower()
+        if metro and admin1_s:
+            metro_dir = f"feeds/{country_l}/{admin1_s}/regions/{metro}/"
+            if metro_dir in by_dir:
+                donors.append(metro_dir)
+        if not donors:
+            # Fallback when the city location carries no metro (or the first
+            # story that created the bucket had none): find the metro feed
+            # under the same admin1 sharing raw story ids with this city.
+            if admin1_s:
+                prefix = f"feeds/{country_l}/{admin1_s}/regions/"
+                mine = set(raw_ids.get(dirpath, []))
+                best: str | None = None
+                best_overlap = 0
+                for cand in by_dir:
+                    if not cand.startswith(prefix) or cand in donors or cand == dirpath:
+                        continue
+                    overlap = len(mine & set(raw_ids.get(cand, [])))
+                    if overlap > best_overlap:
+                        best_overlap = overlap
+                        best = cand
+                if best and best not in donors:
+                    # Prefer the discovered metro first (it is the city's own
+                    # metro); keep any location-derived metro as well.
+                    donors.insert(0, best)
+        if state_dir and state_dir != dirpath and state_dir in by_dir and state_dir not in donors:
+            donors.append(state_dir)
+        if national_dir and national_dir != dirpath and national_dir in by_dir and national_dir not in donors:
+            donors.append(national_dir)
+        # Non-US cities have no state/national feeds; fall back to world so
+        # they still get a full paper instead of a single story.
+        if country != "US" and "feeds/world/" in by_dir and "feeds/world/" not in donors:
+            donors.append("feeds/world/")
+        return donors
+
+    for feed in feeds:
+        donors = _donors_for(feed)
+        if not donors:
+            continue
+        seen: set[str] = set()
+        for s in feed.get("stories", []) or []:
+            if isinstance(s, Mapping) and s.get("id") is not None:
+                seen.add(str(s.get("id")))
+        for donor_dir in donors:
+            if len(feed.get("stories", []) or []) >= max_total:
+                break
+            for s in orig.get(donor_dir, []):
+                if len(feed.get("stories", []) or []) >= max_total:
+                    break
+                if not isinstance(s, Mapping):
+                    continue
+                sid = str(s.get("id") or "")
+                if not sid or sid in seen:
+                    continue
+                feed["stories"].append(s)
+                seen.add(sid)
 
 
 def edition_doc(
