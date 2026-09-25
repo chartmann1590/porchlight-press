@@ -12,6 +12,7 @@ from pipeline.state import (
     cluster_content_fingerprint,
     load_state,
     stored_brief_usable,
+    update_state,
 )
 
 _BALLSTON_LOC = [{"country": "US", "admin1": "US-NY", "admin2": "Saratoga County",
@@ -214,3 +215,122 @@ def test_legit_same_event_persisted_cluster_stays_merged(tmp_path):
     assert sorted(kept.get("memberIds", [])) == sorted(["wten-award-001", "wten-award-002"])
     # Unchanged membership -> stored brief still usable.
     assert stored_brief_usable(kept)
+
+
+def test_split_alias_shadowing_does_not_remerge(tmp_path):
+    """End-to-end: split-off seed in anchor aliases must not re-merge.
+
+    Reproduces live 0d0cf2f78345feea with small inline fixtures: a prev
+    merged record claims both seeds as aliases (like the live anchor
+    claiming e81d72c90f678d59 + 2b337ec0e5273287). After load_state
+    (revalidation splits), fresh clustering splits, update_state must keep
+    the two stories in separate records with no cross-piece alias shadowing.
+    """
+    from datetime import datetime, timezone
+
+    from pipeline.cluster import (
+        cluster_items,
+        event_id_for_seed,
+        maybe_merge_clusters,
+    )
+
+    award = _wten_award()
+    cancer = _wamc_cancer()
+    seed_award = event_id_for_seed(str(award.get("url") or award.get("id")))
+    seed_cancer = event_id_for_seed(str(cancer.get("url") or cancer.get("id")))
+    assert seed_award != seed_cancer
+    orig_id = "orig-merged-split-alias-001"
+
+    rec = _persisted_record(orig_id, [dict(award), dict(cancer)],
+                            headline=cancer["headline"])
+    # Simulate live stale aliases: anchor claims both seeds.
+    rec["aliases"] = [seed_award, seed_cancer]
+    rec["firstSeen"] = award.get("publishedAt")
+    rec["lastSeen"] = cancer.get("publishedAt")
+    state_path = tmp_path / "clusters.json"
+    _write_state(state_path, {orig_id: rec})
+
+    prev = load_state(state_path)
+    # Revalidation splits into anchor (earliest = award) + split-off (cancer).
+    assert len(prev) == 2
+    assert orig_id in prev
+    anchor = prev[orig_id]
+    assert anchor.get("memberIds") == [award["id"]]
+    split_ids = [k for k in prev if k != orig_id]
+    assert len(split_ids) == 1
+    split_id = split_ids[0]
+    split_rec = prev[split_id]
+    assert split_rec.get("memberIds") == [cancer["id"]]
+    # Alias repair: no piece may alias another piece's eventId.
+    assert split_id not in (anchor.get("aliases") or [])
+    assert orig_id not in (split_rec.get("aliases") or [])
+    # Anchor must have dropped the split-off's seed (live 2b33... case).
+    # Split-off's seed equals its own eventId here (no collision), so it
+    # carries no self-alias; anchor must not keep it either.
+    assert seed_cancer not in (anchor.get("aliases") or [])
+    assert split_id not in (split_rec.get("aliases") or [])
+
+    # Fresh clustering on the two items splits under current rules.
+    fresh = cluster_items([dict(award), dict(cancer)])
+    fresh = maybe_merge_clusters(fresh)
+    assert len(fresh) == 2
+
+    now = datetime(2026, 9, 23, 12, 0, tzinfo=timezone.utc)
+    final = update_state(prev, fresh, {}, now=now, prune_days=9999)
+    award_holders = [eid for eid, r in final.items()
+                     if award["id"] in (r.get("memberIds") or [])]
+    cancer_holders = [eid for eid, r in final.items()
+                      if cancer["id"] in (r.get("memberIds") or [])]
+    assert len(award_holders) == 1 and len(cancer_holders) == 1
+    assert award_holders[0] != cancer_holders[0]
+    # No cross-piece alias shadowing in the published final state.
+    assert cancer_holders[0] not in (final[award_holders[0]].get("aliases") or [])
+    assert award_holders[0] not in (final[cancer_holders[0]].get("aliases") or [])
+
+
+def test_stale_alias_does_not_hide_carried_split():
+    """update_state robustness: alias must never shadow a direct eventId.
+
+    Prev has anchor claiming split-off's id (stale, like live anchor claiming
+    2b337ec0e5273287). Fresh batch contains only the anchor's item, so the
+    split-off relies on carry-forward. It must survive instead of being
+    hidden by the stale alias.
+    """
+    from datetime import datetime, timezone
+
+    from pipeline.cluster import cluster_items, event_id_for_seed
+
+    award = _wten_award()
+    cancer = _wamc_cancer()
+    seed_award = event_id_for_seed(str(award.get("url") or award.get("id")))
+    seed_cancer = event_id_for_seed(str(cancer.get("url") or cancer.get("id")))
+    orig_id = "orig-stale-alias-001"
+    split_id = seed_cancer
+
+    anchor_rec = _persisted_record(orig_id, [dict(award)],
+                                   headline=award["headline"])
+    anchor_rec["memberIds"] = [award["id"]]
+    anchor_rec["firstSeen"] = award.get("publishedAt")
+    anchor_rec["lastSeen"] = award.get("publishedAt")
+    # Stale: anchor claims split-off's id + its own seed.
+    anchor_rec["aliases"] = [seed_award, split_id]
+
+    split_rec = _persisted_record(split_id, [dict(cancer)],
+                                  headline=cancer["headline"])
+    split_rec["memberIds"] = [cancer["id"]]
+    split_rec["firstSeen"] = cancer.get("publishedAt")
+    split_rec["lastSeen"] = cancer.get("publishedAt")
+    split_rec["aliases"] = []
+
+    prev = {orig_id: anchor_rec, split_id: split_rec}
+
+    # Fresh batch has only the anchor's item (split absent -> carry-forward).
+    fresh = cluster_items([dict(award)])
+    assert len(fresh) == 1
+
+    now = datetime(2026, 9, 23, 12, 0, tzinfo=timezone.utc)
+    final = update_state(prev, fresh, {}, now=now, prune_days=9999)
+    assert orig_id in final
+    # Split-off must be carried, not hidden by stale alias.
+    assert split_id in final
+    assert final[split_id].get("memberIds") == [cancer["id"]]
