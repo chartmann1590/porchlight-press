@@ -347,7 +347,9 @@ fun ImageWithAttribution(
     // A failed load collapses to the text-only layout: the Card below is only
     // composed while the image can still succeed, so readers never see an
     // empty box with just a caption under it.
-    var failed by remember(dto.url) { mutableStateOf(false) }
+    // Keyed by the full image payload (not just the URL) so a feed update
+    // that swaps in new art under a reused URL still gets a fresh load.
+    var failed by remember(imageJson) { mutableStateOf(false) }
     if (failed) {
         return
     }

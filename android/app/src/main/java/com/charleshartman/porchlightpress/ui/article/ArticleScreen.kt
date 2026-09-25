@@ -186,7 +186,7 @@ fun ArticleScreen(
                     // Full article text is never republished here.
                     val firstSource = cur.sources.firstOrNull()
                     if (story.aiGenerated && !effectiveBody.isNullOrBlank()) {
-                        ArticleBodyParagraphs(body = effectiveBody!!)
+                        ArticleBodyParagraphs(body = effectiveBody)
                         ReadFullStoryButton(
                             publisher = firstSource?.publisher,
                             url = firstSource?.url,
@@ -197,7 +197,7 @@ fun ArticleScreen(
                         if (showExcerpt) {
                             Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().testTag("source-card")) {
                                 Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    Text(story.excerpt!!, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("source-card-excerpt"))
+                                    Text(story.excerpt, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("source-card-excerpt"))
                                 }
                             }
                         }
