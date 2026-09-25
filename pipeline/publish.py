@@ -415,6 +415,149 @@ NOT_FOUND_HTML = """<!DOCTYPE html>
 
 
 # ---------------------------------------------------------------------------
+# Play listing root files: privacy.html + app-ads.txt (Phase 9A)
+# ---------------------------------------------------------------------------
+
+# Public ads.txt line (Authorized Digital Sellers). The publisher ID alone
+# is public by design; it is NOT an ad unit ID. The guard-ad-ids CI check
+# matches only the ca-app-pub- form, so this line never trips it.
+APP_ADS_TXT = "google.com, pub-8382831211800454, DIRECT, f08c47fec0942fa0\n"
+
+
+def render_privacy_html(markdown_text: str) -> str:
+    """Render PRIVACY.md to a standalone /privacy.html page (minimal MD subset).
+
+    Covers the constructs PRIVACY.md actually uses: `#`/`##` headings,
+    `- ` bullets, `|...|` tables, `[text](url)` links, `**bold**`, and plain
+    paragraphs. Unknown lines become paragraphs. Output is escaped first,
+    then markup is applied, so raw HTML in the source can never inject.
+    """
+    import re as _re
+
+    src = (markdown_text or "").replace("\r\n", "\n").strip()
+    if not src:
+        src = "# Privacy Policy\n\nSee PRIVACY.md in the repository."
+    esc = html_lib.escape(src, quote=True)
+
+    # Links: [text](url) -> <a>. Operates on escaped text (quotes are &#x27; etc,
+    # but URLs in PRIVACY.md contain no quotes, so this is safe).
+    esc = _re.sub(
+        r"\[([^\]]+)\]\((https?://[^)]+)\)",
+        r'<a href="\2">\1</a>',
+        esc,
+    )
+    esc = _re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", esc)
+
+    blocks: list[str] = []
+    para: list[str] = []
+    in_list = False
+    in_table = False
+    table_rows: list[str] = []
+
+    def _flush_para() -> None:
+        if para:
+            blocks.append("<p>" + "<br />\n".join(para) + "</p>")
+            para.clear()
+
+    def _flush_list() -> None:
+        nonlocal in_list
+        if in_list:
+            blocks.append("</ul>")
+            in_list = False
+
+    def _flush_table() -> None:
+        nonlocal in_table, table_rows
+        if in_table:
+            if table_rows:
+                blocks.append("<table>\n" + "\n".join(table_rows) + "\n</table>")
+            table_rows = []
+            in_table = False
+
+    for raw in esc.split("\n"):
+        line = raw.strip()
+        if not line:
+            _flush_para()
+            _flush_list()
+            _flush_table()
+            continue
+        if line.startswith("|") and line.endswith("|"):
+            _flush_para()
+            _flush_list()
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if all(set(c) <= set("-: ") for c in cells):
+                continue  # separator row
+            tag = "th" if not table_rows else "td"
+            if not in_table:
+                blocks.append("")
+                in_table = True
+            table_rows.append(
+                "<tr>" + "".join(f"<{tag}>{c}</{tag}>" for c in cells) + "</tr>"
+            )
+            # Remove the placeholder blank the first row added.
+            if blocks and blocks[-1] == "":
+                blocks.pop()
+            continue
+        _flush_table()
+        if line.startswith("### "):
+            _flush_para()
+            _flush_list()
+            blocks.append(f"<h3>{line[4:].strip()}</h3>")
+        elif line.startswith("## "):
+            _flush_para()
+            _flush_list()
+            blocks.append(f"<h2>{line[3:].strip()}</h2>")
+        elif line.startswith("# "):
+            _flush_para()
+            _flush_list()
+            blocks.append(f"<h1>{line[2:].strip()}</h1>")
+        elif line.startswith("- "):
+            _flush_para()
+            if not in_list:
+                blocks.append("<ul>")
+                in_list = True
+            blocks.append(f"<li>{line[2:].strip()}</li>")
+        else:
+            _flush_list()
+            para.append(line)
+    _flush_para()
+    _flush_list()
+    _flush_table()
+    body = "\n".join(blocks)
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — Porchlight Press</title>
+  <style>
+    body {{ font-family: sans-serif; max-width: 44rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #111; }}
+    h1 {{ border-bottom: 3px double #111; padding-bottom: 0.5rem; }}
+    table {{ border-collapse: collapse; width: 100%; margin: 1rem 0; }} th, td {{ border: 1px solid #ccc; padding: 0.4rem 0.6rem; text-align: left; font-size: 0.9rem; }} th {{ background: #f5f5f5; }}
+    .note {{ background: #f5f5f5; border-left: 4px solid #555; padding: 0.5rem 0.75rem; font-size: 0.9rem; }}
+  </style>
+</head>
+<body>
+  <div class="note">Porchlight Press privacy policy. Contact: <a href="mailto:me@charleshartman.com">me@charleshartman.com</a>. Full history is public in the repository (PRIVACY.md).</div>
+{body}
+</body>
+</html>
+"""
+
+
+def write_play_root_files(out_dir: Path) -> dict[str, str]:
+    """Write /privacy.html + /app-ads.txt into the Pages output directory."""
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    try:
+        md = (ROOT / "PRIVACY.md").read_text(encoding="utf-8")
+    except OSError:
+        md = "# Privacy Policy\n\nContact me@charleshartman.com."
+    (out / "privacy.html").write_text(render_privacy_html(md), encoding="utf-8")
+    (out / "app-ads.txt").write_text(APP_ADS_TXT, encoding="utf-8")
+    return {"privacy.html": "privacy policy page", "app-ads.txt": APP_ADS_TXT.strip()}
+
+
+# ---------------------------------------------------------------------------
 # Feed assembly
 # ---------------------------------------------------------------------------
 
@@ -1066,6 +1209,8 @@ def main(argv: list[str] | None = None) -> int:
                     pass
         (out / "viewer.html").write_text(VIEWER_HTML, encoding="utf-8")
         (out / "404.html").write_text(NOT_FOUND_HTML, encoding="utf-8")
+        # Play listing root files (Phase 9A): privacy page + ads.txt.
+        write_play_root_files(out)
 
         print(f"published feeds={len(feeds)} files={len(edition_files)} "
               f"stories={len(stories)} share={len(current_ids) + len(carried)} "
