@@ -1,12 +1,11 @@
 {
-  "generatedAt": "2026-09-25T01:19:06.410045Z",
+  "generatedAt": "2026-09-25T01:52:39.123142Z",
   "threshold": 9999,
   "model": "Qwen3-4B-Q4_K_M",
   "queued": [
     "0d0cf2f78345feea",
     "ebd14ca3ab061954",
     "99d26e1ae77c36bb",
-    "f50f7807554b049d",
     "1d8009ac1dc97f6f",
     "5db4272e93b1341d",
     "f71b942d929515f4",
@@ -16,9 +15,7 @@
     "3a57ff94cd04e4c2",
     "3c5ef9143bb005e6",
     "8725ffd71b2133c4",
-    "e20b3d2d50ce9837",
     "233c5db849071dca",
-    "bfe68ff7f2462812",
     "29141a0ba5d55eef",
     "f3871be7d1e5fea4",
     "a545cb518d699115",

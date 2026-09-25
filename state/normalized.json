@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T01:18:45.808380Z",
+  "generatedAt": "2026-09-25T01:52:21.072149Z",
   "items": [
     {
       "id": "4103fd02b14bac233c24db855cd4c142",
@@ -392,6 +392,19 @@
       "rawLocations": []
     },
     {
+      "id": "d812fb7cfca1649d98250899953a39aa",
+      "sourceId": "bbc-world",
+      "publisher": "BBC World",
+      "headline": "The world\u2019s two most powerful men just met. How did it go?",
+      "excerpt": "The BBC\u2019s China correspondent Laura Bicker unpacks how the trip panned out for Beijing and Washington.",
+      "url": "https://www.bbc.co.uk/news/videos/cm790gjyw1qxo?at_campaign=rss&at_medium=RSS",
+      "publishedAt": "2026-09-25T01:27:10Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
       "id": "8e90e44daa0e75e32f70791a1fb66c34",
       "sourceId": "bbc-world",
       "publisher": "BBC World",
@@ -438,19 +451,6 @@
       "excerpt": "Around 175,000 people in Indonesia have suffered from respiratory illness since August.",
       "url": "https://www.bbc.co.uk/news/videos/c962j1jgx884o?at_campaign=rss&at_medium=RSS",
       "publishedAt": "2026-09-23T15:46:28Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "9f7a3f95e23ee2b0f65798a81b12ed76",
-      "sourceId": "bbc-world",
-      "publisher": "BBC World",
-      "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
-      "excerpt": "The BBC\u2019s China correspondent and US editor explain everything you need to know ahead of the Trump-Xi meeting in Washington DC.",
-      "url": "https://www.bbc.co.uk/news/videos/c38xk275jd21o?at_campaign=rss&at_medium=RSS",
-      "publishedAt": "2026-09-23T11:00:09Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -561,12 +561,12 @@
       "rawLocations": []
     },
     {
-      "id": "bc7c9f1ae519bc2c1bcd127ac8429ce7",
+      "id": "8324c24fac73c14352e0afc6696c02b2",
       "sourceId": "npr-news",
       "publisher": "NPR News",
-      "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
-      "excerpt": "eBay became the latest online retailer to ban the sale of airbags and many of their components. Aftermarket parts can be risky if they turn out to be fake or defective.",
-      "url": "https://www.npr.org/2026/09/24/nx-s1-5978124/ebay-bans-airbags-faulty-counterfeit-auto-parts",
+      "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
+      "excerpt": "Stories of science funding being cut, labs shutting down and scientists losing jobs have flooded the media under Trump's administration. These six graphics show how those changes have affected U.S. biomedical research.",
+      "url": "https://www.npr.org/2026/09/24/nx-s1-5931971/trump-nih-science-funding-disruptions-charts",
       "publishedAt": "2026-09-24T09:00:00Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
