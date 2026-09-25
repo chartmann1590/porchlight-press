@@ -76,3 +76,19 @@ jobs:
       - uses: reviewdog/action-actionlint@v1
         with:
           fail_level: error
+
+  gitleaks:
+    # Secret scanning on every PR/push (Phase 9A). Free tier: no license
+    # needed for this public personal repo. Fails the run when a committed
+    # secret (keystore, service-account JSON, ad unit ID) is detected.
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2.3.9
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

@@ -26,6 +26,32 @@ val admobInterstitialId = prop("admobInterstitialId", "ca-app-pub-39402560999425
 val admobNativeId = prop("admobNativeId", "ca-app-pub-3940256099942544/2247696110")
 val feedBaseUrl = prop("feedBaseUrl", "https://chartmann1590.github.io/porchlight-press/")
 
+// Phase 9A release versioning: the release workflow passes
+// -PversionCode=<github.run_number + VERSION_CODE_OFFSET> and
+// -PversionName=<tag, e.g. v1.2.3>. Local builds fall back to 1 / 0.6.0.
+const val VERSION_CODE_OFFSET = 1000
+val releaseVersionCode =
+    prop("versionCode", System.getenv("VERSION_CODE") ?: "1").toIntOrNull() ?: 1
+val releaseVersionName = prop("versionName", System.getenv("VERSION_NAME") ?: "0.6.0")
+
+// Phase 9A release signing: keystore path + credentials come ONLY from
+// environment (CI) or Gradle properties (-PreleaseKeystorePath=... etc.)
+// supplied by the release workflow from GitHub secrets. Never commit them.
+// When no keystore is present (local dev, CI debug builds) the release
+// build type stays unsigned and still compiles (R8 + shrinking still run).
+fun releaseKeystorePath(): String? =
+    System.getenv("RELEASE_KEYSTORE_PATH")
+        ?: (findProperty("releaseKeystorePath") as String?)?.ifBlank { null }
+fun releaseKeystorePassword(): String? =
+    System.getenv("RELEASE_KEYSTORE_PASSWORD")
+        ?: (findProperty("releaseKeystorePassword") as String?)?.ifBlank { null }
+fun releaseKeyAlias(): String? =
+    System.getenv("RELEASE_KEY_ALIAS")
+        ?: (findProperty("releaseKeyAlias") as String?)?.ifBlank { null }
+fun releaseKeyPassword(): String? =
+    System.getenv("RELEASE_KEY_PASSWORD")
+        ?: (findProperty("releaseKeyPassword") as String?)?.ifBlank { null }
+
 android {
     namespace = "com.charleshartman.porchlightpress"
     compileSdk = 34
@@ -34,8 +60,8 @@ android {
         applicationId = "com.charleshartman.porchlightpress"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.6.0"
+        versionCode = releaseVersionCode
+        versionName = releaseVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -46,6 +72,18 @@ android {
         buildConfigField("String", "ADMOB_BANNER_ID", "\"$admobBannerId\"")
         buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"$admobInterstitialId\"")
         buildConfigField("String", "ADMOB_NATIVE_ID", "\"$admobNativeId\"")
+    }
+
+    signingConfigs {
+        create("release") {
+            val ksPath = releaseKeystorePath()
+            if (ksPath != null && file(ksPath).exists()) {
+                storeFile = file(ksPath)
+                storePassword = releaseKeystorePassword()
+                keyAlias = releaseKeyAlias()
+                keyPassword = releaseKeyPassword()
+            }
+        }
     }
 
     buildTypes {
@@ -81,6 +119,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            // Sign only when the CI keystore is present; otherwise leave the
+            // release build unsigned so local/CI debug-path builds keep working.
+            val ksPath = releaseKeystorePath()
+            if (ksPath != null && file(ksPath).exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 

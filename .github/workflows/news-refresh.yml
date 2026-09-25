@@ -241,6 +241,28 @@ jobs:
             --summary-file "$GITHUB_STEP_SUMMARY"
           touch public/.nojekyll
 
+      - name: Ensure Play root files (privacy.html + app-ads.txt)
+        # Safety net: pipeline.publish already writes both, but an older
+        # checkout or a partial publish must never deploy Pages without them
+        # (the Play listing links to /privacy.html, and AdMob crawls
+        # /app-ads.txt). Regenerates from the repo PRIVACY.md when missing.
+        run: |
+          python - <<'EOF'
+          from pathlib import Path
+          from pipeline.publish import write_play_root_files
+          out = Path("public")
+          missing = [f for f in ("privacy.html", "app-ads.txt") if not (out / f).exists()]
+          if missing:
+              print(f"regenerating missing Play root files: {missing}")
+              write_play_root_files(out)
+          else:
+              print("Play root files present: privacy.html + app-ads.txt")
+          assert (out / "privacy.html").exists() and (out / "app-ads.txt").exists()
+          print((out / "app-ads.txt").read_text(encoding="utf-8").strip())
+          EOF
+          touch public/.nojekyll
+          ls -lh public/privacy.html public/app-ads.txt
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

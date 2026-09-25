@@ -5,7 +5,8 @@ normalize → dedupe/cluster → AI newsroom (Qwen3-4B, validated, with source-c
 fallback) → static JSON on GitHub Pages → Android app (offline-first).
 
 Developer setup and repo map: `DEVELOPMENT.md`. Source registry guide:
-`HOW_TO_ADD_A_SOURCE.md`.
+`HOW_TO_ADD_A_SOURCE.md`. New markets: `HOW_TO_ADD_A_CITY.md`. Cost rules:
+`ZERO_COST_ARCHITECTURE.md`.
 
 The `Plan/` directory is **local only** (gitignored) and never quoted into
 commits or PRs. `Plan/Plan.txt` is the requirements authority;

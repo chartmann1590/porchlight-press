@@ -67,6 +67,12 @@ python scripts/build_gazetteer.py --mode full --output /tmp/geo-places.json \
 - `locations/{country}.json` + `{country}-postal.json` — onboarding pickers
 - `s/{eventId}.html` — shareable story pages (30-day retention, then `404.html`)
 - `viewer.html` — minimal debug viewer (plain JS, no framework)
+- `privacy.html` — privacy policy page rendered from `PRIVACY.md` (the Play
+  listing links here). Regenerated on every publish; `news-refresh.yml`
+  re-checks it before deploying.
+- `app-ads.txt` — Authorized Digital Sellers line
+  (`google.com, pub-8382831211800454, DIRECT, f08c47fec0942fa0`) for AdMob.
+- `.nojekyll` — lets Pages serve underscore paths as-is.
 
 Copy the directory to any static host (Cloudflare Pages, Netlify, nginx,
 S3): the app needs only its base URL (`BuildConfig` one-liner). The
