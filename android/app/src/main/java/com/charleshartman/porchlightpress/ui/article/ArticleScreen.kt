@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.charleshartman.porchlightpress.BuildConfig
 import com.charleshartman.porchlightpress.data.local.StorySource
+import com.charleshartman.porchlightpress.ui.components.AiBadge
 import com.charleshartman.porchlightpress.ui.components.AiDisclosureBox
 import com.charleshartman.porchlightpress.ui.components.ImageWithAttribution
 import com.charleshartman.porchlightpress.ui.components.isNearDuplicate
@@ -151,13 +152,9 @@ fun ArticleScreen(
                     if (!effectiveDek.isNullOrBlank() && !isNearDuplicate(effectiveHeadline, effectiveDek)) {
                         Text(effectiveDek, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("article-dek"))
                     }
-                    // Single small AI label here is the byline above; the pill
-                    // is dropped so "AI NEWSROOM" appears only there plus the
-                    // disclosure box below.
-                    if (cur.isTranslating) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
-                        }
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        if (story.aiGenerated) AiBadge()
+                        if (cur.isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
                     }
                     // Dateline + Updated
                     val updated = if (!story.updatedAt.isNullOrBlank() && story.updatedAt != story.publishedAt) story.updatedAt else null
@@ -211,12 +208,21 @@ fun ArticleScreen(
                             url = firstSource?.url,
                         )
                     } else {
-                        val showExcerpt = excerptAllowed(cur.sources.map { it.rightsMode }) &&
-                            !story.excerpt.isNullOrBlank()
-                        if (showExcerpt) {
-                            Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().testTag("source-card")) {
-                                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Surface(
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            shape = MaterialTheme.shapes.small,
+                            modifier = Modifier.fillMaxWidth().testTag("source-card"),
+                        ) {
+                            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                val showExcerpt = excerptAllowed(cur.sources.map { it.rightsMode }) &&
+                                    !story.excerpt.isNullOrBlank()
+                                if (showExcerpt && !story.excerpt.isNullOrBlank()) {
                                     Text(story.excerpt, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("source-card-excerpt"))
+                                } else if (!story.body.isNullOrBlank()) {
+                                    Text(story.body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                } else {
+                                    Text(story.headline, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("source-card-headline"))
+                                    Text("Open the original to read more.", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
                                 }
                             }
                         }
