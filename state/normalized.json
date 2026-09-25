@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T00:49:51.063817Z",
+  "generatedAt": "2026-09-25T01:18:45.808380Z",
   "items": [
     {
       "id": "4103fd02b14bac233c24db855cd4c142",
@@ -18,10 +18,10 @@
       "id": "a3f330e85ac6ebf5b6f08afa629606c5",
       "sourceId": "bbc-world",
       "publisher": "BBC World",
-      "headline": "White House restores access to media outlets banned by Trump after judge's order",
-      "excerpt": "CNN, Politico and MS NOW were allowed back into the White House after some of their staff were earlier turned away.",
+      "headline": "Media outlets banned by Trump denied access to White House dinner despite judge's order",
+      "excerpt": "CNN and MS NOW said reporters were denied access to covering White House arrivals for a state dinner, despite a judge ruling their passes must be restored.",
       "url": "https://www.bbc.co.uk/news/articles/cqe8ek7608mlo?at_campaign=rss&at_medium=RSS",
-      "publishedAt": "2026-09-24T17:49:20Z",
+      "publishedAt": "2026-09-25T01:10:35Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -561,12 +561,12 @@
       "rawLocations": []
     },
     {
-      "id": "8324c24fac73c14352e0afc6696c02b2",
+      "id": "bc7c9f1ae519bc2c1bcd127ac8429ce7",
       "sourceId": "npr-news",
       "publisher": "NPR News",
-      "headline": "These 6 charts show how NIH research funding has been reshaped under Trump",
-      "excerpt": "Stories of science funding being cut, labs shutting down and scientists losing jobs have flooded the media under Trump's administration. These six graphics show how those changes have affected U.S. biomedical research.",
-      "url": "https://www.npr.org/2026/09/24/nx-s1-5931971/trump-nih-science-funding-disruptions-charts",
+      "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
+      "excerpt": "eBay became the latest online retailer to ban the sale of airbags and many of their components. Aftermarket parts can be risky if they turn out to be fake or defective.",
+      "url": "https://www.npr.org/2026/09/24/nx-s1-5978124/ebay-bans-airbags-faulty-counterfeit-auto-parts",
       "publishedAt": "2026-09-24T09:00:00Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",

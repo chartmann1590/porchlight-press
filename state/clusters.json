@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T00:50:28.880162Z",
+  "generatedAt": "2026-09-25T01:19:05.072043Z",
   "clusters": [
     {
       "eventId": "0d0cf2f78345feea",
@@ -79,9 +79,9 @@
       "section": "local",
       "category": "health",
       "headline": "A husband and father from Ballston Spa got cancer \u2014 his friends stepped up",
-      "score": 0.7030672452141203,
+      "score": 0.7014119675511188,
       "scoreComponents": {
-        "freshness": 0.8722689808564815,
+        "freshness": 0.8656478702044753,
         "locality": 1.0,
         "corroboration": 0.5,
         "sourcePriority": 0.9,
@@ -113,9 +113,9 @@
         }
       ],
       "status": "updated",
-      "version": 4,
-      "lastBriefHash": "68dae1134dac5521afdd04be5c9e48e0",
-      "lastGeneratedAt": "2026-09-25T00:51:05.918776Z",
+      "version": 5,
+      "lastBriefHash": "b75f26c7d338c412f340dd8b2d9654df",
+      "lastGeneratedAt": "2026-09-25T01:19:39.470483Z",
       "lastBrief": {
         "headline": "Ballston Spa Student Nominated for Heart of a Giant Award",
         "dek": "A student from Ballston Spa has been nominated for the Heart of a Giant Award, as reported by WTEN News10.",
@@ -125,7 +125,7 @@
           "e81d72c90f678d594683fc78ea04e4e8",
           "2b337ec0e52732877445cbf011b86dff"
         ],
-        "aiModel": "gpt-4o",
+        "aiModel": "news-editor",
         "confidence": 0.95
       },
       "lastBriefFingerprint": "5177e9e302e40a34906da711ffa7959d",
@@ -286,9 +286,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Federal grant debate puts Pittsfield police drone program in lime light",
-      "score": 0.6594551695968365,
+      "score": 0.6577998919338349,
       "scoreComponents": {
-        "freshness": 0.8978206783873457,
+        "freshness": 0.8911995677353395,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -373,9 +373,9 @@
       "section": "local",
       "category": "weather",
       "headline": "Wilton responds to resident criticism following tornado",
-      "score": 0.6563581402758488,
+      "score": 0.6547028626128473,
       "scoreComponents": {
-        "freshness": 0.945432561103395,
+        "freshness": 0.9388114504513889,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -472,9 +472,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Albany police officer pleads guilty to drug charge",
-      "score": 0.6534511186709105,
+      "score": 0.651795841007909,
       "scoreComponents": {
-        "freshness": 0.933804474683642,
+        "freshness": 0.9271833640316358,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -555,9 +555,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "NY man charged in VT for disclosing explicit images on social media",
-      "score": 0.6531714118807871,
+      "score": 0.6515161342177855,
       "scoreComponents": {
-        "freshness": 0.9326856475231482,
+        "freshness": 0.926064536871142,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -642,9 +642,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "One injured after Central Avenue stabbing in Colonie",
-      "score": 0.6523612266956019,
+      "score": 0.6507059490326004,
       "scoreComponents": {
-        "freshness": 0.9294449067824074,
+        "freshness": 0.9228237961304012,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -729,9 +729,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Arrest made after gas station stabbing, robbery in Hyde Park",
-      "score": 0.6514189041647377,
+      "score": 0.6497636265017361,
       "scoreComponents": {
-        "freshness": 0.9256756166589506,
+        "freshness": 0.9190545060069444,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -816,9 +816,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Arrest made in Albany abandoned dog case",
-      "score": 0.6509520831770834,
+      "score": 0.6492968055140819,
       "scoreComponents": {
-        "freshness": 0.9238083327083333,
+        "freshness": 0.9171872220563272,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -903,9 +903,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Victim of fatal crash in Albany identified",
-      "score": 0.6437443285474538,
+      "score": 0.6420890508844522,
       "scoreComponents": {
-        "freshness": 0.8949773141898147,
+        "freshness": 0.8883562035378086,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -980,9 +980,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Property tax exemption for spouses of fallen officers approved in Montgomery County",
-      "score": 0.6419320214486883,
+      "score": 0.6402767437856868,
       "scoreComponents": {
-        "freshness": 0.887728085794753,
+        "freshness": 0.8811069751427469,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1067,9 +1067,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Troy homicide suspect arrested in Georgia",
-      "score": 0.6413137729918982,
+      "score": 0.6396584953288966,
       "scoreComponents": {
-        "freshness": 0.8852550919675926,
+        "freshness": 0.8786339813155865,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1144,9 +1144,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "NY Army National Guard crew chief injured in helicopter crash takes 'final flight'",
-      "score": 0.6364767745351081,
+      "score": 0.6348214968721065,
       "scoreComponents": {
-        "freshness": 0.8659070981404321,
+        "freshness": 0.8592859874884259,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1171,11 +1171,21 @@
       ],
       "status": "unchanged",
       "version": 1,
-      "lastBriefHash": "293620238cb3cb6b9e98508978ad73cc",
-      "lastGeneratedAt": "2026-09-24T16:06:39.931346Z",
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
+      "lastBriefHash": "1396f5071d1b3eff9b8696a75c285b6e",
+      "lastGeneratedAt": "2026-09-25T01:23:25.291317Z",
+      "lastBrief": {
+        "headline": "Military veteran injured in helicopter crash",
+        "dek": "Military veteran injured in helicopter crash",
+        "body": "A military veteran was injured in a helicopter crash, according to WTEN News10. The incident occurred on Sept. 17, and the veteran, who was a military veteran, took his final flight to symbolically conclude his military career. The crash is under investigation.",
+        "category": "public-safety",
+        "sourceIds": [
+          "f50f7807554b049dde91018d8c779fb2"
+        ],
+        "aiModel": "public-safety",
+        "confidence": 0.95
+      },
+      "lastBriefFingerprint": "253f8a0d47b08410eb18f44f524380e6",
+      "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
       "eventId": "efa700c163dbed13",
@@ -1233,9 +1243,9 @@
       "section": "local",
       "category": "local",
       "headline": "Card skimmers found at Albany dollar store frequented by SNAP recipients",
-      "score": 0.6269657791647376,
+      "score": 0.6253105015017362,
       "scoreComponents": {
-        "freshness": 0.9678631166589506,
+        "freshness": 0.9612420060069444,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1318,9 +1328,9 @@
       "section": "local",
       "category": "entertainment",
       "headline": "From western Mass. to Los Angeles: The saga of sold Norman Rockwell paintings",
-      "score": 0.6231791279301697,
+      "score": 0.6215238502671683,
       "scoreComponents": {
-        "freshness": 0.9527165117206791,
+        "freshness": 0.9460954010686728,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1405,9 +1415,9 @@
       "section": "local",
       "category": "environment",
       "headline": "Agrivoltaics emerging as an opportunity for farmers",
-      "score": 0.6207939041647377,
+      "score": 0.6191386265017361,
       "scoreComponents": {
-        "freshness": 0.9431756166589507,
+        "freshness": 0.9365545060069445,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1500,9 +1510,9 @@
       "section": "local",
       "category": "local",
       "headline": "NY-18 campaign attacks are \"beyond the pale\" both candidates say",
-      "score": 0.6204052081770833,
+      "score": 0.6187499305140818,
       "scoreComponents": {
-        "freshness": 0.9416208327083333,
+        "freshness": 0.9349997220563272,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1597,9 +1607,9 @@
       "section": "local",
       "category": "local",
       "headline": "2 card skimming devices removed from Family Dollar in Albany",
-      "score": 0.616500887189429,
+      "score": 0.6148456095264274,
       "scoreComponents": {
-        "freshness": 0.986003548757716,
+        "freshness": 0.9793824381057099,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1684,9 +1694,9 @@
       "section": "local",
       "category": "politics",
       "headline": "Sampling Big E cuisine, Minogue talks affordability, auditing Beacon Hill in bid for governor",
-      "score": 0.616140161880787,
+      "score": 0.6144848842177855,
       "scoreComponents": {
-        "freshness": 0.9245606475231481,
+        "freshness": 0.9179395368711419,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1771,9 +1781,9 @@
       "section": "local",
       "category": "local",
       "headline": "Berkshire County lawmaker to pay $3K fine for violating Massachusetts law",
-      "score": 0.6148515816338734,
+      "score": 0.6131963039708719,
       "scoreComponents": {
-        "freshness": 0.9194063265354938,
+        "freshness": 0.9127852158834877,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -1858,9 +1868,9 @@
       "section": "local",
       "category": "local",
       "headline": "Greenport's board minutes, resolutions lack Flock camera approval",
-      "score": 0.6139179396585648,
+      "score": 0.6122626619955632,
       "scoreComponents": {
-        "freshness": 0.9756717586342593,
+        "freshness": 0.969050647982253,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -1945,9 +1955,9 @@
       "section": "local",
       "category": "local",
       "headline": "New details emerge on Poestenkill manhunt suspect",
-      "score": 0.6123448300906635,
+      "score": 0.6106895524276621,
       "scoreComponents": {
-        "freshness": 0.9693793203626543,
+        "freshness": 0.9627582097106482,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2022,9 +2032,9 @@
       "section": "local",
       "category": "business",
       "headline": "Prices for home heating oil continue to shift, homeowners face rising costs",
-      "score": 0.6101582945968365,
+      "score": 0.6085030169338349,
       "scoreComponents": {
-        "freshness": 0.9606331783873456,
+        "freshness": 0.9540120677353395,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2109,9 +2119,9 @@
       "section": "local",
       "category": "politics",
       "headline": "Polls show Democrats, including Hochul, leading ahead of midterms",
-      "score": 0.6082157791647377,
+      "score": 0.6065605015017361,
       "scoreComponents": {
-        "freshness": 0.9528631166589506,
+        "freshness": 0.9462420060069444,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2194,9 +2204,9 @@
       "section": "local",
       "category": "politics",
       "headline": "Comptroller's report: Albany under 'significant' fiscal stress",
-      "score": 0.6025155476832562,
+      "score": 0.6008602700202547,
       "scoreComponents": {
-        "freshness": 0.8700621907330247,
+        "freshness": 0.8634410800810185,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -2283,9 +2293,9 @@
       "section": "local",
       "category": "local",
       "headline": "County officials give update on Central Warehouse",
-      "score": 0.6012144288560957,
+      "score": 0.5995591511930941,
       "scoreComponents": {
-        "freshness": 0.9248577154243827,
+        "freshness": 0.9182366047723766,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2370,9 +2380,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Residents breathe sigh of relief after several hour manhunt ends with suspect in custody",
-      "score": 0.5937144288560957,
+      "score": 0.5920591511930942,
       "scoreComponents": {
-        "freshness": 0.6948577154243827,
+        "freshness": 0.6882366047723766,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2457,9 +2467,9 @@
       "section": "local",
       "category": "local",
       "headline": "Morning Headlines with Ivan Lajara, Regional Managing Editor for the Daily Freeman, Saratogian, Troy Record, an Oneida Dispatch",
-      "score": 0.5890867282388117,
+      "score": 0.5874314505758103,
       "scoreComponents": {
-        "freshness": 0.8163469129552469,
+        "freshness": 0.8097258023032408,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
@@ -2604,9 +2614,9 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Hartford woman accused of killing husband",
-      "score": 0.5867082560165895,
+      "score": 0.5850529783535879,
       "scoreComponents": {
-        "freshness": 0.866833024066358,
+        "freshness": 0.8602119134143519,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2707,9 +2717,9 @@
       "section": "local",
       "category": "entertainment",
       "headline": "Things to do in the Capital Region this weekend: September 25-27",
-      "score": 0.5861970677449846,
+      "score": 0.584541790081983,
       "scoreComponents": {
-        "freshness": 0.8647882709799383,
+        "freshness": 0.858167160327932,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2802,9 +2812,9 @@
       "section": "local",
       "category": "sports",
       "headline": "Ulster County man wins $2M on scratch-off ticket",
-      "score": 0.5841436341030093,
+      "score": 0.5824883564400077,
       "scoreComponents": {
-        "freshness": 0.8565745364120371,
+        "freshness": 0.8499534257600309,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -2966,9 +2976,9 @@
       "section": "local",
       "category": "local",
       "headline": "National chain boutique to open first Capital Region location",
-      "score": 0.5776746912017747,
+      "score": 0.5760194135387732,
       "scoreComponents": {
-        "freshness": 0.8306987648070987,
+        "freshness": 0.8240776541550926,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -3053,9 +3063,9 @@
       "section": "local",
       "category": "local",
       "headline": "09/24/2026: Another Beautiful Weekday",
-      "score": 0.5753878470659722,
+      "score": 0.5737325694029707,
       "scoreComponents": {
-        "freshness": 0.8215513882638888,
+        "freshness": 0.8149302776118827,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -3130,9 +3140,9 @@
       "section": "local",
       "category": "local",
       "headline": "Albany's LaSalle School opens youth center in Pine Hills neighborhood",
-      "score": 0.5723641202141203,
+      "score": 0.5707088425511189,
       "scoreComponents": {
-        "freshness": 0.8094564808564815,
+        "freshness": 0.8028353702044753,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -3152,6 +3162,79 @@
           "headline": "Albany's LaSalle School opens youth center in Pine Hills neighborhood",
           "url": "https://www.news10.com/community/albanys-lasalle-school-opens-youth-center-in-pine-hills-neighborhood/",
           "publishedAt": "2026-09-24T11:07:20Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
+    },
+    {
+      "eventId": "00811d51199e2d7f",
+      "members": [
+        {
+          "id": "00811d51199e2d7fff8b0a08d3444263",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "From Nagaland to a path to the Oscars: Indian film brings a rarely seen world to global cinema",
+          "excerpt": "After a major win at Toronto, Angh, a film from northeastern India, is now on a path towards the Oscars.",
+          "url": "https://www.bbc.co.uk/news/articles/cv2dwk3z7x5eo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T23:41:10Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "CA",
+              "admin1": "CA-ON",
+              "city": "Toronto"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "00811d51199e2d7fff8b0a08d3444263"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T23:41:10Z",
+      "lastSeen": "2026-09-24T23:41:10Z",
+      "locations": [
+        {
+          "country": "CA",
+          "admin1": "CA-ON",
+          "city": "Toronto"
+        }
+      ],
+      "section": "local",
+      "category": "entertainment",
+      "headline": "From Nagaland to a path to the Oscars: Indian film brings a rarely seen world to global cinema",
+      "score": 0.5693334567486497,
+      "scoreComponents": {
+        "freshness": 0.9773338269945988,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.5,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "From Nagaland to a path to the Oscars: Indian film brings a rarely seen world to global cinema",
+          "url": "https://www.bbc.co.uk/news/articles/cv2dwk3z7x5eo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T23:41:10Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -3207,15 +3290,15 @@
       "section": "local",
       "category": "weather",
       "headline": "9/23/26: Beautiful for Now, Coastal Storm This Weekend",
-      "score": 0.5711051232067902,
+      "score": 0.5684566789459877,
       "scoreComponents": {
-        "freshness": 0.6277628080169753,
+        "freshness": 0.6211416973649692,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 1.0,
-        "stalePenalty": 0.005835578797453704,
+        "stalePenalty": 0.006828745395254628,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3249,79 +3332,6 @@
       },
       "lastBriefFingerprint": "ea82d40fc2d2d6b620ae3324f11dc1a4",
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
-    },
-    {
-      "eventId": "00811d51199e2d7f",
-      "members": [
-        {
-          "id": "00811d51199e2d7fff8b0a08d3444263",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "From Nagaland to a path to the Oscars: Indian film brings a rarely seen world to global cinema",
-          "excerpt": "After a major win at Toronto, Angh, a film from northeastern India, is now on a path towards the Oscars.",
-          "url": "https://www.bbc.co.uk/news/articles/cv2dwk3z7x5eo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T23:41:10Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "CA",
-              "admin1": "CA-ON",
-              "city": "Toronto"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "00811d51199e2d7fff8b0a08d3444263"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T23:41:10Z",
-      "lastSeen": "2026-09-24T23:41:10Z",
-      "locations": [
-        {
-          "country": "CA",
-          "admin1": "CA-ON",
-          "city": "Toronto"
-        }
-      ],
-      "section": "local",
-      "category": "entertainment",
-      "headline": "From Nagaland to a path to the Oscars: Indian film brings a rarely seen world to global cinema",
-      "score": 0.5709887344116512,
-      "scoreComponents": {
-        "freshness": 0.9839549376466049,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "From Nagaland to a path to the Oscars: Indian film brings a rarely seen world to global cinema",
-          "url": "https://www.bbc.co.uk/news/articles/cv2dwk3z7x5eo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T23:41:10Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
     },
     {
       "eventId": "4272cbc1aa2e114e",
@@ -3361,9 +3371,9 @@
       "section": "local",
       "category": "local",
       "headline": "Hundreds of thousands expected in Paris for Pope's visit",
-      "score": 0.5695902004610339,
+      "score": 0.5679349227980324,
       "scoreComponents": {
-        "freshness": 0.9783608018441358,
+        "freshness": 0.9717396911921297,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -3461,9 +3471,9 @@
       "section": "local",
       "category": "local",
       "headline": "Ex-Santa impersonator turns himself in on attempted rape charges in Essex Co.",
-      "score": 0.5695448686709105,
+      "score": 0.5678895910079089,
       "scoreComponents": {
-        "freshness": 0.998179474683642,
+        "freshness": 0.9915583640316358,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -3556,15 +3566,15 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Horse Racing Fire Safety Committee shares first recommendations",
-      "score": 0.565585061478395,
+      "score": 0.5629366172175927,
       "scoreComponents": {
-        "freshness": 0.6139626536959877,
+        "freshness": 0.6073415430439815,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 1.0,
-        "stalePenalty": 0.007905601945601852,
+        "stalePenalty": 0.008898768543402776,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3581,13 +3591,23 @@
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
+      "lastBriefHash": "8a289efd6b96945bb792486bf2e26c9b",
+      "lastGeneratedAt": "2026-09-25T01:33:50.902628Z",
+      "lastBrief": {
+        "headline": "Horse Racing Fire Safety Committee Releases First Recommendations",
+        "dek": "Saratoga County officials released fire safety recommendations following a fatal fire in Saratoga Springs.",
+        "body": "Saratoga Springs County Supervisor Sarah Burger established the Horse Racing Fire Safety and Prevention Advisory Committee after a fatal fire on June 16. The committee released their first set of recommendations focusing on structure, fire resistance, fire barriers, and fire suppression, according to WTEN News10.",
+        "category": "public-safety",
+        "sourceIds": [
+          "e20b3d2d50ce9837484005b5f1b9bb69"
+        ],
+        "aiModel": "public-safety",
+        "confidence": 0.95
+      },
+      "lastBriefFingerprint": "434a2f0ba585b9ebf48300327f5bd2a3",
+      "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
       "eventId": "233c5db849071dca",
@@ -3633,15 +3653,15 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Glenville Police Department joins Blue Envelope Program",
-      "score": 0.5631375306141976,
+      "score": 0.5604890863533952,
       "scoreComponents": {
-        "freshness": 0.6078438265354938,
+        "freshness": 0.6012227158834877,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 1.0,
-        "stalePenalty": 0.008823426019675925,
+        "stalePenalty": 0.00981659261747685,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3710,9 +3730,9 @@
       "section": "local",
       "category": "sports",
       "headline": "UAlbany's Silas Richmond continues championship-winning ways up in the PLL",
-      "score": 0.5598081788560957,
+      "score": 0.5581529011930941,
       "scoreComponents": {
-        "freshness": 0.7592327154243828,
+        "freshness": 0.7526116047723765,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -3797,9 +3817,9 @@
       "section": "local",
       "category": "sports",
       "headline": "UAlbany football hoping to bring fight from Monmouth game into Princeton",
-      "score": 0.5583344134239969,
+      "score": 0.5566791357609954,
       "scoreComponents": {
-        "freshness": 0.7533376536959877,
+        "freshness": 0.7467165430439815,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -3884,15 +3904,15 @@
       "section": "local",
       "category": "public-safety",
       "headline": "Troy woman arrested on animal neglect charge",
-      "score": 0.55818999975,
+      "score": 0.5555415554891976,
       "scoreComponents": {
-        "freshness": 0.5954749993749999,
+        "freshness": 0.5888538887229939,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 1.0,
-        "stalePenalty": 0.010678750093750005,
+        "stalePenalty": 0.011671916691550922,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -3926,83 +3946,6 @@
       },
       "lastBriefFingerprint": "1be8ba0be0e20da8a426d7940689e064",
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
-    },
-    {
-      "eventId": "bfe68ff7f2462812",
-      "members": [
-        {
-          "id": "bfe68ff7f2462812648a22f1a5de947a",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Albany PD identify suspect in social media video investigation",
-          "excerpt": "The Albany Police Department will be holding a press conference on Wednesday about videos that have recently circulated on social media platforms.",
-          "url": "https://www.news10.com/news/albany-county/albany-pd-to-give-update-on-social-media-video-investigation/",
-          "publishedAt": "2026-09-23T17:59:31Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Albany County",
-              "city": "Albany",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "bfe68ff7f2462812648a22f1a5de947a"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T17:59:31Z",
-      "lastSeen": "2026-09-23T17:59:31Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "section": "local",
-      "category": "public-safety",
-      "headline": "Albany PD identify suspect in social media video investigation",
-      "score": 0.5486143824660494,
-      "scoreComponents": {
-        "freshness": 0.5715359561651234,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.8,
-        "breaking": 0.0,
-        "categoryBoost": 1.0,
-        "stalePenalty": 0.014269606575231478,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "MEDIUM",
-      "confidenceTier": "medium",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Albany PD identify suspect in social media video investigation",
-          "url": "https://www.news10.com/news/albany-county/albany-pd-to-give-update-on-social-media-video-investigation/",
-          "publishedAt": "2026-09-23T17:59:31Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": "7babb746a14346cb974ff005e3c2ec35",
-      "lastGeneratedAt": "2026-09-24T16:16:26.022678Z",
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
     },
     {
       "eventId": "77983e011211c4ce",
@@ -4187,33 +4130,21 @@
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
-      "eventId": "f3871be7d1e5fea4",
+      "eventId": "bfe68ff7f2462812",
       "members": [
         {
-          "id": "f3871be7d1e5fea41de0f9740c8b0e6d",
+          "id": "bfe68ff7f2462812648a22f1a5de947a",
           "sourceId": "wten-news10",
           "publisher": "WTEN News10 ABC",
-          "headline": "Hochul seeks disaster loans for July flood victims",
-          "excerpt": "In the aftermath of July's flooding, which affected so many across the region, Governor Kathy Hochul has requested a Physical Disaster Declaration from the U.S. Small Business Administration (SBA) for Columbia, Rensselaer and the contiguous counties of Albany, Saratoga, Washington, Dutchess, Greene",
-          "url": "https://www.news10.com/news/local-news/hochul-seeks-disaster-loans-for-july-flood-victims/",
-          "publishedAt": "2026-09-24T02:21:40Z",
+          "headline": "Albany PD identify suspect in social media video investigation",
+          "excerpt": "The Albany Police Department will be holding a press conference on Wednesday about videos that have recently circulated on social media platforms.",
+          "url": "https://www.news10.com/news/albany-county/albany-pd-to-give-update-on-social-media-video-investigation/",
+          "publishedAt": "2026-09-23T17:59:31Z",
           "language": "en",
           "rightsMode": "RSS_EXCERPT_ALLOWED",
           "imageCandidate": null,
           "rawLocations": [],
           "locations": [
-            {
-              "country": "US",
-              "admin1": "US-DC",
-              "city": "Washington"
-            },
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Saratoga County",
-              "city": "Saratoga Springs",
-              "metro": "us-ny-capital-region"
-            },
             {
               "country": "US",
               "admin1": "US-NY",
@@ -4225,24 +4156,12 @@
         }
       ],
       "memberIds": [
-        "f3871be7d1e5fea41de0f9740c8b0e6d"
+        "bfe68ff7f2462812648a22f1a5de947a"
       ],
       "aliases": [],
-      "firstSeen": "2026-09-24T02:21:40Z",
-      "lastSeen": "2026-09-24T02:21:40Z",
+      "firstSeen": "2026-09-23T17:59:31Z",
+      "lastSeen": "2026-09-23T17:59:31Z",
       "locations": [
-        {
-          "country": "US",
-          "admin1": "US-DC",
-          "city": "Washington"
-        },
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "city": "Saratoga Springs",
-          "metro": "us-ny-capital-region"
-        },
         {
           "country": "US",
           "admin1": "US-NY",
@@ -4252,17 +4171,17 @@
         }
       ],
       "section": "local",
-      "category": "politics",
-      "headline": "Hochul seeks disaster loans for July flood victims",
-      "score": 0.5419435955227623,
+      "category": "public-safety",
+      "headline": "Albany PD identify suspect in social media video investigation",
+      "score": 0.545965938205247,
       "scoreComponents": {
-        "freshness": 0.6877743820910494,
+        "freshness": 0.5649148455131173,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
+        "categoryBoost": 1.0,
+        "stalePenalty": 0.015262773173032405,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4273,19 +4192,29 @@
         {
           "sourceId": "wten-news10",
           "publisher": "WTEN News10 ABC",
-          "headline": "Hochul seeks disaster loans for July flood victims",
-          "url": "https://www.news10.com/news/local-news/hochul-seeks-disaster-loans-for-july-flood-victims/",
-          "publishedAt": "2026-09-24T02:21:40Z",
+          "headline": "Albany PD identify suspect in social media video investigation",
+          "url": "https://www.news10.com/news/albany-county/albany-pd-to-give-update-on-social-media-video-investigation/",
+          "publishedAt": "2026-09-23T17:59:31Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
       "status": "unchanged",
       "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
+      "lastBriefHash": "c9289f844cd0c01cc7dcd4cd9dbcd735",
+      "lastGeneratedAt": "2026-09-25T01:35:25.007542Z",
+      "lastBrief": {
+        "headline": "Albany PD Hold Press Conference on Social Media Video Investigation",
+        "dek": "Albany PD will hold a press conference on Wednesday regarding social media video investigations.",
+        "body": "The Albany Police Department will hold a press conference on Wednesday regarding social media video investigations, according to WTEN News10. The department will address videos that have recently circulated on social media platforms.",
+        "category": "public-safety",
+        "sourceIds": [
+          "bfe68ff7f2462812648a22f1a5de947a"
+        ],
+        "aiModel": "news-editor",
+        "confidence": 0.95
+      },
+      "lastBriefFingerprint": "31f63bb8d87d2c64a04c19f2e55e11d0",
+      "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
       "eventId": "29141a0ba5d55eef",
@@ -4362,6 +4291,107 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "f3871be7d1e5fea4",
+      "members": [
+        {
+          "id": "f3871be7d1e5fea41de0f9740c8b0e6d",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Hochul seeks disaster loans for July flood victims",
+          "excerpt": "In the aftermath of July's flooding, which affected so many across the region, Governor Kathy Hochul has requested a Physical Disaster Declaration from the U.S. Small Business Administration (SBA) for Columbia, Rensselaer and the contiguous counties of Albany, Saratoga, Washington, Dutchess, Greene",
+          "url": "https://www.news10.com/news/local-news/hochul-seeks-disaster-loans-for-july-flood-victims/",
+          "publishedAt": "2026-09-24T02:21:40Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-DC",
+              "city": "Washington"
+            },
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Saratoga County",
+              "city": "Saratoga Springs",
+              "metro": "us-ny-capital-region"
+            },
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Albany County",
+              "city": "Albany",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "f3871be7d1e5fea41de0f9740c8b0e6d"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T02:21:40Z",
+      "lastSeen": "2026-09-24T02:21:40Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-DC",
+          "city": "Washington"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
+          "city": "Saratoga Springs",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "section": "local",
+      "category": "politics",
+      "headline": "Hochul seeks disaster loans for July flood victims",
+      "score": 0.5402883178597608,
+      "scoreComponents": {
+        "freshness": 0.6811532714390431,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.8,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "MEDIUM",
+      "confidenceTier": "medium",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Hochul seeks disaster loans for July flood victims",
+          "url": "https://www.news10.com/news/local-news/hochul-seeks-disaster-loans-for-july-flood-victims/",
+          "publishedAt": "2026-09-24T02:21:40Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
+    },
+    {
       "eventId": "5b0749513a8b0f02",
       "members": [
         {
@@ -4430,9 +4460,9 @@
       "section": "local",
       "category": "business",
       "headline": "Kingston man charged with attempted rape",
-      "score": 0.5382640044733795,
+      "score": 0.5366087268103781,
       "scoreComponents": {
-        "freshness": 0.8730560178935185,
+        "freshness": 0.8664349072415123,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
@@ -4515,15 +4545,15 @@
       "section": "local",
       "category": "local",
       "headline": "Man reported missing in Fulton County found safe",
-      "score": 0.5330881478981481,
+      "score": 0.5304397036373457,
       "scoreComponents": {
-        "freshness": 0.6577203697453704,
+        "freshness": 0.6510992590933642,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0013419445381944433,
+        "stalePenalty": 0.0023351111359953677,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4790,15 +4820,15 @@
       "section": "local",
       "category": "local",
       "headline": "Northeast motorcycle dealership not feeling the pressure of US, Canada trade war",
-      "score": 0.5283103701203704,
+      "score": 0.525661925859568,
       "scoreComponents": {
-        "freshness": 0.6082759253009259,
+        "freshness": 0.6016548146489198,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.008758611204861115,
+        "stalePenalty": 0.009751777802662032,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4877,15 +4907,15 @@
       "section": "local",
       "category": "politics",
       "headline": "As Healey backs starter home building rules initiative, municipal association opposed",
-      "score": 0.5271545059228395,
+      "score": 0.5245060616620371,
       "scoreComponents": {
-        "freshness": 0.6053862648070988,
+        "freshness": 0.5987651541550927,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.9,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.009192060278935184,
+        "stalePenalty": 0.01018522687673611,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -4974,15 +5004,15 @@
       "section": "local",
       "category": "health",
       "headline": "Measles cases jump across rural New York",
-      "score": 0.5198906170339506,
+      "score": 0.5172421727731481,
       "scoreComponents": {
-        "freshness": 0.6247265425848765,
+        "freshness": 0.6181054319328705,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.006291018612268522,
+        "stalePenalty": 0.007284185210069439,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -5006,105 +5036,6 @@
       "lastBrief": null,
       "lastBriefFingerprint": null,
       "lastBriefModel": null
-    },
-    {
-      "eventId": "e35856a488764280",
-      "members": [
-        {
-          "id": "e35856a4887642809e3b199fb3c1f428",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Albany Co. DA reveals task force after woman indicted for husband's murder",
-          "excerpt": "Nearly two weeks after Sabrina Balchand-Jackson allegedly killed her husband, she pled not guilty to four charges in Albany County Court on Wednesday. Albany County District Attorney Lee Kindlon said this incident of intimate partner violence, warranted a new initiative that has been brewing in his",
-          "url": "https://www.news10.com/news/crime/albany-co-da-reveals-task-force-after-woman-indicted-for-husbands-murder/",
-          "publishedAt": "2026-09-23T21:28:23Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Albany County",
-              "city": "Albany",
-              "metro": "us-ny-capital-region"
-            },
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Albany County",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "e35856a4887642809e3b199fb3c1f428"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T21:28:23Z",
-      "lastSeen": "2026-09-23T21:28:23Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        },
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "section": "local",
-      "category": "local",
-      "headline": "Albany Co. DA reveals task force after woman indicted for husband's murder",
-      "score": 0.5179538886388889,
-      "scoreComponents": {
-        "freshness": 0.6198847215972222,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.8,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.007017291760416671,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "MEDIUM",
-      "confidenceTier": "medium",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Albany Co. DA reveals task force after woman indicted for husband's murder",
-          "url": "https://www.news10.com/news/crime/albany-co-da-reveals-task-force-after-woman-indicted-for-husbands-murder/",
-          "publishedAt": "2026-09-23T21:28:23Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": "ddf12da750290fda1c91425c34895750",
-      "lastGeneratedAt": "2026-09-24T20:46:37.394099Z",
-      "lastBrief": {
-        "headline": "Albany County DA forms task force after woman indicted for husband's murder",
-        "dek": "Albany County DA forms task force after woman indicted for husband's murder",
-        "body": "Albany County District Attorney Lee Kindlon announced a new task force following the indictment of Sabrina Balchand-Jackson for the murder of her husband, according to WTEN News10. The woman pled not guilty to four charges in Albany County Court. Kindlon stated the incident of intimate partner violence prompted the formation of the task force.",
-        "category": "local",
-        "sourceIds": [
-          "e35856a4887642809e3b199fb3c1f428"
-        ],
-        "aiModel": "newsbrief",
-        "confidence": 0.95
-      },
-      "lastBriefFingerprint": "0196be84aad52c9978ba79e9c46443bc",
-      "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
       "eventId": "093408b10a4044df",
@@ -5194,6 +5125,188 @@
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
+      "eventId": "e35856a488764280",
+      "members": [
+        {
+          "id": "e35856a4887642809e3b199fb3c1f428",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Albany Co. DA reveals task force after woman indicted for husband's murder",
+          "excerpt": "Nearly two weeks after Sabrina Balchand-Jackson allegedly killed her husband, she pled not guilty to four charges in Albany County Court on Wednesday. Albany County District Attorney Lee Kindlon said this incident of intimate partner violence, warranted a new initiative that has been brewing in his",
+          "url": "https://www.news10.com/news/crime/albany-co-da-reveals-task-force-after-woman-indicted-for-husbands-murder/",
+          "publishedAt": "2026-09-23T21:28:23Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Albany County",
+              "city": "Albany",
+              "metro": "us-ny-capital-region"
+            },
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Albany County",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "e35856a4887642809e3b199fb3c1f428"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T21:28:23Z",
+      "lastSeen": "2026-09-23T21:28:23Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "section": "local",
+      "category": "local",
+      "headline": "Albany Co. DA reveals task force after woman indicted for husband's murder",
+      "score": 0.5153054443780865,
+      "scoreComponents": {
+        "freshness": 0.6132636109452161,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.8,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.008010458358217587,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "MEDIUM",
+      "confidenceTier": "medium",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Albany Co. DA reveals task force after woman indicted for husband's murder",
+          "url": "https://www.news10.com/news/crime/albany-co-da-reveals-task-force-after-woman-indicted-for-husbands-murder/",
+          "publishedAt": "2026-09-23T21:28:23Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": "ddf12da750290fda1c91425c34895750",
+      "lastGeneratedAt": "2026-09-24T20:46:37.394099Z",
+      "lastBrief": {
+        "headline": "Albany County DA forms task force after woman indicted for husband's murder",
+        "dek": "Albany County DA forms task force after woman indicted for husband's murder",
+        "body": "Albany County District Attorney Lee Kindlon announced a new task force following the indictment of Sabrina Balchand-Jackson for the murder of her husband, according to WTEN News10. The woman pled not guilty to four charges in Albany County Court. Kindlon stated the incident of intimate partner violence prompted the formation of the task force.",
+        "category": "local",
+        "sourceIds": [
+          "e35856a4887642809e3b199fb3c1f428"
+        ],
+        "aiModel": "newsbrief",
+        "confidence": 0.95
+      },
+      "lastBriefFingerprint": "0196be84aad52c9978ba79e9c46443bc",
+      "lastBriefModel": "Qwen3-4B-Q4_K_M"
+    },
+    {
+      "eventId": "e723ede8f06aa436",
+      "members": [
+        {
+          "id": "e723ede8f06aa43679452f4d6a164b91",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Pedestrian airlifted after crash in Fort Edward",
+          "excerpt": "The Washington County Sheriff's Office responded to a crash involving a pedestrian in Fort Edward on Tuesday morning.",
+          "url": "https://www.news10.com/news/washington-county/pedestrian-airlifted-after-crash-in-fort-edward/",
+          "publishedAt": "2026-09-22T21:00:17Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-DC",
+              "city": "Washington"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "e723ede8f06aa43679452f4d6a164b91"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-22T21:00:17Z",
+      "lastSeen": "2026-09-22T21:00:17Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-DC",
+          "city": "Washington"
+        }
+      ],
+      "section": "local",
+      "category": "public-safety",
+      "headline": "Pedestrian airlifted after crash in Fort Edward",
+      "score": 0.5151656804135804,
+      "scoreComponents": {
+        "freshness": 0.48791420103395067,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.8,
+        "breaking": 0.0,
+        "categoryBoost": 1.0,
+        "stalePenalty": 0.026812869844907408,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "MEDIUM",
+      "confidenceTier": "medium",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Pedestrian airlifted after crash in Fort Edward",
+          "url": "https://www.news10.com/news/washington-county/pedestrian-airlifted-after-crash-in-fort-edward/",
+          "publishedAt": "2026-09-22T21:00:17Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": "0c911a7c00839e24fe05027a9d5051ce",
+      "lastGeneratedAt": "2026-09-24T21:12:24.845607Z",
+      "lastBrief": {
+        "headline": "Pedestrian rescued after crash in Fort Edward",
+        "dek": "Local law enforcement investigates crash in Fort Edward",
+        "body": "The Washington County Sheriff's Office attended to an incident involving a pedestrian in Fort Edward on Tuesday, as reported by WTEN News10 ABC. The event took place in Fort Edward, Washington, United States.",
+        "category": "public-safety",
+        "sourceIds": [
+          "e723ede8f06aa43679452f4d6a164b91"
+        ],
+        "aiModel": "news-editor",
+        "confidence": 0.95
+      },
+      "lastBriefFingerprint": "fa4d8fd10d2920f4f98eea78190298c5",
+      "lastBriefModel": "Qwen3-4B-Q4_K_M"
+    },
+    {
       "eventId": "88ead7d88b066dae",
       "members": [
         {
@@ -5247,15 +5360,15 @@
       "section": "local",
       "category": "politics",
       "headline": "New York faces $12 billion safety net cliff with OBBBA slashing SNAP, Essential Plan",
-      "score": 0.5168474071574074,
+      "score": 0.514198962896605,
       "scoreComponents": {
-        "freshness": 0.6171185178935186,
+        "freshness": 0.6104974072415124,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.007432222315972226,
+        "stalePenalty": 0.008425388913773143,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -5346,15 +5459,15 @@
       "section": "local",
       "category": "local",
       "headline": "Grand marshal named for 2026 Schenectady County Holiday Parade",
-      "score": 0.5154785799969136,
+      "score": 0.5128301357361111,
       "scoreComponents": {
-        "freshness": 0.6136964499922839,
+        "freshness": 0.6070753393402778,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.007945532501157409,
+        "stalePenalty": 0.008938699098958332,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -5387,89 +5500,6 @@
         "confidence": 0.95
       },
       "lastBriefFingerprint": "fa134bfda8415806af2ac440d1694064",
-      "lastBriefModel": "Qwen3-4B-Q4_K_M"
-    },
-    {
-      "eventId": "e723ede8f06aa436",
-      "members": [
-        {
-          "id": "e723ede8f06aa43679452f4d6a164b91",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Pedestrian airlifted after crash in Fort Edward",
-          "excerpt": "The Washington County Sheriff's Office responded to a crash involving a pedestrian in Fort Edward on Tuesday morning.",
-          "url": "https://www.news10.com/news/washington-county/pedestrian-airlifted-after-crash-in-fort-edward/",
-          "publishedAt": "2026-09-22T21:00:17Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-DC",
-              "city": "Washington"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "e723ede8f06aa43679452f4d6a164b91"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-22T21:00:17Z",
-      "lastSeen": "2026-09-22T21:00:17Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-DC",
-          "city": "Washington"
-        }
-      ],
-      "section": "local",
-      "category": "public-safety",
-      "headline": "Pedestrian airlifted after crash in Fort Edward",
-      "score": 0.5151656804135804,
-      "scoreComponents": {
-        "freshness": 0.48791420103395067,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.8,
-        "breaking": 0.0,
-        "categoryBoost": 1.0,
-        "stalePenalty": 0.026812869844907408,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "MEDIUM",
-      "confidenceTier": "medium",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Pedestrian airlifted after crash in Fort Edward",
-          "url": "https://www.news10.com/news/washington-county/pedestrian-airlifted-after-crash-in-fort-edward/",
-          "publishedAt": "2026-09-22T21:00:17Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": "0c911a7c00839e24fe05027a9d5051ce",
-      "lastGeneratedAt": "2026-09-24T21:12:24.845607Z",
-      "lastBrief": {
-        "headline": "Pedestrian rescued after crash in Fort Edward",
-        "dek": "Local law enforcement investigates crash in Fort Edward",
-        "body": "The Washington County Sheriff's Office attended to an incident involving a pedestrian in Fort Edward on Tuesday, as reported by WTEN News10 ABC. The event took place in Fort Edward, Washington, United States.",
-        "category": "public-safety",
-        "sourceIds": [
-          "e723ede8f06aa43679452f4d6a164b91"
-        ],
-        "aiModel": "news-editor",
-        "confidence": 0.95
-      },
-      "lastBriefFingerprint": "fa4d8fd10d2920f4f98eea78190298c5",
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
@@ -5536,15 +5566,15 @@
       "section": "local",
       "category": "local",
       "headline": "Capital Region getting $4.6M for playground projects",
-      "score": 0.5123551232067902,
+      "score": 0.5097066789459876,
       "scoreComponents": {
-        "freshness": 0.6058878080169754,
+        "freshness": 0.5992666973649692,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.009116828797453702,
+        "stalePenalty": 0.010109995395254628,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -5903,15 +5933,15 @@
       "section": "local",
       "category": "health",
       "headline": "Women's Health Wednesday: Perimenopause Awareness Month",
-      "score": 0.5003211725895063,
+      "score": 0.49767272832870374,
       "scoreComponents": {
-        "freshness": 0.5758029314737654,
+        "freshness": 0.5691818208217593,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.013629560278935192,
+        "stalePenalty": 0.014622726876736106,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -6034,97 +6064,6 @@
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
-      "eventId": "0021646935a6f78c",
-      "members": [
-        {
-          "id": "9c91bb17ee4a22bbd08263e15b527e2f",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Saratoga County DA and survivor create 'Survivor Support Group'",
-          "excerpt": "The group is intended to support people who are survivors of a crime, but have finished criminal proceedings. Saratoga County District Attorney Brett Eby said he's seen a lack of support for victims after prosecution.",
-          "url": "https://www.news10.com/news/saratoga-county/saratoga-county-da-and-survivor-create-survivor-support-group/",
-          "publishedAt": "2026-09-23T16:22:34Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Saratoga County",
-              "city": "Saratoga Springs",
-              "metro": "us-ny-capital-region"
-            },
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Saratoga County",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "9c91bb17ee4a22bbd08263e15b527e2f"
-      ],
-      "aliases": [
-        "9c91bb17ee4a22bb"
-      ],
-      "firstSeen": "2026-09-23T16:22:34Z",
-      "lastSeen": "2026-09-23T16:22:34Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "city": "Saratoga Springs",
-          "metro": "us-ny-capital-region"
-        },
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "section": "local",
-      "category": "local",
-      "headline": "Saratoga County DA and survivor create 'Survivor Support Group'",
-      "score": 0.4896375306141975,
-      "scoreComponents": {
-        "freshness": 0.5490938265354939,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.8,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.017635926019675927,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "MEDIUM",
-      "confidenceTier": "medium",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "Saratoga County DA and survivor create 'Survivor Support Group'",
-          "url": "https://www.news10.com/news/saratoga-county/saratoga-county-da-and-survivor-create-survivor-support-group/",
-          "publishedAt": "2026-09-23T16:22:34Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
       "eventId": "c78d0f32460216a0",
       "members": [
         {
@@ -6199,16 +6138,16 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "2537694c9d2a7b97",
+      "eventId": "0021646935a6f78c",
       "members": [
         {
-          "id": "2537694c9d2a7b972e346f97ff1d3761",
+          "id": "9c91bb17ee4a22bbd08263e15b527e2f",
           "sourceId": "wten-news10",
           "publisher": "WTEN News10 ABC",
-          "headline": "State Route 66 paving project starts in Chatham, delays expected",
-          "excerpt": "Village of Chatham officials announced that the state Department of Transportation launched an extensive road project on Wednesday.",
-          "url": "https://www.news10.com/news/columbia-county/state-route-66-paving-project-starts-in-chatham-delays-expected/",
-          "publishedAt": "2026-09-23T15:50:54Z",
+          "headline": "Saratoga County DA and survivor create 'Survivor Support Group'",
+          "excerpt": "The group is intended to support people who are survivors of a crime, but have finished criminal proceedings. Saratoga County District Attorney Brett Eby said he's seen a lack of support for victims after prosecution.",
+          "url": "https://www.news10.com/news/saratoga-county/saratoga-county-da-and-survivor-create-survivor-support-group/",
+          "publishedAt": "2026-09-23T16:22:34Z",
           "language": "en",
           "rightsMode": "RSS_EXCERPT_ALLOWED",
           "imageCandidate": null,
@@ -6217,40 +6156,54 @@
             {
               "country": "US",
               "admin1": "US-NY",
-              "admin2": "Albany County",
-              "city": "Albany",
+              "admin2": "Saratoga County",
+              "city": "Saratoga Springs",
+              "metro": "us-ny-capital-region"
+            },
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Saratoga County",
               "metro": "us-ny-capital-region"
             }
           ]
         }
       ],
       "memberIds": [
-        "2537694c9d2a7b972e346f97ff1d3761"
+        "9c91bb17ee4a22bbd08263e15b527e2f"
       ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T15:50:54Z",
-      "lastSeen": "2026-09-23T15:50:54Z",
+      "aliases": [
+        "9c91bb17ee4a22bb"
+      ],
+      "firstSeen": "2026-09-23T16:22:34Z",
+      "lastSeen": "2026-09-23T16:22:34Z",
       "locations": [
         {
           "country": "US",
           "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
+          "admin2": "Saratoga County",
+          "city": "Saratoga Springs",
+          "metro": "us-ny-capital-region"
+        },
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
           "metro": "us-ny-capital-region"
         }
       ],
       "section": "local",
       "category": "local",
-      "headline": "State Route 66 paving project starts in Chatham, delays expected",
-      "score": 0.4867054318487654,
+      "headline": "Saratoga County DA and survivor create 'Survivor Support Group'",
+      "score": 0.48698908635339505,
       "scoreComponents": {
-        "freshness": 0.5417635796219136,
+        "freshness": 0.5424727158834877,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.018735463056712965,
+        "stalePenalty": 0.01862909261747685,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -6261,86 +6214,9 @@
         {
           "sourceId": "wten-news10",
           "publisher": "WTEN News10 ABC",
-          "headline": "State Route 66 paving project starts in Chatham, delays expected",
-          "url": "https://www.news10.com/news/columbia-county/state-route-66-paving-project-starts-in-chatham-delays-expected/",
-          "publishedAt": "2026-09-23T15:50:54Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
-      "eventId": "7a7364b75692ba72",
-      "members": [
-        {
-          "id": "7a7364b75692ba725172ee40ffc0fb1f",
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "ALDI sets opening date for new Latham location",
-          "excerpt": "ALDI has set an opening date for its new location in Latham.",
-          "url": "https://www.news10.com/news/albany-county/aldi-sets-opening-date-for-new-latham-location/",
-          "publishedAt": "2026-09-23T15:31:50Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY",
-              "admin2": "Albany County",
-              "city": "Albany",
-              "metro": "us-ny-capital-region"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "7a7364b75692ba725172ee40ffc0fb1f"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T15:31:50Z",
-      "lastSeen": "2026-09-23T15:31:50Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY",
-          "admin2": "Albany County",
-          "city": "Albany",
-          "metro": "us-ny-capital-region"
-        }
-      ],
-      "section": "local",
-      "category": "local",
-      "headline": "ALDI sets opening date for new Latham location",
-      "score": 0.48493999974999996,
-      "scoreComponents": {
-        "freshness": 0.5373499993749999,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.8,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.019397500093750002,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "MEDIUM",
-      "confidenceTier": "medium",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "wten-news10",
-          "publisher": "WTEN News10 ABC",
-          "headline": "ALDI sets opening date for new Latham location",
-          "url": "https://www.news10.com/news/albany-county/aldi-sets-opening-date-for-new-latham-location/",
-          "publishedAt": "2026-09-23T15:31:50Z",
+          "headline": "Saratoga County DA and survivor create 'Survivor Support Group'",
+          "url": "https://www.news10.com/news/saratoga-county/saratoga-county-da-and-survivor-create-survivor-support-group/",
+          "publishedAt": "2026-09-23T16:22:34Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -6438,6 +6314,83 @@
       },
       "lastBriefFingerprint": "cd200729b18dddcb8ecd7ef5191fc1a0",
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
+    },
+    {
+      "eventId": "2537694c9d2a7b97",
+      "members": [
+        {
+          "id": "2537694c9d2a7b972e346f97ff1d3761",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "State Route 66 paving project starts in Chatham, delays expected",
+          "excerpt": "Village of Chatham officials announced that the state Department of Transportation launched an extensive road project on Wednesday.",
+          "url": "https://www.news10.com/news/columbia-county/state-route-66-paving-project-starts-in-chatham-delays-expected/",
+          "publishedAt": "2026-09-23T15:50:54Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Albany County",
+              "city": "Albany",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "2537694c9d2a7b972e346f97ff1d3761"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T15:50:54Z",
+      "lastSeen": "2026-09-23T15:50:54Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Albany County",
+          "city": "Albany",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "section": "local",
+      "category": "local",
+      "headline": "State Route 66 paving project starts in Chatham, delays expected",
+      "score": 0.48405698758796295,
+      "scoreComponents": {
+        "freshness": 0.5351424689699074,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.8,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.01972862965451389,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "MEDIUM",
+      "confidenceTier": "medium",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "State Route 66 paving project starts in Chatham, delays expected",
+          "url": "https://www.news10.com/news/columbia-county/state-route-66-paving-project-starts-in-chatham-delays-expected/",
+          "publishedAt": "2026-09-23T15:50:54Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
     },
     {
       "eventId": "2208d0348022818a",
@@ -6539,16 +6492,16 @@
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
-      "eventId": "30305973e4bfcf1e",
+      "eventId": "7a7364b75692ba72",
       "members": [
         {
-          "id": "30305973e4bfcf1ea2edc80cf69b34f5",
+          "id": "7a7364b75692ba725172ee40ffc0fb1f",
           "sourceId": "wten-news10",
           "publisher": "WTEN News10 ABC",
-          "headline": "Ally the Piper bringing holiday tour to Albany",
-          "excerpt": "The Egg will be ending the year with a performance by bagpipe artist and songwriter Ally the Piper.",
-          "url": "https://www.news10.com/community/concerts-performances/ally-the-piper-bringing-holiday-tour-to-albany/",
-          "publishedAt": "2026-09-23T15:03:13Z",
+          "headline": "ALDI sets opening date for new Latham location",
+          "excerpt": "ALDI has set an opening date for its new location in Latham.",
+          "url": "https://www.news10.com/news/albany-county/aldi-sets-opening-date-for-new-latham-location/",
+          "publishedAt": "2026-09-23T15:31:50Z",
           "language": "en",
           "rightsMode": "RSS_EXCERPT_ALLOWED",
           "imageCandidate": null,
@@ -6565,11 +6518,11 @@
         }
       ],
       "memberIds": [
-        "30305973e4bfcf1ea2edc80cf69b34f5"
+        "7a7364b75692ba725172ee40ffc0fb1f"
       ],
       "aliases": [],
-      "firstSeen": "2026-09-23T15:03:13Z",
-      "lastSeen": "2026-09-23T15:03:13Z",
+      "firstSeen": "2026-09-23T15:31:50Z",
+      "lastSeen": "2026-09-23T15:31:50Z",
       "locations": [
         {
           "country": "US",
@@ -6581,16 +6534,16 @@
       ],
       "section": "local",
       "category": "local",
-      "headline": "Ally the Piper bringing holiday tour to Albany",
-      "score": 0.48229030839197534,
+      "headline": "ALDI sets opening date for new Latham location",
+      "score": 0.4822915554891975,
       "scoreComponents": {
-        "freshness": 0.5307257709799382,
+        "freshness": 0.5307288887229938,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.020391134353009256,
+        "stalePenalty": 0.02039066669155093,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -6601,9 +6554,9 @@
         {
           "sourceId": "wten-news10",
           "publisher": "WTEN News10 ABC",
-          "headline": "Ally the Piper bringing holiday tour to Albany",
-          "url": "https://www.news10.com/community/concerts-performances/ally-the-piper-bringing-holiday-tour-to-albany/",
-          "publishedAt": "2026-09-23T15:03:13Z",
+          "headline": "ALDI sets opening date for new Latham location",
+          "url": "https://www.news10.com/news/albany-county/aldi-sets-opening-date-for-new-latham-location/",
+          "publishedAt": "2026-09-23T15:31:50Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -6703,16 +6656,16 @@
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
-      "eventId": "2898cc93a3890534",
+      "eventId": "30305973e4bfcf1e",
       "members": [
         {
-          "id": "c4c280dc6fdd6e6b013b87e4b5bcba62",
+          "id": "30305973e4bfcf1ea2edc80cf69b34f5",
           "sourceId": "wten-news10",
           "publisher": "WTEN News10 ABC",
-          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-          "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
-          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
-          "publishedAt": "2026-09-23T14:36:24Z",
+          "headline": "Ally the Piper bringing holiday tour to Albany",
+          "excerpt": "The Egg will be ending the year with a performance by bagpipe artist and songwriter Ally the Piper.",
+          "url": "https://www.news10.com/community/concerts-performances/ally-the-piper-bringing-holiday-tour-to-albany/",
+          "publishedAt": "2026-09-23T15:03:13Z",
           "language": "en",
           "rightsMode": "RSS_EXCERPT_ALLOWED",
           "imageCandidate": null,
@@ -6721,42 +6674,40 @@
             {
               "country": "US",
               "admin1": "US-NY",
-              "admin2": "Saratoga County",
-              "city": "Saratoga Springs",
+              "admin2": "Albany County",
+              "city": "Albany",
               "metro": "us-ny-capital-region"
             }
           ]
         }
       ],
       "memberIds": [
-        "c4c280dc6fdd6e6b013b87e4b5bcba62"
+        "30305973e4bfcf1ea2edc80cf69b34f5"
       ],
-      "aliases": [
-        "c4c280dc6fdd6e6b"
-      ],
-      "firstSeen": "2026-09-23T14:36:24Z",
-      "lastSeen": "2026-09-23T14:36:24Z",
+      "aliases": [],
+      "firstSeen": "2026-09-23T15:03:13Z",
+      "lastSeen": "2026-09-23T15:03:13Z",
       "locations": [
         {
           "country": "US",
           "admin1": "US-NY",
-          "admin2": "Saratoga County",
-          "city": "Saratoga Springs",
+          "admin2": "Albany County",
+          "city": "Albany",
           "metro": "us-ny-capital-region"
         }
       ],
       "section": "local",
-      "category": "business",
-      "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-      "score": 0.47980728370061726,
+      "category": "local",
+      "headline": "Ally the Piper bringing holiday tour to Albany",
+      "score": 0.4796418641311729,
       "scoreComponents": {
-        "freshness": 0.5245182092515432,
+        "freshness": 0.5241046603279321,
         "locality": 1.0,
         "corroboration": 0.0,
         "sourcePriority": 0.8,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.021322268612268522,
+        "stalePenalty": 0.02138430095081018,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -6767,29 +6718,19 @@
         {
           "sourceId": "wten-news10",
           "publisher": "WTEN News10 ABC",
-          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
-          "publishedAt": "2026-09-23T14:36:24Z",
+          "headline": "Ally the Piper bringing holiday tour to Albany",
+          "url": "https://www.news10.com/community/concerts-performances/ally-the-piper-bringing-holiday-tour-to-albany/",
+          "publishedAt": "2026-09-23T15:03:13Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
       "status": "unchanged",
       "version": 1,
-      "lastBriefHash": "253af9f7d3ef4162370e0b46e47382d2",
-      "lastGeneratedAt": "2026-09-24T21:15:13.869128Z",
-      "lastBrief": {
-        "headline": "Saratoga Springs Restaurant Closes After 38 Years",
-        "dek": "A Saratoga Springs dining establishment is ending its 38-year tenure.",
-        "body": "The Wheatfields Restaurant & Bar, situated at 440 Broadway in downtown Saratoga Springs, will shut its doors. Tim and Colleen Holmes revealed the decision through a Facebook post on Wednesday.",
-        "category": "business",
-        "sourceIds": [
-          "c4c280dc6fdd6e6b013b87e4b5bcba62"
-        ],
-        "aiModel": "news-editor",
-        "confidence": 0.95
-      },
-      "lastBriefFingerprint": "7c8615786055388198c79617205efcad",
-      "lastBriefModel": "Qwen3-4B-Q4_K_M"
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
     },
     {
       "eventId": "987fa59d5009e7b0",
@@ -6876,6 +6817,95 @@
         "confidence": 0.95
       },
       "lastBriefFingerprint": "734122fe2cb08f151299dd0aed78d02b",
+      "lastBriefModel": "Qwen3-4B-Q4_K_M"
+    },
+    {
+      "eventId": "2898cc93a3890534",
+      "members": [
+        {
+          "id": "c4c280dc6fdd6e6b013b87e4b5bcba62",
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+          "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
+          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
+          "publishedAt": "2026-09-23T14:36:24Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-NY",
+              "admin2": "Saratoga County",
+              "city": "Saratoga Springs",
+              "metro": "us-ny-capital-region"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "c4c280dc6fdd6e6b013b87e4b5bcba62"
+      ],
+      "aliases": [
+        "c4c280dc6fdd6e6b"
+      ],
+      "firstSeen": "2026-09-23T14:36:24Z",
+      "lastSeen": "2026-09-23T14:36:24Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-NY",
+          "admin2": "Saratoga County",
+          "city": "Saratoga Springs",
+          "metro": "us-ny-capital-region"
+        }
+      ],
+      "section": "local",
+      "category": "business",
+      "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+      "score": 0.4771588394398148,
+      "scoreComponents": {
+        "freshness": 0.517897098599537,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.8,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.022315435210069446,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "MEDIUM",
+      "confidenceTier": "medium",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "wten-news10",
+          "publisher": "WTEN News10 ABC",
+          "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
+          "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
+          "publishedAt": "2026-09-23T14:36:24Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": "253af9f7d3ef4162370e0b46e47382d2",
+      "lastGeneratedAt": "2026-09-24T21:15:13.869128Z",
+      "lastBrief": {
+        "headline": "Saratoga Springs Restaurant Closes After 38 Years",
+        "dek": "A Saratoga Springs dining establishment is ending its 38-year tenure.",
+        "body": "The Wheatfields Restaurant & Bar, situated at 440 Broadway in downtown Saratoga Springs, will shut its doors. Tim and Colleen Holmes revealed the decision through a Facebook post on Wednesday.",
+        "category": "business",
+        "sourceIds": [
+          "c4c280dc6fdd6e6b013b87e4b5bcba62"
+        ],
+        "aiModel": "news-editor",
+        "confidence": 0.95
+      },
+      "lastBriefFingerprint": "7c8615786055388198c79617205efcad",
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
@@ -7646,75 +7676,6 @@
       "lastBriefModel": "Qwen3-4B-Q4_K_M"
     },
     {
-      "eventId": "bfa57b46198f28c1",
-      "members": [
-        {
-          "id": "bfa57b46198f28c194692d11152e680e",
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "RFK Jr.'s ethics filing reveals book deals worth millions of dollars",
-          "excerpt": "Health Secretary Robert F. Kennedy Jr.'s annual financial disclosure reveals he has received two lucrative book advances and free flights from a friend while in office.",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5979867/rfk-ethics-book-deals",
-          "publishedAt": "2026-09-24T17:51:40Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "bfa57b46198f28c194692d11152e680e"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T17:51:40Z",
-      "lastSeen": "2026-09-24T17:51:40Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "public-safety",
-      "headline": "RFK Jr.'s ethics filing reveals book deals worth millions of dollars",
-      "score": 0.4407630399672068,
-      "scoreComponents": {
-        "freshness": 0.9030521598688271,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.6,
-        "breaking": 0.0,
-        "categoryBoost": 0.5,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "RFK Jr.'s ethics filing reveals book deals worth millions of dollars",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5979867/rfk-ethics-book-deals",
-          "publishedAt": "2026-09-24T17:51:40Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
       "eventId": "8657fa8d5d0fa67e",
       "members": [
         {
@@ -7787,6 +7748,75 @@
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
+    },
+    {
+      "eventId": "bfa57b46198f28c1",
+      "members": [
+        {
+          "id": "bfa57b46198f28c194692d11152e680e",
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "RFK Jr.'s ethics filing reveals book deals worth millions of dollars",
+          "excerpt": "Health Secretary Robert F. Kennedy Jr.'s annual financial disclosure reveals he has received two lucrative book advances and free flights from a friend while in office.",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5979867/rfk-ethics-book-deals",
+          "publishedAt": "2026-09-24T17:51:40Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "bfa57b46198f28c194692d11152e680e"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T17:51:40Z",
+      "lastSeen": "2026-09-24T17:51:40Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "public-safety",
+      "headline": "RFK Jr.'s ethics filing reveals book deals worth millions of dollars",
+      "score": 0.43910776230420523,
+      "scoreComponents": {
+        "freshness": 0.896431049216821,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.6,
+        "breaking": 0.0,
+        "categoryBoost": 0.5,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "RFK Jr.'s ethics filing reveals book deals worth millions of dollars",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5979867/rfk-ethics-book-deals",
+          "publishedAt": "2026-09-24T17:51:40Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
     },
     {
       "eventId": "c3e39297624a5ed8",
@@ -8003,75 +8033,6 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "02090bb2658c4dd3",
-      "members": [
-        {
-          "id": "02090bb2658c4dd3a22783df8b182c4a",
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "Long agenda, short meeting: Trump and Xi meet",
-          "excerpt": "All Things Considered host Mary Louise Kelly talks with White House correspondent Emily Feng about the Trump/Xi summit.",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5973112/long-agenda-short-meeting-trump-and-xi-meet",
-          "publishedAt": "2026-09-24T22:10:00Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "02090bb2658c4dd3a22783df8b182c4a"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T22:10:00Z",
-      "lastSeen": "2026-09-24T22:10:00Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "local",
-      "headline": "Long agenda, short meeting: Trump and Xi meet",
-      "score": 0.4307128856462191,
-      "scoreComponents": {
-        "freshness": 0.9628515425848766,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.6,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "Long agenda, short meeting: Trump and Xi meet",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5973112/long-agenda-short-meeting-trump-and-xi-meet",
-          "publishedAt": "2026-09-24T22:10:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
       "eventId": "1f5ec44b26d3e00a",
       "members": [
         {
@@ -8137,6 +8098,75 @@
           "headline": "Sullivan County residents say high energy prices need to come down",
           "url": "https://www.wamc.org/news/2026-09-22/sullivan-county-residents-say-high-energy-prices-need-to-come-down",
           "publishedAt": "2026-09-22T22:41:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
+    },
+    {
+      "eventId": "02090bb2658c4dd3",
+      "members": [
+        {
+          "id": "02090bb2658c4dd3a22783df8b182c4a",
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "Long agenda, short meeting: Trump and Xi meet",
+          "excerpt": "All Things Considered host Mary Louise Kelly talks with White House correspondent Emily Feng about the Trump/Xi summit.",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5973112/long-agenda-short-meeting-trump-and-xi-meet",
+          "publishedAt": "2026-09-24T22:10:00Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "02090bb2658c4dd3a22783df8b182c4a"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T22:10:00Z",
+      "lastSeen": "2026-09-24T22:10:00Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "local",
+      "headline": "Long agenda, short meeting: Trump and Xi meet",
+      "score": 0.42905760798321757,
+      "scoreComponents": {
+        "freshness": 0.9562304319328704,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.6,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "Long agenda, short meeting: Trump and Xi meet",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5973112/long-agenda-short-meeting-trump-and-xi-meet",
+          "publishedAt": "2026-09-24T22:10:00Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -8513,77 +8543,6 @@
       "lastBriefModel": null
     },
     {
-      "eventId": "ad5c6e8e136fb52a",
-      "members": [
-        {
-          "id": "ad5c6e8e136fb52aa5e2299c3a77ad44",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
-          "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York.",
-          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T10:11:15Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-NY"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "ad5c6e8e136fb52aa5e2299c3a77ad44"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T10:11:15Z",
-      "lastSeen": "2026-09-24T10:11:15Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-NY"
-        }
-      ],
-      "section": "state",
-      "category": "politics",
-      "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
-      "score": 0.42411855694251543,
-      "scoreComponents": {
-        "freshness": 0.7964742277700617,
-        "locality": 0.6,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
-          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T10:11:15Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
       "eventId": "9ef38e05b5542d07",
       "members": [
         {
@@ -8650,47 +8609,49 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "241d7d6dec17f391",
+      "eventId": "ad5c6e8e136fb52a",
       "members": [
         {
-          "id": "241d7d6dec17f391cb9f760bc029d812",
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "In one of their last votes before November, Senate GOP blocks effort to end Iran war",
-          "excerpt": "The vote on a war powers resolution introduced by Democrats came at a moment when some Republicans have begun to distance themselves from President Trump over the ongoing conflict.",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5980318/senate-iran-war-powers-vote",
-          "publishedAt": "2026-09-24T19:46:53Z",
+          "id": "ad5c6e8e136fb52aa5e2299c3a77ad44",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
+          "excerpt": "The figure was announced during a meeting of the group's board at the sidelines of the UN General Assembly in New York.",
+          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T10:11:15Z",
           "language": "en",
           "rightsMode": "RSS_EXCERPT_ALLOWED",
           "imageCandidate": null,
           "rawLocations": [],
           "locations": [
             {
-              "country": "US"
+              "country": "US",
+              "admin1": "US-NY"
             }
           ]
         }
       ],
       "memberIds": [
-        "241d7d6dec17f391cb9f760bc029d812"
+        "ad5c6e8e136fb52aa5e2299c3a77ad44"
       ],
       "aliases": [],
-      "firstSeen": "2026-09-24T19:46:53Z",
-      "lastSeen": "2026-09-24T19:46:53Z",
+      "firstSeen": "2026-09-24T10:11:15Z",
+      "lastSeen": "2026-09-24T10:11:15Z",
       "locations": [
         {
-          "country": "US"
+          "country": "US",
+          "admin1": "US-NY"
         }
       ],
-      "section": "national",
+      "section": "state",
       "category": "politics",
-      "headline": "In one of their last votes before November, Senate GOP blocks effort to end Iran war",
-      "score": 0.4224306711400463,
+      "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
+      "score": 0.42246327927951394,
       "scoreComponents": {
-        "freshness": 0.9297226845601851,
-        "locality": 0.4,
+        "freshness": 0.7898531171180556,
+        "locality": 0.6,
         "corroboration": 0.0,
-        "sourcePriority": 0.6,
+        "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
         "stalePenalty": 0.0,
@@ -8702,11 +8663,11 @@
       "independentSources": 1,
       "sources": [
         {
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "In one of their last votes before November, Senate GOP blocks effort to end Iran war",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5980318/senate-iran-war-powers-vote",
-          "publishedAt": "2026-09-24T19:46:53Z",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Trump's Board of Peace unveils $2.45bn Gaza recovery plan",
+          "url": "https://www.bbc.co.uk/news/articles/cwlyke0mm0x3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T10:11:15Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -8857,6 +8818,75 @@
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
+    },
+    {
+      "eventId": "241d7d6dec17f391",
+      "members": [
+        {
+          "id": "241d7d6dec17f391cb9f760bc029d812",
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "In one of their last votes before November, Senate GOP blocks effort to end Iran war",
+          "excerpt": "The vote on a war powers resolution introduced by Democrats came at a moment when some Republicans have begun to distance themselves from President Trump over the ongoing conflict.",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5980318/senate-iran-war-powers-vote",
+          "publishedAt": "2026-09-24T19:46:53Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "241d7d6dec17f391cb9f760bc029d812"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T19:46:53Z",
+      "lastSeen": "2026-09-24T19:46:53Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "politics",
+      "headline": "In one of their last votes before November, Senate GOP blocks effort to end Iran war",
+      "score": 0.42077539347704473,
+      "scoreComponents": {
+        "freshness": 0.923101573908179,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.6,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "In one of their last votes before November, Senate GOP blocks effort to end Iran war",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5980318/senate-iran-war-powers-vote",
+          "publishedAt": "2026-09-24T19:46:53Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
     },
     {
       "eventId": "1071aea227086389",
@@ -9057,79 +9087,6 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "9f7a3f95e23ee2b0",
-      "members": [
-        {
-          "id": "9f7a3f95e23ee2b0f65798a81b12ed76",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
-          "excerpt": "The BBC\u2019s China correspondent and US editor explain everything you need to know ahead of the Trump-Xi meeting in Washington DC.",
-          "url": "https://www.bbc.co.uk/news/videos/c38xk275jd21o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-23T11:00:09Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US",
-              "admin1": "US-DC",
-              "city": "Washington"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "9f7a3f95e23ee2b0f65798a81b12ed76"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-23T11:00:09Z",
-      "lastSeen": "2026-09-23T11:00:09Z",
-      "locations": [
-        {
-          "country": "US",
-          "admin1": "US-DC",
-          "city": "Washington"
-        }
-      ],
-      "section": "local",
-      "category": "local",
-      "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
-      "score": 0.4147841355524692,
-      "scoreComponents": {
-        "freshness": 0.4744603388811729,
-        "locality": 1.0,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.028830949167824072,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
-          "url": "https://www.bbc.co.uk/news/videos/c38xk275jd21o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-23T11:00:09Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
       "eventId": "44328867a23f2cdc",
       "members": [
         {
@@ -9194,6 +9151,79 @@
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
+    },
+    {
+      "eventId": "9f7a3f95e23ee2b0",
+      "members": [
+        {
+          "id": "9f7a3f95e23ee2b0f65798a81b12ed76",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
+          "excerpt": "The BBC\u2019s China correspondent and US editor explain everything you need to know ahead of the Trump-Xi meeting in Washington DC.",
+          "url": "https://www.bbc.co.uk/news/videos/c38xk275jd21o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-23T11:00:09Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US",
+              "admin1": "US-DC",
+              "city": "Washington"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "9f7a3f95e23ee2b0f65798a81b12ed76"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-23T11:00:09Z",
+      "lastSeen": "2026-09-23T11:00:09Z",
+      "locations": [
+        {
+          "country": "US",
+          "admin1": "US-DC",
+          "city": "Washington"
+        }
+      ],
+      "section": "local",
+      "category": "local",
+      "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
+      "score": 0.4121356912916667,
+      "scoreComponents": {
+        "freshness": 0.4678392282291667,
+        "locality": 1.0,
+        "corroboration": 0.0,
+        "sourcePriority": 0.5,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.029824115765625,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Watch: Trump and Xi are meeting on US soil - what's at stake?",
+          "url": "https://www.bbc.co.uk/news/videos/c38xk275jd21o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-23T11:00:09Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
     },
     {
       "eventId": "dbcbb8441bf762f4",
@@ -9363,9 +9393,9 @@
       "section": "national",
       "category": "local",
       "headline": "Mortgage rates have just surpassed 7% for the first time in well over a year",
-      "score": 0.40940115725115744,
+      "score": 0.4077458795881559,
       "scoreComponents": {
-        "freshness": 0.8776046290046297,
+        "freshness": 0.8709835183526234,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -9432,9 +9462,9 @@
       "section": "national",
       "category": "local",
       "headline": "The economic squeeze is pushing up poverty rates for older adults",
-      "score": 0.4058286263869598,
+      "score": 0.40417334872395827,
       "scoreComponents": {
-        "freshness": 0.8633145055478395,
+        "freshness": 0.8566933948958333,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -9667,75 +9697,6 @@
       "lastBriefModel": null
     },
     {
-      "eventId": "bc7c9f1ae519bc2c",
-      "members": [
-        {
-          "id": "bc7c9f1ae519bc2c1bcd127ac8429ce7",
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
-          "excerpt": "eBay became the latest online retailer to ban the sale of airbags and many of their components. Aftermarket parts can be risky if they turn out to be fake or defective.",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5978124/ebay-bans-airbags-faulty-counterfeit-auto-parts",
-          "publishedAt": "2026-09-24T09:00:00Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "bc7c9f1ae519bc2c1bcd127ac8429ce7"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T09:00:00Z",
-      "lastSeen": "2026-09-24T09:00:00Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "business",
-      "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
-      "score": 0.39850052685474535,
-      "scoreComponents": {
-        "freshness": 0.8340021074189815,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.6,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
-          "url": "https://www.npr.org/2026/09/24/nx-s1-5978124/ebay-bans-airbags-faulty-counterfeit-auto-parts",
-          "publishedAt": "2026-09-24T09:00:00Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
       "eventId": "1170bd08f9453a79",
       "members": [
         {
@@ -9771,9 +9732,9 @@
       "section": "national",
       "category": "technology",
       "headline": "Trump and Xi strike cordial tone at summit amid underlying tensions",
-      "score": 0.3979148532388117,
+      "score": 0.39625957557581015,
       "scoreComponents": {
-        "freshness": 0.8316594129552469,
+        "freshness": 0.8250383023032407,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -9871,75 +9832,6 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "8e698ba2bd0fb901",
-      "members": [
-        {
-          "id": "8e698ba2bd0fb901ea88d7f71a00c3c1",
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.6 - 155 km NW of Ternate, Indonesia",
-          "excerpt": null,
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txg5",
-          "publishedAt": "2026-09-24T20:05:25.988000Z",
-          "language": "en",
-          "rightsMode": "PUBLIC_DOMAIN",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "US"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "8e698ba2bd0fb901ea88d7f71a00c3c1"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T20:05:25.988000Z",
-      "lastSeen": "2026-09-24T20:05:25.988000Z",
-      "locations": [
-        {
-          "country": "US"
-        }
-      ],
-      "section": "national",
-      "category": "science",
-      "headline": "M 4.6 - 155 km NW of Ternate, Indonesia",
-      "score": 0.39350415493634255,
-      "scoreComponents": {
-        "freshness": 0.9340166197453703,
-        "locality": 0.4,
-        "corroboration": 0.0,
-        "sourcePriority": 0.4,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.6 - 155 km NW of Ternate, Indonesia",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txg5",
-          "publishedAt": "2026-09-24T20:05:25.988000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
       "eventId": "cef9860b75be37c3",
       "members": [
         {
@@ -10006,18 +9898,18 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "180a9a65ea61af8f",
+      "eventId": "8e698ba2bd0fb901",
       "members": [
         {
-          "id": "180a9a65ea61af8f0237ffe3f2282280",
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "Judge restores journalists' White House access. And, Tucker Carlson on his MAGA split",
-          "excerpt": "A judge has ordered that the Trump administration restore journalists' access to White House. And, Tucker Carlson sits down with Morning Edition 's Steve Inskeep for a Newsmakers interview.",
-          "url": "https://www.npr.org/2026/09/24/g-s1-144850/up-first-newsletter-cnn-msnow-politico-iran-ukraine-unga-china-xi-jinping-trump",
-          "publishedAt": "2026-09-24T11:10:14Z",
+          "id": "8e698ba2bd0fb901ea88d7f71a00c3c1",
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.6 - 155 km NW of Ternate, Indonesia",
+          "excerpt": null,
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txg5",
+          "publishedAt": "2026-09-24T20:05:25.988000Z",
           "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "rightsMode": "PUBLIC_DOMAIN",
           "imageCandidate": null,
           "rawLocations": [],
           "locations": [
@@ -10028,25 +9920,25 @@
         }
       ],
       "memberIds": [
-        "180a9a65ea61af8f0237ffe3f2282280"
+        "8e698ba2bd0fb901ea88d7f71a00c3c1"
       ],
       "aliases": [],
-      "firstSeen": "2026-09-24T11:10:14Z",
-      "lastSeen": "2026-09-24T11:10:14Z",
+      "firstSeen": "2026-09-24T20:05:25.988000Z",
+      "lastSeen": "2026-09-24T20:05:25.988000Z",
       "locations": [
         {
           "country": "US"
         }
       ],
       "section": "national",
-      "category": "local",
-      "headline": "Judge restores journalists' White House access. And, Tucker Carlson on his MAGA split",
-      "score": 0.3925319442881944,
+      "category": "science",
+      "headline": "M 4.6 - 155 km NW of Ternate, Indonesia",
+      "score": 0.39184887727334106,
       "scoreComponents": {
-        "freshness": 0.8101277771527777,
+        "freshness": 0.9273955090933642,
         "locality": 0.4,
         "corroboration": 0.0,
-        "sourcePriority": 0.6,
+        "sourcePriority": 0.4,
         "breaking": 0.0,
         "categoryBoost": 0.0,
         "stalePenalty": 0.0,
@@ -10058,12 +9950,12 @@
       "independentSources": 1,
       "sources": [
         {
-          "sourceId": "npr-news",
-          "publisher": "NPR News",
-          "headline": "Judge restores journalists' White House access. And, Tucker Carlson on his MAGA split",
-          "url": "https://www.npr.org/2026/09/24/g-s1-144850/up-first-newsletter-cnn-msnow-politico-iran-ukraine-unga-china-xi-jinping-trump",
-          "publishedAt": "2026-09-24T11:10:14Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.6 - 155 km NW of Ternate, Indonesia",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txg5",
+          "publishedAt": "2026-09-24T20:05:25.988000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
       "status": "unchanged",
@@ -10141,6 +10033,75 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "180a9a65ea61af8f",
+      "members": [
+        {
+          "id": "180a9a65ea61af8f0237ffe3f2282280",
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "Judge restores journalists' White House access. And, Tucker Carlson on his MAGA split",
+          "excerpt": "A judge has ordered that the Trump administration restore journalists' access to White House. And, Tucker Carlson sits down with Morning Edition 's Steve Inskeep for a Newsmakers interview.",
+          "url": "https://www.npr.org/2026/09/24/g-s1-144850/up-first-newsletter-cnn-msnow-politico-iran-ukraine-unga-china-xi-jinping-trump",
+          "publishedAt": "2026-09-24T11:10:14Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "180a9a65ea61af8f0237ffe3f2282280"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T11:10:14Z",
+      "lastSeen": "2026-09-24T11:10:14Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "local",
+      "headline": "Judge restores journalists' White House access. And, Tucker Carlson on his MAGA split",
+      "score": 0.39087666662519294,
+      "scoreComponents": {
+        "freshness": 0.8035066665007716,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.6,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "Judge restores journalists' White House access. And, Tucker Carlson on his MAGA split",
+          "url": "https://www.npr.org/2026/09/24/g-s1-144850/up-first-newsletter-cnn-msnow-politico-iran-ukraine-unga-china-xi-jinping-trump",
+          "publishedAt": "2026-09-24T11:10:14Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
+    },
+    {
       "eventId": "bd9de373e017ef30",
       "members": [
         {
@@ -10176,9 +10137,9 @@
       "section": "national",
       "category": "local",
       "headline": "Needy couples got cash and a spending plan. Results were good -- and bad",
-      "score": 0.3909800538560957,
+      "score": 0.38932477619309414,
       "scoreComponents": {
-        "freshness": 0.8039202154243827,
+        "freshness": 0.7972991047723765,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -10279,6 +10240,75 @@
       "lastBriefModel": null
     },
     {
+      "eventId": "bc7c9f1ae519bc2c",
+      "members": [
+        {
+          "id": "bc7c9f1ae519bc2c1bcd127ac8429ce7",
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
+          "excerpt": "eBay became the latest online retailer to ban the sale of airbags and many of their components. Aftermarket parts can be risky if they turn out to be fake or defective.",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5978124/ebay-bans-airbags-faulty-counterfeit-auto-parts",
+          "publishedAt": "2026-09-24T09:00:00Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "bc7c9f1ae519bc2c1bcd127ac8429ce7"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T09:00:00Z",
+      "lastSeen": "2026-09-24T09:00:00Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "business",
+      "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
+      "score": 0.383340015390625,
+      "scoreComponents": {
+        "freshness": 0.7733600615625,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.6,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "npr-news",
+          "publisher": "NPR News",
+          "headline": "eBay bans airbag sales as concerns about faulty or counterfeit parts rise",
+          "url": "https://www.npr.org/2026/09/24/nx-s1-5978124/ebay-bans-airbags-faulty-counterfeit-auto-parts",
+          "publishedAt": "2026-09-24T09:00:00Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
+    },
+    {
       "eventId": "cbe163b40645fce5",
       "members": [
         {
@@ -10314,9 +10344,9 @@
       "section": "national",
       "category": "local",
       "headline": "Warren demands Trump officials explain removing a ban on interference in census data",
-      "score": 0.38499529305362656,
+      "score": 0.383340015390625,
       "scoreComponents": {
-        "freshness": 0.7799811722145061,
+        "freshness": 0.7733600615625,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.6,
@@ -10383,9 +10413,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 4.6 - 21 km NNW of Rioblanco, Colombia",
-      "score": 0.3819934238406636,
+      "score": 0.38033814617766204,
       "scoreComponents": {
-        "freshness": 0.8879736953626544,
+        "freshness": 0.8813525847106481,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -10452,9 +10482,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 4.6 - 119 km SW of Abepura, Indonesia",
-      "score": 0.380921400306713,
+      "score": 0.37926612264371146,
       "scoreComponents": {
-        "freshness": 0.8836856012268519,
+        "freshness": 0.8770644905748457,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -10477,7 +10507,7 @@
           "rightsMode": "PUBLIC_DOMAIN"
         }
       ],
-      "status": "new",
+      "status": "unchanged",
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null,
@@ -10521,9 +10551,9 @@
       "section": "world",
       "category": "public-safety",
       "headline": "Priest killed and four injured in knife attack at Polish abbey",
-      "score": 0.38077075601658955,
+      "score": 0.379115478353588,
       "scoreComponents": {
-        "freshness": 0.923083024066358,
+        "freshness": 0.9164619134143519,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -10543,6 +10573,75 @@
           "headline": "Priest killed and four injured in knife attack at Polish abbey",
           "url": "https://www.bbc.co.uk/news/articles/c607lrvm41l3o?at_campaign=rss&at_medium=RSS",
           "publishedAt": "2026-09-24T19:18:12Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
+    },
+    {
+      "eventId": "a3f330e85ac6ebf5",
+      "members": [
+        {
+          "id": "a3f330e85ac6ebf5b6f08afa629606c5",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Media outlets banned by Trump denied access to White House dinner despite judge's order",
+          "excerpt": "CNN and MS NOW said reporters were denied access to covering White House arrivals for a state dinner, despite a judge ruling their passes must be restored.",
+          "url": "https://www.bbc.co.uk/news/articles/cqe8ek7608mlo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-25T01:10:35Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "GB"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "a3f330e85ac6ebf5b6f08afa629606c5"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-25T01:10:35Z",
+      "lastSeen": "2026-09-25T01:10:35Z",
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "section": "world",
+      "category": "local",
+      "headline": "Media outlets banned by Trump denied access to White House dinner despite judge's order",
+      "score": 0.37450803236593366,
+      "scoreComponents": {
+        "freshness": 0.9980321294637345,
+        "locality": 0.2,
+        "corroboration": 0.0,
+        "sourcePriority": 0.5,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Media outlets banned by Trump denied access to White House dinner despite judge's order",
+          "url": "https://www.bbc.co.uk/news/articles/cqe8ek7608mlo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-25T01:10:35Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -10656,9 +10755,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 4.5 - 106 km SW of Puerto Madero, Mexico",
-      "score": 0.3725129367650463,
+      "score": 0.37085765910204477,
       "scoreComponents": {
-        "freshness": 0.8500517470601852,
+        "freshness": 0.843430636408179,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -10725,9 +10824,9 @@
       "section": "world",
       "category": "public-safety",
       "headline": "Poland says fire at Starlink station is sabotage as Denmark warns of rising Russian threat",
-      "score": 0.3693288192881945,
+      "score": 0.36767354162519295,
       "scoreComponents": {
-        "freshness": 0.8773152771527778,
+        "freshness": 0.8706941665007716,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -10794,9 +10893,9 @@
       "section": "world",
       "category": "local",
       "headline": "Italy ministers agree to ban burqa and niqab in school and cap foreigners in class",
-      "score": 0.35662627299189814,
+      "score": 0.3549709953288966,
       "scoreComponents": {
-        "freshness": 0.9265050919675926,
+        "freshness": 0.9198839813155864,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -10816,75 +10915,6 @@
           "headline": "Italy ministers agree to ban burqa and niqab in school and cap foreigners in class",
           "url": "https://www.bbc.co.uk/news/articles/cw99d8g48873o?at_campaign=rss&at_medium=RSS",
           "publishedAt": "2026-09-24T19:32:59Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
-      "eventId": "2c9512ff264d98f5",
-      "members": [
-        {
-          "id": "2c9512ff264d98f5d981516aef6f7175",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Four civilians killed in Pakistani strikes in Afghanistan, Taliban says",
-          "excerpt": "Pakistan says it struck 10 targets, adding the strikes were \"strictly limited to identified military objectives\".",
-          "url": "https://www.bbc.co.uk/news/articles/cm86xn0nnw58o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T19:02:36Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "GB"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "2c9512ff264d98f5d981516aef6f7175"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T19:02:36Z",
-      "lastSeen": "2026-09-24T19:02:36Z",
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "section": "world",
-      "category": "local",
-      "headline": "Four civilians killed in Pakistani strikes in Afghanistan, Taliban says",
-      "score": 0.3548679782388117,
-      "scoreComponents": {
-        "freshness": 0.9194719129552469,
-        "locality": 0.2,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Four civilians killed in Pakistani strikes in Afghanistan, Taliban says",
-          "url": "https://www.bbc.co.uk/news/articles/cm86xn0nnw58o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T19:02:36Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -11029,6 +11059,75 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "2c9512ff264d98f5",
+      "members": [
+        {
+          "id": "2c9512ff264d98f5d981516aef6f7175",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Four civilians killed in Pakistani strikes in Afghanistan, Taliban says",
+          "excerpt": "Pakistan says it struck 10 targets, adding the strikes were \"strictly limited to identified military objectives\".",
+          "url": "https://www.bbc.co.uk/news/articles/cm86xn0nnw58o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T19:02:36Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "GB"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "2c9512ff264d98f5d981516aef6f7175"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T19:02:36Z",
+      "lastSeen": "2026-09-24T19:02:36Z",
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "section": "world",
+      "category": "local",
+      "headline": "Four civilians killed in Pakistani strikes in Afghanistan, Taliban says",
+      "score": 0.3532127005758102,
+      "scoreComponents": {
+        "freshness": 0.9128508023032408,
+        "locality": 0.2,
+        "corroboration": 0.0,
+        "sourcePriority": 0.5,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Four civilians killed in Pakistani strikes in Afghanistan, Taliban says",
+          "url": "https://www.bbc.co.uk/news/articles/cm86xn0nnw58o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T19:02:36Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
+    },
+    {
       "eventId": "fa084e8ebac642ac",
       "members": [
         {
@@ -11064,9 +11163,9 @@
       "section": "world",
       "category": "technology",
       "headline": "Why Australia chose the world's biggest political stage to reveal OpenAI hack",
-      "score": 0.35163109552276234,
+      "score": 0.34997581785976084,
       "scoreComponents": {
-        "freshness": 0.9065243820910494,
+        "freshness": 0.8999032714390433,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -11133,9 +11232,9 @@
       "section": "world",
       "category": "local",
       "headline": "Rapper Macklemore announces 'Free Palestine' tour after Ed Sheeran fallout",
-      "score": 0.35099837947337964,
+      "score": 0.3493431018103781,
       "scoreComponents": {
-        "freshness": 0.9039935178935186,
+        "freshness": 0.8973724072415123,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -11155,75 +11254,6 @@
           "headline": "Rapper Macklemore announces 'Free Palestine' tour after Ed Sheeran fallout",
           "url": "https://www.bbc.co.uk/news/articles/cqzjzlve8jg7o?at_campaign=rss&at_medium=RSS",
           "publishedAt": "2026-09-24T17:55:44Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
-      "eventId": "a3f330e85ac6ebf5",
-      "members": [
-        {
-          "id": "a3f330e85ac6ebf5b6f08afa629606c5",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "White House restores access to media outlets banned by Trump after judge's order",
-          "excerpt": "CNN, Politico and MS NOW were allowed back into the White House after some of their staff were earlier turned away.",
-          "url": "https://www.bbc.co.uk/news/articles/cqe8ek7608mlo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T17:49:20Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "GB"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "a3f330e85ac6ebf5b6f08afa629606c5"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T17:49:20Z",
-      "lastSeen": "2026-09-24T17:49:20Z",
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "section": "world",
-      "category": "local",
-      "headline": "White House restores access to media outlets banned by Trump after judge's order",
-      "score": 0.3506280091030093,
-      "scoreComponents": {
-        "freshness": 0.902512036412037,
-        "locality": 0.2,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "White House restores access to media outlets banned by Trump after judge's order",
-          "url": "https://www.bbc.co.uk/news/articles/cqe8ek7608mlo?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T17:49:20Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -11271,9 +11301,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 5.3 - 15 km SSW of Hilvan, Turkey",
-      "score": 0.3504217378838735,
+      "score": 0.34876646022087193,
       "scoreComponents": {
-        "freshness": 0.7616869515354938,
+        "freshness": 0.7550658408834876,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -11340,9 +11370,9 @@
       "section": "world",
       "category": "local",
       "headline": "Greek PM urges UK PM to return Elgin Marbles permanently",
-      "score": 0.34641601064621913,
+      "score": 0.3447607329832176,
       "scoreComponents": {
-        "freshness": 0.8856640425848765,
+        "freshness": 0.8790429319328703,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -11607,9 +11637,9 @@
       "section": "world",
       "category": "technology",
       "headline": "Rogue OpenAI agent 'infiltrated' Australian government website in world first",
-      "score": 0.3432659334857253,
+      "score": 0.34161065582272376,
       "scoreComponents": {
-        "freshness": 0.8730637339429013,
+        "freshness": 0.866442623290895,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -11676,9 +11706,9 @@
       "section": "world",
       "category": "local",
       "headline": "Ethiopia's army says it has repelled attacks in first comment on fresh fighting",
-      "score": 0.3430132328684414,
+      "score": 0.3413579552054398,
       "scoreComponents": {
-        "freshness": 0.8720529314737654,
+        "freshness": 0.8654318208217593,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -11745,9 +11775,9 @@
       "section": "world",
       "category": "local",
       "headline": "105-year-old investigated for crimes at Nazi PoW camp in Germany",
-      "score": 0.3395304010783179,
+      "score": 0.3378751234153164,
       "scoreComponents": {
-        "freshness": 0.8581216043132716,
+        "freshness": 0.8515004936612655,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -11767,75 +11797,6 @@
           "headline": "105-year-old investigated for crimes at Nazi PoW camp in Germany",
           "url": "https://www.bbc.co.uk/news/articles/cwzrzjy3pynvo?at_campaign=rss&at_medium=RSS",
           "publishedAt": "2026-09-24T14:37:34Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
-      "eventId": "cde4475b23a13734",
-      "members": [
-        {
-          "id": "cde4475b23a137345a3797bd0f7ece87",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
-          "excerpt": "News that an automated AI agent hacked a government IT system raises big questions about regulating the tech.",
-          "url": "https://www.bbc.co.uk/news/articles/cw24jm9rryy3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T14:08:38Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "GB"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "cde4475b23a137345a3797bd0f7ece87"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T14:08:38Z",
-      "lastSeen": "2026-09-24T14:08:38Z",
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "section": "world",
-      "category": "health",
-      "headline": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
-      "score": 0.33785601836226853,
-      "scoreComponents": {
-        "freshness": 0.8514240734490741,
-        "locality": 0.2,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.0,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
-          "url": "https://www.bbc.co.uk/news/articles/cw24jm9rryy3o?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T14:08:38Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -11914,47 +11875,47 @@
       "lastGeneratedAt": null
     },
     {
-      "eventId": "08760c1cf45bb134",
+      "eventId": "cde4475b23a13734",
       "members": [
         {
-          "id": "08760c1cf45bb1344c2820723faaecf1",
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.5 - 31 km NNW of Komodo, Indonesia",
-          "excerpt": null,
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx8q",
-          "publishedAt": "2026-09-24T03:30:26.013000Z",
+          "id": "cde4475b23a137345a3797bd0f7ece87",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
+          "excerpt": "News that an automated AI agent hacked a government IT system raises big questions about regulating the tech.",
+          "url": "https://www.bbc.co.uk/news/articles/cw24jm9rryy3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T14:08:38Z",
           "language": "en",
-          "rightsMode": "PUBLIC_DOMAIN",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
           "imageCandidate": null,
           "rawLocations": [],
           "locations": [
             {
-              "country": "US"
+              "country": "GB"
             }
           ]
         }
       ],
       "memberIds": [
-        "08760c1cf45bb1344c2820723faaecf1"
+        "cde4475b23a137345a3797bd0f7ece87"
       ],
       "aliases": [],
-      "firstSeen": "2026-09-24T03:30:26.013000Z",
-      "lastSeen": "2026-09-24T03:30:26.013000Z",
+      "firstSeen": "2026-09-24T14:08:38Z",
+      "lastSeen": "2026-09-24T14:08:38Z",
       "locations": [
         {
-          "country": "US"
+          "country": "GB"
         }
       ],
-      "section": "national",
-      "category": "science",
-      "headline": "M 4.5 - 31 km NNW of Komodo, Indonesia",
-      "score": 0.3359231605304784,
+      "section": "world",
+      "category": "health",
+      "headline": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
+      "score": 0.336200740699267,
       "scoreComponents": {
-        "freshness": 0.7036926421219136,
-        "locality": 0.4,
+        "freshness": 0.8448029627970679,
+        "locality": 0.2,
         "corroboration": 0.0,
-        "sourcePriority": 0.4,
+        "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
         "stalePenalty": 0.0,
@@ -11966,12 +11927,12 @@
       "independentSources": 1,
       "sources": [
         {
-          "sourceId": "usgs-earthquakes",
-          "publisher": "USGS Earthquake Hazards Program",
-          "headline": "M 4.5 - 31 km NNW of Komodo, Indonesia",
-          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx8q",
-          "publishedAt": "2026-09-24T03:30:26.013000Z",
-          "rightsMode": "PUBLIC_DOMAIN"
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "Why did an OpenAI system hack Australia's health system - and can it be stopped in the future?",
+          "url": "https://www.bbc.co.uk/news/articles/cw24jm9rryy3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T14:08:38Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
       "status": "unchanged",
@@ -12047,6 +12008,75 @@
       "version": 1,
       "lastBriefHash": null,
       "lastGeneratedAt": null
+    },
+    {
+      "eventId": "08760c1cf45bb134",
+      "members": [
+        {
+          "id": "08760c1cf45bb1344c2820723faaecf1",
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.5 - 31 km NNW of Komodo, Indonesia",
+          "excerpt": null,
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx8q",
+          "publishedAt": "2026-09-24T03:30:26.013000Z",
+          "language": "en",
+          "rightsMode": "PUBLIC_DOMAIN",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "US"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "08760c1cf45bb1344c2820723faaecf1"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T03:30:26.013000Z",
+      "lastSeen": "2026-09-24T03:30:26.013000Z",
+      "locations": [
+        {
+          "country": "US"
+        }
+      ],
+      "section": "national",
+      "category": "science",
+      "headline": "M 4.5 - 31 km NNW of Komodo, Indonesia",
+      "score": 0.33426788286747683,
+      "scoreComponents": {
+        "freshness": 0.6970715314699074,
+        "locality": 0.4,
+        "corroboration": 0.0,
+        "sourcePriority": 0.4,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "usgs-earthquakes",
+          "publisher": "USGS Earthquake Hazards Program",
+          "headline": "M 4.5 - 31 km NNW of Komodo, Indonesia",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx8q",
+          "publishedAt": "2026-09-24T03:30:26.013000Z",
+          "rightsMode": "PUBLIC_DOMAIN"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
     },
     {
       "eventId": "90057ea15afb23a4",
@@ -12480,9 +12510,9 @@
       "section": "world",
       "category": "politics",
       "headline": "Why India's Election Commission is in the eye of a storm - again",
-      "score": 0.3180460260783179,
+      "score": 0.3163907484153164,
       "scoreComponents": {
-        "freshness": 0.7721841043132716,
+        "freshness": 0.7655629936612655,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -12549,9 +12579,9 @@
       "section": "world",
       "category": "technology",
       "headline": "Teen rocker Nene Royal becomes first Thai to win America's Got Talent",
-      "score": 0.3123101078684414,
+      "score": 0.3106548302054398,
       "scoreComponents": {
-        "freshness": 0.7492404314737654,
+        "freshness": 0.7426193208217593,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -12637,9 +12667,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 5.3 - 72 km NW of Finschhafen, Papua New Guinea",
-      "score": 0.3053695725675154,
+      "score": 0.30371429490451385,
       "scoreComponents": {
-        "freshness": 0.9814782902700617,
+        "freshness": 0.9748571796180555,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -12714,15 +12744,15 @@
       "section": "world",
       "category": "entertainment",
       "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
-      "score": 0.29165913555246914,
+      "score": 0.2890106912916667,
       "scoreComponents": {
-        "freshness": 0.6666478388811728,
+        "freshness": 0.6600267282291667,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 2.824167824074427e-06,
+        "stalePenalty": 0.000995990765624999,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -12736,75 +12766,6 @@
           "headline": "They were labelled 'pervert glasses'. Will a camera-free version transform their image?",
           "url": "https://www.bbc.co.uk/news/articles/cwp80l0my1x2o?at_campaign=rss&at_medium=RSS",
           "publishedAt": "2026-09-24T00:50:24Z",
-          "rightsMode": "RSS_EXCERPT_ALLOWED"
-        }
-      ],
-      "status": "unchanged",
-      "version": 1,
-      "lastBriefHash": null,
-      "lastGeneratedAt": null,
-      "lastBrief": null,
-      "lastBriefFingerprint": null,
-      "lastBriefModel": null
-    },
-    {
-      "eventId": "2b2df0dbeb23b3c9",
-      "members": [
-        {
-          "id": "2b2df0dbeb23b3c98bfac8e9ce1c512d",
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "In Amish country, nurses go door to door to stop deadly spread of measles",
-          "excerpt": "With four measles-related deaths in Pennsylvania, health officials are hoping to get people on board with vaccines in private.",
-          "url": "https://www.bbc.co.uk/news/articles/ck3wjyjgj37po?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T00:15:46Z",
-          "language": "en",
-          "rightsMode": "RSS_EXCERPT_ALLOWED",
-          "imageCandidate": null,
-          "rawLocations": [],
-          "locations": [
-            {
-              "country": "GB"
-            }
-          ]
-        }
-      ],
-      "memberIds": [
-        "2b2df0dbeb23b3c98bfac8e9ce1c512d"
-      ],
-      "aliases": [],
-      "firstSeen": "2026-09-24T00:15:46Z",
-      "lastSeen": "2026-09-24T00:15:46Z",
-      "locations": [
-        {
-          "country": "GB"
-        }
-      ],
-      "section": "world",
-      "category": "health",
-      "headline": "In Amish country, nurses go door to door to stop deadly spread of measles",
-      "score": 0.2884523454290123,
-      "scoreComponents": {
-        "freshness": 0.6586308635725309,
-        "locality": 0.2,
-        "corroboration": 0.0,
-        "sourcePriority": 0.5,
-        "breaking": 0.0,
-        "categoryBoost": 0.0,
-        "stalePenalty": 0.00120537046412037,
-        "duplicatePenalty": 0.0
-      },
-      "breaking": false,
-      "confidence": "LOW",
-      "confidenceTier": "low",
-      "independentSources": 1,
-      "sources": [
-        {
-          "sourceId": "bbc-world",
-          "publisher": "BBC World",
-          "headline": "In Amish country, nurses go door to door to stop deadly spread of measles",
-          "url": "https://www.bbc.co.uk/news/articles/ck3wjyjgj37po?at_campaign=rss&at_medium=RSS",
-          "publishedAt": "2026-09-24T00:15:46Z",
           "rightsMode": "RSS_EXCERPT_ALLOWED"
         }
       ],
@@ -12883,6 +12844,75 @@
       "lastGeneratedAt": null
     },
     {
+      "eventId": "2b2df0dbeb23b3c9",
+      "members": [
+        {
+          "id": "2b2df0dbeb23b3c98bfac8e9ce1c512d",
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "In Amish country, nurses go door to door to stop deadly spread of measles",
+          "excerpt": "With four measles-related deaths in Pennsylvania, health officials are hoping to get people on board with vaccines in private.",
+          "url": "https://www.bbc.co.uk/news/articles/ck3wjyjgj37po?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T00:15:46Z",
+          "language": "en",
+          "rightsMode": "RSS_EXCERPT_ALLOWED",
+          "imageCandidate": null,
+          "rawLocations": [],
+          "locations": [
+            {
+              "country": "GB"
+            }
+          ]
+        }
+      ],
+      "memberIds": [
+        "2b2df0dbeb23b3c98bfac8e9ce1c512d"
+      ],
+      "aliases": [],
+      "firstSeen": "2026-09-24T00:15:46Z",
+      "lastSeen": "2026-09-24T00:15:46Z",
+      "locations": [
+        {
+          "country": "GB"
+        }
+      ],
+      "section": "world",
+      "category": "health",
+      "headline": "In Amish country, nurses go door to door to stop deadly spread of measles",
+      "score": 0.28580390116820986,
+      "scoreComponents": {
+        "freshness": 0.6520097529205247,
+        "locality": 0.2,
+        "corroboration": 0.0,
+        "sourcePriority": 0.5,
+        "breaking": 0.0,
+        "categoryBoost": 0.0,
+        "stalePenalty": 0.0021985370619212945,
+        "duplicatePenalty": 0.0
+      },
+      "breaking": false,
+      "confidence": "LOW",
+      "confidenceTier": "low",
+      "independentSources": 1,
+      "sources": [
+        {
+          "sourceId": "bbc-world",
+          "publisher": "BBC World",
+          "headline": "In Amish country, nurses go door to door to stop deadly spread of measles",
+          "url": "https://www.bbc.co.uk/news/articles/ck3wjyjgj37po?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-09-24T00:15:46Z",
+          "rightsMode": "RSS_EXCERPT_ALLOWED"
+        }
+      ],
+      "status": "unchanged",
+      "version": 1,
+      "lastBriefHash": null,
+      "lastGeneratedAt": null,
+      "lastBrief": null,
+      "lastBriefFingerprint": null,
+      "lastBriefModel": null
+    },
+    {
       "eventId": "0dcc0581f11ccd1e",
       "members": [
         {
@@ -12918,15 +12948,15 @@
       "section": "world",
       "category": "local",
       "headline": "Eating garden weeds to survive in Russian-occupied city cut off from food and water",
-      "score": 0.2868844441944445,
+      "score": 0.284235999933642,
       "scoreComponents": {
-        "freshness": 0.6547111104861111,
+        "freshness": 0.648089999834105,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0017933334270833362,
+        "stalePenalty": 0.0027865000248842534,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -12987,15 +13017,15 @@
       "section": "world",
       "category": "local",
       "headline": "'Make women feel seen': Why the Dutch have a new word for labia",
-      "score": 0.2853844441944444,
+      "score": 0.282735999933642,
       "scoreComponents": {
-        "freshness": 0.650961110486111,
+        "freshness": 0.6443399998341051,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0023558334270833356,
+        "stalePenalty": 0.003349000024884252,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13056,15 +13086,15 @@
       "section": "world",
       "category": "sports",
       "headline": "Indians are discovering the thrill of shopping without paying",
-      "score": 0.28274864172530867,
+      "score": 0.2801001974645062,
       "scoreComponents": {
-        "freshness": 0.6443716043132717,
+        "freshness": 0.6377504936612655,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0033442593530092603,
+        "stalePenalty": 0.004337425950810185,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13125,15 +13155,15 @@
       "section": "world",
       "category": "entertainment",
       "headline": "A red carpet and military flyover - How Trump welcomed Xi",
-      "score": 0.28180111086111115,
+      "score": 0.27915266660030863,
       "scoreComponents": {
-        "freshness": 0.6420027771527778,
+        "freshness": 0.6353816665007717,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.003699583427083334,
+        "stalePenalty": 0.0046927500248842595,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13194,15 +13224,15 @@
       "section": "world",
       "category": "technology",
       "headline": "Trump and Xi come face-to-face as US and China battle to win the AI race",
-      "score": 0.2760001849351852,
+      "score": 0.2733517406743827,
       "scoreComponents": {
-        "freshness": 0.627500462337963,
+        "freshness": 0.6208793516859568,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.005874930649305554,
+        "stalePenalty": 0.0068680972471064795,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13263,15 +13293,15 @@
       "section": "world",
       "category": "local",
       "headline": "Watch: The arms race in space and how the UK is defending itself",
-      "score": 0.2730171602438272,
+      "score": 0.2703687159830247,
       "scoreComponents": {
-        "freshness": 0.6200429006095679,
+        "freshness": 0.6134217899575618,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0069935649085648135,
+        "stalePenalty": 0.007986731506365736,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13332,15 +13362,15 @@
       "section": "world",
       "category": "local",
       "headline": "UK survivor of Canadian poison seller says he exploited her despair",
-      "score": 0.2718072837006173,
+      "score": 0.26915883943981483,
       "scoreComponents": {
-        "freshness": 0.6170182092515433,
+        "freshness": 0.6103970985995371,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0074472686122685205,
+        "stalePenalty": 0.008440435210069437,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13401,15 +13431,15 @@
       "section": "world",
       "category": "public-safety",
       "headline": "Watch: How toxic smog from wildfires is making Indonesians sick",
-      "score": 0.2662949380216049,
+      "score": 0.2636464937608025,
       "scoreComponents": {
-        "freshness": 0.5407373450540123,
+        "freshness": 0.5341162344020062,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.5,
-        "stalePenalty": 0.01888939824189815,
+        "stalePenalty": 0.019882564839699073,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13470,9 +13500,9 @@
       "section": "national",
       "category": "science",
       "headline": "M 4.9 - Kermadec Islands, New Zealand",
-      "score": 0.26242665686535493,
+      "score": 0.2607713792023534,
       "scoreComponents": {
-        "freshness": 0.8097066274614197,
+        "freshness": 0.8030855168094135,
         "locality": 0.4,
         "corroboration": 0.0,
         "sourcePriority": 0.4,
@@ -13539,15 +13569,15 @@
       "section": "world",
       "category": "local",
       "headline": "Harvey Weinstein sentenced to 15 years in prison for sexual assault",
-      "score": 0.2583998762932099,
+      "score": 0.2557514320324074,
       "scoreComponents": {
-        "freshness": 0.5834996907330247,
+        "freshness": 0.5768785800810186,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.0124750463900463,
+        "stalePenalty": 0.013468212987847217,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13608,15 +13638,15 @@
       "section": "world",
       "category": "local",
       "headline": "Iran's president tells Trump it will never 'bend the knee'",
-      "score": 0.25509586394753087,
+      "score": 0.2524474196867284,
       "scoreComponents": {
-        "freshness": 0.5752396598688272,
+        "freshness": 0.568618549216821,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.013714051019675925,
+        "stalePenalty": 0.01470721761747685,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13677,9 +13707,9 @@
       "section": "world",
       "category": "local",
       "headline": "Watch: UN delegates walk out of Netanyahu speech",
-      "score": 0.25295150447337966,
+      "score": 0.2512962268103781,
       "scoreComponents": {
-        "freshness": 0.9118060178935186,
+        "freshness": 0.9051849072415123,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
@@ -13746,15 +13776,15 @@
       "section": "world",
       "category": "local",
       "headline": "Poland accuses Russian military helicopter of violating its airspace",
-      "score": 0.2404492590092593,
+      "score": 0.2378008147484568,
       "scoreComponents": {
-        "freshness": 0.5386231475231482,
+        "freshness": 0.532002036871142,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.019206527871527778,
+        "stalePenalty": 0.0201996944693287,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13884,15 +13914,15 @@
       "section": "world",
       "category": "local",
       "headline": "Dramatic eviction of woman aged 87 highlights Spain's housing shortage",
-      "score": 0.22324401209567898,
+      "score": 0.22059556783487658,
       "scoreComponents": {
-        "freshness": 0.4956100302391975,
+        "freshness": 0.4889889195871914,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.025658495464120374,
+        "stalePenalty": 0.026651662061921294,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
@@ -13953,15 +13983,15 @@
       "section": "world",
       "category": "local",
       "headline": "Dolly Parton's manager accuses her nephew of 'threats and intimidation'",
-      "score": 0.2224446293796297,
+      "score": 0.2197961851188272,
       "scoreComponents": {
-        "freshness": 0.49361157344907414,
+        "freshness": 0.4869904627970679,
         "locality": 0.2,
         "corroboration": 0.0,
         "sourcePriority": 0.5,
         "breaking": 0.0,
         "categoryBoost": 0.0,
-        "stalePenalty": 0.025958263982638875,
+        "stalePenalty": 0.026951430580439813,
         "duplicatePenalty": 0.0
       },
       "breaking": false,
