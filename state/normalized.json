@@ -1,6 +1,19 @@
 {
-  "generatedAt": "2026-09-25T01:52:21.072149Z",
+  "generatedAt": "2026-09-25T04:21:09.978895Z",
   "items": [
+    {
+      "id": "5db59756781d27fb85c4e254d9bb6a65",
+      "sourceId": "bbc-world",
+      "publisher": "BBC World",
+      "headline": "Xi got Trump's red carpet welcome - but not everything he wanted",
+      "excerpt": "China wanted progress on trade, technology and Taiwan - but hasn't got as much as it would have hoped for.",
+      "url": "https://www.bbc.co.uk/news/articles/cr93e4x7kdjjo?at_campaign=rss&at_medium=RSS",
+      "publishedAt": "2026-09-25T03:57:09Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
     {
       "id": "4103fd02b14bac233c24db855cd4c142",
       "sourceId": "bbc-world",
@@ -269,19 +282,6 @@
       "excerpt": "Assault survivor Miriam Haley said the \"devastating effect on my life and sense of security that may never go away\".",
       "url": "https://www.bbc.co.uk/news/articles/cm98626n260yo?at_campaign=rss&at_medium=RSS",
       "publishedAt": "2026-09-23T18:51:12Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "9d66a63aab8837d4f9b9cd41568252fb",
-      "sourceId": "bbc-world",
-      "publisher": "BBC World",
-      "headline": "Poland accuses Russian military helicopter of violating its airspace",
-      "excerpt": "Poland says the aircraft stayed in its skies for 42 seconds, forcing the Nato member to scramble its fighter jets.",
-      "url": "https://www.bbc.co.uk/news/articles/c699d2dn9z0mo?at_campaign=rss&at_medium=RSS",
-      "publishedAt": "2026-09-23T15:37:20Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -587,6 +587,19 @@
       "rawLocations": []
     },
     {
+      "id": "ba52032b684b412c9d88aa5fd270c5a4",
+      "sourceId": "usgs-earthquakes",
+      "publisher": "USGS Earthquake Hazards Program",
+      "headline": "M 4.5 - 39 km WSW of Sip\u00ed, Colombia",
+      "excerpt": null,
+      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000txhs",
+      "publishedAt": "2026-09-25T00:57:07.267000Z",
+      "language": "en",
+      "rightsMode": "PUBLIC_DOMAIN",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
       "id": "1e9a16155099520c16edf89b75507882",
       "sourceId": "usgs-earthquakes",
       "publisher": "USGS Earthquake Hazards Program",
@@ -711,19 +724,6 @@
       "excerpt": null,
       "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx9u",
       "publishedAt": "2026-09-24T07:40:58.138000Z",
-      "language": "en",
-      "rightsMode": "PUBLIC_DOMAIN",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "08760c1cf45bb1344c2820723faaecf1",
-      "sourceId": "usgs-earthquakes",
-      "publisher": "USGS Earthquake Hazards Program",
-      "headline": "M 4.5 - 31 km NNW of Komodo, Indonesia",
-      "excerpt": null,
-      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx8q",
-      "publishedAt": "2026-09-24T03:30:26.013000Z",
       "language": "en",
       "rightsMode": "PUBLIC_DOMAIN",
       "imageCandidate": null,
@@ -912,6 +912,19 @@
       "rawLocations": []
     },
     {
+      "id": "b42f596cd3fb5f6e91bd8c39c3c3f461",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Niskayuna CSD superintendent announces retirement",
+      "excerpt": "The superintendent of the Niskayuna Central School District has announced his retirement. Superintendent Carl Mummenthey announced he will retire at the end of the 2026-27 school year.",
+      "url": "https://www.news10.com/classroom-progress-report/niskayuna-csd-superintendent-announces-retirement/",
+      "publishedAt": "2026-09-25T02:07:20Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
       "id": "0d9f95094fe93b0de0c210a70aa92b26",
       "sourceId": "wten-news10",
       "publisher": "WTEN News10 ABC",
@@ -971,6 +984,19 @@
       "excerpt": "The first week of fall is here, and cooler temperatures are on the way. But for many families, that also means bracing for a costly winter. NEWS10's Amber Fisher spoke with the CEO of G.A. Bove Fuels, a fuel delivery company, and broke down what challenges you could be facing this winter.",
       "url": "https://www.news10.com/top-stories/prices-for-home-heating-oil-continue-to-shift-homeowners-face-rising-costs/",
       "publishedAt": "2026-09-24T22:00:25Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
+      "id": "204063f5805cbfe3c242b768b6824239",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "9/24/26: One More Dry Day Before Weekend Storm System",
+      "excerpt": "Here is your latest StormTracker forecast from meteorologists Rob Lindenmuth and Alyssa Caroprese. Another quiet and dry night is ahead with clear conditions continuing. Lows will fall into the lower to middle 40s for most but 30s for those far outside of the Capital Region. The wind will drop to ab",
+      "url": "https://www.news10.com/weather/9-24-26-one-more-dry-day-before-weekend-storm-system/",
+      "publishedAt": "2026-09-24T21:52:27Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -1530,32 +1556,6 @@
       "excerpt": "ALDI has set an opening date for its new location in Latham.",
       "url": "https://www.news10.com/news/albany-county/aldi-sets-opening-date-for-new-latham-location/",
       "publishedAt": "2026-09-23T15:31:50Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "30305973e4bfcf1ea2edc80cf69b34f5",
-      "sourceId": "wten-news10",
-      "publisher": "WTEN News10 ABC",
-      "headline": "Ally the Piper bringing holiday tour to Albany",
-      "excerpt": "The Egg will be ending the year with a performance by bagpipe artist and songwriter Ally the Piper.",
-      "url": "https://www.news10.com/community/concerts-performances/ally-the-piper-bringing-holiday-tour-to-albany/",
-      "publishedAt": "2026-09-23T15:03:13Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "c4c280dc6fdd6e6b013b87e4b5bcba62",
-      "sourceId": "wten-news10",
-      "publisher": "WTEN News10 ABC",
-      "headline": "Downtown Saratoga Springs restaurant closing after 38 years",
-      "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
-      "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
-      "publishedAt": "2026-09-23T14:36:24Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
