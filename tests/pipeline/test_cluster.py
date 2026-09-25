@@ -241,3 +241,48 @@ def test_municipality_gate_covers_live_towns():
     # corpus-dependent threshold is fragile); genuine-level overlap merges.
     assert not has_genuine_overlap(0.090, 0.0)
     assert has_genuine_overlap(0.31, 1.0)
+
+
+def test_st_johnsville_shared_name_does_not_cluster():
+    from pipeline.cluster import extract_entities, load_municipality_names
+
+    muni = load_municipality_names()
+    assert "st. johnsville" in muni
+    assert "johnsville" in muni  # entity-form alias for "St." prose
+    a = {
+        "id": "wten-johnsville-001", "sourceId": "wten", "publisher": "WTEN",
+        "headline": "St. Johnsville bakery wins regional pastry prize",
+        "excerpt": ("A family bakery in St. Johnsville took first place at the "
+                    "regional pastry showcase on Saturday."),
+        "url": "https://wten.com/2026/09/23/st-johnsville-bakery/",
+        "publishedAt": "2026-09-23T22:00:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _UNLISTED_TOWN_LOC,
+    }
+    b = {
+        "id": "wamc-johnsville-002", "sourceId": "wamc", "publisher": "WAMC",
+        "headline": "St. Johnsville teen organizes creek cleanup",
+        "excerpt": ("A St. Johnsville teenager recruited volunteers to clear "
+                    "debris from the creek over the weekend."),
+        "url": "https://wamc.org/2026/09/24/st-johnsville-creek-cleanup/",
+        "publishedAt": "2026-09-24T15:30:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _UNLISTED_TOWN_LOC,
+    }
+    ea = extract_entities(f"{a['headline']} {a['excerpt']}")
+    eb = extract_entities(f"{b['headline']} {b['excerpt']}")
+    assert ea & eb == {"johnsville"}  # "St" drops on the period split
+    clusters = cluster_items([a, b])
+    assert len(clusters) == 2
+
+
+def test_municipality_loader_null_names_returns_empty(tmp_path):
+    from pipeline.cluster import load_municipality_names
+
+    p_null = tmp_path / "muni_null.json"
+    p_null.write_text('{"names": null}', encoding="utf-8")
+    assert load_municipality_names(str(p_null)) == frozenset()
+    p_str = tmp_path / "muni_str.json"
+    p_str.write_text('{"names": "not-a-list"}', encoding="utf-8")
+    assert load_municipality_names(str(p_str)) == frozenset()
+    p_mixed = tmp_path / "muni_mixed.json"
+    p_mixed.write_text('{"names": ["Albany", 123, null, "  "]}', encoding="utf-8")
+    assert load_municipality_names(str(p_mixed)) == frozenset({"albany"})

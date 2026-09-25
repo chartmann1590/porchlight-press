@@ -208,23 +208,71 @@ def has_genuine_overlap(tfidf_cos: float, ent: float) -> bool:
     return ent > 0.0 and tfidf_cos >= MIN_ENTITY_TEXT_SIM
 
 
+def _municipality_prefix_aliases(norm: str) -> set[str]:
+    """Bare + swapped prefix forms for saint/st, mount/mt, fort/ft."""
+    groups = [("st. ", "st ", "saint "), ("mt. ", "mt ", "mount "), ("ft. ", "ft ", "fort ")]
+    out: set[str] = set()
+    for group in groups:
+        for prefix in group:
+            if norm.startswith(prefix):
+                rest = norm[len(prefix):].strip()
+                if rest:
+                    out.add(rest)
+                    for other in group:
+                        if other != prefix:
+                            out.add(f"{other}{rest}")
+                break
+    return out
+
+
 @lru_cache(maxsize=4)
 def _cached_municipality_names(path_str: str) -> frozenset[str]:
     """Normalized municipality names from the committed list (or override).
 
     Missing/corrupt file -> empty set (graceful fallback to resolved-location
     place exclusion only). Normalized with _norm_place, the same form used
-    for extracted entities and resolved place names.
+    for extracted entities and resolved place names, PLUS the entity form
+    produced by extract_entities ("St. Johnsville" extracts as
+    "johnsville" while the stored list keeps "st. johnsville"). Stored
+    format unchanged -- scripts/build_gazetteer.py still writes dotted
+    "st. ..." / full-word "fort ..." / "mount ..." names; this loader
+    expands aliases at read time so regeneration is never needed.
     """
     p = Path(path_str) if path_str else DEFAULT_MUNICIPALITIES_PATH
     try:
         payload = json.loads(p.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return frozenset()
-    raw = payload.get("names", []) if isinstance(payload, dict) else []
-    return frozenset(
-        _norm_place(str(n)) for n in raw if str(n).strip()
-    )
+    if not isinstance(payload, dict):
+        return frozenset()
+    raw = payload.get("names") or []
+    if not isinstance(raw, list):
+        return frozenset()
+    out: set[str] = set()
+    for n in raw:
+        if not isinstance(n, str):
+            continue
+        if not n.strip():
+            continue
+        norm = _norm_place(n)
+        if not norm:
+            continue
+        out.add(norm)
+        # Entity-form alias: stored names are lowercase so title-case first
+        # (extract_entities needs capitals). Covers "st. johnsville" ->
+        # "johnsville", "ft. ..."/"mt. ..." abbreviations the same way.
+        try:
+            for ent in extract_entities(n.title()):
+                e_norm = _norm_place(ent)
+                if e_norm:
+                    out.add(e_norm)
+        except Exception:
+            pass
+        # Prefix-stripped bare form + saint/st, mount/mt, fort/ft swaps so
+        # abbreviated vs full-word prose still hits the gate.
+        for alias in _municipality_prefix_aliases(norm):
+            out.add(alias)
+    return frozenset(out)
 
 
 def load_municipality_names(path: str | Path | None = None) -> frozenset[str]:
