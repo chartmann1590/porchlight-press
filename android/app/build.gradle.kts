@@ -29,7 +29,9 @@ val feedBaseUrl = prop("feedBaseUrl", "https://chartmann1590.github.io/porchligh
 // Phase 9A release versioning: the release workflow passes
 // -PversionCode=<github.run_number + VERSION_CODE_OFFSET> and
 // -PversionName=<tag, e.g. v1.2.3>. Local builds fall back to 1 / 0.6.0.
-const val VERSION_CODE_OFFSET = 1000
+// (Script top level: plain `val`, never `const val` — const is not allowed
+// in Gradle Kotlin DSL scripts.)
+val VERSION_CODE_OFFSET = 1000
 val releaseVersionCode =
     prop("versionCode", System.getenv("VERSION_CODE") ?: "1").toIntOrNull() ?: 1
 val releaseVersionName = prop("versionName", System.getenv("VERSION_NAME") ?: "0.6.0")

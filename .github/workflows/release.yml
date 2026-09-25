@@ -76,9 +76,11 @@ jobs:
           else
             TRACK="internal"
           fi
-          echo "VERSION_CODE=${VERSION_CODE}" >> "$GITHUB_ENV"
-          echo "VERSION_NAME=${VERSION_NAME}" >> "$GITHUB_ENV"
-          echo "TRACK=${TRACK}" >> "$GITHUB_ENV"
+          {
+            echo "VERSION_CODE=${VERSION_CODE}"
+            echo "VERSION_NAME=${VERSION_NAME}"
+            echo "TRACK=${TRACK}"
+          } >> "$GITHUB_ENV"
           echo "versionCode=${VERSION_CODE} versionName=${VERSION_NAME} track=${TRACK}"
 
       - name: Write google-services.json from secret (or build without it)
@@ -110,10 +112,12 @@ jobs:
             exit 1
           fi
           printf '%s' "$UPLOAD_KEYSTORE_BASE64" | base64 -d > "${RUNNER_TEMP}/upload.keystore"
-          echo "RELEASE_KEYSTORE_PATH=${RUNNER_TEMP}/upload.keystore" >> "$GITHUB_ENV"
-          echo "RELEASE_KEYSTORE_PASSWORD=${UPLOAD_KEYSTORE_PASSWORD}" >> "$GITHUB_ENV"
-          echo "RELEASE_KEY_ALIAS=${UPLOAD_KEY_ALIAS}" >> "$GITHUB_ENV"
-          echo "RELEASE_KEY_PASSWORD=${UPLOAD_KEY_PASSWORD}" >> "$GITHUB_ENV"
+          {
+            echo "RELEASE_KEYSTORE_PATH=${RUNNER_TEMP}/upload.keystore"
+            echo "RELEASE_KEYSTORE_PASSWORD=${UPLOAD_KEYSTORE_PASSWORD}"
+            echo "RELEASE_KEY_ALIAS=${UPLOAD_KEY_ALIAS}"
+            echo "RELEASE_KEY_PASSWORD=${UPLOAD_KEY_PASSWORD}"
+          } >> "$GITHUB_ENV"
           echo "keystore decoded to RUNNER_TEMP (path only, no secrets printed)"
 
       - name: Build signed release AAB (R8 + resource shrinking)
