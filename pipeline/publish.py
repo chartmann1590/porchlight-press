@@ -452,7 +452,8 @@ def render_privacy_html(markdown_text: str) -> str:
     para: list[str] = []
     in_list = False
     in_table = False
-    table_rows: list[str] = []
+    table_rows: list[list[str]] = []
+    table_header_idx: int | None = None
 
     def _flush_para() -> None:
         if para:
@@ -466,11 +467,16 @@ def render_privacy_html(markdown_text: str) -> str:
             in_list = False
 
     def _flush_table() -> None:
-        nonlocal in_table, table_rows
+        nonlocal in_table, table_rows, table_header_idx
         if in_table:
-            if table_rows:
-                blocks.append("<table>\n" + "\n".join(table_rows) + "\n</table>")
+            rows: list[str] = []
+            for i, cells in enumerate(table_rows):
+                tag = "th" if i == table_header_idx else "td"
+                rows.append("<tr>" + "".join(f"<{tag}>{c}</{tag}>" for c in cells) + "</tr>")
+            if rows:
+                blocks.append("<table>\n" + "\n".join(rows) + "\n</table>")
             table_rows = []
+            table_header_idx = None
             in_table = False
 
     for raw in esc.split("\n"):
@@ -485,17 +491,13 @@ def render_privacy_html(markdown_text: str) -> str:
             _flush_list()
             cells = [c.strip() for c in line.strip("|").split("|")]
             if all(set(c) <= set("-: ") for c in cells):
-                continue  # separator row
-            tag = "th" if not table_rows else "td"
+                # Separator row marks the immediately preceding row as the header.
+                if table_rows and table_header_idx is None:
+                    table_header_idx = len(table_rows) - 1
+                continue  # separator row is never rendered
             if not in_table:
-                blocks.append("")
                 in_table = True
-            table_rows.append(
-                "<tr>" + "".join(f"<{tag}>{c}</{tag}>" for c in cells) + "</tr>"
-            )
-            # Remove the placeholder blank the first row added.
-            if blocks and blocks[-1] == "":
-                blocks.pop()
+            table_rows.append(cells)
             continue
         _flush_table()
         if line.startswith("### "):
