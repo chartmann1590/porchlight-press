@@ -331,9 +331,17 @@ fun ImageWithAttribution(
     headlineForContentDescription: String,
     onOpenSource: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    /** Story locations JSON: stock file photos outside the story's place collapse. */
+    locationsJson: String? = null,
 ) {
     val dto = rememberImageDto(imageJson)
     if (dto == null || dto.url.isBlank() || !dto.url.startsWith("https://")) {
+        return
+    }
+    // Unrelated stock photos (e.g. an Albany file photo on a Berkshire
+    // County story) collapse to the text-only layout — never a grey box.
+    // Publisher-owned images always show.
+    if (!shouldShowImage(dto.attribution, locationsJson)) {
         return
     }
     // A failed load collapses to the text-only layout: the Card below is only
@@ -430,8 +438,10 @@ fun HeroStory(
     }
     val dto = rememberImageDto(story.imageJson)
     // A failed hero load falls back to the text-only hero: never a gray box.
+    // A stock file photo outside the story's place never becomes the hero.
     var heroImageFailed by remember(story.imageJson) { mutableStateOf(false) }
-    val hasImage = dto != null && dto.url.startsWith("https://") && !heroImageFailed
+    val hasImage = dto != null && dto.url.startsWith("https://") && !heroImageFailed &&
+        shouldShowImage(dto.attribution, story.locationsJson)
 
     Card(
         modifier = modifier
@@ -509,7 +519,11 @@ fun HeroStory(
                 }
                 if (!hasImage) {
                     // Keep image attribution path for no-image stories via ImageWithAttribution (no-op)
-                    ImageWithAttribution(imageJson = story.imageJson, headlineForContentDescription = headline)
+                    ImageWithAttribution(
+                        imageJson = story.imageJson,
+                        headlineForContentDescription = headline,
+                        locationsJson = story.locationsJson,
+                    )
                 }
                 SourceLine(
                     publisher = sourceLabel ?: story.publisherLabel(),
@@ -596,7 +610,12 @@ fun StoryCard(
                 )
             }
             if (!story.imageJson.isNullOrBlank()) {
-                ImageWithAttribution(imageJson = story.imageJson, headlineForContentDescription = headline, modifier = Modifier.padding(top = 4.dp))
+                ImageWithAttribution(
+                    imageJson = story.imageJson,
+                    headlineForContentDescription = headline,
+                    modifier = Modifier.padding(top = 4.dp),
+                    locationsJson = story.locationsJson,
+                )
             }
             SourceLine(publisher = sourceLabel ?: story.publisherLabel(), publishedAt = updatedAt ?: story.publishedAt)
             if (story.version > 1) {

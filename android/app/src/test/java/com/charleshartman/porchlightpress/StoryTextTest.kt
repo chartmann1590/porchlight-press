@@ -3,6 +3,10 @@ package com.charleshartman.porchlightpress
 import com.charleshartman.porchlightpress.ui.components.bodyPreview
 import com.charleshartman.porchlightpress.ui.components.cardSnippet
 import com.charleshartman.porchlightpress.ui.components.excerptAllowed
+import com.charleshartman.porchlightpress.ui.components.filePhotoMatchesPlace
+import com.charleshartman.porchlightpress.ui.components.isFilePhotoAttribution
+import com.charleshartman.porchlightpress.ui.components.isNearDuplicate
+import com.charleshartman.porchlightpress.ui.components.shouldShowImage
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -35,6 +39,61 @@ class StoryTextTest {
     fun snippetNullWhenEmpty() {
         assertNull(cardSnippet("Headline", null, null, null))
         assertNull(cardSnippet("Headline", "  ", "", "  "))
+    }
+
+    @Test
+    fun nearDuplicateRestatingDekHidden() {
+        assertTrue(
+            isNearDuplicate(
+                "Grand marshal named for Schenectady County 2026 holiday parade",
+                "Schenectady County prepares for 2026 holiday parade",
+            ),
+        )
+        assertNull(
+            cardSnippet(
+                "Grand marshal named for Schenectady County 2026 holiday parade",
+                "Schenectady County prepares for 2026 holiday parade",
+                null,
+                null,
+            ),
+        )
+    }
+
+    @Test
+    fun distinctDekStillShown() {
+        assertFalse(isNearDuplicate("Headline", "The 5-2 vote funds work."))
+        assertEquals(
+            "The 5-2 vote funds work.",
+            cardSnippet("Headline", "The 5-2 vote funds work.", "Excerpt", "Body text here"),
+        )
+    }
+
+    @Test
+    fun filePhotoNeedsPlaceMatch() {
+        assertTrue(isFilePhotoAttribution("File photo: Schenectady City Hall — Jane / Wikimedia Commons (CC BY-SA 4.0)"))
+        assertFalse(isFilePhotoAttribution("Photo by the publisher"))
+        // Albany stock photo on a Berkshire County story: hidden.
+        assertFalse(
+            filePhotoMatchesPlace(
+                "File photo: Albany bodega storefront — Jane / Wikimedia Commons (CC BY-SA 4.0)",
+                listOf("Pittsfield", "Berkshire County", "US-MA"),
+            ),
+        )
+        // Matching place: shown.
+        assertTrue(
+            filePhotoMatchesPlace(
+                "File photo: Schenectady City Hall — Jane / Wikimedia Commons (CC BY-SA 4.0)",
+                listOf("Schenectady", "Schenectady County", "us-ny-capital-region"),
+            ),
+        )
+        // Publisher-owned images always show.
+        assertTrue(shouldShowImage("Photo by the publisher", null))
+        assertFalse(
+            shouldShowImage(
+                "File photo: Albany bodega storefront — Jane / Wikimedia Commons (CC BY-SA 4.0)",
+                """[{"city":"Pittsfield","admin2":"Berkshire County","country":"US"}]""",
+            ),
+        )
     }
 
     @Test

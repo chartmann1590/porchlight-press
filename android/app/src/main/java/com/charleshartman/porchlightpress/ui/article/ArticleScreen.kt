@@ -39,9 +39,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.charleshartman.porchlightpress.BuildConfig
 import com.charleshartman.porchlightpress.data.local.StorySource
-import com.charleshartman.porchlightpress.ui.components.AiBadge
 import com.charleshartman.porchlightpress.ui.components.AiDisclosureBox
 import com.charleshartman.porchlightpress.ui.components.ImageWithAttribution
+import com.charleshartman.porchlightpress.ui.components.isNearDuplicate
 import com.charleshartman.porchlightpress.ui.components.TranslationLabel
 import com.charleshartman.porchlightpress.ui.components.excerptAllowed
 import com.charleshartman.porchlightpress.ui.motion.PorchlightMotion
@@ -129,12 +129,17 @@ fun ArticleScreen(
                         style = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier.semantics { heading() }.testTag("article-headline"),
                     )
-                    if (!effectiveDek.isNullOrBlank()) {
+                    // Hide deks that merely restate the headline (same rule as cards).
+                    if (!effectiveDek.isNullOrBlank() && !isNearDuplicate(effectiveHeadline, effectiveDek)) {
                         Text(effectiveDek, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("article-dek"))
                     }
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                        if (story.aiGenerated) AiBadge()
-                        if (cur.isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
+                    // Single small AI label here is the byline above; the pill
+                    // is dropped so "AI NEWSROOM" appears only there plus the
+                    // disclosure box below.
+                    if (cur.isTranslating) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
+                        }
                     }
                     // Dateline + Updated
                     val updated = if (!story.updatedAt.isNullOrBlank() && story.updatedAt != story.publishedAt) story.updatedAt else null
@@ -151,10 +156,12 @@ fun ArticleScreen(
                             Text("v${story.version}", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("article-version"))
                         }
                     }
-                    // Image with caption + attribution
+                    // Image with caption + attribution (stock file photos outside
+                    // the story's place collapse to no image).
                     ImageWithAttribution(
                         imageJson = story.imageJson,
                         headlineForContentDescription = effectiveHeadline,
+                        locationsJson = story.locationsJson,
                         onOpenSource = cur.sources.firstOrNull()?.url?.let { url ->
                             {
                                 val intent = CustomTabsIntent.Builder().build()
