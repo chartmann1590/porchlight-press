@@ -74,6 +74,8 @@ data class Story(
     val headline: String,
     val dek: String? = null,
     val body: String? = null,
+    /** Permitted RSS excerpt from the feed (rights-filtered upstream, ≤300 chars). */
+    val excerpt: String? = null,
     val category: String = "local",
     val publishedAt: String = "",
     val updatedAt: String? = null,

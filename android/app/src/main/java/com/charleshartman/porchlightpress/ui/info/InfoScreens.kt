@@ -61,7 +61,7 @@ private fun plainRights(mode: String): String = when (mode) {
     "METADATA_ONLY" -> "Headlines only — no excerpt or image reuse; we link the original."
     "LINK_ONLY" -> "Link only — joins clusters but never the basis of a brief."
     "BLOCKED" -> "Blocked — not ingested."
-    else -> mode
+    else -> "Original reporting linked below; reuse varies by publisher."
 }
 
 // ---------------------------------------------------------------------------
@@ -78,12 +78,12 @@ fun AboutScreen(container: AppContainer, onBack: () -> Unit, modifier: Modifier 
         PorchlightMark(size = 40.dp)
         Text("About Porchlight Press", style = MaterialTheme.typography.headlineMedium, modifier = Modifier.semantics { heading() }.testTag("about-title"))
         Text(
-            "Porchlight Press is a free, ad-supported personal newspaper. Stories are AI-written briefs that always link the original reporting and say so on every story. The AI is never a single point of failure — the deterministic source-card fallback always works.",
+            "Porchlight Press is a free, ad-supported personal newspaper. Stories are AI-written briefs that always link the original reporting and say so on every story. The AI is never a single point of failure — when no brief is available, the app shows only the linked original reporting.",
             style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("about-intro"),
         )
         SectionH("AI newsroom")
         Text(
-            "Briefs are generated on GitHub Actions runners with Qwen3-4B Q4_K_M (Apache-2.0), served via llama.cpp with JSON-schema grammar and thinking disabled. A cloud fallback (Cloudflare Workers AI) is optional and off by default. When validation fails, the app shows a source card instead — no fabricated summary.",
+            "Briefs are generated on GitHub Actions runners with Qwen3-4B Q4_K_M (Apache-2.0), served via llama.cpp with JSON-schema grammar and thinking disabled. A cloud fallback (Cloudflare Workers AI) is optional and off by default. When validation fails, the app shows only the linked original reporting instead — no fabricated summary.",
             style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("about-ai-model"),
         )
         SectionH("Validation rules")
@@ -95,7 +95,7 @@ fun AboutScreen(container: AppContainer, onBack: () -> Unit, modifier: Modifier 
                 "No sentence <60% covered by sources; disagreements (300 vs 500) must show both",
                 "Headline ≤110 chars, dek ≤200, body 60–220 words",
                 "No ≥12 consecutive words copied from non-PD sources; no fake quotes",
-                "On failure: one retry, then source card. Published only if tier ≥ MEDIUM",
+                "On failure: one retry, then only the linked original reporting. Published only if quality checks pass",
             ),
         )
         SectionH("Disclaimer")

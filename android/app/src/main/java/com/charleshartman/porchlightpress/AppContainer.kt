@@ -25,6 +25,7 @@ import com.charleshartman.porchlightpress.data.repo.UmpConsentGateway
 class AppContainer(val context: Context) {
     val db: AppDatabase by lazy {
         Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.NAME)
+            .addMigrations(AppDatabase.MIGRATION_1_2)
             .fallbackToDestructiveMigrationOnDowngrade()
             .build()
     }

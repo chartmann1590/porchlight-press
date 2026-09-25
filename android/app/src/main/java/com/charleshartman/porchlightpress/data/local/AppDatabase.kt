@@ -2,6 +2,8 @@ package com.charleshartman.porchlightpress.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
 /**
  * Room database, designed for multiple editions now (Phase 5 spec).
@@ -22,7 +24,7 @@ import androidx.room.RoomDatabase
         UiTranslation::class,
         StoryFts::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -35,5 +37,12 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val NAME = "porchlight.db"
+
+        /** v1 → v2: persist the feed's permitted RSS excerpt on stories. */
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE stories ADD COLUMN excerpt TEXT")
+            }
+        }
     }
 }

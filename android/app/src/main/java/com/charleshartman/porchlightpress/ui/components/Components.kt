@@ -336,6 +336,13 @@ fun ImageWithAttribution(
     if (dto == null || dto.url.isBlank() || !dto.url.startsWith("https://")) {
         return
     }
+    // A failed load collapses to the text-only layout: the Card below is only
+    // composed while the image can still succeed, so readers never see an
+    // empty box with just a caption under it.
+    var failed by remember(dto.url) { mutableStateOf(false) }
+    if (failed) {
+        return
+    }
     Column(modifier.fillMaxWidth().testTag("image-block")) {
         val context = LocalContext.current
         Card(
@@ -351,6 +358,7 @@ fun ImageWithAttribution(
                 model = ImageRequest.Builder(context)
                     .data(dto.url)
                     .crossfade(true)
+                    .listener(onError = { _, _ -> failed = true })
                     .build(),
                 contentDescription = dto.attribution.ifBlank { headlineForContentDescription },
                 contentScale = ContentScale.Crop,
@@ -401,7 +409,9 @@ fun HeroStory(
     modifier: Modifier = Modifier,
 ) {
     val headline = translatedHeadline ?: story.headline
-    val dek = translatedDek ?: story.dek
+    // Card snippet: dek, then permitted excerpt, then a brief preview — never
+    // the headline repeated, never nothing-but-duplication.
+    val snippet = cardSnippet(headline, translatedDek ?: story.dek, story.excerpt, story.body)
     val ai = story.aiGenerated
     val reduce = rememberReduceMotion()
     val dark = LocalIsDarkTheme.current
@@ -419,7 +429,9 @@ fun HeroStory(
         textShown = true
     }
     val dto = rememberImageDto(story.imageJson)
-    val hasImage = dto != null && dto.url.startsWith("https://")
+    // A failed hero load falls back to the text-only hero: never a gray box.
+    var heroImageFailed by remember(story.imageJson) { mutableStateOf(false) }
+    val hasImage = dto != null && dto.url.startsWith("https://") && !heroImageFailed
 
     Card(
         modifier = modifier
@@ -436,7 +448,9 @@ fun HeroStory(
             if (hasImage) {
                 val context = LocalContext.current
                 SubcomposeAsyncImage(
-                    model = ImageRequest.Builder(context).data(dto!!.url).crossfade(true).build(),
+                    model = ImageRequest.Builder(context).data(dto!!.url).crossfade(true)
+                        .listener(onError = { _, _ -> heroImageFailed = true })
+                        .build(),
                     contentDescription = headline,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -477,14 +491,14 @@ fun HeroStory(
                         modifier = Modifier.semantics { heading() }.testTag("hero-headline"),
                     )
                 }
-                if (LocalLayout.current.showDek && !dek.isNullOrBlank()) {
+                if (LocalLayout.current.showDek && !snippet.isNullOrBlank()) {
                     AnimatedVisibility(
                         visible = textShown,
                         enter = fadeIn(tween(PorchlightMotion.fadeMs(reduce) + 80)) +
                             slideInVertically(tween(PorchlightMotion.slideMs(reduce) + 40)) { it / 3 },
                     ) {
                         Text(
-                            dek,
+                            snippet,
                             style = MaterialTheme.typography.bodyMedium,
                             color = if (hasImage) Color.White.copy(alpha = 0.88f) else MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 3,
@@ -532,7 +546,8 @@ fun StoryCard(
     modifier: Modifier = Modifier,
 ) {
     val headline = translatedHeadline ?: story.headline
-    val dek = translatedDek ?: story.dek
+    // Same snippet rule as the hero: excerpt/brief preview, never a repeated headline.
+    val snippet = cardSnippet(headline, translatedDek ?: story.dek, story.excerpt, story.body)
     val interaction = remember { MutableInteractionSource() }
     val pressed by interaction.collectIsPressedAsState()
     val scale by animateFloatAsState(
@@ -570,9 +585,9 @@ fun StoryCard(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.semantics { heading() }.testTag("card-headline"),
             )
-            if (LocalLayout.current.showDek && !dek.isNullOrBlank()) {
+            if (LocalLayout.current.showDek && !snippet.isNullOrBlank()) {
                 Text(
-                    dek,
+                    snippet,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
