@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -218,8 +219,39 @@ class WeatherUiTest {
     }
 
     @Test
-    fun backFromDeepLinkedDetailStaysOnWeather() {
-        // Regression: the notification deep link must be consumed once —
+    fun weatherTopButtonOpensWeatherScreen() {
+        // Owner request: the sticky top-bar button (temp + icon, always
+        // visible) opens the Weather screen.
+        val place = usPlace("topbutton")
+        seedEdition(place, "story-wx-topbutton")
+        lateinit var nav: NavHostController
+        rule.setContent {
+            PorchlightTheme {
+                nav = rememberNavController()
+                PorchlightNavGraph(
+                    container = container,
+                    gate = gate,
+                    interstitial = InterstitialController(),
+                    onSwitchLocation = {},
+                    navController = nav,
+                    startDestination = Routes.FRONT,
+                )
+            }
+        }
+        rule.waitUntil(15000) {
+            rule.onAllNodesWithTag("weather-top-button").fetchSemanticsNodes().isNotEmpty()
+        }
+        rule.onNodeWithTag("weather-top-button").assertIsDisplayed()
+        rule.onNodeWithTag("weather-top-button").performClick()
+        rule.waitUntil(15000) {
+            rule.onAllNodesWithTag("weather-screen").fetchSemanticsNodes().isNotEmpty()
+        }
+        rule.onNodeWithTag("weather-screen").assertIsDisplayed()
+        rule.onNodeWithTag("weather-current-temp").assertIsDisplayed()
+    }
+
+    @Test
+    fun backFromDeepLinkedDetailStaysOnWeather() {        // Regression: the notification deep link must be consumed once —
         // popping back from the alert detail to Weather must not re-push
         // the detail (an infinite Back trap).
         val place = usPlace("deeplink")

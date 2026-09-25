@@ -101,6 +101,5 @@ object AlertNotifications {
         runCatching {
             NotificationManagerCompat.from(context).notify(code, notification)
         }
-        }
     }
 }

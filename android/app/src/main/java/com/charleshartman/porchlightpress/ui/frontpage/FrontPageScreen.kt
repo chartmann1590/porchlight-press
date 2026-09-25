@@ -43,6 +43,7 @@ import com.charleshartman.porchlightpress.ui.components.TranslationLabel
 import com.charleshartman.porchlightpress.ui.theme.LocalLayout
 import com.charleshartman.porchlightpress.ui.weather.FrontAlertBanners
 import com.charleshartman.porchlightpress.ui.weather.FrontWeatherSlot
+import com.charleshartman.porchlightpress.ui.weather.WeatherTopButton
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -72,13 +73,23 @@ fun FrontPageScreen(
             placeLabel = state.place?.label,
             onSwitchLocation = onSwitchLocation,
         )
-        // Edition label row (sticky header).
+        // Edition label row (sticky header) with the always-visible weather
+        // button on the right (owner request): temp + condition icon that
+        // opens the Weather screen without scrolling.
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             EditionLabel(generatedAt = state.generatedAt, kind = state.editionKind, clockOverride = clock)
+            val topWeather = (state.weather as? WeatherRepository.Snapshot.Ready)?.data
+            if (topWeather != null) {
+                WeatherTopButton(
+                    current = topWeather.current,
+                    country = state.place?.country ?: "US",
+                    onOpenWeather = onOpenWeather,
+                )
+            }
         }
         if (state.offline) {
             Text(

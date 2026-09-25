@@ -1,5 +1,6 @@
 package com.charleshartman.porchlightpress.ui.weather
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,11 +21,45 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.charleshartman.porchlightpress.AppContainer
+import com.charleshartman.porchlightpress.data.weather.CurrentWeather
 import com.charleshartman.porchlightpress.data.weather.WeatherAlert
 import com.charleshartman.porchlightpress.data.weather.WeatherData
 import com.charleshartman.porchlightpress.data.weather.WeatherMath
 import com.charleshartman.porchlightpress.data.weather.conditionLabel
 import com.charleshartman.porchlightpress.ui.components.AlertBanner
+
+/**
+ * Sticky top-bar weather button (owner request): current temperature plus a
+ * condition icon, always visible without scrolling. Tapping opens the
+ * Weather screen. Rendered only once live data exists (never a placeholder
+ * that could be mistaken for real weather).
+ */
+@Composable
+fun WeatherTopButton(
+    current: CurrentWeather,
+    country: String,
+    onOpenWeather: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier
+            .clickable { onOpenWeather() }
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .testTag("weather-top-button"),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            current.condition.icon,
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Text(
+            WeatherMath.formatTemp(current.tempC, country),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+    }
+}
 
 /**
  * Front-page weather slot (Phase 7): temp + condition teaser row (tappable
