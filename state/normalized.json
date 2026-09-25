@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T00:21:35.018473Z",
+  "generatedAt": "2026-09-25T00:49:51.063817Z",
   "items": [
     {
       "id": "4103fd02b14bac233c24db855cd4c142",
@@ -8,7 +8,7 @@
       "headline": "Netanyahu defends Israeli military action as delegates walk out before UN speech",
       "excerpt": "The Israeli leader labels those who left his speech at the UN General Assembly as \"moral cowards\".",
       "url": "https://www.bbc.co.uk/news/articles/c3y0z7kxlegdo?at_campaign=rss&at_medium=RSS",
-      "publishedAt": "2026-09-24T23:32:51Z",
+      "publishedAt": "2026-09-25T00:44:04Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -730,19 +730,6 @@
       "rawLocations": []
     },
     {
-      "id": "3b0d18caed19c5e44e06d5463b54df10",
-      "sourceId": "usgs-earthquakes",
-      "publisher": "USGS Earthquake Hazards Program",
-      "headline": "M 4.6 - 223 km WNW of Abepura, Indonesia",
-      "excerpt": null,
-      "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000tx7g",
-      "publishedAt": "2026-09-24T00:26:38.374000Z",
-      "language": "en",
-      "rightsMode": "PUBLIC_DOMAIN",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
       "id": "013eb4947f6d26e850f7fa9af4216433",
       "sourceId": "city-albany-news",
       "publisher": "City of Albany News Flash",
@@ -919,6 +906,19 @@
       "excerpt": "This week, Massachusetts Gov. Maura Healey threw her support behind a November ballot question that would override local zoning ordinances to allow homes to be built on small lots across the Commonwealth.",
       "url": "https://www.wamc.org/news/2026-09-23/as-healey-backs-starter-home-building-rules-initiative-municipal-association-opposed",
       "publishedAt": "2026-09-23T20:25:45Z",
+      "language": "en",
+      "rightsMode": "RSS_EXCERPT_ALLOWED",
+      "imageCandidate": null,
+      "rawLocations": []
+    },
+    {
+      "id": "0d9f95094fe93b0de0c210a70aa92b26",
+      "sourceId": "wten-news10",
+      "publisher": "WTEN News10 ABC",
+      "headline": "Ex-Santa impersonator turns himself in on attempted rape charges in Essex Co.",
+      "excerpt": "A former Santa Claus impersonator who had a warrant out for his arrest turned himself in Thursday afternoon, according to Ticonderoga police. 75-year-old Clarence Russell, of Paul Smiths failed to show up to his scheduled arraignment on Wednesday.",
+      "url": "https://www.news10.com/news/essex-county-news/ex-santa-impersonator-turns-himself-in-on-attempted-rape-charges-in-essex-co/",
+      "publishedAt": "2026-09-25T00:42:37Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
@@ -1556,19 +1556,6 @@
       "excerpt": "Wheatfields Restaurant & Bar, located at 440 Broadway in downtown Saratoga Springs, is set to close. Owners Tim and Colleen Holmes made the announcement in a Facebook post on Wednesday.",
       "url": "https://www.news10.com/community/restaurant-rundown/downtown-saratoga-springs-restaurant-closing-after-38-years/",
       "publishedAt": "2026-09-23T14:36:24Z",
-      "language": "en",
-      "rightsMode": "RSS_EXCERPT_ALLOWED",
-      "imageCandidate": null,
-      "rawLocations": []
-    },
-    {
-      "id": "0021646935a6f78cfb441de68faf576b",
-      "sourceId": "wten-news10",
-      "publisher": "WTEN News10 ABC",
-      "headline": "Saratoga County committee announces horse barn safety recommendations",
-      "excerpt": "On September 14, the Saratoga County Horse Racing Fire Safety and Prevention Committee approved its first set of safety recommendations, directed at improving fire safety at horse racing facilities.",
-      "url": "https://www.news10.com/news/saratoga-county/saratoga-county-committee-announces-horse-barn-safety-recommendations/",
-      "publishedAt": "2026-09-23T13:37:30Z",
       "language": "en",
       "rightsMode": "RSS_EXCERPT_ALLOWED",
       "imageCandidate": null,
