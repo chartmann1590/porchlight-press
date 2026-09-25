@@ -36,6 +36,24 @@ object NetworkModule {
             .build()
     }
 
+    /**
+     * OkHttp client for Coil image loads. Wikimedia (Commons/upload) returns
+     * 403 to requests without a descriptive User-Agent, so image fetches must
+     * carry the same UA as feed requests. No HTTP disk cache here: Coil
+     * manages its own disk cache, and two OkHttp Cache instances must never
+     * share one directory.
+     */
+    fun imageOkHttp(context: Context): OkHttpClient =
+        OkHttpClient.Builder()
+            .cache(null)
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .header("User-Agent", userAgent())
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
+
     fun feedApi(context: Context, client: OkHttpClient = okHttp(context)): FeedApi {
         val contentType = "application/json".toMediaType()
         return Retrofit.Builder()

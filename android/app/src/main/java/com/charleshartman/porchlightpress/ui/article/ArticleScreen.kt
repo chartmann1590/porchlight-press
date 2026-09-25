@@ -2,6 +2,13 @@ package com.charleshartman.porchlightpress.ui.article
 
 import android.content.Intent
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,10 +39,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.charleshartman.porchlightpress.BuildConfig
 import com.charleshartman.porchlightpress.data.local.StorySource
-import com.charleshartman.porchlightpress.ui.components.AiBadge
 import com.charleshartman.porchlightpress.ui.components.AiDisclosureBox
 import com.charleshartman.porchlightpress.ui.components.ImageWithAttribution
+import com.charleshartman.porchlightpress.ui.components.isNearDuplicate
 import com.charleshartman.porchlightpress.ui.components.TranslationLabel
+import com.charleshartman.porchlightpress.ui.components.excerptAllowed
+import com.charleshartman.porchlightpress.ui.motion.PorchlightMotion
+import com.charleshartman.porchlightpress.ui.motion.rememberReduceMotion
+import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
+import com.charleshartman.porchlightpress.ui.theme.classicPaperBrush
+import com.charleshartman.porchlightpress.ui.theme.modernSurfaceBrush
 import com.charleshartman.porchlightpress.ui.util.TimeFormat
 
 @Composable
@@ -48,7 +61,10 @@ fun ArticleScreen(
     val cur = stateVal
     val context = LocalContext.current
 
-    Column(modifier.fillMaxSize().testTag("article-screen")) {
+    val classic = LocalIsClassic.current
+    val bg = if (classic) Modifier.background(classicPaperBrush()) else Modifier.background(modernSurfaceBrush())
+    val reduce = rememberReduceMotion()
+    Column(modifier.fillMaxSize().then(bg).testTag("article-screen")) {
         // Top bar with Back + Share
         Row(
             Modifier.fillMaxWidth().padding(8.dp),
@@ -113,12 +129,17 @@ fun ArticleScreen(
                         style = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier.semantics { heading() }.testTag("article-headline"),
                     )
-                    if (!effectiveDek.isNullOrBlank()) {
+                    // Hide deks that merely restate the headline (same rule as cards).
+                    if (!effectiveDek.isNullOrBlank() && !isNearDuplicate(effectiveHeadline, effectiveDek)) {
                         Text(effectiveDek, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("article-dek"))
                     }
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                        if (story.aiGenerated) AiBadge()
-                        if (cur.isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
+                    // Single small AI label here is the byline above; the pill
+                    // is dropped so "AI NEWSROOM" appears only there plus the
+                    // disclosure box below.
+                    if (cur.isTranslating) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
+                        }
                     }
                     // Dateline + Updated
                     val updated = if (!story.updatedAt.isNullOrBlank() && story.updatedAt != story.publishedAt) story.updatedAt else null
@@ -135,10 +156,12 @@ fun ArticleScreen(
                             Text("v${story.version}", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("article-version"))
                         }
                     }
-                    // Image with caption + attribution
+                    // Image with caption + attribution (stock file photos outside
+                    // the story's place collapse to no image).
                     ImageWithAttribution(
                         imageJson = story.imageJson,
                         headlineForContentDescription = effectiveHeadline,
+                        locationsJson = story.locationsJson,
                         onOpenSource = cur.sources.firstOrNull()?.url?.let { url ->
                             {
                                 val intent = CustomTabsIntent.Builder().build()
@@ -157,25 +180,34 @@ fun ArticleScreen(
                         Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translation-label"))
                     }
 
-                    // Body vs source-card variant
+                    // Body vs excerpt variant. AI briefs show the full brief text;
+                    // everything else shows the permitted source excerpt (when the
+                    // license allows it) plus a way into the original reporting.
+                    // Full article text is never republished here.
+                    val firstSource = cur.sources.firstOrNull()
                     if (story.aiGenerated && !effectiveBody.isNullOrBlank()) {
-                        Text(effectiveBody, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("article-body"))
+                        ArticleBodyParagraphs(body = effectiveBody)
+                        ReadFullStoryButton(
+                            publisher = firstSource?.publisher,
+                            url = firstSource?.url,
+                        )
                     } else {
-                        // Source-card: original headline + publisher + permitted excerpt, no generated text
-                        Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().testTag("source-card")) {
-                            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                Text("Source card — AI brief withheld or not yet generated.", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold))
-                                Text(story.headline, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("source-card-headline"))
-                                // Excerpt not stored separately; body shown below when present
-                                if (!story.body.isNullOrBlank()) {
-                                    Text(story.body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        val showExcerpt = excerptAllowed(cur.sources.map { it.rightsMode }) &&
+                            !story.excerpt.isNullOrBlank()
+                        if (showExcerpt) {
+                            Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().testTag("source-card")) {
+                                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    Text(story.excerpt, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("source-card-excerpt"))
                                 }
-                                Text("Open the original to read more.", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
                             }
                         }
+                        ReadFullStoryButton(
+                            publisher = firstSource?.publisher,
+                            url = firstSource?.url,
+                        )
                     }
 
-                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = MaterialTheme.colorScheme.outline.copy(alpha = 0.6f))
 
                     // REPORTING SOURCES
                     Text(
@@ -185,7 +217,7 @@ fun ArticleScreen(
                         modifier = Modifier.semantics { heading() }.testTag("sources-header"),
                     )
                     cur.sources.forEachIndexed { index, src ->
-                        SourceRow(src = src, modifier = Modifier.testTag("source-$index"))
+                        SourceRow(src = src, articleHeadline = effectiveHeadline, modifier = Modifier.testTag("source-$index"))
                     }
                     if (cur.sources.isEmpty()) {
                         Text("Sources unavailable.", style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("sources-empty"))
@@ -211,29 +243,69 @@ fun ArticleScreen(
 fun sharePageUrl(storyId: String): String =
     "${BuildConfig.FEED_BASE_URL.trimEnd('/')}/s/$storyId.html"
 
+/** Full AI brief, split into paragraphs on blank lines. */
 @Composable
-private fun SourceRow(src: StorySource, modifier: Modifier = Modifier) {
+private fun ArticleBodyParagraphs(body: String, modifier: Modifier = Modifier) {
+    val paragraphs = body.split("\n\n").map { it.trim() }.filter { it.isNotEmpty() }
+    Column(modifier.testTag("article-body"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        paragraphs.forEach { paragraph ->
+            Text(paragraph, style = MaterialTheme.typography.bodyLarge)
+        }
+    }
+}
+
+/** Prominent full-width button into the original reporting. Hidden with no URL. */
+@Composable
+private fun ReadFullStoryButton(publisher: String?, url: String?, modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    Column(
-        modifier
+    if (url.isNullOrBlank()) return
+    androidx.compose.material3.Button(
+        onClick = {
+            val intent = CustomTabsIntent.Builder().build()
+            intent.launchUrl(context, android.net.Uri.parse(url))
+        },
+        modifier = modifier.fillMaxWidth().testTag("read-full-story"),
+    ) {
+        Text(
+            if (publisher.isNullOrBlank()) "Read the full story"
+            else "Read the full story at $publisher",
+        )
+    }
+}
+
+@Composable
+private fun SourceRow(src: StorySource, articleHeadline: String? = null, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    androidx.compose.material3.Surface(
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        tonalElevation = 1.dp,
+        modifier = modifier
             .fillMaxWidth()
             .clickable {
                 val intent = CustomTabsIntent.Builder().build()
                 intent.launchUrl(context, android.net.Uri.parse(src.url))
-            }
-            .padding(vertical = 6.dp),
+            },
+    ) {
+    Column(
+        Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         Text(src.publisher, style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), modifier = Modifier.testTag("source-publisher"))
-        Text(src.headline, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("source-headline"))
+        // Never repeat the article headline in the source list.
+        if (articleHeadline == null || !src.headline.trim().equals(articleHeadline.trim(), ignoreCase = true)) {
+            Text(src.headline, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("source-headline"))
+        }
         val time = TimeFormat.formatSourceTime(src.publishedAt, context)
-        val rights = src.rightsMode?.let { " \u00b7 $it" } ?: ""
-        Text(
-            "${if (time.isNotBlank()) "$time$rights" else rights.trimStart()}",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        if (time.isNotBlank()) {
+            Text(
+                time,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
         Text("Read original →", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("source-link"))
+    }
     }
 }
 

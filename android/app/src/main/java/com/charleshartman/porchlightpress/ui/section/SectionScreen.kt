@@ -1,6 +1,7 @@
 package com.charleshartman.porchlightpress.ui.section
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,11 @@ import com.charleshartman.porchlightpress.data.ads.AdMobGate
 import com.charleshartman.porchlightpress.ui.components.BannerAdSlot
 import com.charleshartman.porchlightpress.ui.components.SectionHeader
 import com.charleshartman.porchlightpress.ui.components.StoryCard
+import com.charleshartman.porchlightpress.ui.components.PorchlightShimmer
+import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
+import com.charleshartman.porchlightpress.ui.theme.classicPaperBrush
+import com.charleshartman.porchlightpress.ui.theme.modernSurfaceBrush
+import androidx.compose.foundation.background
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +42,9 @@ fun SectionScreen(
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
-    ColumnFull(modifier) {
+    val classic = LocalIsClassic.current
+    val bg = if (classic) Modifier.background(classicPaperBrush()) else Modifier.background(modernSurfaceBrush())
+    ColumnFull(modifier.then(bg)) {
         // Simple header with back + title (newspaper section screen)
         androidx.compose.material3.TopAppBar(
             title = { Text(state.title, modifier = Modifier.testTag("section-title-$sectionId")) },
@@ -48,8 +56,12 @@ fun SectionScreen(
         )
         PullToRefreshBox(isRefreshing = false, onRefresh = {}, modifier = Modifier.fillMaxSize()) {
             when {
-                state.isLoading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator(modifier = Modifier.testTag("section-loading"))
+                state.isLoading -> Box(Modifier.fillMaxSize().padding(16.dp).testTag("section-loading"), contentAlignment = Alignment.TopCenter) {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        PorchlightShimmer(height = 140.dp)
+                        PorchlightShimmer(height = 140.dp)
+                        PorchlightShimmer(height = 140.dp)
+                    }
                 }
                 state.error != null && state.stories.isEmpty() -> Box(Modifier.fillMaxSize().padding(24.dp), contentAlignment = Alignment.Center) {
                     Text(state.error!!, modifier = Modifier.testTag("section-error"))
@@ -71,7 +83,7 @@ fun SectionScreen(
                             sourceLabel = item.sourceLabel,
                             updatedAt = item.story.updatedAt ?: item.story.publishedAt,
                             onClick = { onStoryClick(item.story.id) },
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp).animateItem(),
                         )
                     }
                     item { BannerAdSlot(gate = gate, modifier = Modifier.padding(top = 12.dp)) }
