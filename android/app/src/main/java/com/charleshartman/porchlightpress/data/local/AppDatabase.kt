@@ -25,7 +25,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         StoryFts::class,
         NotifiedAlert::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = true,
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -48,6 +48,13 @@ abstract class AppDatabase : RoomDatabase() {
                         "(`alertId` TEXT NOT NULL, `notifiedAt` INTEGER NOT NULL, " +
                         "`event` TEXT, PRIMARY KEY(`alertId`))",
                 )
+            }
+        }
+
+        /** v2 → v3: persist the feed's permitted RSS excerpt on stories. */
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE stories ADD COLUMN excerpt TEXT")
             }
         }
     }

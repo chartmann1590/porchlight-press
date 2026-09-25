@@ -1,5 +1,6 @@
 package com.charleshartman.porchlightpress.ui.frontpage
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,6 +45,10 @@ import com.charleshartman.porchlightpress.ui.components.SectionHeader
 import com.charleshartman.porchlightpress.ui.components.StoryCard
 import com.charleshartman.porchlightpress.ui.components.TranslationLabel
 import com.charleshartman.porchlightpress.ui.theme.LocalLayout
+import com.charleshartman.porchlightpress.ui.theme.modernSurfaceBrush
+import com.charleshartman.porchlightpress.ui.theme.classicPaperBrush
+import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
+import com.charleshartman.porchlightpress.ui.components.PorchlightShimmer
 import com.charleshartman.porchlightpress.ui.weather.FrontAlertBanners
 import com.charleshartman.porchlightpress.ui.weather.FrontWeatherSlot
 import com.charleshartman.porchlightpress.ui.weather.WeatherTopButton
@@ -79,7 +84,9 @@ fun FrontPageScreen(
     var exporting by remember { mutableStateOf(false) }
     var exportError by remember { mutableStateOf<String?>(null) }
 
-    Column(modifier.fillMaxSize().testTag("front-page")) {
+    val classic = LocalIsClassic.current
+    val bg = if (classic) Modifier.background(classicPaperBrush()) else Modifier.background(modernSurfaceBrush())
+    Column(modifier.fillMaxSize().then(bg).testTag("front-page")) {
         // Masthead stays sticky at top outside the scroll (newspaper feel).
         Masthead(
             placeLabel = state.place?.label,
@@ -164,8 +171,12 @@ fun FrontPageScreen(
             modifier = Modifier.weight(1f).fillMaxWidth(),
         ) {
             when {
-                state.isLoading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator(modifier = Modifier.testTag("front-loading"))
+                state.isLoading -> Box(Modifier.fillMaxSize().padding(16.dp).testTag("front-loading"), contentAlignment = Alignment.TopCenter) {
+                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        PorchlightShimmer(height = 220.dp)
+                        PorchlightShimmer(height = 120.dp)
+                        PorchlightShimmer(height = 120.dp)
+                    }
                 }
                 state.error != null && state.sections.isEmpty() -> Box(Modifier.fillMaxSize().padding(24.dp), contentAlignment = Alignment.Center) {
                     Text(state.error!!, modifier = Modifier.testTag("front-error"))
@@ -209,13 +220,14 @@ private fun ChipsRow(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp).testTag("section-chips"),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(chipTitles.size) { idx ->
+        items(chipTitles.size, key = { chipTitles[it] }) { idx ->
             val title = chipTitles[idx]
             val sectionId = title.lowercase()
             androidx.compose.material3.FilterChip(
                 selected = false,
                 onClick = { onSectionClick(sectionId) },
                 label = { Text(title.uppercase()) },
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(50),
                 modifier = Modifier.testTag("chip-$sectionId"),
             )
         }
@@ -308,7 +320,7 @@ private fun FrontPageList(
                         sourceLabel = hero.sourceLabel,
                         updatedAt = hero.story.updatedAt ?: hero.story.publishedAt,
                         onClick = { onStoryClick(hero.story.id) },
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).animateItem(),
                     )
                 }
                 // Remaining stories in grid/list after hero
@@ -327,7 +339,7 @@ private fun FrontPageList(
                             sourceLabel = item.sourceLabel,
                             updatedAt = item.story.updatedAt ?: item.story.publishedAt,
                             onClick = { onStoryClick(item.story.id) },
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp).animateItem(),
                         )
                     }
                 }
@@ -346,7 +358,7 @@ private fun FrontPageList(
                             sourceLabel = it.sourceLabel,
                             updatedAt = it.story.updatedAt ?: it.story.publishedAt,
                             onClick = { onStoryClick(it.story.id) },
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp).animateItem(),
                         )
                     }
                 }

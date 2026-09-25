@@ -235,6 +235,7 @@ class EditionRepository(
             headline = headline,
             dek = dek,
             body = body,
+            excerpt = excerpt,
             category = category,
             publishedAt = publishedAt,
             updatedAt = updatedAt,

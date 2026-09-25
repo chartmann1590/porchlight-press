@@ -1,0 +1,25 @@
+Porchlight Press is your hometown newspaper, rebuilt for your phone. Free to download and free to use — no account, no paywall.
+
+A NEWSPAPER, NOT A FEED
+A front page with a masthead, headlines, and sections, in classic newsprint or clean modern style, light or dark. Local, region, state, nation, and world — built around the town you pick.
+
+WEATHER BUILT IN
+Today's conditions, the forecast, and severe-weather alerts (U.S. National Weather Service; MET Norway outside the US).
+
+EVERY STORY SHOWS ITS SOURCES
+Short, neutral briefs list every outlet they're based on, with a link to the original reporting. We send readers to local journalists; we don't replace them.
+
+HONEST AI
+Briefs are written on free public infrastructure and clearly labelled as AI-written. Automatic checks reject any brief that adds facts the sources didn't report — then you see the original headline and link instead. Always check the sources for anything important.
+
+READ YOUR WAY
+Dozens of languages (translated on your phone), Listen to any story, download today's paper as a PDF, share via Android, read offline, save and search, and control notifications (severe weather, breaking local, morning/evening editions, quiet hours).
+
+FREE, WITH A FEW ADS
+Clearly labelled Advertisement slots between sections — never inside stories, never pop-ups. Personalized only with your consent (change anytime in Settings → Privacy options).
+
+PRIVATE BY DESIGN
+No account. Your places, reading, saves, and searches stay on your phone. Location is coarse-only and optional (ZIP or town picker works). Crash reports and usage stats are off unless you turn them on.
+
+Full privacy policy: https://chartmann1590.github.io/porchlight-press/privacy.html
+Questions, source suggestions, corrections: me@charleshartman.com

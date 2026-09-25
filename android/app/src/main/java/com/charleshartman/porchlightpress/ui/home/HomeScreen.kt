@@ -1,5 +1,6 @@
 package com.charleshartman.porchlightpress.ui.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.charleshartman.porchlightpress.AppContainer
+import com.charleshartman.porchlightpress.ui.components.PorchlightMark
+import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
+import com.charleshartman.porchlightpress.ui.theme.classicPaperBrush
+import com.charleshartman.porchlightpress.ui.theme.modernSurfaceBrush
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlinx.coroutines.launch
@@ -33,12 +38,15 @@ fun HomeScreen(container: AppContainer) {
     val prefs by container.prefs.prefs.collectAsState(initial = null)
     val scope = rememberCoroutineScope()
     val date = rememberDate()
+    val classic = LocalIsClassic.current
+    val bg = if (classic) Modifier.background(classicPaperBrush()) else Modifier.background(modernSurfaceBrush())
     Column(
-        Modifier.fillMaxSize().padding(20.dp).testTag("home"),
+        Modifier.fillMaxSize().then(bg).padding(20.dp).testTag("home"),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("PORCHLIGHT PRESS", style = MaterialTheme.typography.headlineSmall)
+        PorchlightMark(size = 44.dp)
+        Text("PORCHLIGHT PRESS", style = MaterialTheme.typography.displaySmall)
         Text("$date · ${prefs?.appLanguage ?: "en"}", style = MaterialTheme.typography.bodyMedium)
         val locationId = prefs?.activeLocationId
         if (locationId != null) {

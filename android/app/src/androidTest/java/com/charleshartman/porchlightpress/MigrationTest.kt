@@ -10,8 +10,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Migration test from v1: create the v1 schema, write a row with raw SQL,
- * reopen with Room, and verify the data survives.
+ * Migration tests across v1 → v2 → v3:
+ * - v1 creates and retains data (migrated straight to v3);
+ * - v1 → v2 adds the notified_alerts table (Phase 7);
+ * - v2 → v3 adds the stories excerpt column (redesign).
  */
 @RunWith(AndroidJUnit4::class)
 class MigrationTest {
@@ -30,7 +32,7 @@ class MigrationTest {
         }
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val db = Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.NAME)
-            .addMigrations(AppDatabase.MIGRATION_1_2)
+            .addMigrations(AppDatabase.MIGRATION_1_2, AppDatabase.MIGRATION_2_3)
             .allowMainThreadQueries()
             .build()
         try {
@@ -60,7 +62,7 @@ class MigrationTest {
         ).close()
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val db = Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.NAME)
-            .addMigrations(AppDatabase.MIGRATION_1_2)
+            .addMigrations(AppDatabase.MIGRATION_1_2, AppDatabase.MIGRATION_2_3)
             .allowMainThreadQueries()
             .build()
         try {
@@ -71,6 +73,48 @@ class MigrationTest {
                 ),
             )
             assertEquals(listOf("urn:test"), db.notifiedAlertDao().knownIds(listOf("urn:test")))
+        } finally {
+            db.close()
+            context.deleteDatabase(AppDatabase.NAME)
+        }
+    }
+
+    @Test
+    fun v2ToV3AddsExcerptColumn() = runTest {
+        val helper = androidx.room.testing.MigrationTestHelper(
+            InstrumentationRegistry.getInstrumentation(),
+            AppDatabase::class.java,
+        )
+        helper.createDatabase(AppDatabase.NAME, 2).apply {
+            execSQL(
+                "INSERT INTO stories (id, headline, dek, body, category, publishedAt, updatedAt, generatedAt, aiGenerated, aiModel, breaking, version, imageJson, locationsJson) " +
+                    "VALUES ('s1', 'Headline', NULL, NULL, 'local', '2026-09-23T10:00:00Z', NULL, '2026-09-23T12:00:00Z', 0, NULL, 0, 1, NULL, '[]')",
+            )
+            close()
+        }
+        // Validates the migrated schema against the exported 3.json.
+        helper.runMigrationsAndValidate(
+            AppDatabase.NAME, 3, true, AppDatabase.MIGRATION_2_3,
+        ).close()
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val db = Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.NAME)
+            .allowMainThreadQueries()
+            .addMigrations(AppDatabase.MIGRATION_1_2, AppDatabase.MIGRATION_2_3)
+            .build()
+        try {
+            val story = db.storyDao().storyById("s1")
+            assertEquals("Headline", story?.headline)
+            assertEquals(null, story?.excerpt)
+            db.storyDao().upsertStories(
+                listOf(
+                    com.charleshartman.porchlightpress.data.local.Story(
+                        id = "s1",
+                        headline = "Headline",
+                        excerpt = "Permitted excerpt.",
+                    ),
+                ),
+            )
+            assertEquals("Permitted excerpt.", db.storyDao().storyById("s1")?.excerpt)
         } finally {
             db.close()
             context.deleteDatabase(AppDatabase.NAME)

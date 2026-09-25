@@ -1,5 +1,8 @@
 # AI setup — newsroom model hosting & caching (Phase 3)
 
+See also: `ARCHITECTURE.md` (data flow), `ZERO_COST_ARCHITECTURE.md` ($0 rules),
+`HOW_TO_ADD_A_SOURCE.md` (registry), `HOW_TO_ADD_A_CITY.md` (new markets).
+
 All $0, no billing, no keys for the core path. Model binaries are never
 committed (`*.gguf` is gitignored).
 

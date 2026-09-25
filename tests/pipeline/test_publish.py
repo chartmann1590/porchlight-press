@@ -470,3 +470,50 @@ def test_city_with_full_quota_is_unchanged(tmp_path):
     assert len(ids) == 30
     assert set(ids) == {f"fullcity{i:04d}" for i in range(30)}
     assert "extrastt01" not in ids and "extranat01" not in ids
+
+
+def _table_rows(html):
+    import re
+
+    m = re.search(r"<table>(.*)</table>", html, re.S)
+    assert m, "no table rendered"
+    return re.findall(r"<tr>(.*?)</tr>", m.group(1), re.S)
+
+
+def test_render_privacy_table_with_separator_uses_header_only_once():
+    from pipeline import publish as pub
+
+    md = "| Name | Role |\n|---|---|\n| Alice | Author |\n| Bob | Editor |\n"
+    rows = _table_rows(pub.render_privacy_html(md))
+    assert rows[0] == "<th>Name</th><th>Role</th>"
+    assert rows[1] == "<td>Alice</td><td>Author</td>"
+    assert rows[2] == "<td>Bob</td><td>Editor</td>"
+
+
+def test_render_privacy_table_separator_with_alignment_colons():
+    from pipeline import publish as pub
+
+    md = "| H1 | H2 |\n|:--|--:|\n| a | b |\n"
+    rows = _table_rows(pub.render_privacy_html(md))
+    assert rows[0] == "<th>H1</th><th>H2</th>"
+    assert rows[1] == "<td>a</td><td>b</td>"
+
+
+def test_render_privacy_table_without_separator_has_no_header():
+    from pipeline import publish as pub
+
+    md = "| Name | Role |\n| Alice | Author |\n| Bob | Editor |\n"
+    rows = _table_rows(pub.render_privacy_html(md))
+    assert all("<th>" not in r for r in rows)
+    assert rows[0] == "<td>Name</td><td>Role</td>"
+    assert rows[1] == "<td>Alice</td><td>Author</td>"
+    assert rows[2] == "<td>Bob</td><td>Editor</td>"
+
+
+def test_render_privacy_html_escapes_raw_input():
+    from pipeline import publish as pub
+
+    html = pub.render_privacy_html("| a | <b> |\n|---|---|\n| x | y |\n")
+    # Raw <b> must be escaped, never injected as markup.
+    assert "<b>" not in html
+    assert "&lt;b&gt;" in html

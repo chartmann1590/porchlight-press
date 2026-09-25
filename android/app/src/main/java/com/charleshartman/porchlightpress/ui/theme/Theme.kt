@@ -1,60 +1,147 @@
 package com.charleshartman.porchlightpress.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 private val ClassicLightScheme = lightColorScheme(
-    primary = AccentClassic,
+    primary = CrimsonDeep,
     onPrimary = Color.White,
-    background = PaperLight,
-    onBackground = InkLight,
-    surface = PaperLight,
-    onSurface = InkLight,
-    surfaceVariant = Color(0xFFEDE6D6),
-    onSurfaceVariant = InkMedium,
-    outline = RuleLight,
-)
-private val ClassicDarkScheme = darkColorScheme(
-    primary = Color(0xFFE57373),
-    onPrimary = Color.Black,
-    background = PaperDark,
-    onBackground = Color(0xFFE8E2D5),
-    surface = Color(0xFF252220),
-    onSurface = Color(0xFFE8E2D5),
-    surfaceVariant = Color(0xFF3A352F),
-    onSurfaceVariant = Color(0xFFCFC8BA),
-    outline = RuleDark,
-)
-private val ModernLightScheme = lightColorScheme(
-    primary = AccentModern,
-    onPrimary = Color.White,
-    background = Color.White,
-    onBackground = Color(0xFF1A1A1A),
-    surface = Color.White,
-    onSurface = Color(0xFF1A1A1A),
-    outline = Color(0xFFE0E0E0),
-)
-private val ModernDarkScheme = darkColorScheme(
-    primary = Color(0xFF82B1FF),
-    onPrimary = Color.Black,
-    background = Color(0xFF121212),
-    onBackground = Color.White,
-    surface = Color(0xFF1E1E1E),
-    onSurface = Color.White,
-    outline = Color(0xFF3A3A3A),
+    primaryContainer = Color(0xFFFFDAD6),
+    onPrimaryContainer = Color(0xFF410002),
+    secondary = GoldLamp,
+    onSecondary = InkBlack,
+    secondaryContainer = Color(0xFFFFE08A),
+    onSecondaryContainer = Color(0xFF241A00),
+    tertiary = InkCharcoal,
+    onTertiary = PaperWarm,
+    background = PaperWarm,
+    onBackground = InkBlack,
+    surface = PaperCream,
+    onSurface = InkBlack,
+    surfaceVariant = PaperAged,
+    onSurfaceVariant = InkMuted,
+    surfaceContainerLowest = PaperWarm,
+    surfaceContainerLow = PaperCream,
+    surfaceContainer = PaperAged,
+    surfaceContainerHigh = PaperEdge,
+    surfaceContainerHighest = Color(0xFFD0C4AE),
+    outline = PaperEdge,
+    outlineVariant = Color(0xFFC4B59A),
+    error = CrimsonHot,
+    onError = Color.White,
+    errorContainer = Color(0xFFFFDAD6),
+    onErrorContainer = Color(0xFF410002),
 )
 
+private val ClassicDarkScheme = darkColorScheme(
+    primary = ClassicDarkAccent,
+    onPrimary = Color(0xFF690005),
+    primaryContainer = Color(0xFF93000A),
+    onPrimaryContainer = Color(0xFFFFDAD6),
+    secondary = GoldLamp,
+    onSecondary = Color(0xFF3F2E00),
+    secondaryContainer = Color(0xFF5B4300),
+    onSecondaryContainer = Color(0xFFFFE08A),
+    tertiary = ClassicDarkMuted,
+    onTertiary = ClassicDarkBg,
+    background = ClassicDarkBg,
+    onBackground = ClassicDarkInk,
+    surface = ClassicDarkSurface,
+    onSurface = ClassicDarkInk,
+    surfaceVariant = ClassicDarkElevated,
+    onSurfaceVariant = ClassicDarkMuted,
+    surfaceContainerLowest = Color(0xFF0C0A08),
+    surfaceContainerLow = ClassicDarkSurface,
+    surfaceContainer = ClassicDarkElevated,
+    surfaceContainerHigh = Color(0xFF3A322A),
+    surfaceContainerHighest = Color(0xFF483E34),
+    outline = ClassicDarkRule,
+    outlineVariant = Color(0xFF5C5044),
+    error = Color(0xFFFFB4AB),
+    onError = Color(0xFF690005),
+)
+
+private val ModernLightScheme = lightColorScheme(
+    primary = ModernPrimary,
+    onPrimary = Color.White,
+    primaryContainer = Color(0xFFD6E3FF),
+    onPrimaryContainer = Color(0xFF001A41),
+    secondary = ModernAccent,
+    onSecondary = Color.White,
+    secondaryContainer = Color(0xFFC8EFFF),
+    onSecondaryContainer = Color(0xFF001E2B),
+    tertiary = Color(0xFF6366F1),
+    onTertiary = Color.White,
+    background = ModernSurface,
+    onBackground = ModernInk,
+    surface = ModernCard,
+    onSurface = ModernInk,
+    surfaceVariant = ModernElevated,
+    onSurfaceVariant = ModernMuted,
+    surfaceContainerLowest = Color.White,
+    surfaceContainerLow = ModernCard,
+    surfaceContainer = ModernElevated,
+    surfaceContainerHigh = Color(0xFFDDE3F0),
+    surfaceContainerHighest = Color(0xFFD0D8E8),
+    outline = ModernOutline,
+    outlineVariant = Color(0xFFE2E8F0),
+    error = Color(0xFFDC2626),
+    onError = Color.White,
+)
+
+private val ModernDarkScheme = darkColorScheme(
+    primary = ModernDarkPrimary,
+    onPrimary = Color(0xFF002F6C),
+    primaryContainer = Color(0xFF004A9F),
+    onPrimaryContainer = Color(0xFFD6E3FF),
+    secondary = ModernAccent,
+    onSecondary = Color(0xFF003547),
+    secondaryContainer = Color(0xFF004D65),
+    onSecondaryContainer = Color(0xFFC8EFFF),
+    tertiary = Color(0xFFA5B4FC),
+    onTertiary = Color(0xFF1E1B4B),
+    background = ModernDarkBg,
+    onBackground = ModernOnInk,
+    surface = ModernDarkSurface,
+    onSurface = ModernOnInk,
+    surfaceVariant = ModernDarkCard,
+    onSurfaceVariant = ModernDarkMuted,
+    surfaceContainerLowest = Color(0xFF05080F),
+    surfaceContainerLow = ModernDarkSurface,
+    surfaceContainer = ModernDarkCard,
+    surfaceContainerHigh = ModernDarkElevated,
+    surfaceContainerHighest = Color(0xFF2E3A54),
+    outline = ModernDarkOutline,
+    outlineVariant = Color(0xFF1E293B),
+    error = Color(0xFFFFB4AB),
+    onError = Color(0xFF690005),
+)
+
+/** Editorial shapes — larger card radii, pill chips. */
+val PorchlightShapes = Shapes(
+    extraSmall = RoundedCornerShape(6.dp),
+    small = RoundedCornerShape(10.dp),
+    medium = RoundedCornerShape(18.dp),
+    large = RoundedCornerShape(24.dp),
+    extraLarge = RoundedCornerShape(32.dp),
+)
+
+val LocalIsClassic = staticCompositionLocalOf { true }
+val LocalIsDarkTheme = staticCompositionLocalOf { false }
+
 /**
- * Porchlight newspaper themes: Classic (paper tone, serif-heavy) and Modern
- * (clean Material 3), each with light/dark.
- * Theme/layout are stored in DataStore (Prefs theme/layout); darkTheme follows
- * system unless the theme pref forces one variant. Type scale follows
- * system fontScale via sp units (Phase 6 spec).
+ * Porchlight newspaper themes: Classic (warm paper, crimson, serif-heavy) and
+ * Modern (premium tonal surfaces, refined blue). Distinctive — not Material
+ * defaults with a tint.
  */
 @Composable
 fun PorchlightTheme(
@@ -63,18 +150,22 @@ fun PorchlightTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
+    val isClassic = themePref != "modern"
     val scheme = when {
         themePref == "modern" && darkTheme -> ModernDarkScheme
         themePref == "modern" -> ModernLightScheme
-        themePref == "classic" && darkTheme -> ClassicDarkScheme
         darkTheme -> ClassicDarkScheme
-        themePref == "classic" -> ClassicLightScheme
-        else -> if (darkTheme) darkColorScheme() else lightColorScheme()
+        else -> ClassicLightScheme
     }
-    CompositionLocalProvider(LocalLayout provides layout) {
+    CompositionLocalProvider(
+        LocalLayout provides layout,
+        LocalIsClassic provides isClassic,
+        LocalIsDarkTheme provides darkTheme,
+    ) {
         MaterialTheme(
             colorScheme = scheme,
             typography = PorchlightTypography,
+            shapes = PorchlightShapes,
             content = content,
         )
     }

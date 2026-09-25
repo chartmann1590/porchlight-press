@@ -1,5 +1,11 @@
 package com.charleshartman.porchlightpress.ui.nav
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,6 +29,8 @@ import com.charleshartman.porchlightpress.ui.frontpage.FrontPageScreen
 import com.charleshartman.porchlightpress.ui.frontpage.FrontPageViewModel
 import com.charleshartman.porchlightpress.ui.info.AboutScreen
 import com.charleshartman.porchlightpress.ui.info.SourceInfoScreen
+import com.charleshartman.porchlightpress.ui.motion.PorchlightMotion
+import com.charleshartman.porchlightpress.ui.motion.rememberReduceMotion
 import com.charleshartman.porchlightpress.ui.section.SectionScreen
 import com.charleshartman.porchlightpress.ui.section.SectionViewModel
 import com.charleshartman.porchlightpress.ui.weather.AlertDetailScreen
@@ -66,7 +74,28 @@ fun PorchlightNavGraph(
     LaunchedEffect(navController) {
         navController.currentBackStackEntryFlow.collect { container.optionalServices.screen(it.destination.route.orEmpty()) }
     }
-    NavHost(navController = navController, startDestination = startDestination) {        composable(Routes.FRONT) {
+    val reduce = rememberReduceMotion()
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        enterTransition = {
+            slideInHorizontally(tween(PorchlightMotion.slideMs(reduce))) { it / 5 } +
+                fadeIn(tween(PorchlightMotion.fadeMs(reduce)))
+        },
+        exitTransition = {
+            slideOutHorizontally(tween(PorchlightMotion.slideMs(reduce))) { -it / 8 } +
+                fadeOut(tween(PorchlightMotion.fadeMs(reduce)))
+        },
+        popEnterTransition = {
+            slideInHorizontally(tween(PorchlightMotion.slideMs(reduce))) { -it / 5 } +
+                fadeIn(tween(PorchlightMotion.fadeMs(reduce)))
+        },
+        popExitTransition = {
+            slideOutHorizontally(tween(PorchlightMotion.slideMs(reduce))) { it / 6 } +
+                fadeOut(tween(PorchlightMotion.fadeMs(reduce)))
+        },
+    ) {
+        composable(Routes.FRONT) {
             val factory = remember(container) {
                 object : ViewModelProvider.Factory {
                     @Suppress("UNCHECKED_CAST")

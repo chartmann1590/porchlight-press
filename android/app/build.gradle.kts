@@ -26,6 +26,34 @@ val admobInterstitialId = prop("admobInterstitialId", "ca-app-pub-39402560999425
 val admobNativeId = prop("admobNativeId", "ca-app-pub-3940256099942544/2247696110")
 val feedBaseUrl = prop("feedBaseUrl", "https://chartmann1590.github.io/porchlight-press/")
 
+// Phase 9A release versioning: the release workflow passes
+// -PversionCode=<github.run_number + VERSION_CODE_OFFSET> and
+// -PversionName=<tag, e.g. v1.2.3>. Local builds fall back to 1 / 0.7.0.
+// (Script top level: plain `val`, never `const val` — const is not allowed
+// in Gradle Kotlin DSL scripts.)
+val VERSION_CODE_OFFSET = 1000
+val releaseVersionCode =
+    prop("versionCode", System.getenv("VERSION_CODE") ?: "1").toIntOrNull() ?: 1
+val releaseVersionName = prop("versionName", System.getenv("VERSION_NAME") ?: "0.7.0")
+
+// Phase 9A release signing: keystore path + credentials come ONLY from
+// environment (CI) or Gradle properties (-PreleaseKeystorePath=... etc.)
+// supplied by the release workflow from GitHub secrets. Never commit them.
+// When no keystore is present (local dev, CI debug builds) the release
+// build type stays unsigned and still compiles (R8 + shrinking still run).
+fun releaseKeystorePath(): String? =
+    System.getenv("RELEASE_KEYSTORE_PATH")
+        ?: (findProperty("releaseKeystorePath") as String?)?.ifBlank { null }
+fun releaseKeystorePassword(): String? =
+    System.getenv("RELEASE_KEYSTORE_PASSWORD")
+        ?: (findProperty("releaseKeystorePassword") as String?)?.ifBlank { null }
+fun releaseKeyAlias(): String? =
+    System.getenv("RELEASE_KEY_ALIAS")
+        ?: (findProperty("releaseKeyAlias") as String?)?.ifBlank { null }
+fun releaseKeyPassword(): String? =
+    System.getenv("RELEASE_KEY_PASSWORD")
+        ?: (findProperty("releaseKeyPassword") as String?)?.ifBlank { null }
+
 android {
     namespace = "com.charleshartman.porchlightpress"
     compileSdk = 36
@@ -34,9 +62,8 @@ android {
         applicationId = "com.charleshartman.porchlightpress"
         minSdk = 26
         targetSdk = 36
-        versionCode = prop("versionCode", "1").toInt()
-        versionName = prop("versionName", "0.8.0")
-
+        versionCode = releaseVersionCode
+        versionName = releaseVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders["admobAppId"] = admobAppId
@@ -49,12 +76,13 @@ android {
     }
 
     signingConfigs {
-        if (findProperty("releaseStoreFile") != null) {
-            create("release") {
-                storeFile = file(prop("releaseStoreFile", ""))
-                storePassword = prop("releaseStorePassword", "")
-                keyAlias = prop("releaseKeyAlias", "")
-                keyPassword = prop("releaseKeyPassword", "")
+        create("release") {
+            val ksPath = releaseKeystorePath()
+            if (ksPath != null && file(ksPath).exists()) {
+                storeFile = file(ksPath)
+                storePassword = releaseKeystorePassword()
+                keyAlias = releaseKeyAlias()
+                keyPassword = releaseKeyPassword()
             }
         }
     }
@@ -93,6 +121,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            // Sign only when the CI keystore is present; otherwise leave the
+            // release build unsigned so local/CI debug-path builds keep working.
+            val ksPath = releaseKeystorePath()
+            if (ksPath != null && file(ksPath).exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 
@@ -142,6 +176,8 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.animation)
+    implementation(libs.androidx.compose.ui.text.google.fonts)
     implementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
 

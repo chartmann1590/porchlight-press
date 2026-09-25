@@ -1,16 +1,29 @@
 package com.charleshartman.porchlightpress.ui.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -18,12 +31,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -31,12 +54,20 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.charleshartman.porchlightpress.data.local.Story
 import com.charleshartman.porchlightpress.data.remote.NetworkModule
 import com.charleshartman.porchlightpress.data.remote.StoryImageDto
+import com.charleshartman.porchlightpress.ui.motion.PorchlightMotion
+import com.charleshartman.porchlightpress.ui.motion.rememberReduceMotion
+import com.charleshartman.porchlightpress.ui.theme.GoldLamp
+import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
+import com.charleshartman.porchlightpress.ui.theme.LocalIsDarkTheme
 import com.charleshartman.porchlightpress.ui.theme.LocalLayout
+import com.charleshartman.porchlightpress.ui.theme.heroScrimBrush
 import com.charleshartman.porchlightpress.ui.util.TimeFormat
+import kotlinx.coroutines.delay
 import kotlinx.serialization.decodeFromString
 
 // ---------------------------------------------------------------------------
@@ -49,23 +80,56 @@ fun Masthead(
     onSwitchLocation: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
+    val reduce = rememberReduceMotion()
+    var ruleVisible by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        if (!reduce) delay(80)
+        ruleVisible = true
+    }
+    val ruleProgress by animateFloatAsState(
+        targetValue = if (ruleVisible) 1f else 0f,
+        animationSpec = PorchlightMotion.ruleTween(reduce),
+        label = "masthead-rule",
+    )
+    val classic = LocalIsClassic.current
     Column(
         modifier
             .fillMaxWidth()
             .semantics { heading() }
-            .testTag("masthead"),
+            .testTag("masthead")
+            .padding(top = 8.dp, bottom = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            "PORCHLIGHT PRESS",
-            style = MaterialTheme.typography.displayLarge.copy(
-                fontSize = MaterialTheme.typography.displayLarge.fontSize * (LocalLayout.current.typeScaleFactor),
-            ),
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .testTag("masthead-title")
-                .semantics { heading() },
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(horizontal = 12.dp),
+        ) {
+            PorchlightMark(size = 40.dp)
+            Spacer(Modifier.width(10.dp))
+            Column(horizontalAlignment = Alignment.Start) {
+                Text(
+                    "PORCHLIGHT",
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 3.sp,
+                    ),
+                    color = if (classic) GoldLamp else MaterialTheme.colorScheme.primary,
+                )
+                Text(
+                    "PRESS",
+                    style = MaterialTheme.typography.displayLarge.copy(
+                        fontSize = MaterialTheme.typography.displayLarge.fontSize *
+                            LocalLayout.current.typeScaleFactor,
+                        letterSpacing = (-0.8).sp,
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .testTag("masthead-title")
+                        .semantics { heading() },
+                )
+            }
+        }
         val context = LocalContext.current
         val dateline = TimeFormat.formatDateline(context, placeLabel)
         if (dateline.isNotBlank()) {
@@ -73,13 +137,13 @@ fun Masthead(
                 dateline,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 4.dp).testTag("masthead-dateline"),
+                modifier = Modifier.padding(top = 6.dp).testTag("masthead-dateline"),
             )
         }
         if (onSwitchLocation != null && placeLabel != null) {
             Text(
                 "Switch location",
-                style = MaterialTheme.typography.labelSmall,
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(top = 4.dp)
@@ -88,7 +152,33 @@ fun Masthead(
                     .testTag("masthead-switch"),
             )
         }
-        SectionRule(modifier = Modifier.padding(top = 8.dp))
+        // Soft double rule that grows in
+        Box(
+            Modifier
+                .padding(top = 10.dp)
+                .fillMaxWidth(0.92f)
+                .height(3.dp)
+                .graphicsLayer { scaleX = ruleProgress }
+                .testTag("section-rule"),
+        ) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .align(Alignment.TopCenter)
+                    .background(MaterialTheme.colorScheme.outline),
+            )
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .align(Alignment.BottomCenter)
+                    .background(
+                        if (classic) MaterialTheme.colorScheme.primary.copy(alpha = 0.85f)
+                        else MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
+                    ),
+            )
+        }
     }
 }
 
@@ -140,17 +230,51 @@ fun SectionRule(modifier: Modifier = Modifier) {
 
 @Composable
 fun SectionHeader(title: String, modifier: Modifier = Modifier) {
-    Column(modifier.fillMaxWidth().testTag("section-header-${title.lowercase().replace(Regex("[^a-z0-9]+"), "-")}")) {
-        SectionRule()
-        Text(
-            title.uppercase(),
-            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.8.sp),
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier
-                .padding(vertical = 8.dp)
-                .semantics { heading() }
-                .testTag("section-title"),
-        )
+    val reduce = rememberReduceMotion()
+    var shown by remember { mutableStateOf(reduce) }
+    LaunchedEffect(title) {
+        shown = false
+        if (!reduce) delay(40)
+        shown = true
+    }
+    AnimatedVisibility(
+        visible = shown,
+        enter = fadeIn(tween(PorchlightMotion.fadeMs(reduce))) +
+            slideInVertically(tween(PorchlightMotion.slideMs(reduce))) { it / 3 },
+        exit = fadeOut(),
+        modifier = modifier.fillMaxWidth().testTag("section-header-${title.lowercase().replace(Regex("[^a-z0-9]+"), "-")}"),
+    ) {
+        Column(Modifier.fillMaxWidth()) {
+            Row(
+                Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
+                    Modifier
+                        .width(4.dp)
+                        .height(18.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(MaterialTheme.colorScheme.primary),
+                )
+                Spacer(Modifier.width(10.dp))
+                Text(
+                    title.uppercase(),
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.4.sp,
+                    ),
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .semantics { heading() }
+                        .testTag("section-title"),
+                )
+                Spacer(Modifier.width(12.dp))
+                HorizontalDivider(
+                    Modifier.weight(1f),
+                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.7f),
+                )
+            }
+        }
     }
 }
 
@@ -161,15 +285,16 @@ fun SectionHeader(title: String, modifier: Modifier = Modifier) {
 @Composable
 fun AiBadge(modifier: Modifier = Modifier) {
     Surface(
-        color = MaterialTheme.colorScheme.primaryContainer,
-        shape = MaterialTheme.shapes.extraSmall,
+        color = MaterialTheme.colorScheme.primary,
+        shape = RoundedCornerShape(50),
         modifier = modifier.testTag("ai-badge"),
+        shadowElevation = 2.dp,
     ) {
         Text(
             "AI NEWSROOM",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.8.sp),
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
         )
     }
 }
@@ -197,8 +322,7 @@ fun SourceLine(
 }
 
 // ---------------------------------------------------------------------------
-// ImageWithAttribution — Coil 3 with memory+disk cache, crossfade, fixed
-// aspect placeholders. Failed/missing image falls back to text-only layout.
+// ImageWithAttribution
 // ---------------------------------------------------------------------------
 
 @Composable
@@ -207,16 +331,32 @@ fun ImageWithAttribution(
     headlineForContentDescription: String,
     onOpenSource: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    /** Story locations JSON: stock file photos outside the story's place collapse. */
+    locationsJson: String? = null,
 ) {
     val dto = rememberImageDto(imageJson)
     if (dto == null || dto.url.isBlank() || !dto.url.startsWith("https://")) {
         return
     }
+    // Unrelated stock photos (e.g. an Albany file photo on a Berkshire
+    // County story) collapse to the text-only layout — never a grey box.
+    // Publisher-owned images always show.
+    if (!shouldShowImage(dto.attribution, locationsJson)) {
+        return
+    }
+    // A failed load collapses to the text-only layout: the Card below is only
+    // composed while the image can still succeed, so readers never see an
+    // empty box with just a caption under it.
+    // Keyed by the full image payload (not just the URL) so a feed update
+    // that swaps in new art under a reused URL still gets a fresh load.
+    var failed by remember(imageJson) { mutableStateOf(false) }
+    if (failed) {
+        return
+    }
     Column(modifier.fillMaxWidth().testTag("image-block")) {
         val context = LocalContext.current
-        // 16:9 fixed aspect, rounded, crossfade via Coil builder.
         Card(
-            shape = MaterialTheme.shapes.medium,
+            shape = MaterialTheme.shapes.large,
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -224,14 +364,16 @@ fun ImageWithAttribution(
                 .testTag("image-card")
                 .then(if (onOpenSource != null) Modifier.clickable { onOpenSource() } else Modifier),
         ) {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 model = ImageRequest.Builder(context)
                     .data(dto.url)
                     .crossfade(true)
+                    .listener(onError = { _, _ -> failed = true })
                     .build(),
                 contentDescription = dto.attribution.ifBlank { headlineForContentDescription },
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth().testTag("story-image"),
+                loading = { PorchlightShimmer(height = 200.dp) },
             )
         }
         if (dto.attribution.isNotBlank()) {
@@ -261,8 +403,7 @@ private fun rememberImageDto(imageJson: String?): StoryImageDto? {
 }
 
 // ---------------------------------------------------------------------------
-// HeroStory + StoryCard (with/without image) — merged semantics for TalkBack:
-// "headline, publisher, time, AI-generated"
+// HeroStory — cinematic scrim + staggered text
 // ---------------------------------------------------------------------------
 
 @Composable
@@ -278,46 +419,135 @@ fun HeroStory(
     modifier: Modifier = Modifier,
 ) {
     val headline = translatedHeadline ?: story.headline
-    val dek = translatedDek ?: story.dek
+    // Card snippet: dek, then permitted excerpt, then a brief preview — never
+    // the headline repeated, never nothing-but-duplication.
+    val snippet = cardSnippet(headline, translatedDek ?: story.dek, story.excerpt, story.body)
     val ai = story.aiGenerated
+    val reduce = rememberReduceMotion()
+    val dark = LocalIsDarkTheme.current
+    val interaction = remember { MutableInteractionSource() }
+    val pressed by interaction.collectIsPressedAsState()
+    val scale by animateFloatAsState(
+        targetValue = if (pressed) 0.985f else 1f,
+        animationSpec = PorchlightMotion.pressSpring,
+        label = "hero-press",
+    )
+    var textShown by remember { mutableStateOf(reduce) }
+    LaunchedEffect(story.id) {
+        textShown = false
+        if (!reduce) delay(60)
+        textShown = true
+    }
+    val dto = rememberImageDto(story.imageJson)
+    // A failed hero load falls back to the text-only hero: never a gray box.
+    // A stock file photo outside the story's place never becomes the hero.
+    var heroImageFailed by remember(story.imageJson) { mutableStateOf(false) }
+    val hasImage = dto != null && dto.url.startsWith("https://") && !heroImageFailed &&
+        shouldShowImage(dto.attribution, story.locationsJson)
+
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .scale(scale)
             .testTag("hero-story-${story.id}")
             .semantics(mergeDescendants = true) {}
-            .clickable(onClick = onClick),
-        shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+            .clickable(interactionSource = interaction, indication = null, onClick = onClick),
+        shape = MaterialTheme.shapes.large,
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp, pressedElevation = 2.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
     ) {
-        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                if (ai) AiBadge()
-                if (isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
-            }
-            Text(
-                headline,
-                style = MaterialTheme.typography.headlineMedium.copy(fontSize = MaterialTheme.typography.headlineMedium.fontSize * LocalLayout.current.typeScaleFactor),
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.semantics { heading() }.testTag("hero-headline"),
-            )
-            if (LocalLayout.current.showDek && !dek.isNullOrBlank()) {
-                Text(
-                    dek,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.testTag("hero-dek"),
+        Box(Modifier.fillMaxWidth()) {
+            if (hasImage) {
+                val context = LocalContext.current
+                SubcomposeAsyncImage(
+                    model = ImageRequest.Builder(context).data(dto!!.url).crossfade(true)
+                        .listener(onError = { _, _ -> heroImageFailed = true })
+                        .build(),
+                    contentDescription = headline,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(LocalLayout.current.heroImageHeight + 40.dp)
+                        .testTag("story-image"),
+                    loading = { PorchlightShimmer(height = LocalLayout.current.heroImageHeight + 40.dp) },
+                )
+                Box(
+                    Modifier
+                        .matchParentSize()
+                        .background(heroScrimBrush(dark)),
                 )
             }
-            ImageWithAttribution(imageJson = story.imageJson, headlineForContentDescription = headline)
-            SourceLine(publisher = sourceLabel ?: story.publisherLabel(), publishedAt = updatedAt ?: story.publishedAt)
-            if (story.version > 1) {
-                Text("Updated \u00b7 v${story.version}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("hero-version"))
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .then(if (hasImage) Modifier.align(Alignment.BottomStart) else Modifier)
+                    .padding(18.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (ai) AiBadge()
+                    if (isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, color = if (hasImage) Color.White.copy(alpha = 0.85f) else MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("translating-chip"))
+                }
+                AnimatedVisibility(
+                    visible = textShown,
+                    enter = fadeIn(tween(PorchlightMotion.fadeMs(reduce))) +
+                        slideInVertically(tween(PorchlightMotion.slideMs(reduce))) { it / 2 },
+                ) {
+                    Text(
+                        headline,
+                        style = MaterialTheme.typography.headlineMedium.copy(
+                            fontSize = MaterialTheme.typography.headlineMedium.fontSize * LocalLayout.current.typeScaleFactor,
+                            fontWeight = FontWeight.Bold,
+                        ),
+                        color = if (hasImage) Color.White else MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.semantics { heading() }.testTag("hero-headline"),
+                    )
+                }
+                if (LocalLayout.current.showDek && !snippet.isNullOrBlank()) {
+                    AnimatedVisibility(
+                        visible = textShown,
+                        enter = fadeIn(tween(PorchlightMotion.fadeMs(reduce) + 80)) +
+                            slideInVertically(tween(PorchlightMotion.slideMs(reduce) + 40)) { it / 3 },
+                    ) {
+                        Text(
+                            snippet,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = if (hasImage) Color.White.copy(alpha = 0.88f) else MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.testTag("hero-dek"),
+                        )
+                    }
+                }
+                if (!hasImage) {
+                    // Keep image attribution path for no-image stories via ImageWithAttribution (no-op)
+                    ImageWithAttribution(
+                        imageJson = story.imageJson,
+                        headlineForContentDescription = headline,
+                        locationsJson = story.locationsJson,
+                    )
+                }
+                SourceLine(
+                    publisher = sourceLabel ?: story.publisherLabel(),
+                    publishedAt = updatedAt ?: story.publishedAt,
+                    modifier = if (hasImage) Modifier.graphicsLayer { /* keep tag */ } else Modifier,
+                )
+                if (story.version > 1) {
+                    Text(
+                        "Updated \u00b7 v${story.version}",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = if (hasImage) Color.White.copy(alpha = 0.7f) else MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.testTag("hero-version"),
+                    )
+                }
             }
         }
     }
 }
+
+// ---------------------------------------------------------------------------
+// StoryCard — tonal elevation + press polish
+// ---------------------------------------------------------------------------
 
 @Composable
 fun StoryCard(
@@ -332,32 +562,48 @@ fun StoryCard(
     modifier: Modifier = Modifier,
 ) {
     val headline = translatedHeadline ?: story.headline
-    val dek = translatedDek ?: story.dek
+    // Same snippet rule as the hero: excerpt/brief preview, never a repeated headline.
+    val snippet = cardSnippet(headline, translatedDek ?: story.dek, story.excerpt, story.body)
+    val interaction = remember { MutableInteractionSource() }
+    val pressed by interaction.collectIsPressedAsState()
+    val scale by animateFloatAsState(
+        targetValue = if (pressed) 0.98f else 1f,
+        animationSpec = PorchlightMotion.pressSpring,
+        label = "card-press",
+    )
+    val classic = LocalIsClassic.current
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .scale(scale)
             .testTag("story-card-${story.id}")
             .semantics(mergeDescendants = true) {}
-            .clickable(onClick = onClick),
+            .clickable(interactionSource = interaction, indication = null, onClick = onClick),
         shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = if (classic) 1.dp else 3.dp, pressedElevation = 6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+        ),
     ) {
-        Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 if (story.aiGenerated) AiBadge()
                 if (isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
             }
             Text(
                 headline,
-                style = MaterialTheme.typography.titleMedium.copy(fontSize = MaterialTheme.typography.titleMedium.fontSize * LocalLayout.current.typeScaleFactor),
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize * LocalLayout.current.typeScaleFactor,
+                    fontWeight = FontWeight.SemiBold,
+                ),
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.semantics { heading() }.testTag("card-headline"),
             )
-            if (LocalLayout.current.showDek && !dek.isNullOrBlank()) {
+            if (LocalLayout.current.showDek && !snippet.isNullOrBlank()) {
                 Text(
-                    dek,
+                    snippet,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
@@ -365,9 +611,13 @@ fun StoryCard(
                     modifier = Modifier.testTag("card-dek"),
                 )
             }
-            // With/without image: ImageWithAttribution collapses to zero when missing.
             if (!story.imageJson.isNullOrBlank()) {
-                ImageWithAttribution(imageJson = story.imageJson, headlineForContentDescription = headline, modifier = Modifier.padding(top = 4.dp))
+                ImageWithAttribution(
+                    imageJson = story.imageJson,
+                    headlineForContentDescription = headline,
+                    modifier = Modifier.padding(top = 4.dp),
+                    locationsJson = story.locationsJson,
+                )
             }
             SourceLine(publisher = sourceLabel ?: story.publisherLabel(), publishedAt = updatedAt ?: story.publishedAt)
             if (story.version > 1) {
@@ -377,28 +627,20 @@ fun StoryCard(
     }
 }
 
-/**
- * Last-resort publisher label. The Story row stores no publisher, so callers
- * pass sourceLabel from sourcesFor(); this returns null so SourceLine simply
- * omits the line rather than printing a wrong "Porchlight Press" byline.
- */
 private fun Story.publisherLabel(): String? = null
-
-// ---------------------------------------------------------------------------
-// AI disclosure box (spec wording) + Reporting Sources + AlertBanner stub
-// ---------------------------------------------------------------------------
 
 @Composable
 fun AiDisclosureBox(modifier: Modifier = Modifier) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceVariant,
-        shape = MaterialTheme.shapes.small,
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 2.dp,
         modifier = modifier
             .fillMaxWidth()
             .testTag("ai-disclosure"),
     ) {
-        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("AI NEWSROOM", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.semantics { heading() })
+        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text("AI NEWSROOM", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold, letterSpacing = 1.sp), color = MaterialTheme.colorScheme.primary, modifier = Modifier.semantics { heading() })
             Text(
                 "This brief was written by the Porchlight Press AI newsroom and reviewed against the linked sources below. It may contain mistakes. The original reporting is always linked — open it for the full story.",
                 style = MaterialTheme.typography.bodySmall,
@@ -418,8 +660,9 @@ fun TranslationLabel(
     Row(
         modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.6f))
-            .padding(8.dp)
+            .clip(MaterialTheme.shapes.small)
+            .background(MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.7f))
+            .padding(10.dp)
             .testTag("translation-label"),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
