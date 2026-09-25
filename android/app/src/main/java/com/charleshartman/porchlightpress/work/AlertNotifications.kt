@@ -24,15 +24,18 @@ object AlertNotifications {
     const val CHANNEL_SEVERE = "severe_weather"
 
     /**
-     * Per-alert request/notification code. A raw [String.hashCode] is a 32-bit
-     * signed int and can collide (birthday paradox), which would let one
-     * alert's PendingIntent overwrite another's. Masking off the sign bit
-     * keeps the full 31-bit range and XORing with a per-app salt further
-     * separates alert codes from any hash computed elsewhere in the app.
+     * Stable per-alert notification IDs. The same alert ID always maps to
+     * the same int (so updates replace instead of stacking), while distinct
+     * IDs can never collide (unlike [String.hashCode], which the old code
+     * used for both the notify ID and the PendingIntent request code).
+     * Dedupe by ID in Room means each ID is notified once ever, so the
+     * process-lifetime map is sufficient.
      */
-    private const val SALT = 0x50726F63 // "Proc" — arbitrary, fixed per build
-    fun requestCode(alertId: String): Int =
-        (alertId.hashCode() and 0x7FFFFFFF) xor SALT
+    private val idCodes = java.util.concurrent.ConcurrentHashMap<String, Int>()
+    private val idSeq = java.util.concurrent.atomic.AtomicInteger(1)
+
+    fun notificationIdFor(alertId: String): Int =
+        idCodes.getOrPut(alertId) { idSeq.getAndIncrement() }
 
     fun ensureChannels(context: Context) {
         if (Build.VERSION.SDK_INT < 26) return
@@ -78,9 +81,10 @@ object AlertNotifications {
             putExtra(MainActivity.EXTRA_ALERT_ID, alert.id)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
+        val code = notificationIdFor(alert.id)
         val pending = PendingIntent.getActivity(
             context,
-            requestCode(alert.id),
+            code,
             openApp,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
@@ -95,7 +99,8 @@ object AlertNotifications {
             .setContentIntent(pending)
             .build()
         runCatching {
-            NotificationManagerCompat.from(context).notify(requestCode(alert.id), notification)
+            NotificationManagerCompat.from(context).notify(code, notification)
+        }
         }
     }
 }

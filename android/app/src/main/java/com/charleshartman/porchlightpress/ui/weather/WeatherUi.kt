@@ -1,6 +1,5 @@
 package com.charleshartman.porchlightpress.ui.weather
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -66,7 +65,6 @@ fun FrontWeatherSlot(
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .clickable { onOpenWeather() }
                         .padding(horizontal = 16.dp, vertical = 6.dp)
                         .testTag("weather-teaser"),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),

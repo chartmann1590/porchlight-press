@@ -98,7 +98,7 @@ class WeatherRepository(
                             provider = "nws",
                             alertsUnavailable = alerts == null,
                             fetchedAt = minOf(current.fetchedAt, hourly.fetchedAt, forecast.fetchedAt),
-                            expiresAt = minOf(current.fetchedAt, hourly.fetchedAt, forecast.fetchedAt),
+                            expiresAt = minOf(current.expiresAt, hourly.expiresAt, forecast.expiresAt),
                         ),
                         stale = current.stale || hourly.stale || forecast.stale || alerts?.stale == true,
                     )

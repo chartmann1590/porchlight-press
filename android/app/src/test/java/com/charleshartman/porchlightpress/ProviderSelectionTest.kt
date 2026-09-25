@@ -195,4 +195,51 @@ class ProviderSelectionTest {
         // Three interface calls back-to-back cost one HTTP request (memo).
         assertEquals(1, fetcher.calls.size)
     }
+
+    @Test
+    fun nwsPropagatesHeaderExpiryToOutcomes() = runTest {
+        // Expiry comes from the response headers (Expires/Cache-Control),
+        // not from fetchedAt: every outcome must carry the header value.
+        val headerExpiry = 9_999_999_999L
+        val fetcher = FakeWeatherFetcher { url, _, _ ->
+            val body = when {
+                "/alerts/active" in url -> testResource("nws-alerts.json")
+                "forecast/hourly" in url -> testResource("nws-hourly.json")
+                "/gridpoints/" in url && url.endsWith("/stations") -> testResource("nws-stations.json")
+                "/stations/" in url -> testResource("nws-observation.json")
+                "/forecast" in url -> testResource("nws-forecast.json")
+                "/points/" in url -> testResource("nws-points.json")
+                else -> throw AssertionError("unexpected url $url")
+            }
+            FetchOutcome.Fresh(body, etag = null, lastModified = null, expiresAt = headerExpiry)
+        }
+        val nws = NwsProvider(fetcher, InMemoryWeatherCacheStore(), "America/New_York")
+        val bucket = WeatherBucket.from(42.814, -73.930)
+        assertEquals(headerExpiry, nws.forecast(bucket).expiresAt)
+        assertEquals(headerExpiry, nws.hourly(bucket).expiresAt)
+        assertEquals(headerExpiry, nws.current(bucket).expiresAt)
+        assertEquals(headerExpiry, nws.alerts(bucket).expiresAt)
+    }
+
+    @Test
+    fun snapshotExpiryIsMinOfHeaderExpiries() = runTest {
+        // Regression: WeatherData.expiresAt must be the minimum of the
+        // pieces' header expiries — never min(fetchedAt).
+        val expiring = object : WeatherProvider {
+            override val id = "nws"
+            override suspend fun current(b: WeatherBucket) =
+                WeatherOutcome(CurrentWeather(20.0, 20.0), false, 1000L, 5000L)
+            override suspend fun hourly(b: WeatherBucket) =
+                WeatherOutcome(listOf(HourlyPoint("t", 20.0)), false, 2000L, 3000L)
+            override suspend fun forecast(b: WeatherBucket) =
+                WeatherOutcome(listOf(DailyPoint("2026-09-24", 23.0, 14.0)), false, 1500L, 7000L)
+            override suspend fun alerts(b: WeatherBucket) =
+                WeatherOutcome(emptyList<WeatherAlert>(), false, 1800L, 6000L)
+        }
+        val snap = WeatherRepository(InMemoryWeatherCacheStore(), expiring, FakeWeatherProvider("met"), coords)
+            .snapshot(usPlace)
+        check(snap is WeatherRepository.Snapshot.Ready)
+        assertEquals(1000L, snap.data.fetchedAt)
+        assertEquals(3000L, snap.data.expiresAt)
+    }
 }

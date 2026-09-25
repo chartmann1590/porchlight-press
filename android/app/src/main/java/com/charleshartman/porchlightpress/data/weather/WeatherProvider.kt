@@ -1,6 +1,7 @@
 package com.charleshartman.porchlightpress.data.weather
 
 import java.io.IOException
+import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
 
 /**
@@ -13,7 +14,17 @@ import kotlinx.serialization.json.Json
  */
 class WeatherException(message: String, cause: Throwable? = null) : IOException(message, cause)
 
-data class WeatherOutcome<out T>(val value: T, val stale: Boolean, val fetchedAt: Long)
+data class WeatherOutcome<out T>(
+    val value: T,
+    val stale: Boolean,
+    val fetchedAt: Long,
+    /**
+     * Real cache expiry from the response's Expires/Cache-Control headers
+     * (via [CachedFetcher]), not derived from [fetchedAt]. The repository
+     * uses the minimum across pieces for [WeatherData.expiresAt].
+     */
+    val expiresAt: Long = fetchedAt,
+)
 
 interface WeatherProvider {
     val id: String
@@ -150,14 +161,14 @@ class NwsProvider(
         val pts = points(bucket)
         val got = CachedFetcher.getCached(store, fetcher, "${bucket.key}:nws-forecast", pts.forecastUrl, MIN_FORECAST_MS)
         val periods = json.decodeFromString<NwsForecastResponse>(got.body).properties.periods
-        return WeatherOutcome(periods.toDaily(placeTz), got.stale, got.fetchedAt)
+        return WeatherOutcome(periods.toDaily(placeTz), got.stale, got.fetchedAt, got.expiresAt)
     }
 
     override suspend fun hourly(bucket: WeatherBucket): WeatherOutcome<List<HourlyPoint>> {
         val pts = points(bucket)
         val got = CachedFetcher.getCached(store, fetcher, "${bucket.key}:nws-hourly", pts.hourlyUrl, MIN_FORECAST_MS)
         val periods = json.decodeFromString<NwsForecastResponse>(got.body).properties.periods
-        return WeatherOutcome(periods.take(24).map { it.toHourly() }, got.stale, got.fetchedAt)
+        return WeatherOutcome(periods.take(24).map { it.toHourly() }, got.stale, got.fetchedAt, got.expiresAt)
     }
 
     override suspend fun current(bucket: WeatherBucket): WeatherOutcome<CurrentWeather> {
@@ -165,34 +176,51 @@ class NwsProvider(
         val hourlyFirst = hourlyOutcome?.value?.firstOrNull()
         val pts = points(bucket)
         if (pts.observationStationsUrl.isBlank()) {
-            val h = hourlyFirst ?: throw WeatherException("No observation station for ${bucket.key}")
-            return WeatherOutcome(
-                CurrentWeather(h.tempC, WeatherMath.feelsLikeC(h.tempC, null, null), null, null, null, h.condition, h.shortText, h.precipPct),
-                stale = hourlyOutcome?.stale ?: false,
-                fetchedAt = hourlyOutcome?.fetchedAt ?: System.currentTimeMillis(),
-            )
+            return hourlyFirst.toCurrentOrThrow(bucket, hourlyOutcome)
         }
         val stationsGot = CachedFetcher.getCached(store, fetcher, "${bucket.key}:nws-stations", pts.observationStationsUrl, MIN_FORECAST_MS)
         val station = json.decodeFromString<NwsStationsResponse>(stationsGot.body).features.firstOrNull()
         if (station == null || station.properties.stationIdentifier.isBlank()) {
-            val h = hourlyFirst ?: throw WeatherException("No observation station for ${bucket.key}")
-            return WeatherOutcome(
-                CurrentWeather(h.tempC, WeatherMath.feelsLikeC(h.tempC, null, null), null, null, null, h.condition, h.shortText, h.precipPct),
-                stale = stationsGot.stale || hourlyOutcome?.stale == true,
-                fetchedAt = stationsGot.fetchedAt,
-            )
+            return hourlyFirst.toCurrentOrThrow(bucket, hourlyOutcome, stationsGot.stale)
         }
         val obsUrl = "https://api.weather.gov/stations/${station.properties.stationIdentifier}/observations/latest"
         val obsGot = CachedFetcher.getCached(store, fetcher, "${bucket.key}:nws-obs", obsUrl, MIN_FORECAST_MS)
         val obs = json.decodeFromString<NwsObservationResponse>(obsGot.body).properties
-        return WeatherOutcome(obs.toCurrent(hourlyFirst), obsGot.stale || stationsGot.stale, obsGot.fetchedAt)
+        // Observation carries temp/humidity/wind/feels-like itself; a missing
+        // hourly fallback only costs precipPct and icon-based condition
+        // (NwsDtos.toCurrent handles nulls), so never throw here.
+        return WeatherOutcome(
+            obs.toCurrent(hourlyFirst),
+            obsGot.stale || stationsGot.stale,
+            obsGot.fetchedAt,
+            obsGot.expiresAt,
+        )
+    }
+
+    /**
+     * Hourly fallback for current conditions. Throws only when there is
+     * genuinely nothing to map (no hourly period AND no observation path
+     * reached the caller) so the repository can fall back to MET Norway.
+     */
+    private fun HourlyPoint?.toCurrentOrThrow(
+        bucket: WeatherBucket,
+        hourlyOutcome: WeatherOutcome<List<HourlyPoint>>?,
+        extraStale: Boolean = false,
+    ): WeatherOutcome<CurrentWeather> {
+        val h = this ?: throw WeatherException("No current conditions for ${bucket.key}")
+        return WeatherOutcome(
+            CurrentWeather(h.tempC, WeatherMath.feelsLikeC(h.tempC, null, null), null, null, null, h.condition, h.shortText, h.precipPct),
+            stale = (hourlyOutcome?.stale ?: false) || extraStale,
+            fetchedAt = hourlyOutcome?.fetchedAt ?: System.currentTimeMillis(),
+            expiresAt = hourlyOutcome?.expiresAt ?: System.currentTimeMillis(),
+        )
     }
 
     override suspend fun alerts(bucket: WeatherBucket): WeatherOutcome<List<WeatherAlert>> {
         val url = "https://api.weather.gov/alerts/active?point=${bucket.lat},${bucket.lon}"
         val got = CachedFetcher.getCached(store, fetcher, "${bucket.key}:nws-alerts", url, MIN_ALERTS_MS)
         val alerts = json.decodeFromString<NwsAlertsResponse>(got.body).features.map { it.toAlert() }
-        return WeatherOutcome(alerts, got.stale, got.fetchedAt)
+        return WeatherOutcome(alerts, got.stale, got.fetchedAt, got.expiresAt)
     }
 }
 
@@ -215,6 +243,15 @@ class MetNoProvider(
     private var memoAt: Long = 0L
     private var memo: WeatherOutcome<Triple<CurrentWeather, List<HourlyPoint>, List<DailyPoint>>>? = null
 
+    /**
+     * Serializes concurrent loads for one bucket: back-to-back interface
+     * calls (current/hourly/forecast) cost one HTTP request instead of three
+     * racing ones. A Mutex (not @Synchronized) is used because [load]
+     * suspends on network I/O — blocking a thread while suspended would
+     * starve the IO pool under contention.
+     */
+    private val memoMutex = kotlinx.coroutines.sync.Mutex()
+
     @Synchronized
     private fun memoGet(key: String): WeatherOutcome<Triple<CurrentWeather, List<HourlyPoint>, List<DailyPoint>>>? {
         if (memoKey == key && System.currentTimeMillis() - memoAt < 60_000L) return memo
@@ -231,35 +268,41 @@ class MetNoProvider(
         memo = value
     }
 
-    private suspend fun load(bucket: WeatherBucket): WeatherOutcome<Triple<CurrentWeather, List<HourlyPoint>, List<DailyPoint>>> {
-        memoGet(bucket.key)?.let { return it }
-        // MET requires ≤ 4 decimals (bucket has 1) + identifying User-Agent
-        // (WeatherHttp/NetworkModule) + conditional requests (CachedFetcher).
-        val url = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${bucket.lat}&lon=${bucket.lon}"
-        val got = CachedFetcher.getCached(store, fetcher, "${bucket.key}:met-compact", url, NwsProvider.MIN_FORECAST_MS)
-        val parsed = json.decodeFromString<MetCompact>(got.body).toDomain(placeTz)
-        val out = WeatherOutcome(parsed, got.stale, got.fetchedAt)
-        memoPut(bucket.key, out)
-        return out
-    }
+    private suspend fun load(bucket: WeatherBucket): WeatherOutcome<Triple<CurrentWeather, List<HourlyPoint>, List<DailyPoint>>> =
+        memoMutex.withLock {
+            memoGet(bucket.key)?.let { return@withLock it }
+            // MET requires ≤ 4 decimals (bucket has 1) + identifying User-Agent
+            // (WeatherHttp/NetworkModule) + conditional requests (CachedFetcher).
+            val url = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${bucket.lat}&lon=${bucket.lon}"
+            val got = CachedFetcher.getCached(store, fetcher, "${bucket.key}:met-compact", url, NwsProvider.MIN_FORECAST_MS)
+            val parsed = json.decodeFromString<MetCompact>(got.body).toDomain(placeTz)
+            val out = WeatherOutcome(parsed, got.stale, got.fetchedAt, got.expiresAt)
+            memoPut(bucket.key, out)
+            out
+        }
 
     override suspend fun current(bucket: WeatherBucket): WeatherOutcome<CurrentWeather> {
         val o = load(bucket)
-        return WeatherOutcome(o.value.first, o.stale, o.fetchedAt)
+        return WeatherOutcome(o.value.first, o.stale, o.fetchedAt, o.expiresAt)
     }
 
     override suspend fun hourly(bucket: WeatherBucket): WeatherOutcome<List<HourlyPoint>> {
         val o = load(bucket)
-        return WeatherOutcome(o.value.second, o.stale, o.fetchedAt)
+        return WeatherOutcome(o.value.second, o.stale, o.fetchedAt, o.expiresAt)
     }
 
     override suspend fun forecast(bucket: WeatherBucket): WeatherOutcome<List<DailyPoint>> {
         val o = load(bucket)
-        return WeatherOutcome(o.value.third, o.stale, o.fetchedAt)
+        return WeatherOutcome(o.value.third, o.stale, o.fetchedAt, o.expiresAt)
     }
 
-    override suspend fun alerts(bucket: WeatherBucket): WeatherOutcome<List<WeatherAlert>> =
-        WeatherOutcome(emptyList(), stale = false, fetchedAt = System.currentTimeMillis())
+    override suspend fun alerts(bucket: WeatherBucket): WeatherOutcome<List<WeatherAlert>> {
+        // MET has no alerts endpoint; expiry is meaningless, so report the
+        // outcome as immediately re-queryable (repository marks alerts
+        // unavailable outside the US anyway).
+        val now = System.currentTimeMillis()
+        return WeatherOutcome(emptyList(), stale = false, fetchedAt = now, expiresAt = now)
+    }
 }
 
 /** Test helper: provider that always fails (drives fallback tests). */
@@ -279,11 +322,14 @@ class FakeWeatherProvider(
     var forecast: List<DailyPoint> = emptyList(),
     var alerts: List<WeatherAlert> = emptyList(),
     var stale: Boolean = false,
+    /** Explicit header-style expiry for expiry-propagation tests; defaults to fetchedAt + 15 min. */
+    var expiresAt: Long? = null,
 ) : WeatherProvider {
     var calls = 0
     private fun <T> wrap(v: T): WeatherOutcome<T> {
         calls++
-        return WeatherOutcome(v, stale, System.currentTimeMillis())
+        val now = System.currentTimeMillis()
+        return WeatherOutcome(v, stale, now, expiresAt ?: (now + 15L * 60L * 1000L))
     }
     override suspend fun current(bucket: WeatherBucket): WeatherOutcome<CurrentWeather> = wrap(current)
     override suspend fun hourly(bucket: WeatherBucket): WeatherOutcome<List<HourlyPoint>> = wrap(hourly)
