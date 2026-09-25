@@ -3,6 +3,8 @@
 Committed outputs (trimmed, small):
   pipeline/geo/places.json  (<100KB, Capital Region + states + world sample)
   pipeline/geo/postal.json  (<50KB, Capital Region ZIPs)
+  pipeline/geo/municipalities.json (<30KB, NY incorporated places/villages +
+    CDPs from the Census Gazetteer, for the clustering place-entity gate)
 
 Full builds (NOT committed; CI builds them into runner temp/state when needed):
   --mode full --output <path> --postal-output <path>
@@ -20,6 +22,7 @@ and filters to --include-admin1 (default US-NY) plus top world cities.
 
 Usage:
   python scripts/build_gazetteer.py --mode trimmed
+  python scripts/build_gazetteer.py --mode municipalities
   python scripts/build_gazetteer.py --mode full --output state/geo-places.json \\
       --postal-output state/geo-postal.json --max-world-cities 5000
 """
@@ -28,6 +31,7 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import re
 import sys
 import urllib.request
 import zipfile
@@ -36,6 +40,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PLACES = ROOT / "pipeline" / "geo" / "places.json"
 DEFAULT_POSTAL = ROOT / "pipeline" / "geo" / "postal.json"
+DEFAULT_MUNICIPALITIES = ROOT / "pipeline" / "geo" / "municipalities.json"
 
 SOURCES = {
     "census_places": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2024_Gazetteer/2024_Gaz_place_national.zip",
@@ -184,6 +189,78 @@ def build_trimmed(output: Path, postal_output: Path) -> None:
     print(f"wrote trimmed postal: {postal_output} ({len(TRIMMED_POSTAL)} codes)")
 
 
+# Trailing legal-status descriptors in Census Gazetteer NAMEs
+# ("Ballston Spa village" -> "Ballston Spa"). Mirrors the bare-name handling
+# in pipeline/cluster.py so gate lookups hit.
+_MUNICIPALITY_SUFFIX_RE = re.compile(
+    r"\s+(city|town|village|borough|cdp|municipality|municipio|comunidad|"
+    r"zona urbana|township|plantation|gore|grant|location|purchase|"
+    r"city and borough|city and county|metro government|"
+    r"metropolitan government|consolidated government|corporation|"
+    r"urban county)$",
+    re.IGNORECASE,
+)
+# Incorporated/active classes kept as event-evidence exclusions (21 borough,
+# 25 city, 43 town, 47 village, 53/55/62 other incorporated forms), plus
+# Census-designated statistical places (57/CDP: hamlets like Poestenkill that
+# read as towns in prose). FUNCSTAT must be A (active) or S (statistical).
+_MUNICIPALITY_LSAD = frozenset(
+    {"21", "25", "43", "47", "53", "55", "35", "37", "00", "62",
+     "UG", "CG", "UC", "MG", "57"}
+)
+
+
+def _municipality_base_name(name: str) -> str:
+    base = re.sub(r"\s+", " ", name.replace("-", " ").replace("_", " ")).strip()
+    return _MUNICIPALITY_SUFFIX_RE.sub("", base).strip().lower()
+
+
+def build_municipalities(output: Path, include_admin1: str = "US-NY") -> int:
+    """Write the clustering place-entity gate list (names only, lowercase).
+
+    Downloads the Census Gazetteer places file (public domain), keeps
+    incorporated municipalities + CDPs for the given state (default NY), and
+    writes normalized bare names. Committed output is ~18KB for NY; pass a
+    state/ path for larger scopes (kept out of the repo by policy).
+    """
+    usps = include_admin1.split("-", 1)[-1].upper() if "-" in include_admin1 \
+        else include_admin1.upper()
+    raw = _download(SOURCES["census_places"])
+    with zipfile.ZipFile(io.BytesIO(raw)) as zf:
+        name = [n for n in zf.namelist() if n.endswith(".txt")][0]
+        lines = zf.read(name).decode("utf-8", errors="replace").splitlines()
+    names: set[str] = set()
+    for line in lines[1:]:
+        parts = line.split("\t")
+        if len(parts) < 6:
+            continue
+        state, place_name, lsad, funcstat = parts[0], parts[3], parts[4], parts[5]
+        if state != usps or funcstat not in ("A", "S") or lsad not in _MUNICIPALITY_LSAD:
+            continue
+        base = _municipality_base_name(place_name)
+        if len(base) >= 2:
+            names.add(base)
+    ordered = sorted(names)
+    payload = {
+        "_comment": "NY municipality names for the clustering place-entity "
+                    "gate (pipeline/cluster.py): a shared entity naming one of "
+                    "these is place evidence, never event evidence, even when "
+                    "the item's resolved locations omit it. Regenerate with "
+                    "scripts/build_gazetteer.py --mode municipalities.",
+        "_source": SOURCES["census_places"],
+        "_license": "US Census Bureau Gazetteer: public domain "
+                    "(Title 13 U.S.C.). No attribution required; credited in NOTICE.",
+        "region": f"US-{usps}",
+        "apiVersion": 1,
+        "count": len(ordered),
+        "names": ordered,
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(payload, indent=1), encoding="utf-8")
+    print(f"wrote municipalities: {output} ({len(ordered)} names)")
+    return 0
+
+
 def _download(url: str, timeout: int = 60) -> bytes:
     req = urllib.request.Request(url, headers={"User-Agent": "PorchlightPress gazetteer builder"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310
@@ -274,15 +351,20 @@ def build_full(output: Path, postal_output: Path | None, max_world_cities: int,
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="scripts.build_gazetteer")
-    parser.add_argument("--mode", choices=["trimmed", "full"], default="trimmed")
+    parser.add_argument("--mode", choices=["trimmed", "full", "municipalities"],
+                        default="trimmed")
     parser.add_argument("--output", default=str(DEFAULT_PLACES))
     parser.add_argument("--postal-output", default=str(DEFAULT_POSTAL))
+    parser.add_argument("--municipalities-output", default=str(DEFAULT_MUNICIPALITIES))
     parser.add_argument("--max-world-cities", type=int, default=2000)
     parser.add_argument("--include-admin1", default="US-NY")
     args = parser.parse_args(argv)
     if args.mode == "trimmed":
         build_trimmed(Path(args.output), Path(args.postal_output))
         return 0
+    if args.mode == "municipalities":
+        return build_municipalities(Path(args.municipalities_output),
+                                    args.include_admin1)
     return build_full(Path(args.output),
                       Path(args.postal_output) if args.postal_output else None,
                       args.max_world_cities, args.include_admin1)

@@ -132,3 +132,157 @@ def test_same_event_pair_still_clusters():
     clusters = cluster_items([_wten_award(), second])
     assert len(clusters) == 1
     assert len(clusters[0]["members"]) == 2
+
+
+# --- fix/place-entity-gate: unlisted municipality names are never evidence ---
+#
+# Live 0d0cf2f78345feea follow-up: the pair above splits only because the
+# fixture locations resolve TO Ballston Spa. The live items locate to
+# Albany/Capital Region (Ballston Spa appears only in prose, missing from
+# the trimmed gazetteer), so in the full-run corpus (cos=0.090) the shared
+# 'ballston spa' entity passed the gate and re-merged them. The committed
+# NY municipality list (Census Gazetteer, PD) now excludes such names in
+# every corpus size.
+
+# Live-like locations: metro/city resolved, town name present only in prose.
+_UNLISTED_TOWN_LOC = [{"country": "US", "admin1": "US-NY",
+                       "admin2": "Albany County", "city": "Albany",
+                       "metro": "us-ny-capital-region"}]
+
+
+def _bakery_prize():
+    return {
+        "id": "wten-bakery-001", "sourceId": "wten", "publisher": "WTEN",
+        "headline": "Ballston Spa bakery wins regional pastry prize",
+        "excerpt": ("A family bakery in Ballston Spa took first place at the "
+                    "regional pastry showcase on Saturday."),
+        "url": "https://wten.com/2026/09/23/ballston-spa-bakery/",
+        "publishedAt": "2026-09-23T22:00:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _UNLISTED_TOWN_LOC,
+    }
+
+
+def _creek_cleanup():
+    return {
+        "id": "wamc-creek-002", "sourceId": "wamc", "publisher": "WAMC",
+        "headline": "Ballston Spa teen organizes creek cleanup",
+        "excerpt": ("A Ballston Spa teenager recruited volunteers to clear "
+                    "debris from the creek over the weekend."),
+        "url": "https://wamc.org/2026/09/24/ballston-spa-creek-cleanup/",
+        "publishedAt": "2026-09-24T15:30:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _UNLISTED_TOWN_LOC,
+    }
+
+
+def test_unlisted_town_name_does_not_cluster():
+    from pipeline.cluster import extract_entities, place_names_for_item
+
+    a, b = _bakery_prize(), _creek_cleanup()
+    ea = extract_entities(f"{a['headline']} {a['excerpt']}")
+    eb = extract_entities(f"{b['headline']} {b['excerpt']}")
+    # Fixture contract: the ONLY shared entity is the unlisted town, and no
+    # resolved location names it (otherwise this would duplicate the older
+    # place-only test above instead of the live gap).
+    assert ea & eb == {"ballston spa"}
+    assert "ballston spa" not in (place_names_for_item(a) | place_names_for_item(b))
+    clusters = cluster_items([a, b])
+    assert len(clusters) == 2
+    assert {len(c["members"]) for c in clusters} == {1}
+
+
+def test_unlisted_town_name_does_not_merge():
+    ca = cluster_items([_bakery_prize()])[0]
+    cb = cluster_items([_creek_cleanup()])[0]
+    assert len(maybe_merge_clusters([ca, cb])) == 2
+
+
+def test_genuine_two_source_pair_still_clusters():
+    # Santa-style same-event pair: shared person names + real textual
+    # overlap must keep joining (and merging) despite place-heavy prose.
+    first = {
+        "id": "wten-santa-001", "sourceId": "wten", "publisher": "WTEN",
+        "headline": "Clarence Russell sought in Santa impersonator case",
+        "excerpt": ("Police say Clarence Russell performed as Santa Claus at "
+                    "holiday events before the alleged assault."),
+        "url": "https://wten.com/2026/09/24/santa-impersonator-wanted/",
+        "publishedAt": "2026-09-24T02:00:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _UNLISTED_TOWN_LOC,
+    }
+    second = {
+        "id": "wten-santa-002", "sourceId": "wten2", "publisher": "WTEN",
+        "headline": "Ex-Santa performer Clarence Russell surrenders",
+        "excerpt": ("Clarence Russell, the former Santa Claus performer, turned "
+                    "himself in on the assault charges, troopers said."),
+        "url": "https://wten.com/2026/09/25/santa-impersonator-surrenders/",
+        "publishedAt": "2026-09-25T00:40:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _UNLISTED_TOWN_LOC,
+    }
+    clusters = cluster_items([first, second])
+    assert len(clusters) == 1
+    assert len(clusters[0]["members"]) == 2
+
+
+def test_municipality_gate_covers_live_towns():
+    from pipeline.cluster import (
+        has_genuine_overlap,
+        load_municipality_names,
+        place_aware_entity_similarity,
+    )
+
+    muni = load_municipality_names()
+    assert {"ballston spa", "poestenkill", "kingston", "poughkeepsie"} <= set(muni)
+    # Live pair entity sets: the only shared span is the town.
+    ea = {"ballston spa", "football", "giant award", "heart", "hospital",
+          "new york giants", "special surgery"}
+    eb = {"ballston spa", "nick henry"}
+    assert place_aware_entity_similarity(ea, eb, ignore=frozenset()) == 0.0
+    # Gate at the measured cosines: full-run 0.090 with no entity evidence
+    # stays split (why MIN_ENTITY_TEXT_SIM was NOT raised -- a
+    # corpus-dependent threshold is fragile); genuine-level overlap merges.
+    assert not has_genuine_overlap(0.090, 0.0)
+    assert has_genuine_overlap(0.31, 1.0)
+
+
+def test_st_johnsville_shared_name_does_not_cluster():
+    from pipeline.cluster import extract_entities, load_municipality_names
+
+    muni = load_municipality_names()
+    assert "st. johnsville" in muni
+    assert "johnsville" in muni  # entity-form alias for "St." prose
+    a = {
+        "id": "wten-johnsville-001", "sourceId": "wten", "publisher": "WTEN",
+        "headline": "St. Johnsville bakery wins regional pastry prize",
+        "excerpt": ("A family bakery in St. Johnsville took first place at the "
+                    "regional pastry showcase on Saturday."),
+        "url": "https://wten.com/2026/09/23/st-johnsville-bakery/",
+        "publishedAt": "2026-09-23T22:00:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _UNLISTED_TOWN_LOC,
+    }
+    b = {
+        "id": "wamc-johnsville-002", "sourceId": "wamc", "publisher": "WAMC",
+        "headline": "St. Johnsville teen organizes creek cleanup",
+        "excerpt": ("A St. Johnsville teenager recruited volunteers to clear "
+                    "debris from the creek over the weekend."),
+        "url": "https://wamc.org/2026/09/24/st-johnsville-creek-cleanup/",
+        "publishedAt": "2026-09-24T15:30:00Z", "rightsMode": "RSS_EXCERPT_ALLOWED",
+        "locations": _UNLISTED_TOWN_LOC,
+    }
+    ea = extract_entities(f"{a['headline']} {a['excerpt']}")
+    eb = extract_entities(f"{b['headline']} {b['excerpt']}")
+    assert ea & eb == {"johnsville"}  # "St" drops on the period split
+    clusters = cluster_items([a, b])
+    assert len(clusters) == 2
+
+
+def test_municipality_loader_null_names_returns_empty(tmp_path):
+    from pipeline.cluster import load_municipality_names
+
+    p_null = tmp_path / "muni_null.json"
+    p_null.write_text('{"names": null}', encoding="utf-8")
+    assert load_municipality_names(str(p_null)) == frozenset()
+    p_str = tmp_path / "muni_str.json"
+    p_str.write_text('{"names": "not-a-list"}', encoding="utf-8")
+    assert load_municipality_names(str(p_str)) == frozenset()
+    p_mixed = tmp_path / "muni_mixed.json"
+    p_mixed.write_text('{"names": ["Albany", 123, null, "  "]}', encoding="utf-8")
+    assert load_municipality_names(str(p_mixed)) == frozenset({"albany"})

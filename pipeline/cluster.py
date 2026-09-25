@@ -5,12 +5,21 @@ capitalized entities, time proximity. Deterministic: items are sorted first,
 so the same input order always yields the same output.
 
 Anti-overmerge invariant: a shared place name alone must never merge two
-items. Place-derived capitalized spans (city/county/metro/state names from
-either item's resolved locations) are excluded from entity evidence, and a
-join additionally requires genuine textual evidence -- TF-IDF cosine
-at/above MIN_TEXT_SIM alone, or a shared entity PLUS cosine at/above
-MIN_ENTITY_TEXT_SIM. Location + recency can only confirm a textual match,
-never create one.
+items. Place-derived capitalized spans are excluded from entity evidence
+from TWO sources: (1) city/county/metro/state names from either item's
+resolved locations, and (2) the committed NY municipality list
+(pipeline/geo/municipalities.json, Census Gazetteer PD), which covers town /
+village / CDP names even when locate resolved only the metro (live Ballston
+case: items located to Albany/Capital Region while prose names Ballston
+Spa, absent from the trimmed gazetteer). A join additionally requires
+genuine textual evidence -- TF-IDF cosine at/above MIN_TEXT_SIM alone, or a
+shared entity PLUS cosine at/above MIN_ENTITY_TEXT_SIM. Location + recency
+can only confirm a textual match, never create one.
+
+Both cluster_items and maybe_merge_clusters exclude place entities through
+the single shared helper place_aware_entity_similarity, so fresh clustering
+and persisted revalidation (state.py, which calls these same functions) can
+never disagree on what counts as event evidence.
 
 Stable IDs: eventId = sha256(canonical URL of the seed item)[:16]. The seed
 is the earliest member (sorted input => first member). When clusters merge,
@@ -19,12 +28,18 @@ the older ID survives and the other is recorded as an alias.
 from __future__ import annotations
 
 import hashlib
+import json
 import logging
 import re
 from datetime import datetime, timezone
+from functools import lru_cache
+from pathlib import Path
 from typing import Any, Mapping
 
 logger = logging.getLogger(__name__)
+
+GEO_DIR = Path(__file__).resolve().parent / "geo"
+DEFAULT_MUNICIPALITIES_PATH = GEO_DIR / "municipalities.json"
 
 DEFAULT_WINDOW_HOURS = 72
 DEFAULT_THRESHOLD = 0.45
@@ -37,14 +52,13 @@ DEFAULT_WEIGHTS = {"tfidf": 0.55, "location": 0.20, "entity": 0.15, "time": 0.10
 # reach the 0.45 join threshold on their own.
 MIN_TEXT_SIM = 0.20
 # Minimum TF-IDF cosine required even when a shared entity exists.
-# Root cause of 0d0cf2f78345feea: the live Ballston pair shares exactly one
-# entity ('ballston spa', ent=1.0) with cos=0.052, loc=1.0, time=0.76 for a
-# combined 0.454 >= 0.45. The place exclusion missed it because the items'
-# `locations` metadata lists only Albany/Albany County (Ballston Spa appears
-# only in prose, and the trimmed gazetteer has no Ballston Spa entry), so
-# the shared place name passed the gate on entity evidence alone. Requiring
-# a small text floor with any entity blocks it (0.052 < 0.08) while true
-# same-event pairs (Albany fire 0.23-0.33, award reword 0.35) pass with margin.
+# Second layer behind the municipality gate below: with place entities
+# excluded, the live Ballston pair has ent=0.0 in ANY corpus (2-doc or full),
+# so the MIN_TEXT_SIM=0.20 floor blocks it (full-corpus cos=0.090) while true
+# same-event pairs (Albany fire 0.23-0.33, Santa pair 0.31-0.41, award reword
+# 0.35) pass with margin. Deliberately NOT raised to chase the 0.090: a
+# corpus-dependent threshold is fragile, and heavily reworded same-event
+# pairs (shared person name, cos 0.10-0.15) must keep merging.
 MIN_ENTITY_TEXT_SIM = 0.08
 
 _ENTITY_RE = re.compile(r"\b([A-Z][a-z]{2,}(?:\s+[A-Z][a-z]{2,})*)\b")
@@ -187,10 +201,105 @@ def place_names_for_item(item: Mapping[str, Any]) -> set[str]:
 def has_genuine_overlap(tfidf_cos: float, ent: float) -> bool:
     """Non-place evidence gate: shared entity PLUS real textual overlap,
     or strong textual overlap alone. A shared place name with thin text
-    never passes (live Ballston pair: ent=1.0 but cos=0.052 < 0.08)."""
+    never passes (live Ballston pair: ent=0.0 after the municipality gate,
+    cos=0.090 < 0.20 in the full corpus, 0.052 in a 2-doc corpus)."""
     if tfidf_cos >= MIN_TEXT_SIM:
         return True
     return ent > 0.0 and tfidf_cos >= MIN_ENTITY_TEXT_SIM
+
+
+def _municipality_prefix_aliases(norm: str) -> set[str]:
+    """Bare + swapped prefix forms for saint/st, mount/mt, fort/ft."""
+    groups = [("st. ", "st ", "saint "), ("mt. ", "mt ", "mount "), ("ft. ", "ft ", "fort ")]
+    out: set[str] = set()
+    for group in groups:
+        for prefix in group:
+            if norm.startswith(prefix):
+                rest = norm[len(prefix):].strip()
+                if rest:
+                    out.add(rest)
+                    for other in group:
+                        if other != prefix:
+                            out.add(f"{other}{rest}")
+                break
+    return out
+
+
+@lru_cache(maxsize=4)
+def _cached_municipality_names(path_str: str) -> frozenset[str]:
+    """Normalized municipality names from the committed list (or override).
+
+    Missing/corrupt file -> empty set (graceful fallback to resolved-location
+    place exclusion only). Normalized with _norm_place, the same form used
+    for extracted entities and resolved place names, PLUS the entity form
+    produced by extract_entities ("St. Johnsville" extracts as
+    "johnsville" while the stored list keeps "st. johnsville"). Stored
+    format unchanged -- scripts/build_gazetteer.py still writes dotted
+    "st. ..." / full-word "fort ..." / "mount ..." names; this loader
+    expands aliases at read time so regeneration is never needed.
+    """
+    p = Path(path_str) if path_str else DEFAULT_MUNICIPALITIES_PATH
+    try:
+        payload = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return frozenset()
+    if not isinstance(payload, dict):
+        return frozenset()
+    raw = payload.get("names") or []
+    if not isinstance(raw, list):
+        return frozenset()
+    out: set[str] = set()
+    for n in raw:
+        if not isinstance(n, str):
+            continue
+        if not n.strip():
+            continue
+        norm = _norm_place(n)
+        if not norm:
+            continue
+        out.add(norm)
+        # Entity-form alias: stored names are lowercase so title-case first
+        # (extract_entities needs capitals). Covers "st. johnsville" ->
+        # "johnsville", "ft. ..."/"mt. ..." abbreviations the same way.
+        try:
+            for ent in extract_entities(n.title()):
+                e_norm = _norm_place(ent)
+                if e_norm:
+                    out.add(e_norm)
+        except Exception:
+            pass
+        # Prefix-stripped bare form + saint/st, mount/mt, fort/ft swaps so
+        # abbreviated vs full-word prose still hits the gate.
+        for alias in _municipality_prefix_aliases(norm):
+            out.add(alias)
+    return frozenset(out)
+
+
+def load_municipality_names(path: str | Path | None = None) -> frozenset[str]:
+    """Public loader for the place-entity gate list (default: committed NY)."""
+    key = str(path) if path else str(DEFAULT_MUNICIPALITIES_PATH)
+    return _cached_municipality_names(key)
+
+
+def place_aware_entity_similarity(
+    a: set[str],
+    b: set[str],
+    *,
+    ignore: frozenset[str] | set[str] = frozenset(),
+    municipalities: frozenset[str] | set[str] | None = None,
+) -> float:
+    """Entity similarity with place names excluded from BOTH sources.
+
+    `ignore` carries the resolved-location place phrases for the pair;
+    `municipalities` (default: committed NY list) additionally strips any
+    shared entity naming a municipality, whether or not locate resolved it.
+    THE single choke point for event evidence: cluster_items,
+    maybe_merge_clusters -- and therefore state.py revalidation -- all go
+    through here, so the rules cannot disagree.
+    """
+    muni = load_municipality_names() if municipalities is None else municipalities
+    extra = ((set(a) | set(b)) & set(muni)) if muni else set()
+    return entity_similarity(a, b, ignore=set(ignore) | extra)
 
 
 def place_names_for_members(members: list[Mapping[str, Any]]) -> set[str]:
@@ -296,7 +405,7 @@ def cluster_items(
             top = 0.0
             for m in members:
                 loc = location_similarity(loc_lists[idx], loc_lists[m])
-                ent = entity_similarity(
+                ent = place_aware_entity_similarity(
                     ent_sets[idx], ent_sets[m],
                     ignore=place_names[idx] | place_names[m],
                 )
@@ -370,7 +479,7 @@ def maybe_merge_clusters(
             a_locs = [loc for m in a.get("members", []) for loc in (m.get("locations") or [])]
             b_locs = [loc for m in b.get("members", []) for loc in (m.get("locations") or [])]
             loc = location_similarity(a_locs, b_locs)
-            ent = entity_similarity(
+            ent = place_aware_entity_similarity(
                 extract_entities(docs[i]), extract_entities(docs[j]),
                 ignore=place_names_for_members(a.get("members", []))
                 | place_names_for_members(b.get("members", [])),
