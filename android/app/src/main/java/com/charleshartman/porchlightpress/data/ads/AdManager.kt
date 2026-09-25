@@ -2,12 +2,15 @@ package com.charleshartman.porchlightpress.data.ads
 
 import android.content.Context
 import com.charleshartman.porchlightpress.BuildConfig
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.nativead.NativeAd
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -95,6 +98,7 @@ class AdMobGate(private val context: Context) {
             _adsReady.value = config.enabled
             preloadInterstitial()
         } catch (e: Exception) {
+            android.util.Log.w("Porchlight", "MobileAds.initialize failed; ads disabled", e)
             _adsReady.value = false
         }
     }
@@ -105,8 +109,14 @@ class AdMobGate(private val context: Context) {
         if (adUnit.isBlank()) return
         val req = AdRequest.Builder().build()
         InterstitialAd.load(context, adUnit, req, object : InterstitialAdLoadCallback() {
-            override fun onAdLoaded(ad: InterstitialAd) { interstitial = ad }
-            override fun onAdFailedToLoad(err: LoadAdError) { interstitial = null }
+            override fun onAdLoaded(ad: InterstitialAd) {
+                android.util.Log.i("Porchlight", "Interstitial ad loaded")
+                interstitial = ad
+            }
+            override fun onAdFailedToLoad(err: LoadAdError) {
+                android.util.Log.i("Porchlight", "Interstitial ad failed: ${err.code} ${err.message}")
+                interstitial = null
+            }
         })
     }
 
@@ -125,8 +135,57 @@ class AdMobGate(private val context: Context) {
             AdView(context).apply {
                 setAdSize(com.google.android.gms.ads.AdSize.BANNER)
                 adUnitId = AdPolicy.bannerId()
+                adListener = object : AdListener() {
+                    override fun onAdLoaded() {
+                        android.util.Log.i("Porchlight", "Banner ad loaded")
+                    }
+
+                    override fun onAdFailedToLoad(err: LoadAdError) {
+                        android.util.Log.i("Porchlight", "Banner ad failed: ${err.code} ${err.message}")
+                    }
+                }
                 loadAd(AdRequest.Builder().build())
             }
         } catch (e: Exception) { null }
+    }
+
+    /**
+     * Load one native ad (Google test ID in debug, real unit from CI secrets
+     * in release). Must be called on the main thread. The caller owns the
+     * returned ad and must destroy() it when done.
+     */
+    fun loadNative(onLoaded: (NativeAd) -> Unit, onFailed: () -> Unit = {}) {
+        if (!config.enabled) {
+            onFailed()
+            return
+        }
+        val adUnit = AdPolicy.nativeId()
+        if (adUnit.isBlank()) {
+            onFailed()
+            return
+        }
+        try {
+            AdLoader.Builder(context, adUnit)
+                .forNativeAd { ad ->
+                    android.util.Log.i(
+                        "Porchlight",
+                        "Native ad loaded: headline=${ad.headline != null} " +
+                            "body=${ad.body != null} icon=${ad.icon != null} " +
+                            "cta=${ad.callToAction != null} media=${ad.mediaContent != null}",
+                    )
+                    onLoaded(ad)
+                }
+                .withAdListener(object : AdListener() {
+                    override fun onAdFailedToLoad(err: LoadAdError) {
+                        android.util.Log.i("Porchlight", "Native ad failed: ${err.code} ${err.message}")
+                        onFailed()
+                    }
+                })
+                .build()
+                .loadAd(AdRequest.Builder().build())
+        } catch (e: Exception) {
+            android.util.Log.w("Porchlight", "Native ad load threw", e)
+            onFailed()
+        }
     }
 }

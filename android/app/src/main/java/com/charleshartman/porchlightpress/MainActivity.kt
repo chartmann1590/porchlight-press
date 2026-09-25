@@ -101,6 +101,15 @@ class MainActivity : ComponentActivity() {
                         val scope = rememberCoroutineScope()
                         val consent = remember { container.consentRepository.state }
                         val consentValue by consent.collectAsState(initial = com.charleshartman.porchlightpress.data.repo.ConsentState.Unknown)
+                        // Consent state is in-memory only, so a fresh process
+                        // starts Unknown even for long-onboarded users (which
+                        // silently disabled all ads). Re-resolve on every
+                        // launch: instant when already obtained, and the form
+                        // appears only where the law requires it.
+                        androidx.compose.runtime.LaunchedEffect(Unit) {
+                            kotlinx.coroutines.delay(500)
+                            runCatching { container.consentRepository.requestConsent(this@MainActivity) }
+                        }
                         androidx.compose.runtime.LaunchedEffect(consentValue, p.analyticsConsent, p.crashConsent) {
                             if (consentValue is com.charleshartman.porchlightpress.data.repo.ConsentState.Obtained ||
                                 consentValue is com.charleshartman.porchlightpress.data.repo.ConsentState.NotRequired

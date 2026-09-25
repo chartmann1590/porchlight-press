@@ -469,7 +469,7 @@ private fun PrivacyStep(vm: OnboardingViewModel, activity: Activity) {
         StepNav(
             onBack = vm::onBack,
             onContinue = { vm.acceptPrivacyAndContinue(activity) },
-            onSkip = vm::onSkip,
+            onSkip = { vm.acceptPrivacyAndSkip(activity) },
             continueLabel = "Agree & continue",
             continueTag = "ob-privacy-continue",
         )

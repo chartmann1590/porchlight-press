@@ -31,6 +31,7 @@ class PrefsDebugActivity : ComponentActivity() {
         val editions = intent.getBooleanExtra("editions", false)
         val onboard = intent.getBooleanExtra("onboard", false)
         val testAlert = intent.getBooleanExtra("testAlert", false)
+        val consent = intent.getBooleanExtra("consent", false)
         val done = mutableStateOf("working…")
         lifecycleScope.launch {
             try {
@@ -67,6 +68,12 @@ class PrefsDebugActivity : ComponentActivity() {
                     container.prefs.setReadingStarted(true)
                 }
                 val snap = container.prefs.snapshot()
+                if (consent) {
+                    // Resolve UMP (no form outside regulated regions) so ads
+                    // initialize exactly like the onboarding privacy step.
+                    val state = container.consentRepository.requestConsent(this@PrefsDebugActivity)
+                    done.value = done.value + " consent=$state"
+                }
                 if (testAlert) {
                     com.charleshartman.porchlightpress.work.AlertNotifications.showWarning(
                         this@PrefsDebugActivity,

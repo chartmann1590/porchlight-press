@@ -105,7 +105,7 @@ fun FrontPageScreen(
         PullToRefreshBox(
             isRefreshing = state.isRefreshing,
             onRefresh = viewModel::refresh,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.weight(1f).fillMaxWidth(),
         ) {
             when {
                 state.isLoading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -127,6 +127,10 @@ fun FrontPageScreen(
                 )
             }
         }
+        // Anchored banner below the list (owner request): always visible at
+        // the front-page bottom without covering content. Collapses to
+        // nothing when ads are disabled or consent hasn't resolved.
+        BannerAdSlot(gate = gate, modifier = Modifier.fillMaxWidth())
     }
 }
 

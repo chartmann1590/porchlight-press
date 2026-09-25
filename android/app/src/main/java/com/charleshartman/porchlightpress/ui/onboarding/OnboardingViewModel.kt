@@ -494,6 +494,21 @@ class OnboardingViewModel(
         }
     }
 
+    /**
+     * Privacy Skip: still resolves UMP consent info (required before any ad
+     * request), but persists opt-out (no analytics/crash, non-personalized
+     * ads). Outside regulated regions this returns instantly with no form,
+     * so Skip stays instant; where the law requires consent, UMP shows its
+     * form even on this path.
+     */
+    fun acceptPrivacyAndSkip(activity: android.app.Activity) {
+        viewModelScope.launch {
+            val result = consentRepo.requestConsent(activity)
+            _state.update { it.copy(consent = result) }
+            persistConsentsAndFinish(consented = false)
+        }
+    }
+
     private fun persistConsentsAndFinish(consented: Boolean) {
         val s = _state.value
         viewModelScope.launch {
