@@ -84,7 +84,10 @@ class AdRenderingTest {
                     metro = place.metro, tz = place.tz, isHome = true, sortOrder = 0,
                 ),
             )
-            val stories = (1..3).map { i ->
+            // Four sections of two stories: the planner puts exactly one
+            // native slot after the 3rd section (cadence 3, >=5 stories
+            // apart, never first or last).
+            val stories = (1..8).map { i ->
                 testStoryDto().copy(
                     id = "story-ads-$i",
                     headline = "Test story number $i for the ad slot check",
@@ -93,9 +96,10 @@ class AdRenderingTest {
             val edition = testEditionDto().copy(
                 stories = stories,
                 sections = listOf(
-                    SectionDto(id = "s1", title = "Section One", storyIds = listOf("story-ads-1")),
-                    SectionDto(id = "s2", title = "Section Two", storyIds = listOf("story-ads-2")),
-                    SectionDto(id = "s3", title = "Section Three", storyIds = listOf("story-ads-3")),
+                    SectionDto(id = "s1", title = "Section One", storyIds = listOf("story-ads-1", "story-ads-2")),
+                    SectionDto(id = "s2", title = "Section Two", storyIds = listOf("story-ads-3", "story-ads-4")),
+                    SectionDto(id = "s3", title = "Section Three", storyIds = listOf("story-ads-5", "story-ads-6")),
+                    SectionDto(id = "s4", title = "Section Four", storyIds = listOf("story-ads-7", "story-ads-8")),
                 ),
             )
             container.editionRepository.persist(place, "latest", "feeds/test/latest.json", edition)

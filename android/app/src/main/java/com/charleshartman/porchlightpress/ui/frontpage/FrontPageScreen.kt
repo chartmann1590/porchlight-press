@@ -31,6 +31,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.charleshartman.porchlightpress.AppContainer
 import com.charleshartman.porchlightpress.data.ads.AdMobGate
+import com.charleshartman.porchlightpress.data.ads.NativeSlotPlanner
 import com.charleshartman.porchlightpress.data.weather.WeatherRepository
 import com.charleshartman.porchlightpress.ui.components.BannerAdSlot
 import com.charleshartman.porchlightpress.ui.components.EditionLabel
@@ -224,6 +225,8 @@ private fun FrontPageList(
             }
         }
         var sectionIndex = 0
+        var storiesBefore = 0
+        var storiesSinceLastAd = Int.MAX_VALUE / 2
         state.sections.forEach { sec ->
             val stories = sec.stories
             if (stories.isEmpty()) return@forEach
@@ -293,17 +296,27 @@ private fun FrontPageList(
                     }
                 }
             }
-            // Native ADVERTISEMENT between sections every N
-            if ((sectionIndex + 1) % adsEveryN == 0) {
+            // Native Sponsored slot per the placement rules (density, no
+            // adjacency, never first or last): at most one in-feed ad, and
+            // never stacked against the anchored banner below.
+            val nonEmpty = state.sections.filter { it.stories.isNotEmpty() }
+            if (NativeSlotPlanner.showAfterSection(
+                    sectionIndex = sectionIndex,
+                    storiesBeforeSlot = storiesBefore,
+                    storiesSinceLastAd = storiesSinceLastAd,
+                    isLastSection = sec.id == nonEmpty.lastOrNull()?.id,
+                    everyNSections = adsEveryN,
+                )
+            ) {
                 item(key = "ad-${sec.id}") {
                     NativeAdBox(gate = gate, modifier = Modifier.padding(horizontal = 16.dp))
                 }
+                storiesSinceLastAd = 0
+            } else {
+                storiesSinceLastAd += stories.size
             }
+            storiesBefore += stories.size
             sectionIndex++
-        }
-        // Bottom banner slot (Phase 9) – collapse when disabled.
-        item(key = "banner-bottom") {
-            BannerAdSlot(gate = gate, modifier = Modifier.padding(top = 12.dp))
         }
     }
 }
