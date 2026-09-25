@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "forecast": "https://api.weather.gov/gridpoints/ALY/58,56/forecast",
+    "forecastHourly": "https://api.weather.gov/gridpoints/ALY/58,56/forecast/hourly",
+    "forecastZone": "https://api.weather.gov/zones/forecast/NYZ058",
+    "observationStations": "https://api.weather.gov/gridpoints/ALY/58,56/stations"
+  }
+}

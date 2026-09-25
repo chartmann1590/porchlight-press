@@ -1,0 +1,49 @@
+{
+  "features": [
+    {
+      "id": "urn:oid:2.49.0.1.840.0.test-flood-warning-1",
+      "properties": {
+        "event": "Flood Warning",
+        "headline": "Flood Warning issued September 24 at 2:15PM EDT by NWS Albany NY",
+        "description": "The Mohawk River at Schenectady is expected to rise above flood stage this evening. Minor flooding of riverside parks is expected.",
+        "instruction": "Turn around, don't drown. Move to higher ground if flooding is observed.",
+        "severity": "Severe",
+        "urgency": "Expected",
+        "senderName": "NWS Albany NY",
+        "effective": "2026-09-24T14:15:00-04:00",
+        "expires": "2026-09-24T23:00:00-04:00",
+        "ends": "2026-09-25T02:00:00-04:00",
+        "areaDesc": "Schenectady County"
+      }
+    },
+    {
+      "id": "urn:oid:2.49.0.1.840.0.test-tornado-warning-2",
+      "properties": {
+        "event": "Tornado Warning",
+        "headline": "Tornado Warning issued September 24 at 3:02PM EDT by NWS Albany NY",
+        "description": "A severe thunderstorm capable of producing a tornado was located near Rotterdam, moving east at 35 mph.",
+        "instruction": "Take shelter now in a basement or interior room on the lowest floor.",
+        "severity": "Extreme",
+        "urgency": "Immediate",
+        "senderName": "NWS Albany NY",
+        "effective": "2026-09-24T15:02:00-04:00",
+        "expires": "2026-09-24T15:45:00-04:00",
+        "areaDesc": "Schenectady County; Albany County"
+      }
+    },
+    {
+      "id": "urn:oid:2.49.0.1.840.0.test-heat-advisory-3",
+      "properties": {
+        "event": "Heat Advisory",
+        "headline": "Heat Advisory issued September 24 at 11:00AM EDT by NWS Albany NY",
+        "description": "Heat index values up to 97 expected this afternoon.",
+        "severity": "Minor",
+        "urgency": "Expected",
+        "senderName": "NWS Albany NY",
+        "effective": "2026-09-24T11:00:00-04:00",
+        "expires": "2026-09-24T20:00:00-04:00",
+        "areaDesc": "Schenectady County"
+      }
+    }
+  ]
+}

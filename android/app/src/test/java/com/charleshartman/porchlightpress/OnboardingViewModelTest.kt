@@ -252,6 +252,25 @@ class OnboardingViewModelTest {
     }
 
     @Test
+    fun privacySkipStillResolvesConsent() = runTest {
+        // Skip must not leave consent Unknown (ads would never initialize):
+        // it resolves UMP silently and persists opt-out.
+        val v = vm()
+        advanceUntilIdle()
+        v.onContinue(); v.onContinue()
+        v.onZipCode("12308"); v.submitZip(); advanceUntilIdle()
+        v.onContinue(); v.onContinue(); v.onContinue()
+        v.setNotifyBreaking(true)
+        v.acceptPrivacyAndSkip(mockk(relaxed = true))
+        advanceUntilIdle()
+        assertEquals(OnboardingStep.DONE, v.state.value.step)
+        assertEquals(ConsentState.Obtained, v.state.value.consent)
+        coVerify { prefs.setAnalyticsConsent(false) }
+        coVerify { prefs.setCrashConsent(false) }
+        coVerify { prefs.setNotifyBreaking(true) }
+    }
+
+    @Test
     fun offlineSyncShowsOfflineState() = runTest {
         coEvery { editionRepo.sync(any(), any(), any()) } returns FeedResult.Offline(null)
         val v = vm()

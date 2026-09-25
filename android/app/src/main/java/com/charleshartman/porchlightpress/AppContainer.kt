@@ -17,6 +17,13 @@ import com.charleshartman.porchlightpress.data.repo.LocationRepository
 import com.charleshartman.porchlightpress.data.repo.MlKitTranslatorEngine
 import com.charleshartman.porchlightpress.data.repo.TranslationRepository
 import com.charleshartman.porchlightpress.data.repo.UmpConsentGateway
+import com.charleshartman.porchlightpress.data.weather.AndroidCoordsResolver
+import com.charleshartman.porchlightpress.data.weather.CoordsResolver
+import com.charleshartman.porchlightpress.data.weather.MetNoProvider
+import com.charleshartman.porchlightpress.data.weather.NwsProvider
+import com.charleshartman.porchlightpress.data.weather.OkHttpWeatherFetcher
+import com.charleshartman.porchlightpress.data.weather.WeatherFetcher
+import com.charleshartman.porchlightpress.data.weather.WeatherRepository
 
 /**
  * Manual DI container (single :app module; split only if it hurts).
@@ -25,7 +32,7 @@ import com.charleshartman.porchlightpress.data.repo.UmpConsentGateway
 class AppContainer(val context: Context) {
     val db: AppDatabase by lazy {
         Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.NAME)
-            .addMigrations(AppDatabase.MIGRATION_1_2)
+            .addMigrations(AppDatabase.MIGRATION_1_2, AppDatabase.MIGRATION_2_3)
             .fallbackToDestructiveMigrationOnDowngrade()
             .build()
     }
@@ -38,6 +45,8 @@ class AppContainer(val context: Context) {
     var translationOverride: TranslationRepository? = null
     var consentOverride: ConsentRepository? = null
     var geoOverride: GeoLookup? = null
+    var weatherOverride: WeatherRepository? = null
+    var coordsOverride: CoordsResolver? = null
 
     private val realEdition: EditionRepository by lazy { EditionRepository(db) }
     private val realLocation: LocationRepository by lazy { LocationRepository(context, feedApi) }
@@ -53,6 +62,28 @@ class AppContainer(val context: Context) {
     val consentRepository: ConsentRepository get() = consentOverride ?: realConsent
     val geoLookup: GeoLookup get() = geoOverride ?: realGeo
 
+    // -- Weather (Phase 7): NWS primary for US, MET Norway fallback/worldwide.
+    // Providers fetch live; the repository implements the Room-backed
+    // conditional cache (WeatherCacheStore) with per-bucket TTLs.
+    val weatherFetcher: WeatherFetcher by lazy {
+        OkHttpWeatherFetcher(NetworkModule.okHttp(context))
+    }
+    private val realCoords: CoordsResolver by lazy { AndroidCoordsResolver(context) }
+    val coordsResolver: CoordsResolver get() = coordsOverride ?: realCoords
+    private val weatherStore: com.charleshartman.porchlightpress.data.weather.WeatherCacheStore by lazy {
+        com.charleshartman.porchlightpress.data.weather.RoomWeatherCacheStore(db)
+    }
+    private val realWeather: WeatherRepository by lazy {
+        WeatherRepository(
+            weatherStore,
+            NwsProvider(weatherFetcher, weatherStore, null),
+            MetNoProvider(weatherFetcher, weatherStore, null),
+            coordsResolver,
+        )
+    }
+    val weatherRepository: WeatherRepository
+        get() = weatherOverride ?: realWeather
+
     val adGate: AdMobGate by lazy { AdMobGate(context) }
     val interstitialController: InterstitialController by lazy { InterstitialController() }
 
@@ -65,11 +96,15 @@ class AppContainer(val context: Context) {
         translation: TranslationRepository? = null,
         consent: ConsentRepository? = null,
         geo: GeoLookup? = null,
+        weather: WeatherRepository? = null,
+        coords: CoordsResolver? = null,
     ) {
         editionOverride = edition
         locationOverride = location
         translationOverride = translation
         consentOverride = consent
         geoOverride = geo
+        weatherOverride = weather
+        coordsOverride = coords
     }
 }

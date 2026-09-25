@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Debug-only receiver for the on-device severe-alert notification check.
+        Release builds never include it. -->
+    <application>
+        <receiver
+            android:name=".debug.TestAlertReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.charleshartman.porchlightpress.debug.TEST_ALERT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".debug.PrefsTestReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.charleshartman.porchlightpress.debug.SET_NOTIFY" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name=".debug.PrefsDebugActivity"
+            android:exported="true" />
+    </application>
+</manifest>

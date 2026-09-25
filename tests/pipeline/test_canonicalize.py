@@ -1,5 +1,8 @@
 """Canonicalization table tests + HTML-to-text."""
-from pipeline.normalize import canonicalize_url, html_to_text
+from datetime import datetime, timezone
+
+from pipeline.normalize import canonicalize_url, html_to_text, normalize_item
+from pipeline.providers import RawItem
 
 
 def test_host_lowercased_and_fragment_dropped():
@@ -29,3 +32,26 @@ def test_query_sorted_for_stability():
 def test_html_to_text_strips_tags_scripts_and_entities():
     html = "<p>Council <b>approved</b> it 5-2.</p><script>alert(1)</script> A&nbsp;B"
     assert html_to_text(html) == "Council approved it 5-2. A B"
+
+
+def test_html_to_text_strips_replacement_chars():
+    # A source that mangled its own bytes ships literal U+FFFD: last-resort
+    # cleaning drops it instead of publishing mojibake.
+    assert html_to_text("<p>got cancer \ufffd his friends</p>") == "got cancer his friends"
+    assert html_to_text("don\ufffdt") == "dont"
+
+
+def test_normalize_item_strips_replacement_chars():
+    now = datetime(2026, 9, 23, 12, 0, tzinfo=timezone.utc)
+    raw = RawItem(source_id="s", publisher="Pub",
+                  title="got cancer \ufffd his friends",
+                  url="https://example.com/story",
+                  summary_html="<p>got cancer \ufffd his friends</p>",
+                  published_at=now, language="en")
+    item = normalize_item(raw, {"id": "s", "name": "Pub",
+                                "rightsMode": "RSS_EXCERPT_ALLOWED", "language": "en"},
+                          now=now)
+    assert item is not None
+    assert "\ufffd" not in item.headline
+    assert item.headline == "got cancer his friends"
+    assert item.excerpt is not None and "\ufffd" not in item.excerpt

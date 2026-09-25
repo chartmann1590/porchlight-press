@@ -132,4 +132,20 @@ class RoomTest {
         )
         assertEquals("abc", db.weatherDao().byBucket("42.8,-73.9")?.etag)
     }
+
+    @Test
+    fun notifiedAlertsDedupe() = runTest {
+        val dao = db.notifiedAlertDao()
+        dao.insertAll(
+            listOf(
+                com.charleshartman.porchlightpress.data.local.NotifiedAlert("urn:a", 1L, "Tornado Warning"),
+                com.charleshartman.porchlightpress.data.local.NotifiedAlert("urn:b", 2L, "Flood Warning"),
+            ),
+        )
+        assertEquals(listOf("urn:a"), dao.knownIds(listOf("urn:a", "urn:zzz")))
+        // Re-insert is ignored (dedupe holds); prune drops old rows.
+        dao.insertAll(listOf(com.charleshartman.porchlightpress.data.local.NotifiedAlert("urn:a", 3L)))
+        assertEquals(1, dao.pruneOlderThan(2L))
+        assertEquals(listOf("urn:b"), dao.knownIds(listOf("urn:a", "urn:b")))
+    }
 }

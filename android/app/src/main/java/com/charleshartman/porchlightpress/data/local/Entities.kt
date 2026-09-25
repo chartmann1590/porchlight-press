@@ -128,6 +128,18 @@ data class SourceInfo(
     val rightsMode: String,
 )
 
+/**
+ * Severe-weather notify dedupe (Phase 7): one row per NWS alert already
+ * notified. The worker notifies only Warning-level events whose ID is not
+ * in this table.
+ */
+@Entity(tableName = "notified_alerts")
+data class NotifiedAlert(
+    @PrimaryKey val alertId: String,
+    val notifiedAt: Long,
+    val event: String? = null,
+)
+
 @Entity(
     tableName = "story_translations",
     primaryKeys = ["storyId", "version", "lang"],
