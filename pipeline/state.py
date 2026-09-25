@@ -216,6 +216,61 @@ def revalidate_persisted_clusters(
         others = [s for i, s in enumerate(subs) if i != anchor_idx]
         others.sort(key=lambda s: (str(s.get("firstSeen") or ""), str(s.get("eventId") or "")))
         ordered_subs = [subs[anchor_idx]] + others
+        # Alias repair (fix/split-alias-shadowing): the anchor must not keep
+        # claiming a split-off's id as an alias, or update_state() folds the
+        # split back (alias resolution + carry-forward filter). Precompute all
+        # piece ids, strip cross-piece eventIds from every piece, and move any
+        # original alias that equals event_id_for_seed(url or id) of a
+        # split-off's own member from the anchor to that split-off.
+        _orig_aliases: list[str] = []
+        for _al in (rec.get("aliases") or []):
+            if _al and str(_al) not in _orig_aliases:
+                _orig_aliases.append(str(_al))
+        _new_ids: list[str] = [str(rec["eventId"])]
+        _used_ids = set(out.keys()) | {str(rec["eventId"])}
+        for _sub in ordered_subs[1:]:
+            _sm = [dict(m) for m in (_sub.get("members") or []) if isinstance(m, Mapping)]
+            _sm.sort(key=_member_sort_key)
+            _seed = str(_sub.get("seedUrl") or (_sm[0].get("url") if _sm else "") or "")
+            if not _seed and _sm:
+                _seed = str(_sm[0].get("id") or "")
+            _nid = str(_sub.get("eventId") or event_id_for_seed(_seed or rec["eventId"]))
+            _base = _nid
+            _suffix = 1
+            while _nid in _used_ids:
+                _nid = event_id_for_seed(f"{_base}#{_suffix}")
+                _suffix += 1
+                if _suffix > 100:
+                    raise RuntimeError("Failed to generate unique eventId after 100 attempts")
+            _new_ids.append(_nid)
+            _used_ids.add(_nid)
+        _piece_id_set = set(_new_ids)
+        # Seed sets per piece for alias transfer.
+        _seed_sets: list[set[str]] = []
+        for _sub in ordered_subs:
+            _sm2 = [dict(m) for m in (_sub.get("members") or []) if isinstance(m, Mapping)]
+            _seeds: set[str] = set()
+            for _m in _sm2:
+                _url = str(_m.get("url") or "")
+                _mid = str(_m.get("id") or "")
+                if _url:
+                    _seeds.add(event_id_for_seed(_url))
+                if _mid:
+                    _seeds.add(event_id_for_seed(_mid))
+            _seed_sets.append(_seeds)
+        # Transfers: original alias matching a split-off's own member seed.
+        _transfers: list[list[str]] = [[] for _ in ordered_subs]
+        for _idx in range(1, len(ordered_subs)):
+            _t: list[str] = []
+            for _al in _orig_aliases:
+                if _al in _seed_sets[_idx] and _al not in _piece_id_set and _al not in _t:
+                    _t.append(_al)
+            _transfers[_idx] = _t
+        _transferred_union = {a for _t in _transfers for a in _t}
+        _anchor_aliases = [
+            _al for _al in _orig_aliases
+            if _al not in _piece_id_set and _al not in _transferred_union
+        ]
         for si, sub in enumerate(ordered_subs):
             sub_members = [dict(m) for m in sub.get("members", [])]
             sub_members.sort(key=_member_sort_key)
@@ -223,6 +278,7 @@ def revalidate_persisted_clusters(
             if si == 0:
                 new_rec = dict(rec)
                 new_rec["eventId"] = rec["eventId"]
+                new_rec["aliases"] = list(_anchor_aliases)
                 new_rec["members"] = sub_members
                 new_rec["memberIds"] = sub_ids
                 new_rec["firstSeen"] = sub.get("firstSeen")
@@ -268,24 +324,27 @@ def revalidate_persisted_clusters(
                 _drop_brief(new_rec)
                 out.setdefault(new_rec["eventId"], new_rec)
             else:
-                seed_url = str(sub.get("seedUrl") or (sub_members[0].get("url") if sub_members else "") or "")
-                if not seed_url and sub_members:
-                    seed_url = str(sub_members[0].get("id") or "")
-                new_id = str(sub.get("eventId") or event_id_for_seed(seed_url or rec["eventId"]))
-                # Avoid collisions deterministically.
-                suffix = 1
-                base = new_id
-                while new_id in out or new_id == rec["eventId"]:
-                    # Deterministic fallback: hash base + index.
-                    new_id = event_id_for_seed(f"{base}#{suffix}")
-                    suffix += 1
-                    if suffix > 100:
+                # Use precomputed id so alias repair and record ids agree.
+                new_id = _new_ids[si]
+                # Defensive: keep deterministic fallback if out changed.
+                _base2 = new_id
+                _suffix2 = 1
+                while new_id in out:
+                    new_id = event_id_for_seed(f"{_base2}#{_suffix2}")
+                    _suffix2 += 1
+                    if _suffix2 > 100:
                         raise RuntimeError("Failed to generate unique eventId after 100 attempts")
+                # Split-off owns any original alias matching its own member
+                # seed (already stripped of cross-piece eventIds/self).
+                _split_aliases = [
+                    a for a in _transfers[si]
+                    if a != new_id and a not in _piece_id_set
+                ]
                 new_rec2: dict[str, Any] = {
                     "eventId": new_id,
                     "members": sub_members,
                     "memberIds": sub_ids,
-                    "aliases": [],
+                    "aliases": _split_aliases,
                     "version": 1,
                     "status": "updated",
                     "firstSeen": sub.get("firstSeen"),
@@ -472,12 +531,17 @@ def update_state(
     """
     sources_by_id = sources_by_id or {}
     moment = now or datetime.now(timezone.utc)
-    # Alias -> surviving eventId from previous state.
+    # Alias -> surviving eventId from previous state. Direct eventIds always
+    # win over aliases (fix/split-alias-shadowing): an alias must never shadow
+    # an eventId that exists as its own record in prev.
     alias_to_id: dict[str, str] = {}
+    for eid in prev.keys():
+        alias_to_id[str(eid)] = str(eid)
     for eid, rec in prev.items():
-        alias_to_id[eid] = eid
         for al in rec.get("aliases", []) or []:
-            alias_to_id.setdefault(str(al), eid)
+            al_s = str(al)
+            if al_s not in alias_to_id:
+                alias_to_id[al_s] = str(eid)
 
     # Index previous member item ids -> eventId for overlap merges.
     member_to_prev: dict[str, str] = {}
@@ -577,12 +641,45 @@ def update_state(
         updated[survivor] = rec
 
     # Carry forward previous clusters absent from this batch (still active),
-    # marked unchanged so Phase 3 can keep their briefs.
+    # marked unchanged so Phase 3 can keep their briefs. Robust to stale
+    # split aliases (fix/split-alias-shadowing): an alias that shadows a
+    # direct eventId in prev must not hide that record unless its members
+    # were actually merged into the claimer (legit oldest-wins). A stale
+    # alias whose members are still separate is ignored so the split-off
+    # survives; this also removes order-dependence where a carried parent
+    # would hide its split-off.
+    _prev_ids = set(str(k) for k in prev.keys())
     for eid, rec in prev.items():
-        if eid not in updated and not any(eid in r.get("aliases", []) for r in updated.values()):
-            carry = dict(rec)
-            carry["status"] = "unchanged"
-            updated[eid] = carry
+        eid_s = str(eid)
+        if eid_s in updated:
+            continue
+        _suppress = False
+        for _r in updated.values():
+            _aliases = [str(a) for a in (_r.get("aliases", []) or [])]
+            if eid_s not in _aliases:
+                continue
+            if eid_s in _prev_ids:
+                _prev_mids = set(
+                    str(m) for m in (prev.get(eid, {}).get("memberIds", []) or [])
+                )
+                _claimer_mids = set(
+                    str(m) for m in (_r.get("memberIds", []) or [])
+                )
+                # Real merge: claimer already contains all members -> suppress
+                # carry to avoid duplicates (preserves test_merge_* behavior).
+                if _prev_mids and _prev_mids.issubset(_claimer_mids):
+                    _suppress = True
+                    break
+                # Stale shadowing, members still separate -> ignore claim.
+                continue
+            # Non-shadowing alias (retired id): respect claim, suppress.
+            _suppress = True
+            break
+        if _suppress:
+            continue
+        carry = dict(rec)
+        carry["status"] = "unchanged"
+        updated[eid] = carry
 
     # Prune clusters older than prune_days (by lastSeen).
     pruned: dict[str, dict[str, Any]] = {}
