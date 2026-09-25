@@ -443,8 +443,29 @@ fun AlertBanner(
     onClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
+    AlertBanner(title = title, description = description, severity = "Unknown", onClick = onClick, modifier = modifier)
+}
+
+/**
+ * Severe-weather banner, colored by NWS severity (Phase 7): Extreme/Severe
+ * red, Moderate secondary, Minor/Unknown neutral. No ads ever appear in or
+ * around alerts.
+ */
+@Composable
+fun AlertBanner(
+    title: String,
+    description: String? = null,
+    severity: String,
+    onClick: (() -> Unit)? = null,
+    modifier: Modifier = Modifier,
+) {
+    val colors = when (severity.lowercase()) {
+        "extreme", "severe" -> MaterialTheme.colorScheme.errorContainer to MaterialTheme.colorScheme.onErrorContainer
+        "moderate" -> MaterialTheme.colorScheme.secondaryContainer to MaterialTheme.colorScheme.onSecondaryContainer
+        else -> MaterialTheme.colorScheme.surfaceVariant to MaterialTheme.colorScheme.onSurfaceVariant
+    }
     Surface(
-        color = MaterialTheme.colorScheme.errorContainer,
+        color = colors.first,
         shape = MaterialTheme.shapes.small,
         modifier = modifier
             .fillMaxWidth()
@@ -452,9 +473,9 @@ fun AlertBanner(
             .testTag("alert-banner"),
     ) {
         Column(Modifier.padding(12.dp)) {
-            Text("⚠ $title", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), color = MaterialTheme.colorScheme.onErrorContainer)
+            Text("⚠ $title", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), color = colors.second)
             if (!description.isNullOrBlank()) {
-                Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onErrorContainer, modifier = Modifier.padding(top = 4.dp))
+                Text(description, style = MaterialTheme.typography.bodySmall, color = colors.second, modifier = Modifier.padding(top = 4.dp))
             }
         }
     }

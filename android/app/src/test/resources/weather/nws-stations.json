@@ -1,0 +1,8 @@
+{
+  "features": [
+    {
+      "id": "https://api.weather.gov/stations/KALB",
+      "properties": {"stationIdentifier": "KALB"}
+    }
+  ]
+}
