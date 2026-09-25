@@ -1,5 +1,8 @@
 # HOW_TO_ADD_A_SOURCE
 
+See also: `HOW_TO_ADD_A_CITY.md` (adding a whole market),
+`ZERO_COST_ARCHITECTURE.md` (why sources must stay free/public).
+
 Sources are config, not code: add a JSON file under `sources/` and open a PR.
 CI validates every file against `schemas/source.schema.json`.
 
