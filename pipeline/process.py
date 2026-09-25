@@ -251,7 +251,13 @@ def main(argv: list[str] | None = None) -> int:
 
         # 5. State: status/version/aliases/prune, preserving brief hashes.
         step = "state"
-        prev = load_state(Path(args.state))
+        prev = load_state(
+            Path(args.state),
+            threshold=float(clustering_cfg.get("similarityThreshold", 0.45)),
+            window_hours=float(clustering_cfg.get("windowHours", 72)),
+            weights=clustering_cfg.get("weights", {}),
+            merge_threshold=float(clustering_cfg.get("mergeThreshold", 0.65)),
+        )
         final = update_state(prev, enriched_clusters, sources_by_id, now=now,
                              prune_days=float(state_cfg.get("pruneDays", 7)))
 
