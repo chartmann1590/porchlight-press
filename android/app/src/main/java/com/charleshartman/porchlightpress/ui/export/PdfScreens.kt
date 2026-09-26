@@ -73,6 +73,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.charleshartman.porchlightpress.AppContainer
+import com.charleshartman.porchlightpress.ui.components.AiDisclaimerCard
 import com.charleshartman.porchlightpress.ui.components.PorchlightMark
 import com.charleshartman.porchlightpress.ui.theme.CrimsonDeep
 import com.charleshartman.porchlightpress.ui.theme.GoldLamp
@@ -466,6 +467,12 @@ fun DownloadedPapersScreen(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
                 )
             }
+        }
+
+        item(key = "newsstand-ai-disclaimer") {
+            AiDisclaimerCard(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+            )
         }
     }
 }

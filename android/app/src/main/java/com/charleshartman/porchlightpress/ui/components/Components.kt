@@ -651,6 +651,37 @@ fun AiDisclosureBox(modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun AiDisclaimerCard(modifier: Modifier = Modifier) {
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 1.dp,
+        modifier = modifier
+            .fillMaxWidth()
+            .testTag("ai-disclaimer-card"),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                AiBadge()
+                Text(
+                    "EDITORIAL TRANSPARENCY",
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.8.sp),
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+            Text(
+                "Stories in Porchlight Press are AI-generated briefs synthesized from verified local news reports and primary public sources. Every brief links directly to the original publisher's coverage for full context.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
 fun TranslationLabel(
     isTranslated: Boolean,
     onToggle: () -> Unit,
