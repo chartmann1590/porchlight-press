@@ -37,6 +37,10 @@ object EditionPdf {
                 it.id, it.label, it.country, it.admin1, it.admin2, it.city, it.metro, it.lat, it.lon, it.tz
             )
         } ?: error("Location not found")
+        // Attempt refresh first so today's edition is fetched if possible; fallback to cache if offline
+        runCatching {
+            container.editionRepository.sync(place, "latest", container.feedApi)
+        }
         var content = container.editionRepository.cachedContent(locationId, "latest")
         if (content == null) {
             container.editionRepository.sync(place, "latest", container.feedApi)
@@ -49,7 +53,12 @@ object EditionPdf {
             val sources = container.db.storyDao().sourcesFor(story.id)
             val label = sources.firstOrNull()?.publisher
             val translation = if (lang != "en") {
-                container.db.translationDao().storyTranslation(story.id, story.version, lang)
+                val cached = container.db.translationDao().storyTranslation(story.id, story.version, lang)
+                cached ?: runCatching {
+                    container.translationRepository.translateStoryOnce(
+                        story.id, story.version, story.headline, story.dek, story.body, lang,
+                    )
+                }.getOrNull()
             } else null
             com.charleshartman.porchlightpress.ui.frontpage.FrontStoryUi(story, translation, false, label)
         }
@@ -74,7 +83,9 @@ object EditionPdf {
         withContext(Dispatchers.IO) {
             require(edition.sections.isNotEmpty()) { "No edition is available" }
             val place = edition.place?.label ?: "Local"
-            val date = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
+            val date = edition.generatedAt.take(10).ifBlank {
+                SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
+            }
             val slug = place.lowercase(Locale.US).replace(Regex("[^a-z0-9]+"), "-").trim('-')
             val file = File(File(context.filesDir, "papers").apply { mkdirs() },
                 "porchlight-press-$slug-$date-${language.lowercase(Locale.US)}.pdf")

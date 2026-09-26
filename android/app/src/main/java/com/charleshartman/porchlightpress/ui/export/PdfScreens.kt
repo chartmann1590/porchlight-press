@@ -299,7 +299,14 @@ fun DownloadedPapersScreen(
     val activeLocation = locations.firstOrNull { it.id == activeLocId } ?: locations.firstOrNull()
 
     val todayStr = remember { SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date()) }
-    val todayDownloaded = papers.any { it.name.contains(todayStr) }
+    val activeSlug = activeLocation?.label?.lowercase(Locale.US)?.replace(Regex("[^a-z0-9]+"), "-")?.trim('-')
+    val activeLang = (prefs?.appLanguage ?: "en").lowercase(Locale.US)
+    val todayDownloaded = papers.any {
+        val name = it.name
+        name.contains(todayStr) &&
+            (activeSlug == null || name.contains(activeSlug)) &&
+            name.contains("-$activeLang.pdf")
+    }
 
     fun refreshPapers() {
         papers.clear()
@@ -382,8 +389,13 @@ fun DownloadedPapersScreen(
                         }
                     },
                     onReadToday = {
-                        val latest = papers.firstOrNull { it.name.contains(todayStr) } ?: papers.firstOrNull()
-                        if (latest != null) onViewPdf(latest.name)
+                        val matching = papers.firstOrNull {
+                            val name = it.name
+                            name.contains(todayStr) &&
+                                (activeSlug == null || name.contains(activeSlug)) &&
+                                name.contains("-$activeLang.pdf")
+                        } ?: papers.firstOrNull { it.name.contains(todayStr) } ?: papers.firstOrNull()
+                        if (matching != null) onViewPdf(matching.name)
                     },
                     classic = classic,
                 )
