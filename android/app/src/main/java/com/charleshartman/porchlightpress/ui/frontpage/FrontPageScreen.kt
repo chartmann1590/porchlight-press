@@ -125,9 +125,11 @@ fun FrontPageScreen(
                         menuOpen = false
                         val queue = state.sections.flatMap { it.stories }.distinctBy { it.story.id }.map { item ->
                             val title = item.translation?.headline ?: item.story.headline
-                            com.charleshartman.porchlightpress.ui.speech.SpeechItem(title,
-                                listOfNotNull(title, item.translation?.dek ?: item.story.dek,
-                                    item.translation?.body ?: item.story.body).joinToString(". "))
+                            val storyText = item.translation?.body ?: item.story.body ?: item.story.excerpt
+                            com.charleshartman.porchlightpress.ui.speech.SpeechItem(
+                                title,
+                                listOfNotNull(title, item.translation?.dek ?: item.story.dek, storyText).joinToString(". "),
+                            )
                         }
                         com.charleshartman.porchlightpress.ui.speech.SpeechController.playQueue(context, queue, lang, prefs?.readAloudSpeed?.toFloat() ?: 1f)
                     })
@@ -193,6 +195,24 @@ fun FrontPageScreen(
                     onAlertClick = onAlertClick,
                 )
             }
+        }
+        // Docked Audio Player Bar visible when listening to edition or stories
+        val speech by com.charleshartman.porchlightpress.ui.speech.SpeechController.state.collectAsState()
+        if (speech.count > 0 && (speech.playing || speech.title.isNotBlank())) {
+            com.charleshartman.porchlightpress.ui.components.AudioPlayerBar(
+                state = speech,
+                onPlayPause = {
+                    if (speech.playing) com.charleshartman.porchlightpress.ui.speech.SpeechController.pause(context)
+                    else com.charleshartman.porchlightpress.ui.speech.SpeechController.resume(context)
+                },
+                onSeek = { targetIndex ->
+                    com.charleshartman.porchlightpress.ui.speech.SpeechController.seekTo(context, targetIndex)
+                },
+                onPrevious = { com.charleshartman.porchlightpress.ui.speech.SpeechController.command(context, com.charleshartman.porchlightpress.ui.speech.SpeechService.PREVIOUS) },
+                onNext = { com.charleshartman.porchlightpress.ui.speech.SpeechController.command(context, com.charleshartman.porchlightpress.ui.speech.SpeechService.NEXT) },
+                onStop = { com.charleshartman.porchlightpress.ui.speech.SpeechController.stop(context) },
+                modifier = Modifier.fillMaxWidth().testTag("front-audio-player"),
+            )
         }
         // Anchored banner below the list (owner request): always visible at
         // the front-page bottom without covering content. Collapses to
