@@ -209,7 +209,9 @@ fun PorchlightNavGraph(
                 onStoryClick = { navController.navigate(Routes.article(it)) },
                 downloadedPapers = {
                     com.charleshartman.porchlightpress.ui.export.DownloadedPapersScreen(
-                        onViewPdf = { navController.navigate(Routes.pdf(it)) })
+                        onViewPdf = { navController.navigate(Routes.pdf(it)) },
+                        container = container,
+                    )
                 })
         }
         composable(Routes.SEARCH) {

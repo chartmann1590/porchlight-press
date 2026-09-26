@@ -27,6 +27,49 @@ import java.util.Locale
 
 /** Exports exactly the cached edition and translated text currently displayed. */
 object EditionPdf {
+    suspend fun exportCurrent(context: Context, container: AppContainer): File = withContext(Dispatchers.IO) {
+        val prefs = container.prefs.snapshot()
+        val locationId = prefs.activeLocationId ?: error("No active location selected")
+        val lang = prefs.appLanguage
+        val locRow = container.db.savedLocationDao().byId(locationId)
+        val place = locRow?.let {
+            com.charleshartman.porchlightpress.domain.Place(
+                it.id, it.label, it.country, it.admin1, it.admin2, it.city, it.metro, it.lat, it.lon, it.tz
+            )
+        } ?: error("Location not found")
+        var content = container.editionRepository.cachedContent(locationId, "latest")
+        if (content == null) {
+            container.editionRepository.sync(place, "latest", container.feedApi)
+            content = container.editionRepository.cachedContent(locationId, "latest")
+                ?: error("No edition available for this location yet.")
+        }
+        val edition = content.edition
+        val allStoriesRaw = content.sections.flatMap { it.second }.distinctBy { it.id }
+        val uiStories = allStoriesRaw.map { story ->
+            val sources = container.db.storyDao().sourcesFor(story.id)
+            val label = sources.firstOrNull()?.publisher
+            val translation = if (lang != "en") {
+                container.db.translationDao().storyTranslation(story.id, story.version, lang)
+            } else null
+            com.charleshartman.porchlightpress.ui.frontpage.FrontStoryUi(story, translation, false, label)
+        }
+        val interests = prefs.interests
+        val sections = content.sections.map { (sec, stories) ->
+            val mapped = stories.map { story -> uiStories.first { it.story.id == story.id } }
+                .sortedByDescending { it.story.category in interests }
+            com.charleshartman.porchlightpress.ui.frontpage.SectionUi(sec.sectionId, sec.title, mapped)
+        }
+        val state = FrontPageUiState(
+            isLoading = false,
+            place = place,
+            editionKind = edition.kind,
+            generatedAt = edition.generatedAt,
+            sections = sections,
+            allStories = uiStories,
+        )
+        export(context, container, state, lang)
+    }
+
     suspend fun export(context: Context, container: AppContainer, edition: FrontPageUiState, language: String): File =
         withContext(Dispatchers.IO) {
             require(edition.sections.isNotEmpty()) { "No edition is available" }
@@ -38,6 +81,7 @@ object EditionPdf {
             val pdf = PdfDocument()
             try {
                 val page = Pages(pdf)
+                page.setHeaders(place, date)
                 page.masthead(place, date)
                 suspend fun label(key: String, english: String): String = runCatching {
                     container.translationRepository.uiTextOnce(key, english, language)
@@ -47,23 +91,23 @@ object EditionPdf {
                 val sourceLabel = label("pdf.sources", "REPORTING SOURCES")
                 val translationNote = label("pdf.translationNote", "Translated on device with Google ML Kit. Original reporting linked above.")
                 edition.sections.forEach { section ->
-                    page.write(label("pdf.section.${section.id}", section.title).uppercase(Locale.forLanguageTag(language)), 15f, true, 10f)
+                    page.sectionHeader(label("pdf.section.${section.id}", section.title).uppercase(Locale.forLanguageTag(language)))
                     section.stories.forEach { item ->
                         val story = item.story
                         val translated = item.translation.takeIf { language != "en" }
-                        page.write(translated?.headline ?: story.headline, 16f, true, 7f)
-                        (translated?.dek ?: story.dek)?.takeIf(String::isNotBlank)?.let { page.write(it, 11f, false, 7f) }
+                        page.headline(translated?.headline ?: story.headline)
+                        (translated?.dek ?: story.dek)?.takeIf(String::isNotBlank)?.let { page.write(it, 10.5f, false, 6f, isItalic = true) }
                         page.write(if (story.aiGenerated) aiLabel
-                            else "$sourceCardLabel ${item.sourceLabel ?: "publisher"}", 8f, true, 6f)
-                        (translated?.body ?: story.body)?.takeIf(String::isNotBlank)?.let { page.write(it, 10f, false, 8f) }
+                            else "$sourceCardLabel ${item.sourceLabel ?: "publisher"}", 7.5f, true, 5f)
+                        (translated?.body ?: story.body)?.takeIf(String::isNotBlank)?.let { page.write(it, 9.5f, false, 7f) }
                         val sources = container.db.storyDao().sourcesFor(story.id)
-                        if (sources.isNotEmpty()) page.write(sourceLabel, 8f, true, 4f)
+                        if (sources.isNotEmpty()) page.write(sourceLabel, 7.5f, true, 3f)
                         sources.forEach { source ->
-                            page.write("${source.publisher}: ${source.headline}", 8f, false, 2f)
-                            page.write(source.url, 8f, false, 4f)
+                            page.write("${source.publisher}: ${source.headline}", 7.5f, false, 2f)
+                            page.write(source.url, 7.5f, false, 3f)
                         }
-                        if (translated != null) page.write(translationNote, 8f, false, 5f)
-                        page.space(12f)
+                        if (translated != null) page.write(translationNote, 7.5f, false, 4f)
+                        page.storyDivider()
                     }
                 }
                 page.finish()
@@ -134,41 +178,178 @@ object EditionPdf {
         private var column = 0
         private var y = margin
         private var firstPageContentTop = margin
+        private var placeHeader = ""
+        private var dateHeader = ""
 
         init { nextPage() }
 
+        fun setHeaders(place: String, date: String) {
+            placeHeader = place
+            dateHeader = date
+        }
+
         private fun nextPage() {
+            drawColumnDivider()
             page?.let(pdf::finishPage)
             number++
             page = pdf.startPage(PdfDocument.PageInfo.Builder(width, height, number).create())
             canvas = page!!.canvas.apply { drawColor(Color.WHITE) }
             column = 0; y = margin
-            val pen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.DKGRAY; textSize = 9f }
-            canvas!!.drawText("Porchlight Press  •  $number", margin, height - 20f, pen)
+            
+            // Running top header on page 2+
+            if (number > 1) {
+                val headerPen = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                    color = Color.DKGRAY
+                    textSize = 8f
+                    typeface = Typeface.create("serif", Typeface.ITALIC)
+                }
+                canvas!!.drawText("PORCHLIGHT PRESS", margin, y + 8f, headerPen)
+                val rightText = if (placeHeader.isNotBlank()) "$placeHeader  •  $dateHeader  •  Page $number" else "Page $number"
+                headerPen.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+                canvas!!.drawText(rightText, width - margin - headerPen.measureText(rightText), y + 8f, headerPen)
+                val linePen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.LTGRAY; strokeWidth = 0.5f }
+                canvas!!.drawLine(margin, y + 12f, width - margin, y + 12f, linePen)
+                y += 20f
+            }
+            
+            // Running bottom footer
+            val pen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.DKGRAY; textSize = 8f }
+            canvas!!.drawText("Porchlight Press  •  The Daily Broadsheet  •  Page $number", margin, height - 20f, pen)
+        }
+
+        private fun drawColumnDivider() {
+            val top = if (number == 1) firstPageContentTop else margin + 14f
+            val bottom = height - 34f
+            val dividerX = margin + columnWidth + gap / 2f
+            val pen = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.LTGRAY
+                strokeWidth = 0.5f
+            }
+            canvas?.drawLine(dividerX, top, dividerX, bottom, pen)
         }
 
         private fun advance(required: Float = 0f) {
             if (y + required <= height - 42f) return
-            if (column == 0) { column = 1; y = if (number == 1) firstPageContentTop else margin } else nextPage()
+            if (column == 0) {
+                column = 1
+                y = if (number == 1) firstPageContentTop else margin + (if (number > 1) 20f else 0f)
+            } else {
+                nextPage()
+            }
         }
 
         fun masthead(place: String, date: String) {
-            val pen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLACK; typeface = Typeface.create("serif", Typeface.BOLD) }
-            pen.textSize = 26f
-            canvas!!.drawText("PORCHLIGHT PRESS", (width - pen.measureText("PORCHLIGHT PRESS")) / 2, y + 26f, pen)
-            y += 42f; pen.textSize = 12f
-            val subtitle = "$place  •  $date"
-            canvas!!.drawText(subtitle, (width - pen.measureText(subtitle)) / 2, y + 12f, pen)
-            y += 28f
-            canvas!!.drawLine(margin, y, width - margin, y, pen)
-            y += 15f
+            val pen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLACK }
+
+            // Ear boxes on left and right
+            val earPen = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.DKGRAY
+                textSize = 7f
+                typeface = Typeface.create("sans-serif", Typeface.BOLD)
+            }
+            val earBorderPen = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.LTGRAY
+                strokeWidth = 0.5f
+                style = Paint.Style.STROKE
+            }
+
+            // Left ear box
+            canvas!!.drawRect(margin, y, margin + 85f, y + 26f, earBorderPen)
+            canvas!!.drawText("PRINT BROADSHEET", margin + 6f, y + 11f, earPen)
+            earPen.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+            earPen.textSize = 6.5f
+            canvas!!.drawText("THE DAILY EDITION", margin + 6f, y + 20f, earPen)
+
+            // Right ear box
+            canvas!!.drawRect(width - margin - 85f, y, width - margin, y + 26f, earBorderPen)
+            earPen.typeface = Typeface.create("sans-serif", Typeface.BOLD)
+            earPen.textSize = 7f
+            canvas!!.drawText("PRICE: FREE", width - margin - 78f, y + 11f, earPen)
+            earPen.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+            earPen.textSize = 6.5f
+            canvas!!.drawText("OFFLINE ARCHIVE", width - margin - 78f, y + 20f, earPen)
+
+            // Main Masthead Title: PORCHLIGHT PRESS
+            pen.typeface = Typeface.create("serif", Typeface.BOLD)
+            pen.textSize = 28f
+            val title = "PORCHLIGHT PRESS"
+            val titleX = (width - pen.measureText(title)) / 2f
+            canvas!!.drawText(title, titleX, y + 24f, pen)
+
+            y += 34f
+
+            // Sub-title motto
+            pen.textSize = 7.5f
+            pen.typeface = Typeface.create("serif", Typeface.ITALIC)
+            val motto = "• The Voice of the Community  —  Personal Local Broadsheet •"
+            canvas!!.drawText(motto, (width - pen.measureText(motto)) / 2f, y + 6f, pen)
+
+            y += 12f
+
+            // Traditional Newspaper Double Rule for Dateline Bar
+            val thickPen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLACK; strokeWidth = 1.5f }
+            canvas!!.drawLine(margin, y, width - margin, y, thickPen)
+            y += 12f
+
+            // Dateline bar content
+            val datelinePen = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.BLACK
+                textSize = 8.5f
+                typeface = Typeface.create("serif", Typeface.BOLD)
+            }
+            val placeUpper = place.uppercase(Locale.US)
+            canvas!!.drawText(placeUpper, margin, y, datelinePen)
+
+            datelinePen.typeface = Typeface.create("serif", Typeface.NORMAL)
+            val dateX = (width - datelinePen.measureText(date)) / 2f
+            canvas!!.drawText(date, dateX, y, datelinePen)
+
+            val editionVol = "VOL. I  •  BROADSHEET"
+            val volX = width - margin - datelinePen.measureText(editionVol)
+            canvas!!.drawText(editionVol, volX, y, datelinePen)
+
+            y += 5f
+            val thinPen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLACK; strokeWidth = 0.5f }
+            canvas!!.drawLine(margin, y, width - margin, y, thinPen)
+
+            y += 16f
             firstPageContentTop = y
         }
 
-        fun write(text: String, size: Float, bold: Boolean, after: Float) {
+        fun headline(text: String) {
+            write(text, size = 15f, bold = true, after = 5f, isSerif = true)
+        }
+
+        fun sectionHeader(title: String) {
+            space(6f)
+            val linePen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.BLACK; strokeWidth = 0.75f }
+            val colX = margin + column * (columnWidth + gap)
+            canvas?.drawLine(colX, y, colX + columnWidth, y, linePen)
+            y += 4f
+            write(title, size = 11.5f, bold = true, after = 3f, isSerif = true)
+            canvas?.drawLine(colX, y, colX + columnWidth, y, linePen)
+            y += 6f
+            advance()
+        }
+
+        fun storyDivider() {
+            val colX = margin + column * (columnWidth + gap)
+            val centerX = colX + columnWidth / 2f
+            val pen = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.LTGRAY; strokeWidth = 0.5f }
+            canvas?.drawLine(centerX - 30f, y + 3f, centerX + 30f, y + 3f, pen)
+            space(8f)
+        }
+
+        fun write(text: String, size: Float, bold: Boolean, after: Float, isSerif: Boolean = false, isItalic: Boolean = false) {
+            val typefaceStyle = when {
+                bold && isItalic -> Typeface.BOLD_ITALIC
+                bold -> Typeface.BOLD
+                isItalic -> Typeface.ITALIC
+                else -> Typeface.NORMAL
+            }
             val pen = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
                 color = Color.BLACK; textSize = size
-                typeface = Typeface.create("sans-serif", if (bold) Typeface.BOLD else Typeface.NORMAL)
+                typeface = Typeface.create(if (isSerif) "serif" else "sans-serif", typefaceStyle)
             }
             text.split('\n').forEach { part ->
                 var left = part.ifEmpty { " " }
@@ -194,6 +375,11 @@ object EditionPdf {
         }
 
         fun space(amount: Float) { y += amount; advance() }
-        fun finish() { page?.let(pdf::finishPage); page = null; canvas = null }
+        fun finish() {
+            drawColumnDivider()
+            page?.let(pdf::finishPage)
+            page = null
+            canvas = null
+        }
     }
 }
