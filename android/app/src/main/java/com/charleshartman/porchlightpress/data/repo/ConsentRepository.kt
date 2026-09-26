@@ -30,6 +30,7 @@ interface ConsentGateway {
 }
 
 class UmpConsentGateway : ConsentGateway {
+    private var optionsRequired = false
     override suspend fun requestUpdate(activity: Activity): ConsentState =
         suspendCancellableCoroutine { cont ->
             val paramsBuilder = ConsentRequestParameters.Builder()
@@ -47,11 +48,15 @@ class UmpConsentGateway : ConsentGateway {
                 activity,
                 paramsBuilder.build(),
                 {
+                    optionsRequired = consentInfo.privacyOptionsRequirementStatus ==
+                        ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED
                     if (!consentInfo.isConsentFormAvailable) {
-                        cont.resume(ConsentState.NotRequired)
+                        if (cont.isActive) cont.resume(if (consentInfo.canRequestAds()) ConsentState.NotRequired
+                            else ConsentState.FormError("Consent is not available yet. Please try again."))
                         return@requestConsentInfoUpdate
                     }
                     UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) { formError ->
+                        if (!cont.isActive) return@loadAndShowConsentFormIfRequired
                         if (formError != null) {
                             cont.resume(ConsentState.FormError(formError.message))
                         } else if (consentInfo.privacyOptionsRequirementStatus ==
@@ -64,11 +69,11 @@ class UmpConsentGateway : ConsentGateway {
                         }
                     }
                 },
-                { cont.resume(ConsentState.FormError(it.message)) },
+                { if (cont.isActive) cont.resume(ConsentState.FormError(it.message)) },
             )
         }
 
-    override fun privacyOptionsRequired(): Boolean = false
+    override fun privacyOptionsRequired(): Boolean = optionsRequired
 
     override fun showPrivacyOptions(activity: Activity, onDone: () -> Unit) {
         UserMessagingPlatform.showPrivacyOptionsForm(activity) { onDone() }
@@ -87,6 +92,11 @@ class FakeConsentGateway(var state: ConsentState = ConsentState.Obtained) : Cons
 }
 
 class ConsentRepository(private val gateway: ConsentGateway) {
+    fun privacyOptionsRequired(): Boolean = gateway.privacyOptionsRequired()
+
+    fun showPrivacyOptions(activity: Activity, onDone: () -> Unit = {}) {
+        gateway.showPrivacyOptions(activity, onDone)
+    }
     private val _state = MutableStateFlow<ConsentState>(ConsentState.Unknown)
     val state: StateFlow<ConsentState> = _state
 

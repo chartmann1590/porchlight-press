@@ -9,15 +9,38 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Requested at runtime only if a notification toggle is on (Android 13+). -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
         android:name=".PorchlightApp"
         android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher_foreground"
         android:theme="@style/Theme.PorchlightPress"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:usesCleartextTraffic="false"
         android:supportsRtl="true"
-        tools:targetApi="34">
+        tools:targetApi="36">
+
+        <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
+        <meta-data android:name="google_analytics_automatic_screen_reporting_enabled" android:value="false" />
+        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+        <meta-data android:name="firebase_performance_collection_enabled" android:value="false" />
+        <property android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config" tools:replace="android:resource" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
+        </provider>
+        <service android:name=".ui.speech.SpeechService" android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+        
 
         <!-- AdMob App ID: manifest placeholder. Debug/test builds use Google's
             test App ID; release injects the real one from CI secrets.

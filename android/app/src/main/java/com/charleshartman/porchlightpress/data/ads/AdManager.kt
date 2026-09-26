@@ -43,15 +43,16 @@ object AdPolicy {
 }
 
 class InterstitialController(
-    private val config: AdConfig = AdConfig(),
+    var config: AdConfig = AdConfig(),
 ) {
     private var articleReturnCount = 0
     private var lastShownMs: Long? = null
 
     @Synchronized
     fun onArticleReturn(nowMs: Long = System.currentTimeMillis()): Boolean {
+        if (!config.enabled) return false
         articleReturnCount++
-        if (articleReturnCount % config.interstitialEveryN != 0) return false
+        if (articleReturnCount % config.interstitialEveryN.coerceAtLeast(1) != 0) return false
         val last = lastShownMs
         if (last != null && nowMs - last < config.interstitialMinIntervalSec * 1000L) return false
         lastShownMs = nowMs
@@ -80,6 +81,11 @@ class AdMobGate(private val context: Context) {
     var config: AdConfig = AdConfig()
 
     fun initializeIfConsented(consented: Boolean) {
+        if (!consented) {
+            _adsReady.value = false
+            interstitial = null
+            return
+        }
         // MobileAds.initialize is idempotent, but the ready flag and preload
         // must follow the current config: ads can flip from disabled (no
         // consent yet) to enabled later, so never get stuck by an early call.
@@ -104,7 +110,7 @@ class AdMobGate(private val context: Context) {
     }
 
     fun preloadInterstitial() {
-        if (!config.enabled) return
+        if (!config.enabled || !_adsReady.value) return
         val adUnit = AdPolicy.interstitialId()
         if (adUnit.isBlank()) return
         val req = AdRequest.Builder().build()
@@ -121,6 +127,7 @@ class AdMobGate(private val context: Context) {
     }
 
     fun popInterstitial(): InterstitialAd? {
+        if (!config.enabled || !_adsReady.value) return null
         val ad = interstitial
         interstitial = null
         // Preload the next one after each show (Phase 9 spec).
@@ -130,7 +137,7 @@ class AdMobGate(private val context: Context) {
 
     // Banner helper (for AndroidView wrapper) – caller handles AdView lifecycle.
     fun makeBanner(context: Context): AdView? {
-        if (!config.enabled) return null
+        if (!config.enabled || !_adsReady.value) return null
         return try {
             AdView(context).apply {
                 setAdSize(com.google.android.gms.ads.AdSize.BANNER)
@@ -155,7 +162,7 @@ class AdMobGate(private val context: Context) {
      * returned ad and must destroy() it when done.
      */
     fun loadNative(onLoaded: (NativeAd) -> Unit, onFailed: () -> Unit = {}) {
-        if (!config.enabled) {
+        if (!config.enabled || !_adsReady.value) {
             onFailed()
             return
         }

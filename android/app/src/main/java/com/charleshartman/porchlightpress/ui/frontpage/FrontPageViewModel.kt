@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.collectLatest
 
 data class FrontStoryUi(
     val story: Story,
@@ -50,13 +52,15 @@ class FrontPageViewModel(
 
     init {
         viewModelScope.launch {
-            container.prefs.prefs.collect { prefs ->
+            container.prefs.prefs.collectLatest { prefs ->
                 val locationId = prefs.activeLocationId
                 if (locationId == null) {
                     _state.value = FrontPageUiState(isLoading = false, error = "Pick a location to see your paper.")
-                    return@collect
+                    return@collectLatest
                 }
-                load(locationId, prefs.appLanguage)
+                container.db.editionDao().observeEditionFor(locationId, "latest").collectLatest {
+                    load(locationId, prefs.appLanguage)
+                }
             }
         }
     }
@@ -70,7 +74,10 @@ class FrontPageViewModel(
             } ?: _state.value.place ?: return@launch
             val result = container.editionRepository.sync(place, "latest", container.feedApi)
             when (result) {
-                is com.charleshartman.porchlightpress.domain.FeedResult.Ok -> load(id, container.prefs.snapshot().appLanguage)
+                is com.charleshartman.porchlightpress.domain.FeedResult.Ok -> {
+                    _state.value = _state.value.copy(offline = false)
+                    load(id, container.prefs.snapshot().appLanguage)
+                }
                 is com.charleshartman.porchlightpress.domain.FeedResult.Offline -> {
                     _state.value = _state.value.copy(isRefreshing = false, offline = true)
                     load(id, container.prefs.snapshot().appLanguage)
@@ -117,7 +124,10 @@ class FrontPageViewModel(
                 FrontStoryUi(story, translation, isTranslating, label)
             }
             // Build sections: respect feed sections if >1, else synthesize from categories/places.
-            val sections = buildSections(content, uiStories, place)
+            val interests = container.prefs.snapshot().interests
+            val sections = buildSections(content, uiStories, place).map { section ->
+                section.copy(stories = section.stories.sortedByDescending { it.story.category in interests })
+            }
             _state.value = FrontPageUiState(
                 isLoading = false,
                 isRefreshing = false,
@@ -126,15 +136,15 @@ class FrontPageViewModel(
                 generatedAt = edition.generatedAt,
                 sections = sections,
                 allStories = uiStories,
-                offline = false,
-                weather = _state.value.weather,
+                offline = !hasConnection(),
+                weather = _state.value.weather.takeIf { _state.value.place?.id == locationId },
             )
             // Weather loads alongside (never blocking the news); cached "as
             // of" data shows when the provider is down.
             place?.let { p ->
                 viewModelScope.launch {
                     val snap = runCatching { container.weatherRepository.snapshot(p) }.getOrNull()
-                    if (snap != null) _state.value = _state.value.copy(weather = snap)
+                    if (snap != null && _state.value.place?.id == p.id) _state.value = _state.value.copy(weather = snap)
                 }
             }
             // Kick off background translation for stories that need it, after
@@ -148,7 +158,10 @@ class FrontPageViewModel(
                             val result = container.translationRepository.translateStoryOnce(
                                 story.id, story.version, story.headline, story.dek, story.body, lang,
                             )
-                            patchTranslation(story.id, result, false)
+                            if (container.prefs.snapshot().appLanguage == lang && _state.value.place?.id == locationId)
+                                patchTranslation(story.id, result, false)
+                        } catch (e: CancellationException) {
+                            throw e
                         } catch (e: Exception) {
                             android.util.Log.w("Porchlight", "Story translation failed", e)
                             patchTranslation(story.id, null, false)
@@ -156,9 +169,17 @@ class FrontPageViewModel(
                     }
                 }
             }
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             _state.value = _state.value.copy(isLoading = false, error = e.message ?: "Couldn't load your paper.")
         }
+    }
+
+    private fun hasConnection(): Boolean {
+        val manager = container.context.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
+        return manager.getNetworkCapabilities(manager.activeNetwork)
+            ?.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
 
     /** Patch one story's translation into both lists the UI renders from. */

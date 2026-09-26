@@ -1,4 +1,4 @@
-package com.charleshartman.porchlightpress.data.local
+﻿package com.charleshartman.porchlightpress.data.local
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -26,10 +26,16 @@ data class AppPrefs(
     val theme: String = "system",
     val layout: String = "classic",
     val textScale: Double = 1.0,
+    val readAloudSpeed: Double = 1.0,
     val clockFormat: String = "system",
     val notifySevere: Boolean = false,
     val notifyBreaking: Boolean = false,
     val notifyEditions: Boolean = false,
+    val notifyMorning: Boolean = false,
+    val notifyEvening: Boolean = false,
+    val dataSaver: Boolean = false,
+    val quietStartHour: Int = 22,
+    val quietEndHour: Int = 7,
     val analyticsConsent: Boolean = false,
     val crashConsent: Boolean = false,
 )
@@ -44,10 +50,16 @@ class PreferencesStore(private val context: Context) {
         val THEME = stringPreferencesKey("theme")
         val LAYOUT = stringPreferencesKey("layout")
         val TEXT_SCALE = doublePreferencesKey("text_scale")
+        val READ_ALOUD_SPEED = doublePreferencesKey("read_aloud_speed")
         val CLOCK_FORMAT = stringPreferencesKey("clock_format")
         val NOTIFY_SEVERE = booleanPreferencesKey("notify_severe")
         val NOTIFY_BREAKING = booleanPreferencesKey("notify_breaking")
         val NOTIFY_EDITIONS = booleanPreferencesKey("notify_editions")
+        val NOTIFY_MORNING = booleanPreferencesKey("notify_morning")
+        val NOTIFY_EVENING = booleanPreferencesKey("notify_evening")
+        val DATA_SAVER = booleanPreferencesKey("data_saver")
+        val QUIET_START = androidx.datastore.preferences.core.intPreferencesKey("quiet_start")
+        val QUIET_END = androidx.datastore.preferences.core.intPreferencesKey("quiet_end")
         val ANALYTICS = booleanPreferencesKey("analytics_consent")
         val CRASH = booleanPreferencesKey("crash_consent")
     }
@@ -62,10 +74,16 @@ class PreferencesStore(private val context: Context) {
             theme = p[Keys.THEME] ?: "system",
             layout = p[Keys.LAYOUT] ?: "classic",
             textScale = p[Keys.TEXT_SCALE] ?: 1.0,
+            readAloudSpeed = p[Keys.READ_ALOUD_SPEED] ?: 1.0,
             clockFormat = p[Keys.CLOCK_FORMAT] ?: "system",
             notifySevere = p[Keys.NOTIFY_SEVERE] ?: false,
             notifyBreaking = p[Keys.NOTIFY_BREAKING] ?: false,
             notifyEditions = p[Keys.NOTIFY_EDITIONS] ?: false,
+            notifyMorning = p[Keys.NOTIFY_MORNING] ?: false,
+            notifyEvening = p[Keys.NOTIFY_EVENING] ?: false,
+            dataSaver = p[Keys.DATA_SAVER] ?: false,
+            quietStartHour = p[Keys.QUIET_START] ?: 22,
+            quietEndHour = p[Keys.QUIET_END] ?: 7,
             analyticsConsent = p[Keys.ANALYTICS] ?: false,
             crashConsent = p[Keys.CRASH] ?: false,
         )
@@ -83,10 +101,18 @@ class PreferencesStore(private val context: Context) {
     suspend fun setTheme(theme: String) = edit { it[Keys.THEME] = theme }
     suspend fun setLayout(layout: String) = edit { it[Keys.LAYOUT] = layout }
     suspend fun setTextScale(scale: Double) = edit { it[Keys.TEXT_SCALE] = scale }
+    suspend fun setReadAloudSpeed(speed: Double) = edit { it[Keys.READ_ALOUD_SPEED] = speed.coerceIn(0.5, 2.0) }
     suspend fun setClockFormat(format: String) = edit { it[Keys.CLOCK_FORMAT] = format }
     suspend fun setNotifySevere(on: Boolean) = edit { it[Keys.NOTIFY_SEVERE] = on }
     suspend fun setNotifyBreaking(on: Boolean) = edit { it[Keys.NOTIFY_BREAKING] = on }
     suspend fun setNotifyEditions(on: Boolean) = edit { it[Keys.NOTIFY_EDITIONS] = on }
+    suspend fun setNotifyMorning(on: Boolean) = edit { it[Keys.NOTIFY_MORNING] = on }
+    suspend fun setNotifyEvening(on: Boolean) = edit { it[Keys.NOTIFY_EVENING] = on }
+    suspend fun setDataSaver(on: Boolean) = edit { it[Keys.DATA_SAVER] = on }
+    suspend fun setQuietHours(start: Int, end: Int) = edit {
+        it[Keys.QUIET_START] = start.coerceIn(0, 23)
+        it[Keys.QUIET_END] = end.coerceIn(0, 23)
+    }
     suspend fun setAnalyticsConsent(on: Boolean) = edit { it[Keys.ANALYTICS] = on }
     suspend fun setCrashConsent(on: Boolean) = edit { it[Keys.CRASH] = on }
 
@@ -94,3 +120,5 @@ class PreferencesStore(private val context: Context) {
         context.prefsStore.edit(block)
     }
 }
+
+

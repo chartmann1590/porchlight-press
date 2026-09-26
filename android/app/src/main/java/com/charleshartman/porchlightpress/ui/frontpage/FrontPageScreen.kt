@@ -22,6 +22,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -64,6 +66,10 @@ fun FrontPageScreen(
     onOpenInfo: (String) -> Unit,
     onOpenWeather: () -> Unit = {},
     onAlertClick: (String) -> Unit = {},
+    onOpenSaved: () -> Unit = {},
+    onOpenSearch: () -> Unit = {},
+    onOpenSettings: () -> Unit = {},
+    onViewPdf: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
@@ -72,6 +78,11 @@ fun FrontPageScreen(
     val clock = prefs?.clockFormat ?: "system"
     val width = LocalConfiguration.current.screenWidthDp
     val isTwoColumn = width >= 600 && state.sections.isNotEmpty()
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var menuOpen by remember { mutableStateOf(false) }
+    var exporting by remember { mutableStateOf(false) }
+    var exportError by remember { mutableStateOf<String?>(null) }
 
     val classic = LocalIsClassic.current
     val bg = if (classic) Modifier.background(classicPaperBrush()) else Modifier.background(modernSurfaceBrush())
@@ -81,6 +92,52 @@ fun FrontPageScreen(
             placeLabel = state.place?.label,
             onSwitchLocation = onSwitchLocation,
         )
+        Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+            TextButton(onClick = onOpenSaved, modifier = Modifier.testTag("front-saved")) { Text("Saved") }
+            TextButton(onClick = onOpenSearch, modifier = Modifier.testTag("front-search")) { Text("Search") }
+            TextButton(onClick = onOpenSettings, modifier = Modifier.testTag("front-settings")) { Text("Settings") }
+            Box {
+                TextButton(onClick = { menuOpen = true }, modifier = Modifier.testTag("front-menu")) { Text("Paper") }
+                androidx.compose.material3.DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+                    androidx.compose.material3.DropdownMenuItem(text = { Text(if (exporting) "Creating PDF…" else "Download PDF") },
+                        enabled = state.sections.isNotEmpty() && !exporting,
+                        onClick = {
+                            menuOpen = false; exporting = true; exportError = null
+                            scope.launch {
+                                try {
+                                    val file = com.charleshartman.porchlightpress.ui.export.EditionPdf.export(context, container, state, lang)
+                                    onViewPdf(file.name)
+                                } catch (e: kotlinx.coroutines.CancellationException) { throw e }
+                                catch (_: Exception) { exportError = "Couldn't create the paper. Please try again." }
+                                finally { exporting = false }
+                            }
+                        })
+                    androidx.compose.material3.DropdownMenuItem(text = { Text("About & sources") }, onClick = { menuOpen = false; onOpenInfo("about") })
+                    androidx.compose.material3.DropdownMenuItem(text = { Text("Share front page") }, enabled = state.allStories.isNotEmpty(), onClick = {
+                        menuOpen = false
+                        scope.launch {
+                            try { com.charleshartman.porchlightpress.ui.export.FrontPageShare.share(context, state) }
+                            catch (e: kotlinx.coroutines.CancellationException) { throw e }
+                            catch (_: Exception) { exportError = "Couldn't share this paper. Please try again." }
+                        }
+                    })
+                    androidx.compose.material3.DropdownMenuItem(text = { Text("Listen to this edition") }, enabled = state.allStories.isNotEmpty(), onClick = {
+                        menuOpen = false
+                        val queue = state.sections.flatMap { it.stories }.distinctBy { it.story.id }.map { item ->
+                            val title = item.translation?.headline ?: item.story.headline
+                            val storyText = item.translation?.body ?: item.story.body ?: item.story.excerpt
+                            com.charleshartman.porchlightpress.ui.speech.SpeechItem(
+                                title,
+                                listOfNotNull(title, item.translation?.dek ?: item.story.dek, storyText).joinToString(". "),
+                            )
+                        }
+                        com.charleshartman.porchlightpress.ui.speech.SpeechController.playQueue(context, queue, lang, prefs?.readAloudSpeed?.toFloat() ?: 1f)
+                    })
+                }
+            }
+        }
+        if (exporting) androidx.compose.material3.LinearProgressIndicator(Modifier.fillMaxWidth())
+        exportError?.let { Text(it, Modifier.padding(horizontal = 16.dp), color = MaterialTheme.colorScheme.error) }
         // Edition label row (sticky header) with the always-visible weather
         // button on the right (owner request): temp + condition icon that
         // opens the Weather screen without scrolling.
@@ -138,6 +195,24 @@ fun FrontPageScreen(
                     onAlertClick = onAlertClick,
                 )
             }
+        }
+        // Docked Audio Player Bar visible when listening to edition or stories
+        val speech by com.charleshartman.porchlightpress.ui.speech.SpeechController.state.collectAsState()
+        if (speech.count > 0 && (speech.playing || speech.title.isNotBlank())) {
+            com.charleshartman.porchlightpress.ui.components.AudioPlayerBar(
+                state = speech,
+                onPlayPause = {
+                    if (speech.playing) com.charleshartman.porchlightpress.ui.speech.SpeechController.pause(context)
+                    else com.charleshartman.porchlightpress.ui.speech.SpeechController.resume(context)
+                },
+                onSeek = { targetIndex ->
+                    com.charleshartman.porchlightpress.ui.speech.SpeechController.seekTo(context, targetIndex)
+                },
+                onPrevious = { com.charleshartman.porchlightpress.ui.speech.SpeechController.command(context, com.charleshartman.porchlightpress.ui.speech.SpeechService.PREVIOUS) },
+                onNext = { com.charleshartman.porchlightpress.ui.speech.SpeechController.command(context, com.charleshartman.porchlightpress.ui.speech.SpeechService.NEXT) },
+                onStop = { com.charleshartman.porchlightpress.ui.speech.SpeechController.stop(context) },
+                modifier = Modifier.fillMaxWidth().testTag("front-audio-player"),
+            )
         }
         // Anchored banner below the list (owner request): always visible at
         // the front-page bottom without covering content. Collapses to

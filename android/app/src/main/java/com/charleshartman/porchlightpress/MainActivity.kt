@@ -32,6 +32,7 @@ import com.charleshartman.porchlightpress.ui.theme.PorchlightTheme
 import com.charleshartman.porchlightpress.ui.theme.currentLayout
 import com.charleshartman.porchlightpress.work.AlertScheduler
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.layout.safeDrawingPadding
 
 class MainActivity : ComponentActivity() {
 
@@ -69,12 +70,26 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        container.optionalServices.refreshConfig()
+        com.charleshartman.porchlightpress.work.EditionSyncScheduler.ensure(this)
+        lifecycleScope.launch {
+            container.optionalServices.ads.collect { config ->
+                container.adGate.config = config
+                container.interstitialController.config = config
+                val consent = container.consentRepository.state.value
+                container.adGate.initializeIfConsented(
+                    consent is com.charleshartman.porchlightpress.data.repo.ConsentState.Obtained ||
+                        consent is com.charleshartman.porchlightpress.data.repo.ConsentState.NotRequired,
+                )
+            }
+        }
         // Severe-weather worker follows the notifySevere toggle (Phase 7).
         // Driven from the lifecycle (not composition) so it can't be skipped:
         // every emission reconciles the schedule with the persisted toggle.
         // POST_NOTIFICATIONS was requested at the moment the toggle was enabled.
         lifecycleScope.launch {
             container.prefs.prefs.collect { p ->
+                container.optionalServices.applyConsent(p)
                 android.util.Log.i(
                     "Porchlight",
                     "prefs severe=${p.notifySevere} breaking=${p.notifyBreaking} " +
@@ -122,7 +137,7 @@ class MainActivity : ComponentActivity() {
                         var showLocationSwitch by remember { mutableStateOf(false) }
                         val openWeather = intent.getBooleanExtra(EXTRA_OPEN_WEATHER, false)
                         val startAlertId = intent.getStringExtra(EXTRA_ALERT_ID)
-                        Box(Modifier.fillMaxSize()) {
+                        Box(Modifier.fillMaxSize().safeDrawingPadding()) {
                             PorchlightNavGraph(
                                 container = container,
                                 gate = container.adGate,

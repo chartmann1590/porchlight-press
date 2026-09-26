@@ -35,11 +35,16 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.charleshartman.porchlightpress.BuildConfig
 import com.charleshartman.porchlightpress.data.local.StorySource
+import com.charleshartman.porchlightpress.ui.components.AiBadge
 import com.charleshartman.porchlightpress.ui.components.AiDisclosureBox
+import com.charleshartman.porchlightpress.ui.components.AudioPlayerBar
 import com.charleshartman.porchlightpress.ui.components.ImageWithAttribution
 import com.charleshartman.porchlightpress.ui.components.isNearDuplicate
 import com.charleshartman.porchlightpress.ui.components.TranslationLabel
@@ -50,6 +55,8 @@ import com.charleshartman.porchlightpress.ui.theme.LocalIsClassic
 import com.charleshartman.porchlightpress.ui.theme.classicPaperBrush
 import com.charleshartman.porchlightpress.ui.theme.modernSurfaceBrush
 import com.charleshartman.porchlightpress.ui.util.TimeFormat
+import com.charleshartman.porchlightpress.ui.speech.SpeechController
+import com.charleshartman.porchlightpress.ui.speech.SpeechService
 
 @Composable
 fun ArticleScreen(
@@ -60,27 +67,69 @@ fun ArticleScreen(
     val stateVal by viewModel.state.collectAsState()
     val cur = stateVal
     val context = LocalContext.current
-
+    val speech by SpeechController.state.collectAsState()
     val classic = LocalIsClassic.current
     val bg = if (classic) Modifier.background(classicPaperBrush()) else Modifier.background(modernSurfaceBrush())
     val reduce = rememberReduceMotion()
+
+    val story = cur.story
+    val tr = cur.translation
+    val showOriginal = cur.showOriginal
+    val effectiveHeadline = story?.let { if (!showOriginal && tr != null) tr.headline else it.headline }.orEmpty()
+    val effectiveDek = story?.let { if (!showOriginal && tr != null) tr.dek else it.dek }
+    val effectiveBody = story?.let { if (!showOriginal && tr != null) tr.body else it.body }
+    val isCurrentStory = speech.title == effectiveHeadline && speech.count > 0
+
     Column(modifier.fillMaxSize().then(bg).testTag("article-screen")) {
-        // Top bar with Back + Share
+        speech.error?.let { Text(it, Modifier.fillMaxWidth().padding(8.dp), color = MaterialTheme.colorScheme.error) }
+        // Top bar with Back + Share + Listen
         Row(
             Modifier.fillMaxWidth().padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             TextButton(onClick = onBack, modifier = Modifier.testTag("article-back")) { Text("‹ Back") }
-            val story = cur.story
             if (story != null) {
                 TextButton(
                     onClick = {
+                        if (isCurrentStory) {
+                            if (speech.playing) SpeechController.pause(context) else SpeechController.resume(context)
+                        } else {
+                            val storyContent = when {
+                                !showOriginal && !tr?.body.isNullOrBlank() -> tr!!.body
+                                !story.body.isNullOrBlank() -> story.body
+                                !story.excerpt.isNullOrBlank() -> story.excerpt
+                                else -> null
+                            }
+                            val spokenText = listOfNotNull(
+                                effectiveHeadline,
+                                effectiveDek.takeIf { !it.isNullOrBlank() && !isNearDuplicate(effectiveHeadline, it) },
+                                storyContent.takeIf { !it.isNullOrBlank() },
+                            ).joinToString(". ")
+                            SpeechController.play(
+                                context,
+                                effectiveHeadline,
+                                spokenText,
+                                if (!showOriginal) tr?.lang ?: "en" else "en",
+                                cur.readAloudSpeed,
+                            )
+                        }
+                    },
+                    modifier = Modifier.testTag("article-listen"),
+                ) {
+                    Text(if (isCurrentStory && speech.playing) "Pause" else if (isCurrentStory) "Resume" else "Listen")
+                }
+                TextButton(
+                    onClick = {
                         val shareText = buildString {
-                            append(story.headline)
-                            if (!story.dek.isNullOrBlank()) append("\n\n${story.dek}")
-                            append("\n\n${sharePageUrl(story.id)}")
-                            append("\n\nvia Porchlight Press \u00b7 AI-written brief, sources linked")
+                            append(effectiveHeadline)
+                            if (!effectiveDek.isNullOrBlank()) append("\n\n$effectiveDek")
+                            if (story.aiGenerated) {
+                                append("\n\n${sharePageUrl(story.id)}")
+                                append("\n\nvia Porchlight Press \u00b7 AI-written brief, sources linked")
+                            } else {
+                                cur.sources.firstOrNull()?.let { append("\n\n${it.publisher}: ${it.url}") }
+                            }
                         }
                         val intent = Intent(Intent.ACTION_SEND).apply {
                             type = "text/plain"
@@ -100,17 +149,11 @@ fun ArticleScreen(
             cur.error != null -> Box(Modifier.fillMaxSize().padding(24.dp), contentAlignment = Alignment.Center) {
                 Text(cur.error!!, modifier = Modifier.testTag("article-error"))
             }
-            cur.story != null -> {
-                val story = cur.story
-                val tr = cur.translation
-                val showOriginal = cur.showOriginal
-                val effectiveHeadline = if (!showOriginal && tr != null) tr.headline else story.headline
-                val effectiveDek = if (!showOriginal && tr != null) tr.dek else story.dek
-                val effectiveBody = if (!showOriginal && tr != null) tr.body else story.body
-
+            story != null -> {
                 Column(
                     Modifier
-                        .fillMaxSize()
+                        .weight(1f)
+                        .fillMaxWidth()
                         .verticalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 8.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -133,13 +176,9 @@ fun ArticleScreen(
                     if (!effectiveDek.isNullOrBlank() && !isNearDuplicate(effectiveHeadline, effectiveDek)) {
                         Text(effectiveDek, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.testTag("article-dek"))
                     }
-                    // Single small AI label here is the byline above; the pill
-                    // is dropped so "AI NEWSROOM" appears only there plus the
-                    // disclosure box below.
-                    if (cur.isTranslating) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
-                        }
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        if (story.aiGenerated) AiBadge()
+                        if (cur.isTranslating) Text("translating…", style = MaterialTheme.typography.labelSmall, modifier = Modifier.testTag("translating-chip"))
                     }
                     // Dateline + Updated
                     val updated = if (!story.updatedAt.isNullOrBlank() && story.updatedAt != story.publishedAt) story.updatedAt else null
@@ -185,19 +224,30 @@ fun ArticleScreen(
                     // license allows it) plus a way into the original reporting.
                     // Full article text is never republished here.
                     val firstSource = cur.sources.firstOrNull()
+                    val activeSentence = speech.sentence.takeIf { speech.playing && speech.title == effectiveHeadline && it.isNotBlank() }
+
                     if (story.aiGenerated && !effectiveBody.isNullOrBlank()) {
-                        ArticleBodyParagraphs(body = effectiveBody)
+                        ArticleBodyParagraphs(body = effectiveBody, activeSentence = activeSentence)
                         ReadFullStoryButton(
                             publisher = firstSource?.publisher,
                             url = firstSource?.url,
                         )
                     } else {
-                        val showExcerpt = excerptAllowed(cur.sources.map { it.rightsMode }) &&
-                            !story.excerpt.isNullOrBlank()
-                        if (showExcerpt) {
-                            Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().testTag("source-card")) {
-                                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    Text(story.excerpt, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag("source-card-excerpt"))
+                        Surface(
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            shape = MaterialTheme.shapes.small,
+                            modifier = Modifier.fillMaxWidth().testTag("source-card"),
+                        ) {
+                            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                val showExcerpt = excerptAllowed(cur.sources.map { it.rightsMode }) &&
+                                    !story.excerpt.isNullOrBlank()
+                                if (showExcerpt && !story.excerpt.isNullOrBlank()) {
+                                    HighlightedExcerpt(excerpt = story.excerpt, activeSentence = activeSentence)
+                                } else if (!story.body.isNullOrBlank()) {
+                                    Text(story.body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                } else {
+                                    Text(story.headline, style = MaterialTheme.typography.titleMedium, modifier = Modifier.testTag("source-card-headline"))
+                                    Text("Open the original to read more.", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
                                 }
                             }
                         }
@@ -222,19 +272,53 @@ fun ArticleScreen(
                     if (cur.sources.isEmpty()) {
                         Text("Sources unavailable.", style = MaterialTheme.typography.bodySmall, modifier = Modifier.testTag("sources-empty"))
                     }
-                    // Share footer overflow (spec: share button in article top bar + overflow)
+                    // Source URL remains the original publisher's link.
                     TextButton(
                         onClick = {
                             val firstUrl = cur.sources.firstOrNull()?.url
                             if (firstUrl != null) {
-                                val intent = CustomTabsIntent.Builder().build()
-                                intent.launchUrl(context, android.net.Uri.parse(firstUrl))
+                                val intent = Intent(Intent.ACTION_SEND).apply {
+                                    type = "text/plain"
+                                    putExtra(Intent.EXTRA_TEXT, "${cur.sources.first().publisher}: ${story.headline}\n$firstUrl")
+                                }
+                                context.startActivity(Intent.createChooser(intent, "Share original article"))
                             }
                         },
                         modifier = Modifier.testTag("share-original"),
                     ) { Text("Share original article") }
+
+                    if (speech.title == effectiveHeadline && speech.count > 0) {
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                            TextButton(onClick = { SpeechController.command(context, SpeechService.PREVIOUS) }, modifier = Modifier.testTag("article-previous")) { Text("Previous") }
+                            TextButton(onClick = { if (speech.playing) SpeechController.pause(context) else SpeechController.resume(context) }, modifier = Modifier.testTag("article-play-pause")) {
+                                Text(if (speech.playing) "Pause" else "Play")
+                            }
+                            TextButton(onClick = { SpeechController.command(context, SpeechService.NEXT) }, modifier = Modifier.testTag("article-next")) { Text("Next") }
+                            TextButton(onClick = { SpeechController.stop(context) }, modifier = Modifier.testTag("article-stop")) { Text("Stop") }
+                        }
+                        Text("Sentence ${speech.index + 1} of ${speech.count}", style = MaterialTheme.typography.labelSmall)
+                    }
                 }
             }
+        }
+
+        // Docked Audio Player Bar visible whenever speech is active
+        if (speech.count > 0 && (speech.title == effectiveHeadline || speech.title.isNotBlank())) {
+            AudioPlayerBar(
+                state = speech,
+                onPlayPause = {
+                    if (speech.playing) SpeechController.pause(context) else SpeechController.resume(context)
+                },
+                onSeek = { targetIndex ->
+                    SpeechController.seekTo(context, targetIndex)
+                },
+                onPrevious = { SpeechController.command(context, SpeechService.PREVIOUS) },
+                onNext = { SpeechController.command(context, SpeechService.NEXT) },
+                onStop = { SpeechController.stop(context) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("article-audio-player"),
+            )
         }
     }
 }
@@ -243,13 +327,51 @@ fun ArticleScreen(
 fun sharePageUrl(storyId: String): String =
     "${BuildConfig.FEED_BASE_URL.trimEnd('/')}/s/$storyId.html"
 
+/** Highlighted text for excerpt cards. */
+@Composable
+private fun HighlightedExcerpt(
+    excerpt: String,
+    activeSentence: String? = null,
+    modifier: Modifier = Modifier,
+) {
+    val match = if (activeSentence.isNullOrBlank()) -1 else excerpt.indexOf(activeSentence, ignoreCase = true)
+    if (match >= 0 && activeSentence != null) {
+        val annotated = buildAnnotatedString {
+            append(excerpt.substring(0, match))
+            withStyle(SpanStyle(background = MaterialTheme.colorScheme.primaryContainer)) {
+                append(excerpt.substring(match, match + activeSentence.length))
+            }
+            append(excerpt.substring(match + activeSentence.length))
+        }
+        Text(annotated, style = MaterialTheme.typography.bodyLarge, modifier = modifier.testTag("source-card-excerpt"))
+    } else {
+        Text(excerpt, style = MaterialTheme.typography.bodyLarge, modifier = modifier.testTag("source-card-excerpt"))
+    }
+}
+
 /** Full AI brief, split into paragraphs on blank lines. */
 @Composable
-private fun ArticleBodyParagraphs(body: String, modifier: Modifier = Modifier) {
+private fun ArticleBodyParagraphs(
+    body: String,
+    activeSentence: String? = null,
+    modifier: Modifier = Modifier,
+) {
     val paragraphs = body.split("\n\n").map { it.trim() }.filter { it.isNotEmpty() }
     Column(modifier.testTag("article-body"), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         paragraphs.forEach { paragraph ->
-            Text(paragraph, style = MaterialTheme.typography.bodyLarge)
+            val match = if (activeSentence.isNullOrBlank()) -1 else paragraph.indexOf(activeSentence, ignoreCase = true)
+            if (match >= 0 && activeSentence != null) {
+                val annotated = buildAnnotatedString {
+                    append(paragraph.substring(0, match))
+                    withStyle(SpanStyle(background = MaterialTheme.colorScheme.primaryContainer)) {
+                        append(paragraph.substring(match, match + activeSentence.length))
+                    }
+                    append(paragraph.substring(match + activeSentence.length))
+                }
+                Text(annotated, style = MaterialTheme.typography.bodyLarge)
+            } else {
+                Text(paragraph, style = MaterialTheme.typography.bodyLarge)
+            }
         }
     }
 }
@@ -287,25 +409,24 @@ private fun SourceRow(src: StorySource, articleHeadline: String? = null, modifie
                 intent.launchUrl(context, android.net.Uri.parse(src.url))
             },
     ) {
-    Column(
-        Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp),
-    ) {
-        Text(src.publisher, style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), modifier = Modifier.testTag("source-publisher"))
-        // Never repeat the article headline in the source list.
-        if (articleHeadline == null || !src.headline.trim().equals(articleHeadline.trim(), ignoreCase = true)) {
-            Text(src.headline, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("source-headline"))
+        Column(
+            Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+        ) {
+            Text(src.publisher, style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold), modifier = Modifier.testTag("source-publisher"))
+            // Never repeat the article headline in the source list.
+            if (articleHeadline == null || !src.headline.trim().equals(articleHeadline.trim(), ignoreCase = true)) {
+                Text(src.headline, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("source-headline"))
+            }
+            val time = TimeFormat.formatSourceTime(src.publishedAt, context)
+            if (time.isNotBlank()) {
+                Text(
+                    time,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Text("Read original →", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("source-link"))
         }
-        val time = TimeFormat.formatSourceTime(src.publishedAt, context)
-        if (time.isNotBlank()) {
-            Text(
-                time,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-        Text("Read original →", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.testTag("source-link"))
-    }
     }
 }
-

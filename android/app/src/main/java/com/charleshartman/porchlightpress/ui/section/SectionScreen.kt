@@ -54,7 +54,10 @@ fun SectionScreen(
                 }
             },
         )
-        PullToRefreshBox(isRefreshing = false, onRefresh = {}, modifier = Modifier.fillMaxSize()) {
+        if (state.error != null && state.stories.isNotEmpty()) {
+            Text(state.error!!, modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), style = MaterialTheme.typography.bodySmall)
+        }
+        PullToRefreshBox(isRefreshing = state.isLoading, onRefresh = viewModel::refresh, modifier = Modifier.fillMaxSize()) {
             when {
                 state.isLoading -> Box(Modifier.fillMaxSize().padding(16.dp).testTag("section-loading"), contentAlignment = Alignment.TopCenter) {
                     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {

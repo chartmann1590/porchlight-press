@@ -56,15 +56,14 @@ fun releaseKeyPassword(): String? =
 
 android {
     namespace = "com.charleshartman.porchlightpress"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.charleshartman.porchlightpress"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = releaseVersionCode
         versionName = releaseVersionName
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders["admobAppId"] = admobAppId
@@ -115,6 +114,7 @@ android {
             )
         }
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -159,6 +159,12 @@ ksp {
 }
 
 dependencies {
+    implementation("androidx.media:media:1.7.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-perf")
+    implementation("com.google.firebase:firebase-config")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
@@ -170,6 +176,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.animation)
     implementation(libs.androidx.compose.ui.text.google.fonts)
     implementation(libs.androidx.compose.ui.tooling.preview)

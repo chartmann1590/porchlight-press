@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry><key>pp_ads_enabled</key><value>true</value></entry>
+    <entry><key>pp_ads_every_n_sections</key><value>3</value></entry>
+    <entry><key>pp_interstitial_every_n_articles</key><value>3</value></entry>
+    <entry><key>pp_interstitial_min_interval_sec</key><value>180</value></entry>
+    <entry><key>pp_ENABLE_AI</key><value>true</value></entry>
+    <entry><key>pp_ENABLE_IMAGES</key><value>true</value></entry>
+    <entry><key>pp_ENABLE_NWS</key><value>true</value></entry>
+    <entry><key>pp_ENABLE_MET_NO</key><value>true</value></entry>
+    <entry><key>pp_ENABLE_BREAKING_NOTIFICATIONS</key><value>true</value></entry>
+    <entry><key>pp_MAX_LOCAL_ARTICLES</key><value>50</value></entry>
+    <entry><key>pp_MAX_STATE_ARTICLES</key><value>50</value></entry>
+    <entry><key>pp_MAX_NATIONAL_ARTICLES</key><value>50</value></entry>
+    <entry><key>pp_MAX_WORLD_ARTICLES</key><value>50</value></entry>
+</defaultsMap>
