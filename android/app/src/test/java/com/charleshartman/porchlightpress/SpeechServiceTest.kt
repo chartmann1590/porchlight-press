@@ -68,6 +68,8 @@ class SpeechServiceTest {
         assertEquals("Test Article", state.title)
         assertEquals(0, state.totalSeconds)
         assertEquals(0, state.remainingSeconds)
+        assertEquals(true, state.hasNext)
+        assertEquals(false, state.hasPrevious)
 
         // Construct with 8 args
         val advancedState = SpeechState(
@@ -82,5 +84,7 @@ class SpeechServiceTest {
         )
         assertEquals(60, advancedState.totalSeconds)
         assertEquals(45, advancedState.remainingSeconds)
+        assertEquals(true, advancedState.hasNext)
+        assertEquals(false, advancedState.hasPrevious)
     }
 }

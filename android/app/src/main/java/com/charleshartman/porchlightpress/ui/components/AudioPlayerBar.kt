@@ -186,13 +186,13 @@ fun AudioPlayerBar(
             ) {
                 IconButton(
                     onClick = onPrevious,
-                    enabled = state.index > 0,
+                    enabled = state.hasPrevious,
                     modifier = Modifier.testTag("speech-previous"),
                 ) {
                     Icon(
                         imageVector = Icons.Filled.SkipPrevious,
                         contentDescription = "Previous sentence",
-                        tint = if (state.index > 0) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                        tint = if (state.hasPrevious) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
                     )
                 }
 
@@ -222,13 +222,13 @@ fun AudioPlayerBar(
 
                 IconButton(
                     onClick = onNext,
-                    enabled = state.index + 1 < state.count,
+                    enabled = state.hasNext,
                     modifier = Modifier.testTag("speech-next"),
                 ) {
                     Icon(
                         imageVector = Icons.Filled.SkipNext,
                         contentDescription = "Next sentence",
-                        tint = if (state.index + 1 < state.count) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                        tint = if (state.hasNext) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
                     )
                 }
             }

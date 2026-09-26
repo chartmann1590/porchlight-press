@@ -30,6 +30,8 @@ data class SpeechState(
     val count: Int = 0,
     val totalSeconds: Int = 0,
     val remainingSeconds: Int = 0,
+    val hasNext: Boolean = false,
+    val hasPrevious: Boolean = false,
     val error: String? = null,
 ) {
     constructor(
@@ -39,7 +41,18 @@ data class SpeechState(
         index: Int,
         count: Int,
         error: String? = null,
-    ) : this(playing, title, sentence, index, count, 0, 0, error)
+    ) : this(playing, title, sentence, index, count, 0, 0, (index + 1 < count), (index > 0), error)
+
+    constructor(
+        playing: Boolean,
+        title: String,
+        sentence: String,
+        index: Int,
+        count: Int,
+        totalSeconds: Int,
+        remainingSeconds: Int,
+        error: String? = null,
+    ) : this(playing, title, sentence, index, count, totalSeconds, remainingSeconds, (index + 1 < count), (index > 0), error)
 }
 
 data class SpeechItem(val title: String, val text: String)
@@ -129,7 +142,6 @@ class SpeechService : Service(), TextToSpeech.OnInitListener {
                 override fun onStop() { stopPlayback() }
                 override fun onSkipToNext() { next() }
                 override fun onSkipToPrevious() { previous() }
-                override fun onSeekTo(pos: Long) { seekTo(pos.toInt()) }
             })
             isActive = true
         }
@@ -312,6 +324,8 @@ class SpeechService : Service(), TextToSpeech.OnInitListener {
     private fun update() {
         val totalSec = calculateSpeechSeconds(sentences, 0, speed)
         val remainingSec = calculateSpeechSeconds(sentences, index, speed)
+        val canGoNext = (index + 1 < sentences.size) || (storyIndex + 1 < stories.size)
+        val canGoPrev = (index > 0) || (storyIndex > 0)
         SpeechController.publish(
             SpeechState(
                 playing = playing,
@@ -321,6 +335,8 @@ class SpeechService : Service(), TextToSpeech.OnInitListener {
                 count = sentences.size,
                 totalSeconds = totalSec,
                 remainingSeconds = remainingSec,
+                hasNext = canGoNext,
+                hasPrevious = canGoPrev,
                 error = null,
             ),
         )
@@ -331,13 +347,16 @@ class SpeechService : Service(), TextToSpeech.OnInitListener {
                     PlaybackState.ACTION_PAUSE or
                     PlaybackState.ACTION_STOP or
                     PlaybackState.ACTION_SKIP_TO_NEXT or
-                    PlaybackState.ACTION_SKIP_TO_PREVIOUS or
-                    PlaybackState.ACTION_SEEK_TO,
+                    PlaybackState.ACTION_SKIP_TO_PREVIOUS,
                 )
                 .setState(if (playing) PlaybackState.STATE_PLAYING else PlaybackState.STATE_PAUSED, index.toLong(), speed)
                 .build(),
         )
-        (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(1305, notification())
+        try {
+            (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(1305, notification())
+        } catch (e: SecurityException) {
+            // Permission revoked
+        }
     }
 
     private fun stopPlayback() {
