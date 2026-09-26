@@ -46,7 +46,7 @@ class ArticleViewModel(
         val sources = container.db.storyDao().sourcesFor(storyId)
         val translation = if (lang != "en") container.db.translationDao().storyTranslation(storyId, story.version, lang) else null
         val isTranslating = lang != "en" && translation == null
- _state.value = ArticleUiState(isLoading = false, story = story, sources = sources, translation = translation, isTranslating = isTranslating, readAloudSpeed = speed)
+        _state.value = ArticleUiState(isLoading = false, story = story, sources = sources, translation = translation, isTranslating = isTranslating, readAloudSpeed = speed)
         if (isTranslating) {
             viewModelScope.launch {
                 try {
