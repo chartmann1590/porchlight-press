@@ -203,6 +203,7 @@ dependencies {
     implementation(libs.play.services.ads)
     implementation(libs.ump)
     implementation(libs.androidx.browser)
+    implementation(libs.zxing.core)
 
     // Image loading: Coil 2 with crossfade.
     implementation(libs.coil.compose)

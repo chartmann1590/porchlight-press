@@ -36,6 +36,7 @@ import com.charleshartman.porchlightpress.AppContainer
 import com.charleshartman.porchlightpress.data.ads.AdMobGate
 import com.charleshartman.porchlightpress.data.ads.NativeSlotPlanner
 import com.charleshartman.porchlightpress.data.weather.WeatherRepository
+import com.charleshartman.porchlightpress.ui.components.AiDisclaimerCard
 import com.charleshartman.porchlightpress.ui.components.BannerAdSlot
 import com.charleshartman.porchlightpress.ui.components.EditionLabel
 import com.charleshartman.porchlightpress.ui.components.HeroStory
@@ -384,6 +385,11 @@ private fun FrontPageList(
             }
             storiesBefore += stories.size
             sectionIndex++
+        }
+        item(key = "front-page-ai-disclaimer") {
+            AiDisclaimerCard(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+            )
         }
     }
 }

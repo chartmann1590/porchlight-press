@@ -15,6 +15,7 @@ import com.charleshartman.porchlightpress.data.local.AppDatabase
 import com.charleshartman.porchlightpress.data.local.SavedStory
 import com.charleshartman.porchlightpress.data.local.Story
 import com.charleshartman.porchlightpress.data.local.StoryFts
+import com.charleshartman.porchlightpress.data.local.StorySource
 import com.charleshartman.porchlightpress.data.repo.StorySearchRepository
 import com.charleshartman.porchlightpress.domain.Place
 import com.charleshartman.porchlightpress.ui.export.EditionPdf
@@ -135,6 +136,60 @@ class Phase8PersistencePdfTest {
                             (0 until bitmap.width step 4).all { x -> bitmap.getPixel(x, y) == Color.WHITE }
                         }
                         assertFalse("The rendered first page should contain ink", allWhite)
+                    } finally {
+                        bitmap.recycle()
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun generatedPaperRendersQrCodesAndAiDisclaimer() = runTest {
+        val db = openDatabase()
+        val story = Story(
+            id = "qr-test-story",
+            headline = "Historic Downtown Theater Renovations Complete",
+            dek = "The ribbon cutting is scheduled for Saturday.",
+            body = "The downtown theater has finished comprehensive restoration work funded by local arts grants.",
+            generatedAt = "2026-09-26T10:00:00Z",
+            aiGenerated = true,
+        )
+        val source = StorySource(
+            storyId = story.id,
+            publisher = "Daily Gazette",
+            headline = "Downtown Theater Reopening",
+            url = "https://dailygazette.com/article/historic-theater-2026",
+        )
+        db.storyDao().insertStories(listOf(story))
+        db.storyDao().insertSources(listOf(source))
+
+        val edition = FrontPageUiState(
+            isLoading = false,
+            place = Place(
+                id = "qr-test-place",
+                label = "Schenectady, NY",
+                country = "US",
+            ),
+            sections = listOf(SectionUi("local", "Local News", listOf(FrontStoryUi(story)))),
+        )
+        val container = AppContainer(context)
+        val file = EditionPdf.export(context, container, edition, "en")
+        exportedFile = file
+        assertTrue(file.isFile)
+        assertTrue(file.length() > 500)
+
+        ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY).use { descriptor ->
+            PdfRenderer(descriptor).use { renderer ->
+                assertTrue(renderer.pageCount >= 1)
+                renderer.openPage(0).use { page ->
+                    val bitmap = Bitmap.createBitmap(page.width, page.height, Bitmap.Config.ARGB_8888)
+                    try {
+                        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        val allWhite = (0 until bitmap.height step 4).all { y ->
+                            (0 until bitmap.width step 4).all { x -> bitmap.getPixel(x, y) == Color.WHITE }
+                        }
+                        assertFalse("The rendered paper with QR codes should contain ink", allWhite)
                     } finally {
                         bitmap.recycle()
                     }
