@@ -83,9 +83,8 @@ object EditionPdf {
         withContext(Dispatchers.IO) {
             require(edition.sections.isNotEmpty()) { "No edition is available" }
             val place = edition.place?.label ?: "Local"
-            val date = edition.generatedAt.take(10).ifBlank {
-                SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
-            }
+            val date = edition.generatedAt?.take(10)?.ifBlank { null }
+                ?: SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date())
             val slug = place.lowercase(Locale.US).replace(Regex("[^a-z0-9]+"), "-").trim('-')
             val file = File(File(context.filesDir, "papers").apply { mkdirs() },
                 "porchlight-press-$slug-$date-${language.lowercase(Locale.US)}.pdf")
