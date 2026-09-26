@@ -38,15 +38,14 @@ object QrCodeDrawer {
         return runCatching {
             val hints = mapOf(
                 EncodeHintType.CHARACTER_SET to "UTF-8",
-                EncodeHintType.MARGIN to 0,
+                EncodeHintType.MARGIN to 4,
                 EncodeHintType.ERROR_CORRECTION to ErrorCorrectionLevel.M,
             )
             val matrix = QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, 0, 0, hints)
             val modules = matrix.width
             if (modules <= 0) return false
 
-            val contentSize = size - 2 * quietZone
-            val cellSize = contentSize / modules.toFloat()
+            val cellSize = size / modules.toFloat()
 
             val p = paint ?: Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -59,14 +58,11 @@ object QrCodeDrawer {
             p.color = color
             p.style = Paint.Style.FILL
 
-            val startX = x + quietZone
-            val startY = y + quietZone
-
             for (row in 0 until modules) {
                 for (col in 0 until modules) {
                     if (matrix.get(col, row)) {
-                        val left = startX + col * cellSize
-                        val top = startY + row * cellSize
+                        val left = x + col * cellSize
+                        val top = y + row * cellSize
                         // Tiny 0.05f sub-pixel overlap prevents hairline renderer artifacts in PDF viewers
                         canvas.drawRect(left, top, left + cellSize + 0.05f, top + cellSize + 0.05f, p)
                     }

@@ -445,7 +445,10 @@ object EditionPdf {
             val labelLayout = StaticLayout.Builder.obtain(sourceLabel, 0, sourceLabel.length, labelPen, textWidth)
                 .setAlignment(Layout.Alignment.ALIGN_NORMAL).setIncludePad(false).build()
 
-            val sourceTexts = sources.take(2).map { "${it.publisher}: ${it.headline}" }
+            val sourceTexts = sources.map {
+                if (sources.size > 1) "${it.publisher}: ${it.headline}\n${it.url}"
+                else "${it.publisher}: ${it.headline}"
+            }
             val sourceLayouts = sourceTexts.map { text ->
                 StaticLayout.Builder.obtain(text, 0, text.length, sourcePen, textWidth)
                     .setAlignment(Layout.Alignment.ALIGN_NORMAL).setIncludePad(false).build()
