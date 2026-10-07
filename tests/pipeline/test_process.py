@@ -1,8 +1,30 @@
 """Process end-to-end: fixture batch -> clusters with IDs, locations, scores."""
 import json
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 FIX = Path(__file__).resolve().parent.parent / "fixtures" / "albany_fire.json"
+
+
+def _iso(dt: datetime) -> str:
+    return dt.isoformat().replace("+00:00", "Z")
+
+
+def _fixture_relative_to_now() -> str:
+    """The fixture's timestamps, shifted so its newest item was published an hour ago.
+
+    The pipeline compares item times against the real clock, so fixed dates
+    eventually age out of the dedupe/retention windows and the test starts failing.
+    """
+    data = json.loads(FIX.read_text(encoding="utf-8"))
+    parse = lambda s: datetime.fromisoformat(s.replace("Z", "+00:00"))
+    newest = max(parse(i["publishedAt"]) for i in data["items"])
+    shift = (datetime.now(timezone.utc) - timedelta(hours=1)) - newest
+    for item in data["items"]:
+        item["publishedAt"] = _iso(parse(item["publishedAt"]) + shift)
+    if data.get("generatedAt"):
+        data["generatedAt"] = _iso(parse(data["generatedAt"]) + shift)
+    return json.dumps(data)
 
 
 def _write_sources(srcdir: Path):
@@ -30,7 +52,7 @@ def test_process_fixture_produces_ranked_located_clusters(tmp_path):
     srcdir = tmp_path / "sources"
     _write_sources(srcdir)
     in_path = tmp_path / "normalized.json"
-    in_path.write_text(FIX.read_text(encoding="utf-8"), encoding="utf-8")
+    in_path.write_text(_fixture_relative_to_now(), encoding="utf-8")
     state_path = tmp_path / "clusters.json"
     out_path = tmp_path / "out.json"
 
