@@ -1,7 +1,8 @@
 """Source-health tests (offline, httpx.MockTransport + stub providers)."""
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from email.utils import format_datetime
 
 import httpx
 
@@ -12,7 +13,10 @@ FIX_RSS = (
     b'<?xml version="1.0"?><rss version="2.0"><channel><title>T</title>'
     b'<link>https://example.com/</link>'
     b'<item><title>Fresh item headline</title><link>https://example.com/1</link>'
-    b'<pubDate>Wed, 23 Sep 2026 12:00:00 GMT</pubDate></item>'
+    b'<pubDate>'
+    # Relative to now so the item never ages past the staleness window.
+    + format_datetime(datetime.now(timezone.utc) - timedelta(hours=1), usegmt=True).encode()
+    + b'</pubDate></item>'
     b"</channel></rss>"
 )
 
@@ -69,7 +73,10 @@ def test_permanent_redirect_reported_without_failing(monkeypatch):
 
 
 def test_stale_feed_flagged():
-    old = FIX_RSS.replace(b"23 Sep 2026", b"01 Jan 2020")
+    old = FIX_RSS.replace(
+        FIX_RSS[FIX_RSS.index(b"<pubDate>") + 9:FIX_RSS.index(b"</pubDate>")],
+        b"Wed, 01 Jan 2020 12:00:00 GMT",
+    )
     health = check_source(_rss_source(), _deps(_client_for(old)), stale_days=7)
     assert health.ok
     assert any(i.startswith("stale") for i in health.issues)

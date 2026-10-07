@@ -55,8 +55,9 @@ jobs:
            "rightsMode": "RSS_EXCERPT_ALLOWED", "language": "en",
            "enabled": true, "priority": 80}
           EOF
+          python scripts/shift_fixture_to_now.py tests/fixtures/albany_fire.json "${{ runner.temp }}/smoke-items.json"
           python -m pipeline.process \
-            --in tests/fixtures/albany_fire.json \
+            --in "${{ runner.temp }}/smoke-items.json" \
             --sources-dir "${{ runner.temp }}/smoke-sources" \
             --state "${{ runner.temp }}/smoke-clusters.json" \
             --out "${{ runner.temp }}/smoke-clusters.json"
@@ -152,8 +153,9 @@ jobs:
            "rightsMode": "RSS_EXCERPT_ALLOWED", "language": "en",
            "enabled": true, "priority": 80}
           EOF
+          python scripts/shift_fixture_to_now.py tests/fixtures/albany_fire.json "${{ runner.temp }}/live-items.json"
           python -m pipeline.process \
-            --in tests/fixtures/albany_fire.json \
+            --in "${{ runner.temp }}/live-items.json" \
             --sources-dir "${{ runner.temp }}/live-sources" \
             --state "${{ runner.temp }}/live-clusters.json" \
             --out "${{ runner.temp }}/live-clusters.json"
