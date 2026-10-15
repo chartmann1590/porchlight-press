@@ -16,3 +16,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "porchlight-press"
 include(":app")
+include(":hartmann-crosspromo")
+

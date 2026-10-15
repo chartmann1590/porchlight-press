@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "crosspromo-recommendation-response.schema.json",
+  "title": "Hartmann Cross-Promo recommendation response (API v1)",
+  "description": "Contract shared by the Cloudflare Worker backend and the Android SDK. CI validates test fixtures and generated payloads against this schema; change it on both sides in the same commit.",
+  "type": "object",
+  "required": ["version", "requestId", "generatedAt", "expiresAt", "apps"],
+  "properties": {
+    "version": { "type": "integer", "const": 1 },
+    "requestId": { "type": "string", "minLength": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "apps": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/recommendedApp" }
+    }
+  },
+  "definitions": {
+    "recommendedApp": {
+      "type": "object",
+      "required": ["packageName", "name", "storeUrl", "selectionType", "rankPosition"],
+      "properties": {
+        "packageName": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$"
+        },
+        "name": { "type": "string" },
+        "iconUrl": { "type": ["string", "null"] },
+        "shortDescription": { "type": ["string", "null"] },
+        "rating": { "type": ["number", "null"], "minimum": 0, "maximum": 5 },
+        "ratingCount": { "type": ["integer", "null"], "minimum": 0 },
+        "installText": { "type": ["string", "null"] },
+        "storeUrl": { "type": "string" },
+        "selectionType": { "enum": ["popular", "exploration", "boost"] },
+        "rankPosition": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": true
+    }
+  }
+}

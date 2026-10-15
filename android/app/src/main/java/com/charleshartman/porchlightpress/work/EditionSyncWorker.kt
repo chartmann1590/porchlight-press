@@ -1,6 +1,5 @@
-package com.charleshartman.porchlightpress.work
+﻿package com.charleshartman.porchlightpress.work
 
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -216,7 +215,6 @@ object NewsNotifications {
             manager.createNotificationChannel(NotificationChannel(EDITION,
                 "Edition ready", NotificationManager.IMPORTANCE_LOW))
     }
-    @SuppressLint("MissingPermission")
     fun show(context: Context, channel: String, title: String, text: String, storyId: String?) {
         if (!AlertNotifications.canPost(context)) return
         ensureChannels(context)
@@ -231,11 +229,8 @@ object NewsNotifications {
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setContentTitle(title).setContentText(text)
             .setAutoCancel(true).setContentIntent(pending).build()
-        try {
-            NotificationManagerCompat.from(context).notify(id, notification)
-        } catch (e: SecurityException) {
-            // Permission revoked
-        }
+        @Suppress("MissingPermission") // guarded by canPost() three lines above
+        NotificationManagerCompat.from(context).notify(id, notification)
     }
 }
 

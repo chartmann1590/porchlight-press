@@ -159,6 +159,7 @@ ksp {
 }
 
 dependencies {
+    implementation(project(":hartmann-crosspromo"))
     implementation("androidx.media:media:1.7.0")
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-analytics")

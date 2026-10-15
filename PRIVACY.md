@@ -51,6 +51,7 @@ The app connects to the services below. Like any internet connection, each one c
 | **Google Firebase Remote Config** | Occasionally, to fetch app settings (for example, turning a feature off if it breaks) | A Firebase installation ID (a random app-instance ID, not your name or advertising ID) | [Firebase privacy](https://firebase.google.com/support/privacy) |
 | **Google Firebase Crashlytics, Performance Monitoring, and Analytics** | **Only if you turn them on** | Crash reports, performance timings, and which screens are used. Never your location, what stories you read, or your searches | [Firebase privacy](https://firebase.google.com/support/privacy) |
 | **Google ML Kit** (translation) | When you pick a language | The language model is downloaded from Google. **Your text is translated on your phone and never sent for translation.** ML Kit may send Google limited technical and usage data about the feature (such as performance and error metrics) | [ML Kit terms & privacy](https://developers.google.com/ml-kit/terms) |
+| **Hartmann cross-promotion service** (Cloudflare Worker) | Only while "Show app suggestions" is ON in Settings (it is on by default; turn it off any time) | Which of the publisher's own apps was suggested and whether you tapped it, plus a random per-session ID. **No advertising ID, no device ID, no location, and nothing about your reading.** | [Cloudflare privacy](https://www.cloudflare.com/privacypolicy/) |
 | **Google Play** | Installing the app and downloading voice packs | Handled by Google Play under your Google account | [Google Privacy Policy](https://policies.google.com/privacy) |
 | **News publishers' websites** | Only when **you** tap "Read original" | Whatever that website collects. It opens in your browser under that publisher's own privacy policy | Each publisher's own policy |
 
@@ -64,6 +65,12 @@ The app is free and supported by ads from **Google AdMob**.
 - **Your choice:** where the law requires it (for example in the EU, the UK, and some US states), the app shows Google's consent screen **before any ads load**. If you don't consent to personalized ads, you see **non-personalized ads**, which still use limited data for things like fraud prevention and frequency capping. You can change your choice any time in **Settings → Privacy options**.
 - **Opting out on Android:** you can delete or reset your advertising ID in **Android Settings → Privacy → Ads**.
 - We don't share your location, reading history, or searches with advertisers. Ads are never placed inside stories, in PDFs, in shared links, or in notifications.
+
+## 4.1 App suggestions (cross-promotion)
+
+Settings shows a "More from Hartmann Studios" card suggesting the publisher's other apps. It is **on by default** and you can turn it off any time with **Settings → "Show app suggestions"** — the card disappears immediately and the app stops contacting the suggestion service.
+
+While it is on, the app asks a Cloudflare-hosted service (operated by the publisher) for a small list of the publisher's own Play Store listings, and reports anonymous suggestion impressions and taps. The service receives your IP address (as any internet connection does) plus a random per-session identifier, the suggested app, and whether you tapped it. It never receives your location, your places, your reading history, searches, or any advertising or device identifier. Tapping a suggestion opens Google Play under Google's own policies.
 
 ## 5. Crash reports and statistics (opt-in)
 

@@ -1,0 +1,22 @@
+name = "hartmann-crosspromo"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+# KV namespace for catalog, configuration, diagnostics, and analytics
+[[kv_namespaces]]
+binding = "CROSS_PROMO_KV"
+id = "8d345818bef1409884e814bef12a7d7b"
+
+# Scheduled refresh every 6 hours
+[triggers]
+crons = ["0 */6 * * *"]
+
+[vars]
+DEVELOPER_ID = "Hartmann Studios"
+PLAY_STORE_DEV_URL = "https://play.google.com/store/apps/developer?id=Hartmann+Studios"
+ENVIRONMENT = "production"
+
+# ADMIN_SECRET must be provided as a Wrangler secret, never in this file:
+#   npx wrangler secret put ADMIN_SECRET
+# The worker refuses admin requests when the secret is unset or left at an
+# obvious default value. No code-level fallback exists.

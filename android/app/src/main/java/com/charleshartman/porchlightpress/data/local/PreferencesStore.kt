@@ -38,6 +38,8 @@ data class AppPrefs(
     val quietEndHour: Int = 7,
     val analyticsConsent: Boolean = false,
     val crashConsent: Boolean = false,
+    /** Hide cross-promoted "more apps" suggestions (opt-out, default shown). */
+    val hideAppSuggestions: Boolean = false,
 )
 
 class PreferencesStore(private val context: Context) {
@@ -62,6 +64,7 @@ class PreferencesStore(private val context: Context) {
         val QUIET_END = androidx.datastore.preferences.core.intPreferencesKey("quiet_end")
         val ANALYTICS = booleanPreferencesKey("analytics_consent")
         val CRASH = booleanPreferencesKey("crash_consent")
+        val HIDE_APP_SUGGESTIONS = booleanPreferencesKey("hide_app_suggestions")
     }
 
     val prefs: Flow<AppPrefs> = context.prefsStore.data.map { p ->
@@ -86,6 +89,7 @@ class PreferencesStore(private val context: Context) {
             quietEndHour = p[Keys.QUIET_END] ?: 7,
             analyticsConsent = p[Keys.ANALYTICS] ?: false,
             crashConsent = p[Keys.CRASH] ?: false,
+            hideAppSuggestions = p[Keys.HIDE_APP_SUGGESTIONS] ?: false,
         )
     }
 
@@ -115,6 +119,7 @@ class PreferencesStore(private val context: Context) {
     }
     suspend fun setAnalyticsConsent(on: Boolean) = edit { it[Keys.ANALYTICS] = on }
     suspend fun setCrashConsent(on: Boolean) = edit { it[Keys.CRASH] = on }
+    suspend fun setHideAppSuggestions(on: Boolean) = edit { it[Keys.HIDE_APP_SUGGESTIONS] = on }
 
     private suspend fun edit(block: (androidx.datastore.preferences.core.MutablePreferences) -> Unit) {
         context.prefsStore.edit(block)

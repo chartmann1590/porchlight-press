@@ -5,6 +5,7 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import com.charleshartman.porchlightpress.data.remote.NetworkModule
 import com.charleshartman.porchlightpress.work.AlertNotifications
+import com.hartmann.crosspromo.HartmannCrossPromo
 
 class PorchlightApp : Application(), ImageLoaderFactory {
     lateinit var container: AppContainer
@@ -15,6 +16,8 @@ class PorchlightApp : Application(), ImageLoaderFactory {
         container = AppContainer(this)
         // Severe-weather channel must exist before any worker can notify.
         AlertNotifications.ensureChannels(this)
+        // Initialize dynamic cross-promotion platform
+        HartmannCrossPromo.initialize(this)
     }
 
     /**

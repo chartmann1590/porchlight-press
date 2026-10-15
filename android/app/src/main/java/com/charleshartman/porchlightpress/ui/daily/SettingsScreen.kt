@@ -1,4 +1,4 @@
-﻿package com.charleshartman.porchlightpress.ui.daily
+package com.charleshartman.porchlightpress.ui.daily
 
 import android.content.Intent
 import android.net.Uri
@@ -246,8 +246,23 @@ fun SettingsScreen(
                 context.startActivity(Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://chartmann1590.github.io/porchlight-press/privacy/")))
             }) { Text("Privacy policy") }
+
+            SettingToggle("Show app suggestions", !prefs.hideAppSuggestions) {
+                val hiding = !it
+                scope.launch {
+                    container.prefs.setHideAppSuggestions(hiding)
+                    com.hartmann.crosspromo.HartmannCrossPromo.setUserOptOut(hiding)
+                }
+            }
+            if (!prefs.hideAppSuggestions) {
+                // Hartmann Studios Dynamic Cross-Promotion
+                com.hartmann.crosspromo.ui.HartmannPromoRow(
+                    placement = "settings"
+                )
+            }
         }
     }
+
 
     editing?.let { loc ->
         AlertDialog(onDismissRequest = { editing = null },

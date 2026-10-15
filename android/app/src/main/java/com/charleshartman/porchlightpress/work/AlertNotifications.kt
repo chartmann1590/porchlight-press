@@ -1,7 +1,6 @@
 package com.charleshartman.porchlightpress.work
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -63,7 +62,6 @@ object AlertNotifications {
      * Post one Warning-level alert. [translatedEvent]/[translatedHeadline]
      * are the ML Kit translations when appLanguage != en (null = English).
      */
-    @SuppressLint("MissingPermission")
     fun showWarning(
         context: Context,
         alert: WeatherAlert,
@@ -100,12 +98,10 @@ object AlertNotifications {
             .setAutoCancel(true)
             .setContentIntent(pending)
             .build()
-        try {
-            if (Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                NotificationManagerCompat.from(context).notify(code, notification)
-            }
-        } catch (e: SecurityException) {
-            // Permission rejected or revoked at runtime
+        if (!canPost(context)) return
+        @Suppress("MissingPermission") // guarded by canPost() one line above
+        runCatching {
+            NotificationManagerCompat.from(context).notify(code, notification)
         }
     }
 }

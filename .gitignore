@@ -22,3 +22,10 @@ __pycache__/
 firebase-debug.log
 .DS_Store
 Plan/
+# Scratch inspection scripts (local tooling, never ship)
+/scratch_*.js
+# Local agent workspace
+.freebuff/
+# Cloudflare wrangler local dev state
+.wrangler/
+crosspromo-backend/.wrangler/
