@@ -25,8 +25,8 @@
       "permanentRedirect": true
     },
     "wten-news10": {
-      "etag": "W/\"e19904c6499c0ab8e1640932bd0c5ae7\"",
-      "lastModified": "Sat, 21 Nov 2026 12:27:29 GMT",
+      "etag": "W/\"cdc1e29da3bfef9ecd31a7b72a25d1ae\"",
+      "lastModified": "Sat, 21 Nov 2026 21:37:55 GMT",
       "finalUrl": "https://www.news10.com/feed/",
       "permanentRedirect": true
     },
@@ -43,8 +43,8 @@
       "permanentRedirect": true
     },
     "wnyt-newschannel-13": {
-      "etag": "\"5904ec9eccd5c36ac1fd8d81edeb82e3\"",
-      "lastModified": "Sat, 21 Nov 2026 09:33:18 GMT",
+      "etag": "\"c2dd7ee309cfad620e02b189b70a96b9\"",
+      "lastModified": "Sat, 21 Nov 2026 17:38:40 GMT",
       "finalUrl": "https://wnyt.com/feed/",
       "permanentRedirect": true
     }
